@@ -28,7 +28,7 @@ public class ClientConversationHandler extends OACommonHandler {
 		Map<String,Object> root = this.getRoot();
 		String id = runtime.getParam("id");
 		root.put("id", id);
-		root.put("isManager", "×Ü¾­Àí".equals(this.getRole(runtime)));
+		root.put("isManager", "æ€»ç»ç†".equals(this.getRole(runtime)));
 		root.put("conversationList", this.getConversationList(id));
 		root.put("conversationCount", this.getConversationCount(id));
 		

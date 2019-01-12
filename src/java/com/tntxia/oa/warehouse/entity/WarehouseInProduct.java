@@ -175,7 +175,5 @@ public class WarehouseInProduct {
 	public void setPurchaseNumber(String purchaseNumber) {
 		this.purchaseNumber = purchaseNumber;
 	}
-	
-	
 
 }
