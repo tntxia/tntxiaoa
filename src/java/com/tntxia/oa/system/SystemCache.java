@@ -13,10 +13,10 @@ import com.tntxia.oa.warehouse.entity.WarehouseType;
 @SuppressWarnings("rawtypes")
 public class SystemCache {
 	
-	// ÏµÍ³×´Ì¬  0 ±íÊ¾Î´³õÊ¼»¯ 1±íÊ¾³õÊ¼»¯³É¹¦
+	// ç³»ç»ŸçŠ¶æ€  0 è¡¨ç¤ºæœªåˆå§‹åŒ– 1è¡¨ç¤ºåˆå§‹åŒ–æˆåŠŸ
 	public static int status = 0;
 	
-	// µ±Ç°Ó¦ÓÃµÄID
+	// å½“å‰åº”ç”¨çš„ID
 	public static Map<String,Object> app;
 	
 	public static Map<String,String> sqlmapping = new HashMap<String,String>();

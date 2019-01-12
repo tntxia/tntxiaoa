@@ -12,7 +12,7 @@ public class SupplierAttachAction extends OACommonHandler{
 	public void init(WebRuntime runtime)
 			throws Exception {
 		
-		String supplierId = runtime.getParam("id");   // ¹©Ó¦ÉÌid
+		String supplierId = runtime.getParam("id");   // ä¾›åº”å•†id
 		String sql = "select id,filename,filepath,remark from supplier_attachment where supplierid = '"+supplierId+"'";
 		this.setRootValue("id", supplierId);
 		this.setRootValue("attachList", dbManager.queryForList(sql, true));

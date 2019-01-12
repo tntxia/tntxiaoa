@@ -64,7 +64,7 @@ public class SupplierManager {
 		return result;
 	}
 	
-	// ²éÑ¯¹©Ó¦ÉÌµÄ¿ª·¢Æ±Çé¿ö
+	// æŸ¥è¯¢ä¾›åº”å•†çš„å¼€å‘ç¥¨æƒ…å†µ
 	public String getSupplierTaxBill(String co_number){
 		infocrmdb db = new infocrmdb();
 		String sql = "select cotypes from supplier where co_number ='"+co_number+"'";
@@ -90,17 +90,17 @@ public class SupplierManager {
 		return cotypes;
 	}
 	
-	// ²éÑ¯¹©Ó¦ÉÌµÄ¿ª·¢Æ±Çé¿ö
+	// æŸ¥è¯¢ä¾›åº”å•†çš„å¼€å‘ç¥¨æƒ…å†µ
 	public String getSupplierTaxBillName(String co_number){
 		String cotypes = this.getSupplierTaxBill(co_number);
 		if(cotypes.equals("0")){
-			return "0¸öµã";
+			return "0ä¸ªç‚¹";
 		}else if(cotypes.equals("3")){
-			return "3¸öµã";
+			return "3ä¸ªç‚¹";
 		}else if(cotypes.equals("17")){
-			return "17¸öµã";
+			return "17ä¸ªç‚¹";
 		}else{
-			return "ÎŞ¿ªÆ±";
+			return "æ— å¼€ç¥¨";
 		}
 	}
 
