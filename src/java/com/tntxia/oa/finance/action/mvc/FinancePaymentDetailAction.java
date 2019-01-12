@@ -54,7 +54,6 @@ public class FinancePaymentDetailAction  extends OACommonHandler{
 		root.put("stotal", stotal);
 		
 		root.put("proList", proList);
-		
 		root.put("detail", detail);
 		
 	}
