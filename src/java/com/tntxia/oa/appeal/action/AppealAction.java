@@ -50,32 +50,32 @@ public class AppealAction extends CommonDoAction {
 	@SuppressWarnings("rawtypes")
 	public Map<String,Object> list(WebRuntime runtime) throws Exception{
 		PageBean pageBean = runtime.getPageBean(20);
-		List list = this.getList(pageBean,"Î´°ìÀí");
-		int count = this.getCount("Î´°ìÀí");
+		List list = this.getList(pageBean,"æœªåŠç†");
+		int count = this.getCount("æœªåŠç†");
 		return this.getPagingResult(list, pageBean, count);
 	}
 	
 	@SuppressWarnings("rawtypes")
 	public Map<String,Object> listApproving(WebRuntime runtime) throws Exception{
 		PageBean pageBean = runtime.getPageBean(20);
-		List list = this.getList(pageBean,"°ìÀíÖĞ");
-		int count = this.getCount("°ìÀíÖĞ");
+		List list = this.getList(pageBean,"åŠç†ä¸­");
+		int count = this.getCount("åŠç†ä¸­");
 		return this.getPagingResult(list, pageBean, count);
 	}
 	
 	@SuppressWarnings("rawtypes")
 	public Map<String,Object> listApproved(WebRuntime runtime) throws Exception{
 		PageBean pageBean = runtime.getPageBean(20);
-		List list = this.getList(pageBean,"Áìµ¼ÅúÊ¾");
-		int count = this.getCount("Áìµ¼ÅúÊ¾");
+		List list = this.getList(pageBean,"é¢†å¯¼æ‰¹ç¤º");
+		int count = this.getCount("é¢†å¯¼æ‰¹ç¤º");
 		return this.getPagingResult(list, pageBean, count);
 	}
 	
 	@SuppressWarnings("rawtypes")
 	public Map<String,Object> listFinish(WebRuntime runtime) throws Exception{
 		PageBean pageBean = runtime.getPageBean(20);
-		List list = this.getList(pageBean,"°ìÀíÍê±Ï");
-		int count = this.getCount("°ìÀíÍê±Ï");
+		List list = this.getList(pageBean,"åŠç†å®Œæ¯•");
+		int count = this.getCount("åŠç†å®Œæ¯•");
 		return this.getPagingResult(list, pageBean, count);
 	}
 	
@@ -104,7 +104,7 @@ public class AppealAction extends CommonDoAction {
 	}
 	
 	/**
-	 * Ôö¼ÓÍ¶Ëß
+	 * å¢åŠ æŠ•è¯‰
 	 * @throws Exception 
 	 */
 	public Map<String,Object> add(WebRuntime runtime) throws Exception{
@@ -142,7 +142,7 @@ public class AppealAction extends CommonDoAction {
 		 String feedbackdate1=runtime.getParam("feedbackdate");
 		  
 		 String remarks1=runtime.getParam("remarks");
-		 String strSQL="insert into appeal(numeration,appealfl,appealdj,state,creatdt,enddt,receipt,groupnumber,ordernumber,contract,epro,cpro,number,unit,standard,transport,supplier,sdate,customer,cdate,appeallr,checknr,checkman,checkdate,clfa,clfaman,clfadate,feedback,feedbackman,feedbackdate,remarks,spmanger,spdate,spyj,cml,cfk,in_no) values('"+number+"','" + appealfl1 +"','" + appealdj1 + "','Î´°ìÀí','" + creatdt1 + "','" + enddt1 + "','" + receipt1 + "','" + groupnumber1 + "','" + ordernumber1 + "','" + contract1 + "','" + epro1 + "','" + cpro1 + "','" + number1 + "','" + unit1 + "','" + standard1 + "','" + transport1 + "','" + supplier1 + "','" + sdate1 + "','" + customer1 + "','" + cdate1 + "','" + appeallr1 + "','" + checknr1 + "','" + checkman1 + "','" + checkdate1 + "','" + clfa1 + "','" + clfaman1 + "','" + clfadate1 + "','" + feedback1 + "','" + feedbackman1 + "','" + feedbackdate1 + "','" + remarks1 + "','','','','80','',0)";
+		 String strSQL="insert into appeal(numeration,appealfl,appealdj,state,creatdt,enddt,receipt,groupnumber,ordernumber,contract,epro,cpro,number,unit,standard,transport,supplier,sdate,customer,cdate,appeallr,checknr,checkman,checkdate,clfa,clfaman,clfadate,feedback,feedbackman,feedbackdate,remarks,spmanger,spdate,spyj,cml,cfk,in_no) values('"+number+"','" + appealfl1 +"','" + appealdj1 + "','æœªåŠç†','" + creatdt1 + "','" + enddt1 + "','" + receipt1 + "','" + groupnumber1 + "','" + ordernumber1 + "','" + contract1 + "','" + epro1 + "','" + cpro1 + "','" + number1 + "','" + unit1 + "','" + standard1 + "','" + transport1 + "','" + supplier1 + "','" + sdate1 + "','" + customer1 + "','" + cdate1 + "','" + appeallr1 + "','" + checknr1 + "','" + checkman1 + "','" + checkdate1 + "','" + clfa1 + "','" + clfaman1 + "','" + clfadate1 + "','" + feedback1 + "','" + feedbackman1 + "','" + feedbackdate1 + "','" + remarks1 + "','','','','80','',0)";
 		 dbManager.executeUpdate(strSQL);
 		 
 		 return this.success();
@@ -150,7 +150,7 @@ public class AppealAction extends CommonDoAction {
 	
 	public Map<String,Object> toHandle(WebRuntime runtime) throws Exception{
 		String id = runtime.getParam("id");
-		String sql="update appeal set state='°ìÀíÖĞ',clfadate='" + DateUtil.getCurrentDateSimpleStr() + "' where aid='" + id + "'";
+		String sql="update appeal set state='åŠç†ä¸­',clfadate='" + DateUtil.getCurrentDateSimpleStr() + "' where aid='" + id + "'";
 		dbManager.update(sql);
 		return this.success();
 	}

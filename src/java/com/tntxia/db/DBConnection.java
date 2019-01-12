@@ -47,7 +47,7 @@ public class DBConnection {
 			}
 			Class.forName(sDBDriver);
 		} catch (java.lang.ClassNotFoundException e) {
-			logger.error(" Êı¾İ¿â³õÊ¼»¯´íÎó", e);
+			logger.error(" æ•°æ®åº“åˆå§‹åŒ–é”™è¯¯", e);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -64,7 +64,7 @@ public class DBConnection {
 			return true;
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-			logger.error(" »ñÈ¡Êı¾İ¿â´íÎó", ex);
+			logger.error(" è·å–æ•°æ®åº“é”™è¯¯", ex);
 			return false;
 		}
 	}
@@ -91,7 +91,7 @@ public class DBConnection {
 			rs = stmt.executeQuery(sql);
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-			logger.error(" Ö´ĞĞ²éÑ¯´íÎó", ex);
+			logger.error(" æ‰§è¡ŒæŸ¥è¯¢é”™è¯¯", ex);
 		}
 		return rs;
 	}
@@ -109,7 +109,7 @@ public class DBConnection {
 			rs = ps.executeQuery();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-			logger.error(" Ö´ĞĞ²éÑ¯´íÎó", ex);
+			logger.error(" æ‰§è¡ŒæŸ¥è¯¢é”™è¯¯", ex);
 		}
 		return rs;
 	}
@@ -130,7 +130,7 @@ public class DBConnection {
 			rs = ps.executeQuery();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-			logger.error(" Ö´ĞĞ²éÑ¯´íÎó", ex);
+			logger.error(" æ‰§è¡ŒæŸ¥è¯¢é”™è¯¯", ex);
 		}
 		return rs;
 	}
@@ -146,7 +146,7 @@ public class DBConnection {
 			rs = ps.executeQuery();
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-			logger.error(" Ö´ĞĞ²éÑ¯´íÎó", ex);
+			logger.error(" æ‰§è¡ŒæŸ¥è¯¢é”™è¯¯", ex);
 		}
 		return rs;
 	}
@@ -182,7 +182,7 @@ public class DBConnection {
 			stat = conn.createStatement();
 			stat.executeUpdate(sql);
 		} catch (SQLException ex) {
-			logger.error(" Ö´ĞĞ²éÑ¯´íÎó", ex);
+			logger.error(" æ‰§è¡ŒæŸ¥è¯¢é”™è¯¯", ex);
 			
 			returnValue = false;
 		}finally{
@@ -222,7 +222,7 @@ public class DBConnection {
 			ps.executeUpdate();
 			
 		} catch (SQLException ex) {
-			logger.error(" Ö´ĞĞ¸üĞÂ´íÎó", ex);
+			logger.error(" æ‰§è¡Œæ›´æ–°é”™è¯¯", ex);
 			returnValue = false;
 		}finally{
 			closePs(ps);
@@ -289,7 +289,7 @@ public class DBConnection {
 				res = rs.getInt(1);
 			}
 		} catch (SQLException e) {
-			logger.error(" getIdenty()´íÎó", e);
+			logger.error(" getIdenty()é”™è¯¯", e);
 		}finally{
 			closeRs(rs);
 		}
@@ -304,7 +304,7 @@ public class DBConnection {
 				res = rs.getInt(1);
 			}
 		} catch (SQLException e) {
-			logger.error(" getCount()´íÎó", e);
+			logger.error(" getCount()é”™è¯¯", e);
 		}finally{
 			closeRs(rs);
 		}
@@ -317,7 +317,7 @@ public class DBConnection {
 			try {
 				rs.close();
 			} catch (SQLException e) {
-				logger.error("½á¹û¼¯¹Ø±Õ´íÎó", e);
+				logger.error("ç»“æœé›†å…³é—­é”™è¯¯", e);
 			}
 		}
 	}
@@ -327,7 +327,7 @@ public class DBConnection {
 			try {
 				stat.close();
 			} catch (SQLException e) {
-				logger.error(" Statement¹Ø±Õ´íÎó", e);
+				logger.error(" Statementå…³é—­é”™è¯¯", e);
 			}
 		}
 	}
@@ -337,7 +337,7 @@ public class DBConnection {
 			if (stmt != null)
 				stmt.close();
 		} catch (SQLException e) {
-			logger.error(" Statement¹Ø±Õ´íÎó", e);
+			logger.error(" Statementå…³é—­é”™è¯¯", e);
 		}
 	}
 	
@@ -346,7 +346,7 @@ public class DBConnection {
 			try {
 				ps.close();
 			} catch (SQLException e) {
-				logger.error(" PreparedStatement¹Ø±Õ´íÎó", e);
+				logger.error(" PreparedStatementå…³é—­é”™è¯¯", e);
 			}
 		}
 	}
@@ -356,7 +356,7 @@ public class DBConnection {
 			if (conn != null)
 				conn.close();
 		} catch (SQLException e) {
-			logger.error("Êı¾İ¹Ø±Õ´íÎó", e);
+			logger.error("æ•°æ®å…³é—­é”™è¯¯", e);
 		}
 	}
 	
