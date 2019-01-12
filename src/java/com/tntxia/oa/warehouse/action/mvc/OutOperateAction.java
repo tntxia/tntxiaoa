@@ -46,7 +46,7 @@ public class OutOperateAction  extends HandlerWithHeaderAndLeftbar{
 			
 			WarehouseManager warehouseManager = new WarehouseManager();
 
-			// 根据权限，看用户可以查看哪些仓库产品
+			// 鏍规嵁鏉冮檺锛岀湅鐢ㄦ埛鍙互鏌ョ湅鍝簺浠撳簱浜у搧
 			List<Warehouse> warehouseList = warehouseManager.getWarehouseByModelAndRestain(epro);
 			salePro.setWarehouseList(warehouseList);
 			

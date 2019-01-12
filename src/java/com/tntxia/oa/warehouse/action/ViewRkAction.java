@@ -54,7 +54,7 @@ public class ViewRkAction implements Controller {
 		model.put("int_types", int_types);
 		model.put("g_man", g_man);
 
-		String sqlWhere = " where states<>'ÒÑÉ¾³ı'";
+		String sqlWhere = " where states<>'å·²åˆ é™¤'";
 
 		if (!StringUtils.isEmpty(orderNumber)) {
 
@@ -118,7 +118,7 @@ public class ViewRkAction implements Controller {
 		RightManager rightManager = new RightManager();
 		Restrain restrain = rightManager.getRestrain(restrain_name);
 
-		if (restrain.getIntview().equals("ÓĞ")) {
+		if (restrain.getIntview().equals("æœ‰")) {
 			sqlWhere += " and deptjb like '" + deptjb + "%'";
 
 		} else {
@@ -196,7 +196,7 @@ public class ViewRkAction implements Controller {
 		model.put("int_types", int_types);
 		model.put("g_man", g_man);
 
-		String sqlWhere = " where states<>'ÒÑÉ¾³ı'";
+		String sqlWhere = " where states<>'å·²åˆ é™¤'";
 
 		if (!StringUtils.isEmpty(orderNumber)) {
 
@@ -258,7 +258,7 @@ public class ViewRkAction implements Controller {
 		RightManager rightManager = new RightManager();
 		Restrain restrain = rightManager.getRestrain(restrain_name);
 
-		if (restrain.getIntview().equals("ÓĞ")) {
+		if (restrain.getIntview().equals("æœ‰")) {
 			sqlWhere += " and deptjb like '" + deptjb + "%'";
 
 		} else {
@@ -308,12 +308,12 @@ public class ViewRkAction implements Controller {
 			inWarehouse.setMan(sqlRst.getString("man"));
 			inWarehouse.setInt_date((Date) sqlRst.getTimestamp("int_date"));
 			
-			// Èë¿â²Ö¿â
+			// å…¥åº“ä»“åº“
 			String addr = sqlRst.getString("pro_addr");
 			inWarehouse.setAddr(addr);
 			
-			// ²é¿´µ±Ç°ÓÃ»§ÊÇ·ñÓĞ²Ö¿â²é¿´¼Û¸ñµÄÈ¨ÏŞ£¬Èç¹ûÓĞµÄ»°£¬²åÈë¼Û¸ñ£¬
-			// Èç¹ûÃ»ÓĞÔòÏÔÊ¾0
+			// æŸ¥çœ‹å½“å‰ç”¨æˆ·æ˜¯å¦æœ‰ä»“åº“æŸ¥çœ‹ä»·æ ¼çš„æƒé™ï¼Œå¦‚æœæœ‰çš„è¯ï¼Œæ’å…¥ä»·æ ¼ï¼Œ
+			// å¦‚æœæ²¡æœ‰åˆ™æ˜¾ç¤º0
 			RestrainGP restrainGP = rightDao.getRestrainGP(restrainName, addr);
 			if(restrainGP.isPrice()){
 				inWarehouse.setPrice(sqlRst.getDouble("pro_price"));
@@ -341,7 +341,7 @@ public class ViewRkAction implements Controller {
 			return new ModelAndView("common/refuse", model);
 		}
 		
-		// ÓÃ»§ĞÅÏ¢
+		// ç”¨æˆ·ä¿¡æ¯
 		UserInfo userInfo = WebUtils.getUserInfo(request);
 		String restrainName = userInfo.getRestrain_name();
 		String query = request.getParameter("query");
