@@ -22,16 +22,16 @@ public class SaleApprovingViewManToAuditAction extends OACommonHandler {
 		
 		Map<String,Object> detail = service.getDetail(id);
 		
-		Boolean fif = ((String) detail.get("fif")).trim().equals("ÊÇ");
+		Boolean fif = ((String) detail.get("fif")).trim().equals("æ˜¯");
 		String item = (String)detail.get("item");
 		
 		double tax=0;
 		
-		if(item.equals("ÔöÖµ·¢Æ±17%")){
+		if(item.equals("å¢å€¼å‘ç¥¨17%")){
 			tax=0.17;
-		}else if(item.equals("ÆÕÍ¨·¢Æ±6%")){
+		}else if(item.equals("æ™®é€šå‘ç¥¨6%")){
 			tax=0.06;
-		}else if(item.equals("ÆÕÍ¨·¢Æ±4%")){
+		}else if(item.equals("æ™®é€šå‘ç¥¨4%")){
 			tax=0.04;
 		}
 		

@@ -167,7 +167,7 @@ public class ActionServlet extends HttpServlet {
 		
 		
 
-		// 如果没有选中销售产品，直接返回
+		// 濡傛灉娌℃湁閫変腑閿�鍞骇鍝侊紝鐩存帴杩斿洖
 		if (t == null || t.length == 0) {
 			return;
 		}
@@ -197,7 +197,7 @@ public class ActionServlet extends HttpServlet {
 
 			boolean tq = einfodb.executeUpdate(strSQLsub);
 			if (!tq) {
-				out.println("添加失败,你所输入的内容超出系统范围或输入类型不符!");
+				out.println("娣诲姞澶辫触,浣犳墍杈撳叆鐨勫唴瀹硅秴鍑虹郴缁熻寖鍥存垨杈撳叆绫诲瀷涓嶇!");
 				return;
 			}
 
@@ -207,7 +207,7 @@ public class ActionServlet extends HttpServlet {
 				+ ddid1 + "'";
 		boolean tp = einfodb.executeUpdate(strSQL);
 		if (!tp) {
-			out.println("添加失败,你所输入的内容超出系统范围或输入类型不符!");
+			out.println("娣诲姞澶辫触,浣犳墍杈撳叆鐨勫唴瀹硅秴鍑虹郴缁熻寖鍥存垨杈撳叆绫诲瀷涓嶇!");
 			return;
 		}
 		
@@ -247,7 +247,7 @@ public class ActionServlet extends HttpServlet {
 		SaleOrder saleOrder = saleManager.getSaleOrder(number);
 		String rate = saleOrder.getRate();
 
-		// 如果没有选中销售产品，直接返回
+		// 濡傛灉娌℃湁閫変腑閿�鍞骇鍝侊紝鐩存帴杩斿洖
 		if (t == null || t.length == 0) {
 			return;
 		}
@@ -300,7 +300,7 @@ public class ActionServlet extends HttpServlet {
 
 			boolean tq = einfodb.executeUpdate(strSQLsub);
 			if (!tq) {
-				out.println("添加失败,你所输入的内容超出系统范围或输入类型不符!");
+				out.println("娣诲姞澶辫触,浣犳墍杈撳叆鐨勫唴瀹硅秴鍑虹郴缁熻寖鍥存垨杈撳叆绫诲瀷涓嶇!");
 				return;
 			}
 		}
@@ -309,7 +309,7 @@ public class ActionServlet extends HttpServlet {
 				+ ddid1 + "'";
 		boolean tp = einfodb.executeUpdate(strSQL);
 		if (!tp) {
-			out.println("添加失败,你所输入的内容超出系统范围或输入类型不符!");
+			out.println("娣诲姞澶辫触,浣犳墍杈撳叆鐨勫唴瀹硅秴鍑虹郴缁熻寖鍥存垨杈撳叆绫诲瀷涓嶇!");
 			return;
 		}
 		

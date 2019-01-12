@@ -14,7 +14,7 @@ public class SaleManager {
 	
 	
 	/**
-	 * Í¨¹ı¶©µ¥ºÅÀ´»ñÈ¡¶©µ¥ĞÅÏ¢
+	 * é€šè¿‡è®¢å•å·æ¥è·å–è®¢å•ä¿¡æ¯
 	 * @param number
 	 * @return
 	 */
@@ -84,7 +84,7 @@ public class SaleManager {
 	}
 	
 	/**
-	 * »ñµÃÏúÊÛ²úÆ·ĞÅÏ¢
+	 * è·å¾—é”€å”®äº§å“ä¿¡æ¯
 	 * @param ddid
 	 * @return
 	 */

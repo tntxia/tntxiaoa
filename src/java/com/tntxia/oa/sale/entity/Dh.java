@@ -1,7 +1,7 @@
 package com.tntxia.oa.sale.entity;
 
 /**
- * µ÷»õ
+ * è°ƒè´§
  * @author tntxia
  *
  */

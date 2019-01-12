@@ -11,7 +11,7 @@ public class VelocityUtil {
 	
 	/**
 	 * 
-	 * Velocity³õÊ¼»¯
+	 * Velocityåˆå§‹åŒ–
 	 * @param templatePath
 	 * 
 	 */

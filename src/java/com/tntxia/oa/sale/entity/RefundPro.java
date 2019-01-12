@@ -3,7 +3,7 @@ package com.tntxia.oa.sale.entity;
 import java.math.BigDecimal;
 
 /**
- * ÍË»õ²úÆ·
+ * é€€è´§äº§å“
  * @author Administrator
  *
  */

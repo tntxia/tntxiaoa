@@ -27,7 +27,7 @@ public class SampleDetailViewDDDHandler extends HandlerWithHeaderAndLeftbar {
 		
 		String fif = (String) detail.get("fif");
 		
-		if("ÊÇ".equals(fif)){
+		if("æ˜¯".equals(fif)){
 			detail.put("needSecondAudit", true);
 		}else{
 			detail.put("needSecondAudit", false);
