@@ -32,14 +32,14 @@ public class PdAction  extends CommonAction  {
 	
 	public ModelAndView getNotIn(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		String sql = "select distinct pro_model from rkhouse where pro_rk_num in (select id from in_warehouse where states<>'ÒÑÉ¾³ý' and (states='ÒÑÈë¿â' or states='È«²¿Èë¿â')  ) and pro_model not in (select distinct pro_model from warehouse)";
+		String sql = "select distinct pro_model from rkhouse where pro_rk_num in (select id from in_warehouse where states<>'å·²åˆ é™¤' and (states='å·²å…¥åº“' or states='å…¨éƒ¨å…¥åº“')  ) and pro_model not in (select distinct pro_model from warehouse)";
 		return super.exportJSONObject(response, dbManager.queryForList(sql, true));
 	}
 	
 	public ModelAndView getInWarehouseByModel(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		String model = EscapeUnescape.unescape(request,"model");
-		String sql = "select * from in_warehouse where id in (select pro_rk_num from rkhouse where pro_model=?) and states<>'ÒÑÉ¾³ý'";
+		String sql = "select * from in_warehouse where id in (select pro_rk_num from rkhouse where pro_model=?) and states<>'å·²åˆ é™¤'";
 		return super.exportJSONObject(response, dbManager.queryForList(sql,new Object[]{model}, true));
 	}
 

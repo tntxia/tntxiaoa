@@ -27,7 +27,7 @@ public class SupplierAction extends CommonAction {
 	}
 
 	/**
-	 * »ñÈ¡¹©Ó¦ÉÌÁĞ±í
+	 * è·å–ä¾›åº”å•†åˆ—è¡¨
 	 * 
 	 * @param request
 	 * @param response
@@ -108,17 +108,17 @@ public class SupplierAction extends CommonAction {
 			while (rsmodt.next()) {
 				String deptjb_t = rsmodt.getString("deptjb").trim();
 				String manview_t = rsmodt.getString("supview").trim();
-				if (manview_t.equals("ÓĞ")) {
+				if (manview_t.equals("æœ‰")) {
 					String res_dept1 = "  or  deptjb='" + deptjb_t + "'";
 					res_dept += res_dept1;
 				}
 				tmpigp++;
 			}
-			if (supview.equals("ÓĞ")) {
+			if (supview.equals("æœ‰")) {
 				strSQL = "select count(*) from qlinkman   where   deptjb  like '"
 						+ deptjb + "%'   " + res_dept + "";
 			} else
-				strSQL = "select count(*) from qlinkman where share='ÊÇ' or username='"
+				strSQL = "select count(*) from qlinkman where share='æ˜¯' or username='"
 						+ username + "'   " + res_dept + "";
 			sqlRst = einfodb.executeQuery(strSQL);
 			sqlRst.next();
@@ -127,11 +127,11 @@ public class SupplierAction extends CommonAction {
 			intPageCount = (intRowCount + intPageSize - 1) / intPageSize;
 			if (intPage > intPageCount)
 				intPage = intPageCount;
-			if (supview.equals("ÓĞ")) {
+			if (supview.equals("æœ‰")) {
 				strSQL = "select  nameid,name,cotel,cofax,waptel,email,coname from qlinkman   where   deptjb  like '"
 						+ deptjb + "%'   " + res_dept + " order by coname asc";
 			} else
-				strSQL = "select nameid,name,cotel,cofax,waptel,email,coname from qlinkman   where share='ÊÇ' or username='"
+				strSQL = "select nameid,name,cotel,cofax,waptel,email,coname from qlinkman   where share='æ˜¯' or username='"
 						+ username
 						+ "'    "
 						+ res_dept
@@ -185,7 +185,7 @@ public class SupplierAction extends CommonAction {
 		 ResultSet rsusername2 = einfodb.executeQuery(sqlusername2);
 		 if(!rsusername2.next()) {
 			 rsusername2.close();
-			 return this.exportErrorJSON(response, "ÏµÍ³ÔİÎŞ¸ÃÓÃ»§!");
+			 return this.exportErrorJSON(response, "ç³»ç»Ÿæš‚æ— è¯¥ç”¨æˆ·!");
 		 }
 		 String dept2=rsusername2.getString("yjxs").trim();
 		 String deptjb2=rsusername2.getString("hometel").trim();
@@ -201,27 +201,27 @@ public class SupplierAction extends CommonAction {
 		       boolean tman= einfodb2.executeUpdate(strSQLman);
 		   if(!tman)
 		   {
-			   return this.exportErrorJSON(response, "<font size='2' color='#FF0000'>×ªÒÆÁªÏµÈËÊ§°Ü!</font>");
+			   return this.exportErrorJSON(response, "<font size='2' color='#FF0000'>è½¬ç§»è”ç³»äººå¤±è´¥!</font>");
 		    
 		   }
 		   String strSQLop="update procure_xj set man='"+man2+"'  where  coname='"+coname+"' and man='"+man1+"' ";
 		       boolean top= einfodb2.executeUpdate(strSQLop);
 		   if(!top)
 		   {
-			   return this.exportErrorJSON(response, "<font size='2' color='#FF0000'>×ªÒÆÑ¯¼ÛÊ§°Ü!</font>");
+			   return this.exportErrorJSON(response, "<font size='2' color='#FF0000'>è½¬ç§»è¯¢ä»·å¤±è´¥!</font>");
 		   }
 		   String strSQLact="update procure set man='"+man2+"',l_dept='"+dept2+"',l_deptjb='"+deptjb2+"'  where  coname='"+coname+"' and man='"+man1+"' ";
 		       boolean tact= einfodb2.executeUpdate(strSQLact);
 		   if(!tact)
 		   {
-			   return this.exportErrorJSON(response, "<font size='2' color='#FF0000'>×ªÒÆ²É¹º×ªÒÆÊ§°Ü!</font>");
+			   return this.exportErrorJSON(response, "<font size='2' color='#FF0000'>è½¬ç§»é‡‡è´­è½¬ç§»å¤±è´¥!</font>");
 		     
 		   }
 		   String strSQLq="update payment set remark='"+man2+"',wtfk='"+deptjb2+"'  where  supplier='"+coname+"' and remark='"+man1+"' ";
 		       boolean tq= einfodb2.executeUpdate(strSQLq);
 		   if(!tq)
 		   {
-			   return this.exportErrorJSON(response, "<font size='2' color='#FF0000'>×ªÒÆ¸¶¿îĞÅÏ¢Ê§°Ü!</font>");
+			   return this.exportErrorJSON(response, "<font size='2' color='#FF0000'>è½¬ç§»ä»˜æ¬¾ä¿¡æ¯å¤±è´¥!</font>");
 		     
 		   }
 
@@ -229,7 +229,7 @@ public class SupplierAction extends CommonAction {
 		       boolean tsub= einfodb2.executeUpdate(strSQLsub);
 		   if(!tsub)
 		   {
-			   return this.exportErrorJSON(response, "×ªÒÆ¸¶¿î»ã×ÜÊ§°Ü!");
+			   return this.exportErrorJSON(response, "è½¬ç§»ä»˜æ¬¾æ±‡æ€»å¤±è´¥!");
 		     
 		   }
 		tmpi++;}
@@ -238,7 +238,7 @@ public class SupplierAction extends CommonAction {
 		     boolean t= einfodb2.executeUpdate(strSQL);
 		   if(!t)
 		   {
-			   return this.exportErrorJSON(response, "×ªÒÆ¿Í»§×ÊÁÏÊ§°Ü,!");
+			   return this.exportErrorJSON(response, "è½¬ç§»å®¢æˆ·èµ„æ–™å¤±è´¥,!");
 		     
 		   }
 		 einfodb.closeStmt();

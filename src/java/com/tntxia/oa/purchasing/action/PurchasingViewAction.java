@@ -63,7 +63,7 @@ public class PurchasingViewAction implements Controller {
 		if(purchasing.getNumber()==null){
 			Map<String,Object> result = new HashMap<String,Object>();
 			result.put("success", false);
-			result.put("message", "¶©µ¥²»´æÔÚ!!!");
+			result.put("message", "è®¢å•ä¸å­˜åœ¨!!!");
 			return new ModelAndView("common/result", result);
 		}
 		
@@ -83,13 +83,13 @@ public class PurchasingViewAction implements Controller {
 		
 		result.put("proList", productList);
 		
-		if("ÓĞ".equals(cgmod)){
+		if("æœ‰".equals(cgmod)){
 			result.put("cgmod", true);
 		}else{
 			result.put("cgmod", false);
 		}
 		
-		if("ÓĞ".equals(cgdel)){
+		if("æœ‰".equals(cgdel)){
 			result.put("cgdel", true);
 		}else{
 			result.put("cgdel", false);
