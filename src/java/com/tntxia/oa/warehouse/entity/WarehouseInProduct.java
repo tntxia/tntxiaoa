@@ -3,7 +3,7 @@ package com.tntxia.oa.warehouse.entity;
 import java.util.Date;
 
 /**
- * Èë¿âµ¥²úÆ·
+ * å…¥åº“å•äº§å“
  * 
  * @author tntxia
  *
@@ -16,22 +16,22 @@ public class WarehouseInProduct {
 	
 	private String inNumber;
 	
-	// ²É¹º¶©µ¥ºÅ
+	// é‡‡è´­è®¢å•å·
 	private String purchaseNumber;
 	
 	private int warehouseInId;
 	
-	// ĞÍºÅ
+	// å‹å·
 	private String model;
 	
-	// Äê·İ
+	// å¹´ä»½
 	private String productYear;
 	
 	private int num;
 	
 	private String remark;
 	
-	// Èë¿âµ¥×´Ì¬
+	// å…¥åº“å•çŠ¶æ€
 	private String states;
 	
 	private String supplier;

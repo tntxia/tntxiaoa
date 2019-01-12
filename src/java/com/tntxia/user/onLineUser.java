@@ -62,11 +62,11 @@ public class onLineUser
     if (!(existUser(paramHttpSessionBindingEvent.getName())))
     {
       this.users.put(paramHttpSessionBindingEvent.getName(), "YES");
-      System.out.print(paramHttpSessionBindingEvent.getName() + "\t   µÇÈëµ½ÏµÍ³\t" + new Date());
-      System.out.println("      ÔÚÏßÓÃ»§ÊıÎª£º" + getCount());
+      System.out.print(paramHttpSessionBindingEvent.getName() + "\t   ç™»å…¥åˆ°ç³»ç»Ÿ\t" + new Date());
+      System.out.println("      åœ¨çº¿ç”¨æˆ·æ•°ä¸ºï¼š" + getCount());
     }
     else {
-      System.out.println(paramHttpSessionBindingEvent.getName() + "ÒÑ¾­´æÔÚ");
+      System.out.println(paramHttpSessionBindingEvent.getName() + "å·²ç»å­˜åœ¨");
     }
   }
 
@@ -74,7 +74,7 @@ public class onLineUser
   {
     String str = paramHttpSessionBindingEvent.getName();
     deleteUser(str);
-    System.out.print(str + "\t   ÍË³öÏµÍ³\t" + Calendar.getInstance().getTime());
-    System.out.println("      ÔÚÏßÓÃ»§ÊıÎª£º" + getCount());
+    System.out.print(str + "\t   é€€å‡ºç³»ç»Ÿ\t" + Calendar.getInstance().getTime());
+    System.out.println("      åœ¨çº¿ç”¨æˆ·æ•°ä¸ºï¼š" + getCount());
   }
 }
