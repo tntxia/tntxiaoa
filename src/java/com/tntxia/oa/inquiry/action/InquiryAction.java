@@ -17,7 +17,7 @@ public class InquiryAction extends CommonDoAction {
 	
 
 	/**
-	 * Í¨ÖªÏúÊÛ
+	 * é€šçŸ¥é”€å”®
 	 * 
 	 * @param request
 	 * @param arg1

@@ -2,7 +2,7 @@ package com.tntxia.oa.finance.entity;
 
 public class CreditDebit {
 	
-	// ¿Í»§Ãû³Æ
+	// å®¢æˆ·åç§°
 	private String coname;
 
 	public String getConame() {

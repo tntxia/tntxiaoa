@@ -71,7 +71,7 @@ public class KnowledgeAction extends CommonDoAction {
 			File rootPath = new File(uploadFileRoot);
 			rootPath.mkdirs();
 			
-			// »ñÈ¡itemÖĞµÄÉÏ´«ÎÄ¼şµÄÊäÈëÁ÷
+			// è·å–itemä¸­çš„ä¸Šä¼ æ–‡ä»¶çš„è¾“å…¥æµ
 			InputStream in = fileItem.getInputStream();
 			
 			String ext = FilenameUtils.getExtension(fileItem.getName());
@@ -79,24 +79,24 @@ public class KnowledgeAction extends CommonDoAction {
 
 			String uploadPath = uploadFileRoot+File.separator+newFileName;
 
-			// ´´½¨Ò»¸öÎÄ¼şÊä³öÁ÷
+			// åˆ›å»ºä¸€ä¸ªæ–‡ä»¶è¾“å‡ºæµ
 			FileOutputStream out = new FileOutputStream(uploadPath);
-			// ´´½¨Ò»¸ö»º³åÇø
+			// åˆ›å»ºä¸€ä¸ªç¼“å†²åŒº
 			byte buffer[] = new byte[1024];
-			// ÅĞ¶ÏÊäÈëÁ÷ÖĞµÄÊı¾İÊÇ·ñÒÑ¾­¶ÁÍêµÄ±êÊ¶
+			// åˆ¤æ–­è¾“å…¥æµä¸­çš„æ•°æ®æ˜¯å¦å·²ç»è¯»å®Œçš„æ ‡è¯†
 			int len = 0;
-			// Ñ­»·½«ÊäÈëÁ÷¶ÁÈëµ½»º³åÇøµ±ÖĞ£¬(len=in.read(buffer))>0¾Í±íÊ¾inÀïÃæ»¹ÓĞÊı¾İ
+			// å¾ªç¯å°†è¾“å…¥æµè¯»å…¥åˆ°ç¼“å†²åŒºå½“ä¸­ï¼Œ(len=in.read(buffer))>0å°±è¡¨ç¤ºiné‡Œé¢è¿˜æœ‰æ•°æ®
 			while ((len = in.read(buffer)) > 0) {
-				// Ê¹ÓÃFileOutputStreamÊä³öÁ÷½«»º³åÇøµÄÊı¾İĞ´Èëµ½Ö¸¶¨µÄÄ¿Â¼(savePath + "\\" +
-				// filename)µ±ÖĞ
+				// ä½¿ç”¨FileOutputStreamè¾“å‡ºæµå°†ç¼“å†²åŒºçš„æ•°æ®å†™å…¥åˆ°æŒ‡å®šçš„ç›®å½•(savePath + "\\" +
+				// filename)å½“ä¸­
 				out.write(buffer, 0, len);
 			}
 			
-			// ¹Ø±ÕÊäÈëÁ÷
+			// å…³é—­è¾“å…¥æµ
 			in.close();
-			// ¹Ø±ÕÊä³öÁ÷
+			// å…³é—­è¾“å‡ºæµ
 			out.close();
-			// É¾³ı´¦ÀíÎÄ¼şÉÏ´«Ê±Éú³ÉµÄÁÙÊ±ÎÄ¼ş
+			// åˆ é™¤å¤„ç†æ–‡ä»¶ä¸Šä¼ æ—¶ç”Ÿæˆçš„ä¸´æ—¶æ–‡ä»¶
 			fileItem.delete();
 			
 			String sql = "insert into knowledge_attachment(knowledge_id,name,file_path,create_time) values(?,?,?,now())";
