@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import com.tntxia.date.DateUtil;
 import com.tntxia.dbmanager.DBManager;
 import com.tntxia.oa.common.NumberFactory;
 import com.tntxia.oa.finance.dao.FinanceLightDao;
@@ -92,7 +93,6 @@ public class FinanceLightService extends CommonService{
 			BigDecimal salejg = MapUtils.getBigDecimal(mapPro, "salejg");
 			total = total.add(BigDecimal.valueOf(num).multiply(salejg));
 			stotal = stotal.add(BigDecimal.valueOf(s_num).multiply(salejg));
-			
 		}
 		
 		Map<String,BigDecimal> res =new HashMap<String,BigDecimal>();
@@ -101,8 +101,6 @@ public class FinanceLightService extends CommonService{
 		return res;
 		
 	}
-	
-	
 	
 	@SuppressWarnings({ "rawtypes" })
 	public Map<String,Object> listToGather(Map<String,Object> param) throws Exception{
@@ -114,8 +112,10 @@ public class FinanceLightService extends CommonService{
 			Map map = (Map) rows.get(i);
 			String fyid = MapUtils.getString(map, "fyid");
 			Sale sale = saleDao.getSaleById(fyid);
-			map.put("rate", sale.getRate());
-			setTotal(map);
+			if(sale!=null) {
+				map.put("rate", sale.getRate());
+				setTotal(map);
+			}
 		}
 		int totalAmount = financeDao.getGatheringCount(param);
 		pageBean.setTotalAmount(totalAmount);
@@ -398,6 +398,35 @@ public class FinanceLightService extends CommonService{
 	public Map<String,Object> getPaymentByOrderNumber(String number) throws Exception{
 		String sql = "select  * from payment where contract=?";
 		return dbManager.queryForMap(sql, new Object[]{number}, true);
+	}
+	
+	public void finishGatherng(String gatheringId) throws Exception {
+		
+		Transaction trans = null;
+		
+		try {
+			trans = this.getTransaction();
+			String currentDate = DateUtil.getCurrentDateSimpleStr();
+			
+			String strpros = "update gathering set states='已收全部款',note='已收款',skdate=?  where id=?";
+			trans.update(strpros, new Object[] {currentDate, gatheringId});
+			
+			Map<String,Object> gathering = trans.queryForMap("select * from gathering where id = ?",new Object[] {gatheringId}, true);
+			String fyid = (String) gathering.get("fyid");
+			
+			String sql = "update subscribe set gather_status=2 where id = ?";
+			trans.update(sql, new Object[] {fyid});
+			trans.commit();
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			if(trans!=null) {
+				trans.rollback();
+			}
+		}finally {
+			trans.close();
+		}
+		
+		
 	}
 
 }

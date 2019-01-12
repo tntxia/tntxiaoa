@@ -1398,5 +1398,11 @@ public class FinanceDoAction extends CommonDoAction {
 		return this.success();
 	}
 	
+	public Map<String,Object> markGatheringFinish(WebRuntime runtime) throws Exception {
+		String id = runtime.getParam("id");
+		financeService.finishGatherng(id);
+		return this.success();
+	}
+	
 
 }
