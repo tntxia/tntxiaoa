@@ -10,7 +10,7 @@ public class TrademarkDao {
 	private DBManager dbManager = DBManagerUtil.getDBManager();
 	
 	/**
-	 * 获取所有的品牌信息
+	 * 鑾峰彇鎵�鏈夌殑鍝佺墝淇℃伅
 	 * 
 	 * @param request
 	 * @param response

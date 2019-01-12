@@ -8,12 +8,12 @@ public class StatusMapping {
 	private static Map<String,String> map = new HashMap<String,String>();
 	
 	static {
-		map.put("0", "²İÄâ");
-		map.put("2", "ÉóÅúÍ¨¹ı");
-		map.put("3", "ºÏÍ¬ÒÑÈ·ÈÏ");
-		map.put("4", "´ıÈë¿â");
-		map.put("6", "ÒÑÈë¿â");
-		map.put("7", "È«²¿Èë¿â");
+		map.put("0", "è‰æ‹Ÿ");
+		map.put("2", "å®¡æ‰¹é€šè¿‡");
+		map.put("3", "åˆåŒå·²ç¡®è®¤");
+		map.put("4", "å¾…å…¥åº“");
+		map.put("6", "å·²å…¥åº“");
+		map.put("7", "å…¨éƒ¨å…¥åº“");
 	}
 	
 	public static String getLabel(String key){

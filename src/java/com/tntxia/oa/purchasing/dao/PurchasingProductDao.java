@@ -11,7 +11,7 @@ public class PurchasingProductDao {
 	
 	/**
 	 * 
-	 * 获取采购产品
+	 * 鑾峰彇閲囪喘浜у搧
 	 * 
 	 * @param purchasingId
 	 * @return

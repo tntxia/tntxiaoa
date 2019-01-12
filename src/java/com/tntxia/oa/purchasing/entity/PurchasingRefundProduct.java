@@ -4,36 +4,36 @@ public class PurchasingRefundProduct {
 	
 	private int id;
 	
-	// 型号
+	// 鍨嬪彿
 	private String epro;
 	
-	// 年份
+	// 骞翠唤
 	private String cpro;
 	
-	// 封装
+	// 灏佽
 	private String pro_number;
 	
 	private int num;
 	
-	// 货币类型
+	// 璐у竵绫诲瀷
 	private String unit;
 	
-	// 采购价格
+	// 閲囪喘浠锋牸
 	private double purchasingPrice;
 	
-	// 税率
+	// 绋庣巼
 	private String rate;
 	
-	// 品牌
+	// 鍝佺墝
 	private String tradeMark;
 	
-	// 货期
+	// 璐ф湡
 	private  String deliverDate;
 	
-	// 备注
+	// 澶囨敞
 	private String remark;
 	
-	// 采购单号
+	// 閲囪喘鍗曞彿
 	private String purchasingNumber;
 	
 	public int getId() {

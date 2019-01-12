@@ -12,7 +12,7 @@ public class UnitDao {
 
 	/**
 	 * 
-	 * »ñÈ¡»õ±ÒÀàĞÍµÄÁĞ±í
+	 * è·å–è´§å¸ç±»å‹çš„åˆ—è¡¨
 	 * 
 	 * @param purchasingId
 	 * @return

@@ -1,7 +1,7 @@
 package com.tntxia.oa.purchasing.entity;
 
 /**
- * 供应商联系人
+ * 渚涘簲鍟嗚仈绯讳汉
  * @author tntxia
  *
  */

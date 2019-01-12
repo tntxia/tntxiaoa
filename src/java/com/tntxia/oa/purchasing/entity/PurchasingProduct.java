@@ -8,13 +8,13 @@ public class PurchasingProduct {
 	
 	private int id;
 	
-	// 型号
+	// 鍨嬪彿
 	private String epro;
 	
-	// 年份
+	// 骞翠唤
 	private String cpro;
 	
-	// 封装
+	// 灏佽
 	private String pro_number;
 	
 	private int num;
@@ -23,29 +23,29 @@ public class PurchasingProduct {
 	
 	private String money;
 	
-	// 货币类型
+	// 璐у竵绫诲瀷
 	private String hb;
 	
-	// 单位
+	// 鍗曚綅
 	private String unit;
 	
-	// 采购价格
+	// 閲囪喘浠锋牸
 	private BigDecimal purchasingPrice;
 	
-	// 税率
+	// 绋庣巼
 	private int rate;
 	
-	// 品牌
+	// 鍝佺墝
 	private String tradeMark;
 	
-	// 货期
+	// 璐ф湡
 	private  String deliverDate;
 	
 	private String supplier;
 	
 	private String wid;
 	
-	// 备注
+	// 澶囨敞
 	private String remark;
 	
 	private String cgpro_ydatetime;
@@ -54,7 +54,7 @@ public class PurchasingProduct {
 	
 	private BigDecimal selljg;
 	
-	// 仓库中剩下的数量
+	// 浠撳簱涓墿涓嬬殑鏁伴噺
 	private int warehouseNum;
 	
 	private String addr;
