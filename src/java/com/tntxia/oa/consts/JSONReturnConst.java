@@ -2,7 +2,7 @@ package com.tntxia.oa.consts;
 
 /**
  * 
- * JSON·µ»ØµÄ³£Á¿
+ * JSONè¿”å›çš„å¸¸é‡
  * @author tntxia
  *
  */

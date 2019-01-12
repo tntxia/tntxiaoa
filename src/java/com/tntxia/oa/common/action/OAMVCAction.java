@@ -8,7 +8,7 @@ import com.tntxia.web.mvc.MVCAction;
 public abstract class OAMVCAction extends MVCAction {
 
 	/**
-	 * »ñÈ¡ÓÃ»§Ãû
+	 * è·å–ç”¨æˆ·å
 	 * @param request
 	 * @return
 	 */
