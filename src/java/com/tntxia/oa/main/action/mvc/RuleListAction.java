@@ -22,11 +22,11 @@ public class RuleListAction extends HandlerWithHeader {
 		if (flfgview) {
 			String deptjb = this.getDeptjb(runtime);
 			sqlWhere += " and (deptjb like '"
-					+ deptjb + "%' or dept='全体员工')";
+					+ deptjb + "%' or dept='鍏ㄤ綋鍛樺伐')";
 		} else {
 			String dept = this.getDept(runtime);
 			sqlWhere = "and (dept='" + dept
-					+ "' or dept='全体员工')";
+					+ "' or dept='鍏ㄤ綋鍛樺伐')";
 		}
 		
 		String strSQL = "select count(*) from rulestable where 1=1  "+sqlWhere;

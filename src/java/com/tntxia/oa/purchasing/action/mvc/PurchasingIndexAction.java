@@ -17,7 +17,7 @@ public class PurchasingIndexAction extends HandlerWithHeaderAndLeftbar {
 		
 		this.setLeftbar("purchasing",-1,-1);
 		
-		// 用户登陆信息
+		// 鐢ㄦ埛鐧婚檰淇℃伅
 		String role = this.getRole(runtime);
 		String loginTime = runtime.getSessionStr("currentDate");
 		root.put("role", role);
