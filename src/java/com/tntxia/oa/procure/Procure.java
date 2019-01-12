@@ -4,23 +4,23 @@ import java.util.List;
 
 public class Procure {
 	
-	private int id;                // ²É¹º¶©µ¥id
+	private int id;                // é‡‡è´­è®¢å•id
 	
-	private String number;			// ²É¹º¶©µ¥±àºÅ
+	private String number;			// é‡‡è´­è®¢å•ç¼–å·
 	
-	private String man;             // ¸ºÔğÈË
+	private String man;             // è´Ÿè´£äºº
 	
-	private String l_spyj;          // ÉóÅúÒâ¼û
+	private String l_spyj;          // å®¡æ‰¹æ„è§
 	
-	private String sub;             // ÏúÊÛ¶©µ¥ºÅ
+	private String sub;             // é”€å”®è®¢å•å·
 	
-	private String money;           // ²É¹º»õ±Ò
+	private String money;           // é‡‡è´­è´§å¸
 	
-	private String co_name;         // ¹©Ó¦ÉÌÃû³Æ
+	private String co_name;         // ä¾›åº”å•†åç§°
 	
-	private List<CgPro> pros;       // ¶©µ¥²úÆ·
+	private List<CgPro> pros;       // è®¢å•äº§å“
 	
-	private String jydd;            // ½»Ò×µØµã
+	private String jydd;            // äº¤æ˜“åœ°ç‚¹
 	
 	
 	

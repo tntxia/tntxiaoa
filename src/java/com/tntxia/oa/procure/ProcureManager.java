@@ -39,7 +39,7 @@ public class ProcureManager {
 	}
 	
 	/**
-	 * ²éÑ¯²É¹º¶©µ¥µÄ×Ü¼Û
+	 * æŸ¥è¯¢é‡‡è´­è®¢å•çš„æ€»ä»·
 	 * @param number
 	 * @return
 	 */
@@ -70,7 +70,7 @@ public class ProcureManager {
 	}
 	
 	/**
-	 * ²éÑ¯²É¹º¶©µ¥µÄ×Ü¼Û
+	 * æŸ¥è¯¢é‡‡è´­è®¢å•çš„æ€»ä»·
 	 * @param number
 	 * @return
 	 */
@@ -101,7 +101,7 @@ public class ProcureManager {
 	}
 	
 	/**
-	 * ²éÑ¯ÏúÊÛ¶©µ¥µÄ×Ü¼Û
+	 * æŸ¥è¯¢é”€å”®è®¢å•çš„æ€»ä»·
 	 * @param number
 	 * @return
 	 */
@@ -151,7 +151,7 @@ public class ProcureManager {
 	}
 	
 	/**
-	 * Í¨¹ı²É¹º¶©µ¥ID²éÑ¯²É¹º¶©µ¥ĞÅÏ¢
+	 * é€šè¿‡é‡‡è´­è®¢å•IDæŸ¥è¯¢é‡‡è´­è®¢å•ä¿¡æ¯
 	 * @param id
 	 * @return
 	 */
@@ -183,7 +183,7 @@ public class ProcureManager {
 			for(int i=0;i<cgPros.size();i++){
 				CgPro cgPro = cgPros.get(i);
 				
-				// Èç¹û²úÆ·µÄ²É¹º¼Û¸ñÎªÁã£¬»òÕß²»ÊÇ¸ù¾İÏúÊÛ¶©µ¥À´²É¹ºµÄ»°£¬°Ñ²É¹º²úÆ·µÄÀûÈó¶¨Îª100%
+				// å¦‚æœäº§å“çš„é‡‡è´­ä»·æ ¼ä¸ºé›¶ï¼Œæˆ–è€…ä¸æ˜¯æ ¹æ®é”€å”®è®¢å•æ¥é‡‡è´­çš„è¯ï¼ŒæŠŠé‡‡è´­äº§å“çš„åˆ©æ¶¦å®šä¸º100%
 				if(cgPro.getSelljg()==0 || ddPros.size()==0){
 					cgPro.setProfit(1.0);
 					continue;
@@ -222,7 +222,7 @@ public class ProcureManager {
 	}
 	
 	/**
-	 * Í¨¹ı²É¹º¶©µ¥ID²éÑ¯²É¹º¶©µ¥ĞÅÏ¢
+	 * é€šè¿‡é‡‡è´­è®¢å•IDæŸ¥è¯¢é‡‡è´­è®¢å•ä¿¡æ¯
 	 * @param id
 	 * @return
 	 */
@@ -264,7 +264,7 @@ public class ProcureManager {
 	}
 	
 	/**
-	 * Í¨¹ı²É¹º¶©µ¥ºÅ²éÑ¯²É¹º¶©µ¥
+	 * é€šè¿‡é‡‡è´­è®¢å•å·æŸ¥è¯¢é‡‡è´­è®¢å•
 	 * @param id
 	 * @return
 	 */
@@ -302,7 +302,7 @@ public class ProcureManager {
 	}
 	
 	/**
-	 * Í¨¹ı²É¹º¶©µ¥ºÅ²éÑ¯²É¹º¶©µ¥
+	 * é€šè¿‡é‡‡è´­è®¢å•å·æŸ¥è¯¢é‡‡è´­è®¢å•
 	 * @param id
 	 * @return
 	 */
@@ -340,7 +340,7 @@ public class ProcureManager {
 	}
 	
 	/**
-	 * Í¨¹ı²É¹º¶©µ¥ºÅ²éÑ¯²É¹º¶©µ¥
+	 * é€šè¿‡é‡‡è´­è®¢å•å·æŸ¥è¯¢é‡‡è´­è®¢å•
 	 * @param id
 	 * @return
 	 */
@@ -372,7 +372,7 @@ public class ProcureManager {
 	}
 	
 	/**
-	 * É¾³ıÍË»õµ¥
+	 * åˆ é™¤é€€è´§å•
 	 * @param id
 	 */
 	public void deleteTh(String id){
