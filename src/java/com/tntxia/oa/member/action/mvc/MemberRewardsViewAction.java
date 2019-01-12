@@ -30,25 +30,25 @@ public class MemberRewardsViewAction extends OACommonHandler{
 		
 		String username = this.getUsername(runtime);
 		String forward;
-		if(l_spqk.equals("´ıÉóÅú")){
+		if(l_spqk.equals("å¾…å®¡æ‰¹")){
 			if(username.equals(l_spman)){
 				forward = "dw";
 			}else{
 				forward = "sw";
 			}
-		} else if(l_spqk.equals("´ı¶şÉó")){
+		} else if(l_spqk.equals("å¾…äºŒå®¡")){
 			if(username.equals(l_fspman)){
 				forward = "dtw";
 			}else{
 				forward = "sw";
 			}
-		} else if(l_spqk.equals("´ıÈıÉó")){
+		} else if(l_spqk.equals("å¾…ä¸‰å®¡")){
 			if(username.equals(l_firspman)){
 				forward = "dfw";
 			}else{
 				forward = "sw";
 			}
-		} else if(l_spqk.equals("²İÄâ") || l_spqk.equals("ÉóÅú²»Í¨¹ı")){
+		} else if(l_spqk.equals("è‰æ‹Ÿ") || l_spqk.equals("å®¡æ‰¹ä¸é€šè¿‡")){
 			forward = "w";
 		}else{
 			forward = "sw";

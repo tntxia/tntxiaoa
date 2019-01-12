@@ -10,13 +10,13 @@ public class SalePro {
 	
 	private int num;
 	
-	private int s_num;     // ÒÑ³ö¿âµÄÊıÁ¿
+	private int s_num;     // å·²å‡ºåº“çš„æ•°é‡
 	
-	private int s_c_num;   // ·¢»õÊıÁ¿
+	private int s_c_num;   // å‘è´§æ•°é‡
 	
 	private String wid;
 	
-	private String fy_states;    // ·¢»õ×´Ì¬
+	private String fy_states;    // å‘è´§çŠ¶æ€
 	
 	private String fypronum;
 	

@@ -88,7 +88,7 @@ public class ExportPdAction implements Controller {
 
 			File file = new File(filePath);
 
-			// ÒÔÁ÷µÄĞÎÊ½ÏÂÔØÎÄ¼ş¡£
+			// ä»¥æµçš„å½¢å¼ä¸‹è½½æ–‡ä»¶ã€‚
 			InputStream fis = new BufferedInputStream(new FileInputStream(file));
 			byte[] buffer = new byte[fis.available()];
 			fis.read(buffer);

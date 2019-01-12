@@ -17,13 +17,13 @@ public class MemberRewardsSWViewAction extends MemberRewardsCommonViewAction{
 		String fif = (String)detail.get("l_fif");
 		String firspif = (String)detail.get("l_firspif");
 		
-		this.setRootValue("fif", fif.equals("ÊÇ"));
-		this.setRootValue("firspif", firspif.equals("ÊÇ"));
+		this.setRootValue("fif", fif.equals("æ˜¯"));
+		this.setRootValue("firspif", firspif.equals("æ˜¯"));
 		
 		this.setRootValue("fydel", this.existRight(runtime, "r_jcsq_del"));
 		this.setRootValue("fymod", this.existRight(runtime, "r_jcsq_mod"));
 		
-		this.setRootValue("firspif", firspif.equals("ÊÇ"));
+		this.setRootValue("firspif", firspif.equals("æ˜¯"));
 	
 		
 	}
