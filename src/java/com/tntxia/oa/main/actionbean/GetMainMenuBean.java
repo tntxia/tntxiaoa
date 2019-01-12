@@ -61,7 +61,7 @@ public class GetMainMenuBean implements ActionBeanInterface {
 		
 		DBManager dbManager = this.getSystemDBManager(configFile);
 		
-		String sql = "select *¡¡from menu where id in (select menu_id from restrain_menu where restrain_id = ?) order by id ";
+		String sql = "select * from menu where id in (select menu_id from restrain_menu where restrain_id = ?) order by id ";
 		
 		List list = dbManager.queryForList(sql, new Object[]{restrainId},true);
         

@@ -9,7 +9,7 @@ import com.tntxia.oa.common.action.CommonDoAction;
 import com.tntxia.web.mvc.WebRuntime;
 
 /**
- * ÓÊ¼şAction
+ * é‚®ä»¶Action
  * 
  * @author tntxia
  *
@@ -19,7 +19,7 @@ public class MailDoAction extends CommonDoAction {
 	private DBManager dbManager = this.getDBManager();
 
 	/**
-	 * ÓÊ¼ş·¢ËÍ
+	 * é‚®ä»¶å‘é€
 	 * 
 	 * @param request
 	 * @param arg1
@@ -40,7 +40,7 @@ public class MailDoAction extends CommonDoAction {
 
 		String strSQL = "insert into sendmail(mail_to,mail_to2,mail_to3,mail_sub,mail_nr,mail_man,deptjb,dept,mail_datetime,states,form_to,form_to2,form_to3) values(?,'"
 				+ mail_to2 + "','" + mail_to3 + "','" + mail_sub + "',?,'" + mail_man + "','" + deptjb + "','" + dept
-				+ "','" + mail_datetime + "','ÒÑ·¢ËÍ','','','')";
+				+ "','" + mail_datetime + "','å·²å‘é€','','','')";
 		System.out.println(strSQL);
 		dbManager.executeUpdate(strSQL,new Object[] {mail_to,mail_nr});
 		return this.success();

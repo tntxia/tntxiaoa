@@ -9,7 +9,7 @@ import com.tntxia.oa.mail.entity.Mail;
 
 /**
  * 
- * ÉóÅúÁ÷³Ì
+ * å®¡æ‰¹æµç¨‹
  * 
  * @author tntxia
  * 

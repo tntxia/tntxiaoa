@@ -30,7 +30,7 @@ public class Mail {
 	
 	private int sid;
 	
-	private int type;                     // ÓÊ¼şÀàĞÍ 1-ÊÕÓÊ¼ş  2-·¢ÓÊ¼ş  3-´ı´¦ÀíÓÊ¼ş
+	private int type;                     // é‚®ä»¶ç±»å‹ 1-æ”¶é‚®ä»¶  2-å‘é‚®ä»¶  3-å¾…å¤„ç†é‚®ä»¶
 
 	public int getType() {
 		return type;

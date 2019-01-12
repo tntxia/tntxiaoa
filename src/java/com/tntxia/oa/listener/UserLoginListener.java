@@ -26,7 +26,7 @@ public class UserLoginListener implements HttpSessionListener,
 				session.getServletContext().setAttribute("userList", userList);
 			}
 			String username = (String) session.getAttribute("username");
-			System.out.println("ÓÃ»§" + username + "µÇÂ½");
+			System.out.println("ç”¨æˆ·" + username + "ç™»é™†");
 			if (!userList.contains(username) && username != null) {
 				userList.add(username);
 			}
@@ -35,7 +35,7 @@ public class UserLoginListener implements HttpSessionListener,
 
 	@Override
 	public void attributeRemoved(HttpSessionBindingEvent event) {
-		System.out.println("Session ĞÅÏ¢±»ÒÆ³ı");
+		System.out.println("Session ä¿¡æ¯è¢«ç§»é™¤");
 
 	}
 
@@ -52,7 +52,7 @@ public class UserLoginListener implements HttpSessionListener,
 				session.getServletContext().setAttribute("userList", userList);
 			}
 			String username = (String) session.getAttribute("username");
-			System.out.println("ÓÃ»§" + username + "µÇÂ½");
+			System.out.println("ç”¨æˆ·" + username + "ç™»é™†");
 			if (!userList.contains(username) && username != null) {
 				userList.add(username);
 			}
@@ -62,7 +62,7 @@ public class UserLoginListener implements HttpSessionListener,
 
 	@Override
 	public void sessionCreated(HttpSessionEvent event) {
-		System.out.println("Session´´½¨£º" + event.getSession().getId());
+		System.out.println("Sessionåˆ›å»ºï¼š" + event.getSession().getId());
 	}
 
 	
@@ -70,9 +70,9 @@ public class UserLoginListener implements HttpSessionListener,
 	public void sessionDestroyed(HttpSessionEvent event) {
 
 		HttpSession session = event.getSession();
-		// Ê±¼ä: 2008-3-25 ÉÏÎç09:41:11
+		// æ—¶é—´: 2008-3-25 ä¸Šåˆ09:41:11
 		String username = (String) session.getAttribute("username");
-		System.out.println("ÓĞÈËµÇ³ö£º" + username);
+		System.out.println("æœ‰äººç™»å‡ºï¼š" + username);
 
 		List<String> userList = (List<String>) session.getServletContext()
 				.getAttribute("userList");

@@ -18,7 +18,7 @@ import com.tntxia.oa.system.dao.UserDao;
 import com.tntxia.oa.util.CommonAction;
 
 /**
- * ÓÊ¼şAction
+ * é‚®ä»¶Action
  * 
  * @author tntxia
  *
@@ -34,7 +34,7 @@ public class MailAction extends CommonAction {
 	}
 
 	/**
-	 * ÓÊ¼ş·¢ËÍ
+	 * é‚®ä»¶å‘é€
 	 * 
 	 * @param request
 	 * @param arg1
@@ -69,9 +69,9 @@ public class MailAction extends CommonAction {
 				count++;
 				
 				String filename = pizhus[i].split("-")[1];
-				mail_nr += "<br>¸½¼ş"
+				mail_nr += "<br>é™„ä»¶"
 						+ count
-						+ "<br><img title=\"µã»÷²é¿´Ô­Í¼\" onclick=\"viewImg(this)\" width=200 height=200 src=\""
+						+ "<br><img title=\"ç‚¹å‡»æŸ¥çœ‹åŸå›¾\" onclick=\"viewImg(this)\" width=200 height=200 src=\""
 						+ request.getContextPath() + "/attachment_img/"
 						+ filename + "\"/>";
 			}
@@ -79,13 +79,13 @@ public class MailAction extends CommonAction {
 		String strSQL = "insert into sendmail values('" + mail_to + "','"
 				+ mail_to2 + "','" + mail_to3 + "','" + mail_sub + "','"
 				+ mail_nr + "','" + mail_man + "','" + deptjb + "','" + dept
-				+ "','" + mail_datetime + "','ÒÑ·¢ËÍ','','','')";
+				+ "','" + mail_datetime + "','å·²å‘é€','','','')";
 		System.out.println(strSQL);
 		boolean t = einfodb.executeUpdate(strSQL);
 		if (!t) {
 
 			resultMap.put("success", false);
-			resultMap.put("message", "·¢ËÍÊ§°Ü!");
+			resultMap.put("message", "å‘é€å¤±è´¥!");
 			return new ModelAndView("common/result", resultMap);
 
 		}
@@ -97,7 +97,7 @@ public class MailAction extends CommonAction {
 	}
 
 	/**
-	 * ÓÊ¼ş·¢ËÍ
+	 * é‚®ä»¶å‘é€
 	 * 
 	 * @param request
 	 * @param arg1
@@ -146,7 +146,7 @@ public class MailAction extends CommonAction {
 			boolean t = einfodb.executeUpdate(strSQL);
 			if (!t) {
 				resultMap.put("success", false);
-				resultMap.put("message", "ÊÕÓÊ¼şÊ§°Ü!");
+				resultMap.put("message", "æ”¶é‚®ä»¶å¤±è´¥!");
 				return new ModelAndView("common/result", resultMap);
 
 			}
@@ -154,11 +154,11 @@ public class MailAction extends CommonAction {
 					+ mail_to2 + "','" + mail_to3 + "','" + mail_sub + "','"
 					+ mail_nr + "','" + mail_man + "','" + deptjb + "','"
 					+ dept + "','" + mail_datetime + "','" + username1 + "','"
-					+ currentDate + "','ÒÑÊÕÓÊ¼ş','" + id + "')";
+					+ currentDate + "','å·²æ”¶é‚®ä»¶','" + id + "')";
 			boolean tn = einfodb.executeUpdate(strSQLn);
 			if (!tn) {
 				resultMap.put("success", false);
-				resultMap.put("message", "ÊÕÓÊ¼şÊ§°Ü!");
+				resultMap.put("message", "æ”¶é‚®ä»¶å¤±è´¥!");
 				return new ModelAndView("common/result", resultMap);
 			}
 			
