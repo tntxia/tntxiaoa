@@ -45,7 +45,7 @@ public class WarehousePurchasingViewAction extends OACommonHandler {
 		Map<String,Object> detail = this.getDetail(id);
 		String status = (String) detail.get("l_spqk");
 		boolean showConfirm = false;
-		if("ÉóÅúÍ¨¹ı".equals(status)){
+		if("å®¡æ‰¹é€šè¿‡".equals(status)){
 			showConfirm = true;
 		}
 		root.put("id", id);

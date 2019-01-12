@@ -9,7 +9,7 @@ import com.tntxia.oa.warehouse.entity.PicInfo;
 import com.tntxia.oa.warehouse.entity.SupplierPrice;
 import com.tntxia.web.mvc.WebRuntime;
 /**
- * 查看仓库产品
+ * 鏌ョ湅浠撳簱浜у搧
  * 
  */
 public class WarehouseProductEditAction  extends OACommonHandler{

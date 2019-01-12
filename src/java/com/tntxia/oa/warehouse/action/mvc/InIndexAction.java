@@ -21,7 +21,7 @@ public class InIndexAction  extends HandlerWithHeaderAndLeftbar{
 		root.put("dept", dept);
 		root.put("ecompany", ecompany);
 		root.put("username", username);
-		root.put("title", "Èë¿â¹ÜÀí");
+		root.put("title", "å…¥åº“ç®¡ç†");
 		this.setLeftbar("warehouse",0,1);
 		
 		String role = runtime.getSessionStr("role");
