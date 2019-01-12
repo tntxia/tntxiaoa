@@ -15,7 +15,7 @@ import com.tntxia.oa.system.dao.CurrentTypeDao;
 import com.tntxia.oa.system.entity.CurrentType;
 
 /**
- * 货币类型Action
+ * 璐у竵绫诲瀷Action
  * 
  * @author tntxia
  *
@@ -29,7 +29,7 @@ public class CurrentTypeAction extends MultiActionController {
 	}
 	
 	/**
-	 * 列出所有的货币类型，以JSON形式返回
+	 * 鍒楀嚭鎵�鏈夌殑璐у竵绫诲瀷锛屼互JSON褰㈠紡杩斿洖
 	 * @param request
 	 * @param arg1
 	 * @return

@@ -20,7 +20,7 @@ public class ContactTemplateDao {
 	}
 
 	/**
-	 * Ä£°åÁĞ±í
+	 * æ¨¡æ¿åˆ—è¡¨
 	 * 
 	 * @return
 	 */

@@ -13,7 +13,7 @@ import com.tntxia.dbmanager.DBManager;
 import com.tntxia.oa.util.CommonAction;
 
 /**
- * 管理项Action
+ * 绠＄悊椤笰ction
  * 
  * @author tntxia
  *
@@ -27,7 +27,7 @@ public class ManageItemAction extends CommonAction {
 	}
 
 	/**
-	 * 列出所有的合同模板
+	 * 鍒楀嚭鎵�鏈夌殑鍚堝悓妯℃澘
 	 * @param request
 	 * @param arg1
 	 * @return
@@ -43,7 +43,7 @@ public class ManageItemAction extends CommonAction {
 	}
 	
 	/**
-	 * 列出所有的合同模板
+	 * 鍒楀嚭鎵�鏈夌殑鍚堝悓妯℃澘
 	 * @param request
 	 * @param arg1
 	 * @return

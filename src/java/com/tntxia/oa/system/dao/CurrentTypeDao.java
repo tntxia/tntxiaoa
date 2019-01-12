@@ -43,7 +43,7 @@ public class CurrentTypeDao {
 	}
 
 	/**
-	 * ╩У╠рап╠М
+	 * Х╢╖Е╦│Е┬≈Х║╗
 	 * 
 	 * @return
 	 */

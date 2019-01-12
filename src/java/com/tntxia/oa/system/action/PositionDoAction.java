@@ -20,7 +20,7 @@ import com.tntxia.web.mvc.WebRuntime;
 
 /**
  * 
- * Ö°Î»¹ÜÀí ¿ØÖÆÆ÷
+ * èŒä½ç®¡ç† æ§åˆ¶å™¨
  * 
  * @author tntxia
  *

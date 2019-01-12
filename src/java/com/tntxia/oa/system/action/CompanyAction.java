@@ -12,7 +12,7 @@ import com.tntxia.oa.system.dao.CompanyDao;
 import com.tntxia.oa.util.CommonAction;
 
 /**
- * 合同模板Action
+ * 鍚堝悓妯℃澘Action
  * 
  * @author tntxia
  * 
@@ -26,7 +26,7 @@ public class CompanyAction extends CommonAction {
 	}
 
 	/**
-	 * 列出所有的合同模板
+	 * 鍒楀嚭鎵�鏈夌殑鍚堝悓妯℃澘
 	 * 
 	 * @param request
 	 * @param arg1

@@ -8,7 +8,7 @@ import com.tntxia.db.DBUtil;
 
 /**
  * 
- * ÉóÅúÁ÷³Ì
+ * å®¡æ‰¹æµç¨‹
  * 
  * @author tntxia
  * 
@@ -16,7 +16,7 @@ import com.tntxia.db.DBUtil;
 public class ApprovalProcessDao {
 
 	/**
-	 * ²é¿´ÓÃ»§ÊÇ·ñ²É¹ºÉóÅúÈË
+	 * æŸ¥çœ‹ç”¨æˆ·æ˜¯å¦é‡‡è´­å®¡æ‰¹äºº
 	 * 
 	 * @param name
 	 * @return
@@ -43,14 +43,14 @@ public class ApprovalProcessDao {
 	}
 
 	/**
-	 * ²é¿´ÓÃ»§ÊÇ·ñ²É¹ºÔÙÉóÅúÈË
+	 * æŸ¥çœ‹ç”¨æˆ·æ˜¯å¦é‡‡è´­å†å®¡æ‰¹äºº
 	 * 
 	 * @param name
 	 * @return
 	 */
 	public boolean isPurchasingApprovalManFinal(String name) {
 
-		String sqlr = "select  * from cgsp where fif='ÊÇ'   and  fspman='"
+		String sqlr = "select  * from cgsp where fif='æ˜¯'   and  fspman='"
 				+ name + "' ";
 
 		DBConnection db = new DBConnection();
@@ -74,7 +74,7 @@ public class ApprovalProcessDao {
 	public boolean isContactApprovalMan(String name){
 		
 		DBConnection db = new DBConnection();
-		String sqlht="select  * from shtsp where  ifsp='ÊÇ'   and  dd_man='"+name+"' ";
+		String sqlht="select  * from shtsp where  ifsp='æ˜¯'   and  dd_man='"+name+"' ";
 		ResultSet rsht=db.executeQuery(sqlht);
 		boolean res = false;
 		try {
@@ -96,7 +96,7 @@ public class ApprovalProcessDao {
 	public boolean isContactApprovalManSec(String name){
 		
 		DBConnection db = new DBConnection();
-		String sqlht="select  * from shtsp where    iffsp='ÊÇ'   and  fsp_man='"+name+"' ";
+		String sqlht="select  * from shtsp where    iffsp='æ˜¯'   and  fsp_man='"+name+"' ";
 		ResultSet rsht=db.executeQuery(sqlht);
 		boolean res = false;
 		try {
@@ -118,7 +118,7 @@ public class ApprovalProcessDao {
 	public boolean isContactApprovalManFinal(String name){
 		
 		DBConnection db = new DBConnection();
-		String sqlht="select  * from shtsp where    firsp='ÊÇ'   and  fir_man='"+name+"' ";
+		String sqlht="select  * from shtsp where    firsp='æ˜¯'   and  fir_man='"+name+"' ";
 		ResultSet rsht=db.executeQuery(sqlht);
 		boolean res = false;
 		try {
@@ -159,7 +159,7 @@ public class ApprovalProcessDao {
 	
 	public boolean isSampleApprovalManFinal(String name){
 		DBConnection db = new DBConnection();
-		String sqlht="select  * from sam_sp where    fif='ÊÇ'   and  fspman='"+name+"'";
+		String sqlht="select  * from sam_sp where    fif='æ˜¯'   and  fspman='"+name+"'";
 		ResultSet rsht=db.executeQuery(sqlht);
 		boolean res = false;
 		try {
@@ -199,7 +199,7 @@ public class ApprovalProcessDao {
 	
 	public boolean isArrangeApprovalManFinal(String name){
 		DBConnection db = new DBConnection();
-		String sqlht="select  * from dhsp where      fif='ÊÇ'   and  fspman='"+name+"'";
+		String sqlht="select  * from dhsp where      fif='æ˜¯'   and  fspman='"+name+"'";
 		ResultSet rsht=db.executeQuery(sqlht);
 		boolean res = false;
 		try {
@@ -239,7 +239,7 @@ public class ApprovalProcessDao {
 	
 	public boolean isOrderApprovalManFinal(String name){
 		DBConnection db = new DBConnection();
-		String sqlht="select  * from ddsp where    fif='ÊÇ'   and  fspman='"+name+"'";
+		String sqlht="select  * from ddsp where    fif='æ˜¯'   and  fspman='"+name+"'";
 		ResultSet rsht=db.executeQuery(sqlht);
 		boolean res = false;
 		try {

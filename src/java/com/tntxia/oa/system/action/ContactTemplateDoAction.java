@@ -7,7 +7,7 @@ import com.tntxia.web.mvc.BaseAction;
 import com.tntxia.web.mvc.WebRuntime;
 
 /**
- * ºÏÍ¬Ä£°åAction
+ * åˆåŒæ¨¡æ¿Action
  * 
  * @author tntxia
  *
