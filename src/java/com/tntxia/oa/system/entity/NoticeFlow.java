@@ -1,7 +1,7 @@
 package com.tntxia.oa.system.entity;
 
 /**
- * 公告审批流程
+ * 鍏憡瀹℃壒娴佺▼
  * @author tntxia
  *
  */

@@ -6,7 +6,7 @@ public class User {
 	
 	private String name;
 	
-	// Ӣ����
+	// 英文名
 	private String nameEn;
 	
 	private String sex;
@@ -15,7 +15,7 @@ public class User {
 	
 	private int departmentId;
 	
-	// ְλID
+	// 职位ID
 	private int positionId;
 	
 	private String position;

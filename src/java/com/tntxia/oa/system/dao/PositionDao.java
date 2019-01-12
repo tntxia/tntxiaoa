@@ -24,7 +24,7 @@ public class PositionDao {
 	}
 
 	/**
-	 * 获取职位列表
+	 * 鑾峰彇鑱屼綅鍒楄〃
 	 * 
 	 * @return
 	 * @throws Exception 

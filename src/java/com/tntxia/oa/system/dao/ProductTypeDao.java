@@ -11,7 +11,7 @@ import com.tntxia.oa.system.entity.ProductType;
 public class ProductTypeDao {
 
 	/**
-	 * ╩У╠рап╠М
+	 * Х╢╖Е╦│Е┬≈Х║╗
 	 * 
 	 * @return
 	 */

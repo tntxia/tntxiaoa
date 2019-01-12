@@ -11,7 +11,7 @@ import com.tntxia.oa.system.entity.KnowledgeType;
 public class KnowledgeDao {
 
 	/**
-	 * 获取用户列表
+	 * 鑾峰彇鐢ㄦ埛鍒楄〃
 	 * 
 	 * @return
 	 */

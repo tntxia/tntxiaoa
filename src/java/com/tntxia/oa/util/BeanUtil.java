@@ -13,7 +13,7 @@ import com.tntxia.oa.system.entity.User;
 
 public class BeanUtil {
 
-	// Map --> Bean 1: 利用Introspector,PropertyDescriptor实现 Map --> Bean
+	// Map --> Bean 1: 鍒╃敤Introspector,PropertyDescriptor瀹炵幇 Map --> Bean
 	public static void transMap2Bean(Map<String, Object> map, Object obj) {
 
 		BeanInfo beanInfo = null;
@@ -33,7 +33,7 @@ public class BeanUtil {
 
 				if (StringUtils.equalsIgnoreCase(mapKey, key)) {
 					Object value = map.get(mapKey);
-					// 得到property对应的setter方法
+					// 寰楀埌property瀵瑰簲鐨剆etter鏂规硶
 					Method setter = property.getWriteMethod();
 					try {
 						if(value!=null){

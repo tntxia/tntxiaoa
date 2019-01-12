@@ -12,7 +12,7 @@ import com.tntxia.oa.system.entity.Role;
 public class RoleDao {
 
 	/**
-	 * 权限列表
+	 * 鏉冮檺鍒楄〃
 	 * 
 	 * @return
 	 */
