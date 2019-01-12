@@ -113,7 +113,7 @@ public class RightManager {
 		return result;
 	}
 
-	// »ñÈ¡È¨ÏŞÁĞ±í
+	// è·å–æƒé™åˆ—è¡¨
 	public ArrayList<Right> getRightList() {
 		String sql = "select * from right_list";
 
@@ -139,13 +139,13 @@ public class RightManager {
 	}
 	
 	/**
-	 * »ñÈ¡²Ö¿âÈ¨ÏŞ
-	 * @param position Ö°Î»
+	 * è·å–ä»“åº“æƒé™
+	 * @param position èŒä½
 	 * @return
 	 */
 	public List<String> getWarehouses(String position){
 		List<String> warehouses = new ArrayList<String>();
-		String sql = "select * from restrain_gp where restrain_name='"+position+"' and pro_view = 'ÓĞ'";
+		String sql = "select * from restrain_gp where restrain_name='"+position+"' and pro_view = 'æœ‰'";
 		infocrmdb db = new infocrmdb();
 		ResultSet rs = db.executeQuery(sql);
 		try {
