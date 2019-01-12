@@ -25,7 +25,7 @@ public class WarehouseStokingManager {
 	private DBConnection einfodb = new DBConnection();
 
 	/**
-	 * »ñÈ¡²Ö¿â²úÆ·ÁĞ±í
+	 * è·å–ä»“åº“äº§å“åˆ—è¡¨
 	 * 
 	 * @param filter
 	 * @return
@@ -63,14 +63,14 @@ public class WarehouseStokingManager {
 	}
 
 	/**
-	 * ²É¹º×ÜÊıÁ¿ AÊıÁ¿
+	 * é‡‡è´­æ€»æ•°é‡ Aæ•°é‡
 	 * 
 	 * @param pro_model
 	 * @return
 	 */
 	public int getCgTotalNum(String pro_model) {
 		String sql = "select sum(num) from cgpro where epro='" + pro_model
-				+ "' and ddid in (select id from procure where l_spqk='ÒÑÈë¿â' or  l_spqk='È«²¿ÍË»õ' or  l_spqk='²¿·ÖÍË»õ')";
+				+ "' and ddid in (select id from procure where l_spqk='å·²å…¥åº“' or  l_spqk='å…¨éƒ¨é€€è´§' or  l_spqk='éƒ¨åˆ†é€€è´§')";
 		ResultSet rs = einfodb.executeQuery(sql);
 		int res = 0;
 		try {
@@ -87,14 +87,14 @@ public class WarehouseStokingManager {
 	}
 
 	/**
-	 * ÏúÊÛÍË»õ×ÜÊıÁ¿ BÊıÁ¿
+	 * é”€å”®é€€è´§æ€»æ•°é‡ Bæ•°é‡
 	 * 
 	 * @param pro_model
 	 * @return
 	 */
 	public int getThProTotalNum(String pro_model) {
 		String sql = "select sum(num) from th_pro where epro='" + pro_model
-				+ "' and ddid in (select id from th_table where state='ÒÑÈë¿â')";
+				+ "' and ddid in (select id from th_table where state='å·²å…¥åº“')";
 		ResultSet rs = einfodb.executeQuery(sql);
 		int res = 0;
 		try {
@@ -111,7 +111,7 @@ public class WarehouseStokingManager {
 	}
 
 	/**
-	 * ÏúÊÛµ¥×ÜÊıÁ¿ CÊıÁ¿
+	 * é”€å”®å•æ€»æ•°é‡ Cæ•°é‡
 	 * 
 	 * @param pro_model
 	 * @return
@@ -119,7 +119,7 @@ public class WarehouseStokingManager {
 	public int getDdProTotalNum(String pro_model) {
 		String sql = "select sum(num) from ddpro where epro='"
 				+ pro_model
-				+ "' and ddid in (select id from subscribe where state='ÒÑ·¢ÔË' or state='ÒÑ³ö¿â' or state='È«²¿ÍË»õ' or state='²¿·ÖÍË»õ')";
+				+ "' and ddid in (select id from subscribe where state='å·²å‘è¿' or state='å·²å‡ºåº“' or state='å…¨éƒ¨é€€è´§' or state='éƒ¨åˆ†é€€è´§')";
 		ResultSet rs = einfodb.executeQuery(sql);
 		int res = 0;
 		try {
@@ -136,7 +136,7 @@ public class WarehouseStokingManager {
 	}
 
 	/**
-	 * ²É¹ºÍË»õµ¥×ÜÁ¿ DÊıÁ¿
+	 * é‡‡è´­é€€è´§å•æ€»é‡ Dæ•°é‡
 	 * 
 	 * @param pro_model
 	 * @return
@@ -144,7 +144,7 @@ public class WarehouseStokingManager {
 	public int getCgReturnNum(String pro_model) {
 		String sql = "select sum(num) from th_pro_supplier where epro='"
 				+ pro_model
-				+ "' and ddid in (select id from th_table_supplier where state='ÒÑ³ö¿â')";
+				+ "' and ddid in (select id from th_table_supplier where state='å·²å‡ºåº“')";
 		ResultSet rs = null;
 		int res = 0;
 		try {
@@ -165,7 +165,7 @@ public class WarehouseStokingManager {
 	}
 
 	/**
-	 * ²É¹ºÈë¿âµ¥×ÜÁ¿ ÊıÁ¿E
+	 * é‡‡è´­å…¥åº“å•æ€»é‡ æ•°é‡E
 	 * 
 	 * @param pro_model
 	 * @return
@@ -173,7 +173,7 @@ public class WarehouseStokingManager {
 	public int getRkTotalNum(String pro_model) {
 		String sql = "select sum(pro_num) from rkhouse where pro_model='"
 				+ pro_model
-				+ "' and pro_rk_num in (select id from in_warehouse where states='ÒÑÈë¿â')";
+				+ "' and pro_rk_num in (select id from in_warehouse where states='å·²å…¥åº“')";
 		ResultSet rs = einfodb.executeQuery(sql);
 		int res = 0;
 		try {
@@ -188,7 +188,7 @@ public class WarehouseStokingManager {
 	}
 
 	/**
-	 * ÏúÊÛÍË»õÈë¿âµ¥×ÜÁ¿ ÊıÁ¿F
+	 * é”€å”®é€€è´§å…¥åº“å•æ€»é‡ æ•°é‡F
 	 * 
 	 * @param pro_model
 	 * @return
@@ -211,7 +211,7 @@ public class WarehouseStokingManager {
 	}
 
 	/**
-	 * ÏúÊÛ³ö¿âµ¥×ÜÁ¿ ÊıÁ¿G
+	 * é”€å”®å‡ºåº“å•æ€»é‡ æ•°é‡G
 	 * 
 	 * @param pro_model
 	 * @return
@@ -234,7 +234,7 @@ public class WarehouseStokingManager {
 	}
 
 	/**
-	 * ÏúÊÛ³ö¿âµ¥×ÜÁ¿ ÊıÁ¿H
+	 * é”€å”®å‡ºåº“å•æ€»é‡ æ•°é‡H
 	 * 
 	 * @param pro_model
 	 * @return
@@ -258,7 +258,7 @@ public class WarehouseStokingManager {
 	}
 
 	/**
-	 * µ±Ç°Êµ¼Ê¿â´æ ÊıÁ¿I
+	 * å½“å‰å®é™…åº“å­˜ æ•°é‡I
 	 * 
 	 * @param pro_model
 	 * @return
@@ -285,9 +285,9 @@ public class WarehouseStokingManager {
 		HSSFWorkbook wb = new HSSFWorkbook();
 		HSSFSheet sheet = wb.createSheet();
 
-		String[] header = new String[] { "ĞÍºÅ", "²É¹ºµ¥ÊıÁ¿×ÜºÍ", "ÏúÊÛÍË»õÊıÁ¿×ÜºÍ",
-				"ÏúÊÛµ¥ÊıÁ¿×ÜºÍ", "²É¹ºÍË»õÊıÁ¿×ÜºÍ", "²É¹ºÈë¿âµ¥ÊıÁ¿×ÜºÍ", "ÏúÊÛÍË»õÈë¿âµ¥ÊıÁ¿×ÜºÍ", "ÏúÊÛ³ö¿âµ¥ÊıÁ¿×ÜºÍ",
-				"²É¹ºÍË»õ³ö¿âµ¥ÊıÁ¿×ÜºÍ", "ÅÌµã½á¹û", "Êµ¼Ê¿â´æ×ÜºÍ" };
+		String[] header = new String[] { "å‹å·", "é‡‡è´­å•æ•°é‡æ€»å’Œ", "é”€å”®é€€è´§æ•°é‡æ€»å’Œ",
+				"é”€å”®å•æ•°é‡æ€»å’Œ", "é‡‡è´­é€€è´§æ•°é‡æ€»å’Œ", "é‡‡è´­å…¥åº“å•æ•°é‡æ€»å’Œ", "é”€å”®é€€è´§å…¥åº“å•æ•°é‡æ€»å’Œ", "é”€å”®å‡ºåº“å•æ•°é‡æ€»å’Œ",
+				"é‡‡è´­é€€è´§å‡ºåº“å•æ•°é‡æ€»å’Œ", "ç›˜ç‚¹ç»“æœ", "å®é™…åº“å­˜æ€»å’Œ" };
 
 		HSSFRow rowHeader = sheet.createRow(0);
 
@@ -373,7 +373,7 @@ public class WarehouseStokingManager {
 	}
 
 	/**
-	 * »ñÈ¡ÅÌµãµÄÁĞ±í
+	 * è·å–ç›˜ç‚¹çš„åˆ—è¡¨
 	 * 
 	 * @param pro_addr
 	 * @param status
@@ -414,12 +414,12 @@ public class WarehouseStokingManager {
 	}
 
 	/**
-	 * ¿â´æÅÌµã
+	 * åº“å­˜ç›˜ç‚¹
 	 * 
 	 * @param pro_addr
-	 *            ²Ö¿âµØÖ·
+	 *            ä»“åº“åœ°å€
 	 * @param filePath
-	 *            µ¼³öExcelÎÄ¼şµÄÂ·¾¶
+	 *            å¯¼å‡ºExcelæ–‡ä»¶çš„è·¯å¾„
 	 */
 	public void pd() {
 
@@ -434,13 +434,13 @@ public class WarehouseStokingManager {
 		List<String[]> models = getStokingModelList();
 		for (int i = 0; i < models.size(); i++) {
 
-			// ĞŞ¸Ä½ø¶È
+			// ä¿®æ”¹è¿›åº¦
 			PdConsole.process = i * 100.0 / models.size();
 
 			PdItem pdItem = new PdItem();
 			String pro_model = models.get(i)[0];
 			String pro_addr = models.get(i)[1];
-			System.out.println("ÕıÔÚÅÌµãĞÍºÅ£º" + pro_model);
+			System.out.println("æ­£åœ¨ç›˜ç‚¹å‹å·ï¼š" + pro_model);
 			pdItem.setPro_model(pro_model);
 			pdItem.setPro_addr(pro_addr);
 			int a = getCgTotalNum(pro_model);
@@ -469,7 +469,7 @@ public class WarehouseStokingManager {
 
 			int i3 = (a + b) - (c + d);
 
-			// Èç¹ûi1=i2£¬¶øÇÒ¿â´æ>=0ÎªÕı³£µÄÅÌµã
+			// å¦‚æœi1=i2ï¼Œè€Œä¸”åº“å­˜>=0ä¸ºæ­£å¸¸çš„ç›˜ç‚¹
 			if (i1 == i2 && I >= 0 && i3 == I) {
 				pdItem.setStatus(1);
 			} else {
