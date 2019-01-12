@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<db>
+	<datasource name="default">
+		<jndi>java:comp/env/jdbc/oa</jndi>
+	</datasource>
+	<datasource name="oa_back">
+		<jndi>java:comp/env/jdbc/oa_back</jndi>
+	</datasource>
+	<datasource name="oa_report">
+		<jndi>java:comp/env/jdbc/oa_report</jndi>
+	</datasource>
+	<datasource name="system">
+		<jndi>java:comp/env/jdbc/oaSystem</jndi>
+	</datasource>
+</db>
