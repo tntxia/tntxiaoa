@@ -14,7 +14,7 @@ import com.tntxia.web.mvc.PageBean;
 import com.tntxia.web.mvc.WebRuntime;
 
 /**
- * 跳转到增加往来帐目凭证的页面
+ * 璺宠浆鍒板鍔犲線鏉ュ笎鐩嚟璇佺殑椤甸潰
  * 
  * @param request
  * @param arg1

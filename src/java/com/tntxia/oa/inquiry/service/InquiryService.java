@@ -26,7 +26,7 @@ public class InquiryService extends CommonService{
 	}
 
 	private void updateInquiry(Transaction trans, String id) throws Exception {
-		String sql = "update Inquiry_product set pro_states='ÒÑÍê³ÉÑ¯¼Û'  where  quoteid=?";
+		String sql = "update Inquiry_product set pro_states='å·²å®Œæˆè¯¢ä»·'  where  quoteid=?";
 		trans.update(sql, new Object[] { id });
 	}
 
@@ -35,7 +35,7 @@ public class InquiryService extends CommonService{
 		java.text.SimpleDateFormat simplec = new java.text.SimpleDateFormat(
 				"yyyy-MM-dd HH:mm");
 		String cd = simplec.format(new Date());
-		String sql = "update Inquiry set states='ÒÑÍê³ÉÑ¯¼Û',hf_date=?  where id=?";
+		String sql = "update Inquiry set states='å·²å®Œæˆè¯¢ä»·',hf_date=?  where id=?";
 		trans.update(sql, new Object[] { cd, id });
 	}
 
@@ -52,11 +52,11 @@ public class InquiryService extends CommonService{
 
 		String name1 = userinfo.getUsername();
 		
-		String title = "²É¹ºÒÑ»Ø¸´±àºÅÎª" + qnumber + "Ñ¯¼Ûµ¥," + name1
-				+ "×îĞÂÅúÊ¾,Çë²éÔÄ¿Í»§Ñ¯¼ÛÀ¸Ä¿£¡";
+		String title = "é‡‡è´­å·²å›å¤ç¼–å·ä¸º" + qnumber + "è¯¢ä»·å•," + name1
+				+ "æœ€æ–°æ‰¹ç¤º,è¯·æŸ¥é˜…å®¢æˆ·è¯¢ä»·æ ç›®ï¼";
 
 		String sql = "insert into sendmail(mail_to,mail_sub,mail_nr,states,mail_datetime) "
-				+ "values(?,?,'','ÒÑ·¢ËÍ',?)";
+				+ "values(?,?,'','å·²å‘é€',?)";
 		trans.update(sql, new Object[] { salesman, title, currentDate});
 	}
 	
@@ -67,13 +67,13 @@ public class InquiryService extends CommonService{
 		try {
 			return this.getInquiry(dbManager,id);
 		}catch(Exception ex){
-			logger.error("»ñÈ¡Ñ¯¼Ûµ¥ĞÅÏ¢Ê§°Ü", ex);
+			logger.error("è·å–è¯¢ä»·å•ä¿¡æ¯å¤±è´¥", ex);
 			throw ex;
 		}
 	}
 	
 	/**
-	 * Í¨ÖªÏúÊÛ²É¹ºÍê³É
+	 * é€šçŸ¥é”€å”®é‡‡è´­å®Œæˆ
 	 * @param id
 	 * @param userinfo
 	 * @throws Exception
@@ -88,7 +88,7 @@ public class InquiryService extends CommonService{
 			trans.commit();
 		} catch (Exception ex) {
 			trans.rollback();
-			logger.error("Ñ¯¼Û²É¹ºÍ¨ÖªÏúÊÛ", ex);
+			logger.error("è¯¢ä»·é‡‡è´­é€šçŸ¥é”€å”®", ex);
 			throw ex;
 		} finally {
 			trans.close();

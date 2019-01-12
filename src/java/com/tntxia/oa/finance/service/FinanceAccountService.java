@@ -10,7 +10,7 @@ public class FinanceAccountService extends CommonService {
 	private DBManager dbManager = this.getDBManager();
 	
 	/**
-	 * Í¨¹ı¿ÆÄ¿ÏêÇé£¬»ñÈ¡¿ÆÄ¿Ãû³Æ
+	 * é€šè¿‡ç§‘ç›®è¯¦æƒ…ï¼Œè·å–ç§‘ç›®åç§°
 	 * @param detail
 	 * @return
 	 * @throws Exception 
