@@ -19,7 +19,7 @@ public class CurrentService extends CommonService {
 	}
 	
 	/**
-	 * 根据货币编码，获取货币的汇率
+	 * 鏍规嵁璐у竵缂栫爜锛岃幏鍙栬揣甯佺殑姹囩巼
 	 * @param code
 	 * @return
 	 * @throws Exception 

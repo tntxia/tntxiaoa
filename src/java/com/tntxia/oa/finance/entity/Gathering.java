@@ -13,7 +13,7 @@ public class Gathering {
 	private double bank;
 	
 	/**
-	 * ÒÑÊÕ¿î
+	 * å·²æ”¶æ¬¾
 	 */
 	private double moneyGathered;
 

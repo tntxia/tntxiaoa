@@ -49,7 +49,7 @@ public class FinancePaymentDetailAction  extends OACommonHandler{
 			map.put("proPriceTotal", proPriceTotal);
 		}
 		
-		// ²É¹º½ğ¶îºÍÈë¿â½ğ¶î
+		// é‡‡è´­é‡‘é¢å’Œå…¥åº“é‡‘é¢
 		root.put("total", total);
 		root.put("stotal", stotal);
 		

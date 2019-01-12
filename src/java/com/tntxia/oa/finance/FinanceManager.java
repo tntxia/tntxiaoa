@@ -14,10 +14,10 @@ public class FinanceManager {
 	private static Logger logger = Logger.getLogger(FinanceManager.class);
 
 	/**
-	 * Í¨¹ı¶©µ¥ºÅÀ´²éÑ¯¶©µ¥µÄÊÕ¿îĞÅÏ¢
+	 * é€šè¿‡è®¢å•å·æ¥æŸ¥è¯¢è®¢å•çš„æ”¶æ¬¾ä¿¡æ¯
 	 * 
 	 * @param dd_number
-	 *            ¶©µ¥ºÅ
+	 *            è®¢å•å·
 	 * @return
 	 */
 	public String getPaymentStatus(String dd_number) {
@@ -84,7 +84,7 @@ public class FinanceManager {
 					+ currentDate
 					+ "','"
 					+ payment.getHb()
-					+ "','ÒøĞĞ×ªÕÊ','0','','0','','','´ı¸¶¿î','"
+					+ "','é“¶è¡Œè½¬å¸','0','','0','','','å¾…ä»˜æ¬¾','"
 					+ payment.getMan()
 					+ "','" + payment.getDeptjb() + "')";
 			einfodb.executeUpdate(strSQLp);
