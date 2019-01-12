@@ -3,7 +3,7 @@ package com.tntxia.oa.util;
 public class StringUtils {
 
 	/**
-	 * ·ÀÖ¹È¥µô¿Õ¸ñµÄÊ±ºò£¬³öÏÖ¿ÕÖ¸ÕëµÄÒì³£
+	 * é˜²æ­¢å»æ‰ç©ºæ ¼çš„æ—¶å€™ï¼Œå‡ºç°ç©ºæŒ‡é’ˆçš„å¼‚å¸¸
 	 * 
 	 * @param str
 	 * @return
@@ -15,7 +15,7 @@ public class StringUtils {
 	}
 
 	/**
-	 * ·ÀÖ¹È¥µô¿Õ¸ñµÄÊ±ºò£¬³öÏÖ¿ÕÖ¸ÕëµÄÒì³£
+	 * é˜²æ­¢å»æ‰ç©ºæ ¼çš„æ—¶å€™ï¼Œå‡ºç°ç©ºæŒ‡é’ˆçš„å¼‚å¸¸
 	 * 
 	 * @param str
 	 * @return
@@ -28,7 +28,7 @@ public class StringUtils {
 	}
 
 	/**
-	 * ÅĞ¶Ï×Ö·û´®ÊÇ·ñÎª¿Õ»ò¿Õ×Ö·û´®
+	 * åˆ¤æ–­å­—ç¬¦ä¸²æ˜¯å¦ä¸ºç©ºæˆ–ç©ºå­—ç¬¦ä¸²
 	 * 
 	 * @param str
 	 * @return
@@ -38,7 +38,7 @@ public class StringUtils {
 	}
 
 	/**
-	 * ÅĞ¶ÏÊÇ·ñÎª×Ö·û´®µÄ¡°ÓĞ¡±£¬ÊÇµÄ»°·µ»Øchecked;
+	 * åˆ¤æ–­æ˜¯å¦ä¸ºå­—ç¬¦ä¸²çš„â€œæœ‰â€ï¼Œæ˜¯çš„è¯è¿”å›checked;
 	 * 
 	 * @param str
 	 * @return
@@ -49,7 +49,7 @@ public class StringUtils {
 		}
 		String result = "";
 		String workadd = str.trim();
-		if (workadd.equals("ÓĞ")) {
+		if (workadd.equals("æœ‰")) {
 			result = "checked";
 		}
 		return result;

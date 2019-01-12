@@ -6,7 +6,7 @@ import java.util.Map;
 public class MapUtils {
 	
 	/**
-	 * °ÑMapÀïÃæËùÓĞÖµÎª¿ÕµÄ£¬¶¼ÖÃÎª¿ÕµÄ×Ö·û´®
+	 * æŠŠMapé‡Œé¢æ‰€æœ‰å€¼ä¸ºç©ºçš„ï¼Œéƒ½ç½®ä¸ºç©ºçš„å­—ç¬¦ä¸²
 	 * @param map
 	 */
 	public static void escapeNull(Map<String,Object> map){

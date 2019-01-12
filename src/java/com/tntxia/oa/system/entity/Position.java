@@ -3,7 +3,7 @@ package com.tntxia.oa.system.entity;
 import java.util.Date;
 
 /**
- * 用户职位
+ * 鐢ㄦ埛鑱屼綅
  * @author tntxia
  *
  */

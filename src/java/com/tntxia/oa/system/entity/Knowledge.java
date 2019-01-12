@@ -6,7 +6,7 @@ public class Knowledge {
 	
 	private String name;
 	
-	// Ó¢ÎÄÃû
+	// è‹±æ–‡å
 	private String nameEn;
 	
 	private String sex;

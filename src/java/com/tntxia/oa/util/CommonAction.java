@@ -205,7 +205,7 @@ public class CommonAction extends MultiActionController {
 	}
 	
 	/**
-	 * ÊÇ·ñ´æÔÚ²Ö¿âµÄÈ¨ÏŞ
+	 * æ˜¯å¦å­˜åœ¨ä»“åº“çš„æƒé™
 	 * @param request
 	 * @param right
 	 * @param warehouse
@@ -232,7 +232,7 @@ public class CommonAction extends MultiActionController {
 	}
 	
 	/**
-	 * ÊÇ·ñ´æÔÚ²Ö¿âµÄÈ¨ÏŞ
+	 * æ˜¯å¦å­˜åœ¨ä»“åº“çš„æƒé™
 	 * @param request
 	 * @param right
 	 * @param warehouse

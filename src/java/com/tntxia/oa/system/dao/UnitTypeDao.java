@@ -11,7 +11,7 @@ import com.tntxia.oa.system.entity.UnitType;
 public class UnitTypeDao {
 
 	/**
-	 * ╩У╠рап╠М
+	 * Х╢╖Е╦│Е┬≈Х║╗
 	 * 
 	 * @return
 	 */
