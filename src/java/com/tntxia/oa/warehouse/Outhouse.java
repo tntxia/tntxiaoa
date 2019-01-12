@@ -15,7 +15,7 @@ public class Outhouse {
 	private String remark;
 	
 	/**
-	 * ²Ù×÷ÈË
+	 * æ“ä½œäºº
 	 */
 	private String man;
 

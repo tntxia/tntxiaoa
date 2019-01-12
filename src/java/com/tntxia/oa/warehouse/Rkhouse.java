@@ -40,7 +40,7 @@ public class Rkhouse {
 	
 	private String pro_hb;
 	
-	// 采购产品的ID
+	// 閲囪喘浜у搧鐨処D
 	private int cgproId;
 	
 	private int status;

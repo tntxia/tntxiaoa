@@ -25,19 +25,19 @@ public class WarehouseManager {
 	private static List<String> productInList = new ArrayList<String>();
 
 	/**
-	 * Ôö¼ÓËø£¬·ÀÖ¹ÖØ¸´Ìá½»
+	 * å¢åŠ é”ï¼Œé˜²æ­¢é‡å¤æäº¤
 	 * 
 	 * @param number
 	 */
 	private void addLock(String number) throws Exception{
 		if (productInList.contains(number)) {
-			throw new Exception("Èë¿â±àÂëÒÑ¾­´æÔÚ");
+			throw new Exception("å…¥åº“ç¼–ç å·²ç»å­˜åœ¨");
 		}
 		productInList.add(number);
 	}
 
 	/**
-	 * ¼ì²éÊÇ·ñÓĞËø
+	 * æ£€æŸ¥æ˜¯å¦æœ‰é”
 	 * 
 	 * @param number
 	 * @return
@@ -47,7 +47,7 @@ public class WarehouseManager {
 	}
 
 	/**
-	 * ÒÆ³ıËø
+	 * ç§»é™¤é”
 	 * 
 	 * @param number
 	 */
@@ -55,7 +55,7 @@ public class WarehouseManager {
 		productInList.remove(number);
 	}
 
-	// ¶ÔÓÚÈë¿âĞÅÏ¢µÄ¼ÇÂ¼
+	// å¯¹äºå…¥åº“ä¿¡æ¯çš„è®°å½•
 	public void logWarehouseIn(String pro_model, String operateMan,
 			String remark) {
 
@@ -71,7 +71,7 @@ public class WarehouseManager {
 		db.close();
 	}
 
-	// Í¨¹ıĞÍºÅ²éÑ¯³ö²úÆ·ÔÚ²Ö¿âÖĞµÄÊıÁ¿
+	// é€šè¿‡å‹å·æŸ¥è¯¢å‡ºäº§å“åœ¨ä»“åº“ä¸­çš„æ•°é‡
 	public Warehouse getWarehouseSingle(String pro_model) throws SQLException {
 		infocrmdb einfodb = new infocrmdb();
 		String strSQL = "select top 1 id,pro_number,pro_model,pro_gg,pro_name,pro_sup_number,yqdate,pro_secid,pro_supplier,pro_num,pro_unit,pro_min_num,pro_price,price_hb,saleprice,pro_yyfw,pro_addr,pro_remark from warehouse where pro_model='"
@@ -92,7 +92,7 @@ public class WarehouseManager {
 		return warehouse;
 	}
 
-	// Í¨¹ıĞÍºÅ²éÑ¯³ö²úÆ·ÔÚ²Ö¿âÖĞµÄÊıÁ¿
+	// é€šè¿‡å‹å·æŸ¥è¯¢å‡ºäº§å“åœ¨ä»“åº“ä¸­çš„æ•°é‡
 	public Warehouse getWarehouseExistSingle(String pro_model)
 			throws SQLException {
 		infocrmdb einfodb = new infocrmdb();
@@ -115,7 +115,7 @@ public class WarehouseManager {
 		return warehouse;
 	}
 
-	// Í¨¹ıĞÍºÅ²éÑ¯³ö²úÆ·ÔÚ²Ö¿âÖĞµÄÊıÁ¿
+	// é€šè¿‡å‹å·æŸ¥è¯¢å‡ºäº§å“åœ¨ä»“åº“ä¸­çš„æ•°é‡
 	public Warehouse getWarehouse(String pro_model, String filter)
 			throws SQLException {
 		infocrmdb einfodb = new infocrmdb();
@@ -279,7 +279,7 @@ public class WarehouseManager {
 	}
 
 	/**
-	 * Í¨¹ı²Ö¿â²úÆ·µÄIDÀ´²éÑ¯²úÆ·ĞÅÏ¢
+	 * é€šè¿‡ä»“åº“äº§å“çš„IDæ¥æŸ¥è¯¢äº§å“ä¿¡æ¯
 	 * 
 	 * @param id
 	 * @return
@@ -443,7 +443,7 @@ public class WarehouseManager {
 
 		String sql = "select top 8 id,pro_addr,pro_model,pro_sup_number,pro_gg,pro_num,pro_remark from warehouse where pro_model like '"
 				+ productName
-				+ "' and pro_remark not like 'ÍË»õ:%' and pro_num > 0";
+				+ "' and pro_remark not like 'é€€è´§:%' and pro_num > 0";
 		infocrmdb einfodb = new infocrmdb();
 		ResultSet rs = einfodb.executeQuery(sql);
 
@@ -621,7 +621,7 @@ public class WarehouseManager {
 	}
 
 	/**
-	 * »ñÈ¡²Ö¿â²úÆ·ÁĞ±í
+	 * è·å–ä»“åº“äº§å“åˆ—è¡¨
 	 * 
 	 * @param filter
 	 * @return
@@ -693,7 +693,7 @@ public class WarehouseManager {
 	}
 
 	/**
-	 * Ôö¼ÓÒ»¸ö²Ö¿â²úÆ·
+	 * å¢åŠ ä¸€ä¸ªä»“åº“äº§å“
 	 * 
 	 * @param warehouse
 	 */
@@ -908,12 +908,12 @@ public class WarehouseManager {
 
 	/**
 	 * 
-	 * ¼ì²éÊÇ·ñÓĞ²Ö¿âµÄÈ¨ÏŞ
+	 * æ£€æŸ¥æ˜¯å¦æœ‰ä»“åº“çš„æƒé™
 	 * 
 	 * @param restrainName
-	 *            È¨ÏŞÃû³Æ
+	 *            æƒé™åç§°
 	 * @param warehouseName
-	 *            ²Ö¿âÃû³Æ
+	 *            ä»“åº“åç§°
 	 * @return
 	 */
 	public String checkRestrain(String restrainName, String warehouseName)
@@ -938,7 +938,7 @@ public class WarehouseManager {
 	}
 
 	/**
-	 * È¡ÏûÈë¿âµ¥
+	 * å–æ¶ˆå…¥åº“å•
 	 * 
 	 * @param id
 	 */
@@ -947,7 +947,7 @@ public class WarehouseManager {
 	}
 
 	/**
-	 * »ñÈ¡Èë¿âµ¥ĞÅÏ¢
+	 * è·å–å…¥åº“å•ä¿¡æ¯
 	 * 
 	 * @param id
 	 * @return
@@ -980,7 +980,7 @@ public class WarehouseManager {
 
 	/**
 	 * 
-	 * ¸ø³öÈë¿âµÄĞÅÏ¢Ôö¼ÓÈÕÖ¾
+	 * ç»™å‡ºå…¥åº“çš„ä¿¡æ¯å¢åŠ æ—¥å¿—
 	 * 
 	 */
 	public void addWarehouseInOutLog(int orginNum, int changeNum,
@@ -988,7 +988,7 @@ public class WarehouseManager {
 
 		String logSql = "insert into warehouse_in_out_log([number],[orgin_num],[change_num],[final_num],[operateTime],[operater],[wid],[rk_id]) values(?,?,?,?,getdate(),?,?,?)";
 
-		// ĞÂ½¨Ò»¸ö£Ê£Ä£Â£Ã·şÎñµÄ¶ÔÏó
+		// æ–°å»ºä¸€ä¸ªï¼ªï¼¤ï¼¢ï¼£æœåŠ¡çš„å¯¹è±¡
 		DBConnection db = new DBConnection();
 		List<Object> params = new ArrayList<Object>();
 		params.add(number);
@@ -1003,7 +1003,7 @@ public class WarehouseManager {
 	}
 
 	/**
-	 * Èë¿â
+	 * å…¥åº“
 	 * 
 	 * @param id1
 	 * @param username
@@ -1018,7 +1018,7 @@ public class WarehouseManager {
 		try{
 			
 			if(username==null){
-				return  "ÓÃ»§»¹Ã»ÓĞµÇÂ½";
+				return  "ç”¨æˆ·è¿˜æ²¡æœ‰ç™»é™†";
 			}
 			
 			Date date = new Date(System.currentTimeMillis());
@@ -1027,37 +1027,37 @@ public class WarehouseManager {
 
 			
 
-			// µ±Ç°Ê±¼ä
+			// å½“å‰æ—¶é—´
 			java.text.SimpleDateFormat simple1 = new java.text.SimpleDateFormat(
 					"yyyy-MM-dd");
 			String pro_datetime1 = simple1.format(new java.util.Date());
 
-			// ÓÃÀ´¼ÇÂ¼½á¹û£¬½á¹ûÎª¿ÕÊ±£¬±íÊ¾³É¹¦Èë¿â
-			// ·ñÔò£¬Ó¦¸Ã¶ÔÈë¿â½á¹û½øĞĞ´¦Àí
+			// ç”¨æ¥è®°å½•ç»“æœï¼Œç»“æœä¸ºç©ºæ—¶ï¼Œè¡¨ç¤ºæˆåŠŸå…¥åº“
+			// å¦åˆ™ï¼Œåº”è¯¥å¯¹å…¥åº“ç»“æœè¿›è¡Œå¤„ç†
 			String msg = "";
 			
 			if (checkLock(id1)) {
-				msg = "¸ÃÈë¿âµ¥ÕıÔÚÈë¿âÖĞ£¬ÇëÎğÖØ¸´Ìá½»";
+				msg = "è¯¥å…¥åº“å•æ­£åœ¨å…¥åº“ä¸­ï¼Œè¯·å‹¿é‡å¤æäº¤";
 				System.out.println(msg);
 				return msg;
 			}
 			
 			addLock(id1);
 			
-			// ĞÂ½¨Ò»¸ö£Ê£Ä£Â£Ã·şÎñµÄ¶ÔÏó
+			// æ–°å»ºä¸€ä¸ªï¼ªï¼¤ï¼¢ï¼£æœåŠ¡çš„å¯¹è±¡
 			DBConnection db = new DBConnection();
 			
 			
 			InWarehouse inWarehouse = getInWarehouseById(id1);
-			if (inWarehouse.getStates().trim().equals("ÒÑÈë¿â")) {
-				msg = "¶Ô²»ÆğÄãÒÑ¾­Ìá½»ÁËÈë¿âÈ·ÈÏ£¬Çë²»ÒªÖØ¸´Ìá½»£¬»ò²é¿´ÊÇ·ñÉèÖÃÁËIE»º´æ£¬Ğ»Ğ»£¡";
+			if (inWarehouse.getStates().trim().equals("å·²å…¥åº“")) {
+				msg = "å¯¹ä¸èµ·ä½ å·²ç»æäº¤äº†å…¥åº“ç¡®è®¤ï¼Œè¯·ä¸è¦é‡å¤æäº¤ï¼Œæˆ–æŸ¥çœ‹æ˜¯å¦è®¾ç½®äº†IEç¼“å­˜ï¼Œè°¢è°¢ï¼";
 				System.out.println(msg);
 				return msg;
 			}
 
 			List<Rkhouse> rkhouseList = getRkhouse(id1);
 
-			// Èë¿âµ¥±àºÅ
+			// å…¥åº“å•ç¼–å·
 			String inWarehouseNumber = inWarehouse.getNumber();
 
 			for(Rkhouse rkhouse : rkhouseList) { // 1
@@ -1100,7 +1100,7 @@ public class WarehouseManager {
 
 				ResultSet rs = db.executeQuery(sql);
 
-				// Èç¹û²úÆ·ÒÑ¾­Èë¿âµÄÇé¿öÏÂ£¬¸üĞÂ¿âĞÅÏ¢
+				// å¦‚æœäº§å“å·²ç»å…¥åº“çš„æƒ…å†µä¸‹ï¼Œæ›´æ–°åº“ä¿¡æ¯
 				if (rs.next()) {// 2
 					int wid = rs.getInt("id");
 					double pro_num = rs.getDouble("pro_num");
@@ -1137,14 +1137,14 @@ public class WarehouseManager {
 							+ remark + "' ";
 					boolean up = db.executeUpdate(upsql);
 					if (!up) {
-						msg = "<font size='2' color='#FF0000'>¸üĞÂ¿â´æÊ§°Ü,ÄãËùÊäÈëµÄÄÚÈİ³¬³öÏµÍ³·¶Î§»òÊäÈëÀàĞÍ²»·û!1111111111111</font>";
+						msg = "<font size='2' color='#FF0000'>æ›´æ–°åº“å­˜å¤±è´¥,ä½ æ‰€è¾“å…¥çš„å†…å®¹è¶…å‡ºç³»ç»ŸèŒƒå›´æˆ–è¾“å…¥ç±»å‹ä¸ç¬¦!1111111111111</font>";
 						return msg;
 					}
 					addWarehouseInOutLog((int) pro_num, num1, inWarehouseNumber,
 							username, wid);
 
 				}
-				// ĞÂÔöÒ»Ìõ¿âĞÅÏ¢
+				// æ–°å¢ä¸€æ¡åº“ä¿¡æ¯
 				else {
 					String name1 = username;
 					String strSQLrw = "insert into warehouse(pro_model,pro_gg,pro_name,"
@@ -1175,13 +1175,13 @@ public class WarehouseManager {
 							+ remark
 							+ "','0','0','','','"
 							+ pro_sup_number
-							+ "','0','0','³£Ïú²úÆ·','0','0','"
+							+ "','0','0','å¸¸é”€äº§å“','0','0','"
 							+ pro_datetime1
 							+ "','"
 							+ name1 + "','','','','1','0','0',null,'','')";
 					boolean trw = db.executeUpdate(strSQLrw);
 					if (!trw) {
-						msg = "²åÈë²Ö¿âÊ§°Ü";
+						msg = "æ’å…¥ä»“åº“å¤±è´¥";
 						return msg;
 					}
 					int wid = db.getIdenty("warehouse");
@@ -1191,31 +1191,31 @@ public class WarehouseManager {
 
 				SendMail sendmail = new SendMail();
 
-				// Èç¹û²é²»µ½¸ºÔğÈË£¬Ôò²»»á·¢ÓÊ¼ş
+				// å¦‚æœæŸ¥ä¸åˆ°è´Ÿè´£äººï¼Œåˆ™ä¸ä¼šå‘é‚®ä»¶
 				if (cgname != null && cgname.trim().length() != 0) {
-					String content = ""; // ÓÊ¼şÄÚÈİ
+					String content = ""; // é‚®ä»¶å†…å®¹
 
-					String title = ""; // ÓÊ¼ş±êÌâ
-					// ÔÚÄÚÈİÀïÃæ¼ÓÉÏ²É¹º¶©µ¥ºÅ¡¢¹©Ó¦ÉÌÃû³Æ¡¢ĞÍºÅ¡¢Æ·ÅÆ¡¢·â×°¡¢Äê·İ¡¢ÊıÁ¿
-					content += "²É¹º¶©µ¥ºÅÎª£º"
+					String title = ""; // é‚®ä»¶æ ‡é¢˜
+					// åœ¨å†…å®¹é‡Œé¢åŠ ä¸Šé‡‡è´­è®¢å•å·ã€ä¾›åº”å•†åç§°ã€å‹å·ã€å“ç‰Œã€å°è£…ã€å¹´ä»½ã€æ•°é‡
+					content += "é‡‡è´­è®¢å•å·ä¸ºï¼š"
 							+ cgNumber
-							+ ",¹©Ó¦ÉÌÎª£º"
+							+ ",ä¾›åº”å•†ä¸ºï¼š"
 							+ pro_supplier
-							+ ",ĞÍºÅÎª£º"
+							+ ",å‹å·ä¸ºï¼š"
 							+ pro_model1
-							+ "£¬Æ·ÅÆÎª£º"
+							+ "ï¼Œå“ç‰Œä¸ºï¼š"
 							+ pro_sup_number
-							+ "£¬·â×°£º"
+							+ "ï¼Œå°è£…ï¼š"
 							+ pro_number
-							+ "£¬Äê·İ£º"
+							+ "ï¼Œå¹´ä»½ï¼š"
 							+ pro_name
-							+ "£¬ÊıÁ¿:"
+							+ "ï¼Œæ•°é‡:"
 							+ num1
-							+ ",<br>Çë¼°Ê±Îª¹©Ó¦ÉÌÆÀ·Ö£¬<a href=\"/supplier/pf.jsp?co_number="
+							+ ",<br>è¯·åŠæ—¶ä¸ºä¾›åº”å•†è¯„åˆ†ï¼Œ<a href=\"/supplier/pf.jsp?co_number="
 							+ sp_number + "&co_name=" + pro_supplier
-							+ "\">¹©Ó¦ÉÌÆÀ·Ö</a>";
+							+ "\">ä¾›åº”å•†è¯„åˆ†</a>";
 
-					title += pro_supplier + "," + pro_model1 + "," + num1 + "ÒÑÈë¿â"; // ÔÚÓÊ¼ş±êÌâ¼ÓÉÏ¹©Ó¦ÉÌ¡¢ĞÍºÅ¡¢ÊıÁ¿
+					title += pro_supplier + "," + pro_model1 + "," + num1 + "å·²å…¥åº“"; // åœ¨é‚®ä»¶æ ‡é¢˜åŠ ä¸Šä¾›åº”å•†ã€å‹å·ã€æ•°é‡
 
 					sendmail.sendMail(title, content, cgname, username);
 
@@ -1226,11 +1226,11 @@ public class WarehouseManager {
 			}// 1
 
 			//
-			String supsql = "update in_warehouse set states='ÒÑÈë¿â'  where id='"
+			String supsql = "update in_warehouse set states='å·²å…¥åº“'  where id='"
 					+ id1 + "'";
 			boolean sups = db.executeUpdate(supsql);
 			if (!sups) {
-				msg = "<font size='2' color='#FF0000'>¸üĞÂÈë¿âµ¥Ê§°Ü,ÄãËùÊäÈëµÄÄÚÈİ³¬³öÏµÍ³·¶Î§»òÊäÈëÀàĞÍ²»·û!</font>";
+				msg = "<font size='2' color='#FF0000'>æ›´æ–°å…¥åº“å•å¤±è´¥,ä½ æ‰€è¾“å…¥çš„å†…å®¹è¶…å‡ºç³»ç»ŸèŒƒå›´æˆ–è¾“å…¥ç±»å‹ä¸ç¬¦!</font>";
 				return msg;
 			}
 
@@ -1264,7 +1264,7 @@ public class WarehouseManager {
 	}
 
 	private List<String> getListFromStoken(String str) {
-		// ²úÆ·±àºÅµÄÊı×é
+		// äº§å“ç¼–å·çš„æ•°ç»„
 		List<String> res = new ArrayList<String>();
 		if (str.trim().length() > 0) {
 			for (String wid : str.split(",")) {
@@ -1276,7 +1276,7 @@ public class WarehouseManager {
 
 	/**
 	 * 
-	 * È«²¿ÏúÊÛ²úÆ·³ö¿â
+	 * å…¨éƒ¨é”€å”®äº§å“å‡ºåº“
 	 * 
 	 * @param username
 	 * @param ddid1
@@ -1292,15 +1292,15 @@ public class WarehouseManager {
 		String msg = null;
 
 		/**
-		 * ¼ì²éÊÇ·ñÓĞÖØ¸´²Ù×÷
+		 * æ£€æŸ¥æ˜¯å¦æœ‰é‡å¤æ“ä½œ
 		 */
 		if (checkLock(ddid)) {
-			msg = ddid + "ÕıÔÚ×öÈ«²¿³ö¿â²Ù×÷£¬ÇëÎğÖØ¸´²Ù×÷";
+			msg = ddid + "æ­£åœ¨åšå…¨éƒ¨å‡ºåº“æ“ä½œï¼Œè¯·å‹¿é‡å¤æ“ä½œ";
 			return msg;
 		}
 		
 		try{
-			// ²úÆ·±àºÅµÄÊı×é
+			// äº§å“ç¼–å·çš„æ•°ç»„
 			List<String> widList = getListFromStoken(wids);
 
 			List<String> sidList = getListFromStoken(sids);
@@ -1308,13 +1308,13 @@ public class WarehouseManager {
 			SaleManager saleManager = new SaleManager();
 
 			if (widList.size() != sidList.size()) {
-				msg = "³ö¿âµÄÑ¡ÔñÓëÏúÊÛ²úÆ·²»Ò»ÖÂ£¬ÇëË¢ĞÂÒ³ÃæºóÖØÊÔ";
+				msg = "å‡ºåº“çš„é€‰æ‹©ä¸é”€å”®äº§å“ä¸ä¸€è‡´ï¼Œè¯·åˆ·æ–°é¡µé¢åé‡è¯•";
 				return msg;
 			}
 
 			addLock(ddid);
 
-			// ĞÂ½¨Ò»¸ö£Ê£Ä£Â£Ã·şÎñµÄ¶ÔÏó
+			// æ–°å»ºä¸€ä¸ªï¼ªï¼¤ï¼¢ï¼£æœåŠ¡çš„å¯¹è±¡
 			DBConnection db = new DBConnection();
 
 			SimpleDateFormat simplew = new SimpleDateFormat("yyMMdd");
@@ -1330,7 +1330,7 @@ public class WarehouseManager {
 			ResultSet rsdd = db.executeQuery(sqldd);
 			try {
 				if (!rsdd.next()) {
-					msg = "ÏúÊÛ¶©µ¥²»´æÔÚ£¬Çë¼ì²éÏúÊÛ¶©µ¥ÊÇ·ñ±»É¾³ı£¡";
+					msg = "é”€å”®è®¢å•ä¸å­˜åœ¨ï¼Œè¯·æ£€æŸ¥é”€å”®è®¢å•æ˜¯å¦è¢«åˆ é™¤ï¼";
 					removeLock(ddid);
 					return msg;
 				}
@@ -1355,8 +1355,8 @@ public class WarehouseManager {
 				for (int i = 0; i < sidList.size(); i++) {
 					String sid = sidList.get(i);
 					SalePro salePro = saleManager.getSalePro(sid);
-					// ¼ì²éÏúÊÛ¶©µ¥ÖĞÊÇ·ñÓĞÎ´³ö¿â²úÆ·
-					// ÓĞÎ´³ö¿â²úÆ·£¬È«²¿³ö¿â
+					// æ£€æŸ¥é”€å”®è®¢å•ä¸­æ˜¯å¦æœ‰æœªå‡ºåº“äº§å“
+					// æœ‰æœªå‡ºåº“äº§å“ï¼Œå…¨éƒ¨å‡ºåº“
 					if (salePro.getNum() != salePro.getS_num()) {
 
 						int ddproid = salePro.getId();
@@ -1375,7 +1375,7 @@ public class WarehouseManager {
 							fy_states = salePro.getFy_states().trim();
 						}
 
-						if (fy_states.equals("´ı·¢ÔË")) {
+						if (fy_states.equals("å¾…å‘è¿")) {
 							n_num = n_num + s_c_num;
 						}
 						String punit = salePro.getUnit();
@@ -1389,8 +1389,8 @@ public class WarehouseManager {
 
 						ResultSet rs = db.executeQuery(sql);
 						if (!rs.next()) {
-							msg = selectedSwid + "ÔİÎŞ¸Ã²úÆ·:";
-							msg += "ĞÍºÅÊÇ:" + pro_model + "ÅúºÅÊÇ:" + pro_name;
+							msg = selectedSwid + "æš‚æ— è¯¥äº§å“:";
+							msg += "å‹å·æ˜¯:" + pro_model + "æ‰¹å·æ˜¯:" + pro_name;
 							removeLock(ddid);
 							return msg;
 						}
@@ -1401,7 +1401,7 @@ public class WarehouseManager {
 						String price_hb = rs.getString("price_hb");
 						int zpro_num = pro_num - n_num1;
 						if (zpro_num < 0) {
-							msg = "¿â´æ²»×ã";
+							msg = "åº“å­˜ä¸è¶³";
 							removeLock(ddid);
 							return msg;
 						}
@@ -1412,7 +1412,7 @@ public class WarehouseManager {
 						String tr_types = "";
 
 						String sqltrdd = "select  * from transportation where invoice='"
-								+ fynumber + "'  and sate='·¢ÔËÍ¨Öªµ¥'";
+								+ fynumber + "'  and sate='å‘è¿é€šçŸ¥å•'";
 						ResultSet rstrr = db.executeQuery(sqltrdd);
 						if (!rstrr.next()) {
 							String strSQLw = "select  *  from transportation where tr_types like '"
@@ -1462,7 +1462,7 @@ public class WarehouseManager {
 									+ datet
 									+ "','','"
 									+ sales_man
-									+ "','','·¢ÔËÍ¨Öªµ¥','','0','0','','','"
+									+ "','','å‘è¿é€šçŸ¥å•','','0','0','','','"
 									+ sales_man
 									+ "','"
 									+ dept
@@ -1480,7 +1480,7 @@ public class WarehouseManager {
 									+ remark + "','','" + tno + "','')";
 							boolean tfy = db.executeUpdate(strSQLfy);
 							if (!tfy) {
-								msg = "·¢ÔËÊ§°Ü,ÄãËùÊäÈëµÄÄÚÈİ³¬³öÏµÍ³·¶Î§»òÊäÈëÀàĞÍ²»·û!";
+								msg = "å‘è¿å¤±è´¥,ä½ æ‰€è¾“å…¥çš„å†…å®¹è¶…å‡ºç³»ç»ŸèŒƒå›´æˆ–è¾“å…¥ç±»å‹ä¸ç¬¦!";
 								removeLock(ddid);
 								return msg;
 							}
@@ -1490,7 +1490,7 @@ public class WarehouseManager {
 							boolean tssu = db.executeUpdate(ddsqls);
 
 							if (!tssu) {
-								msg = "¸üĞÂÊ§°Ü,ÄãËùÊäÈëµÄÄÚÈİ³¬³öÏµÍ³·¶Î§»òÊäÈëÀàĞÍ²»·û!";
+								msg = "æ›´æ–°å¤±è´¥,ä½ æ‰€è¾“å…¥çš„å†…å®¹è¶…å‡ºç³»ç»ŸèŒƒå›´æˆ–è¾“å…¥ç±»å‹ä¸ç¬¦!";
 								removeLock(ddid);
 								return msg;
 							}
@@ -1512,7 +1512,7 @@ public class WarehouseManager {
 						Connection conn = db.getConnectionObject();
 						if (conn == null) {
 							removeLock(ddid);
-							return "Êı¾İ¿âÁ¬½ÓÎŞ·¨»ñÈ¡";
+							return "æ•°æ®åº“è¿æ¥æ— æ³•è·å–";
 						}
 
 						try {
@@ -1522,14 +1522,14 @@ public class WarehouseManager {
 									+ "','" + pro_name + "','" + n_num1 + "','"
 									+ punit + "','" + supplier + "','"
 									+ currentDate + "','" + pro_number + "','"
-									+ username + "','" + proaddr + "','ÒÑ³ö¿â','"
+									+ username + "','" + proaddr + "','å·²å‡ºåº“','"
 									+ ddid + "','" + p_check + "','"+wid+"','"
 									+ co_number + "','" + saleprice + "','"
 									+ salehb + "','" + wid + "','" + items + "','"
 									+ tr_types + "','" + tno + "',0)";
 							boolean tq = db.executeUpdate(strSQLq);
 							if (!tq) {
-								msg = "Ìí¼Ó³ö¿âµ¥Ê§°Ü,ÄãËùÊäÈëµÄÄÚÈİ³¬³öÏµÍ³·¶Î§»òÊäÈëÀàĞÍ²»·û!";
+								msg = "æ·»åŠ å‡ºåº“å•å¤±è´¥,ä½ æ‰€è¾“å…¥çš„å†…å®¹è¶…å‡ºç³»ç»ŸèŒƒå›´æˆ–è¾“å…¥ç±»å‹ä¸ç¬¦!";
 								removeLock(ddid);
 								return msg;
 							}
@@ -1537,7 +1537,7 @@ public class WarehouseManager {
 									+ zpro_num + "'  where  id=" + selectedSwid;
 							boolean tw = db.executeUpdate(strSQLw);
 							if (!tw) {
-								msg = "¸üĞÂ¿â´æÊ§°Ü,ÄãËùÊäÈëµÄÄÚÈİ³¬³öÏµÍ³·¶Î§»òÊäÈëÀàĞÍ²»·û!";
+								msg = "æ›´æ–°åº“å­˜å¤±è´¥,ä½ æ‰€è¾“å…¥çš„å†…å®¹è¶…å‡ºç³»ç»ŸèŒƒå›´æˆ–è¾“å…¥ç±»å‹ä¸ç¬¦!";
 								removeLock(ddid);
 								return msg;
 							}
@@ -1545,11 +1545,11 @@ public class WarehouseManager {
 									+ pro_price + "',money='" + price_hb
 									+ "',s_num='" + num + "',s_c_num='" + n_num1
 									+ "',s_tr_date='" + currentDate
-									+ "',fy_states='´ı·¢ÔË'  where id='" + ddproid
+									+ "',fy_states='å¾…å‘è¿'  where id='" + ddproid
 									+ "' ";
 							boolean twf = db.executeUpdate(strSQLwf);
 							if (!twf) {
-								msg = "¸üĞÂÊ§°Ü,ÄãËùÊäÈëµÄÄÚÈİ³¬³öÏµÍ³·¶Î§»òÊäÈëÀàĞÍ²»·û!";
+								msg = "æ›´æ–°å¤±è´¥,ä½ æ‰€è¾“å…¥çš„å†…å®¹è¶…å‡ºç³»ç»ŸèŒƒå›´æˆ–è¾“å…¥ç±»å‹ä¸ç¬¦!";
 								return msg;
 							}
 							conn.commit();
@@ -1561,21 +1561,21 @@ public class WarehouseManager {
 							conn.rollback();
 							e.printStackTrace();
 							removeLock(ddid);
-							return "²Ù×÷Òì³£";
+							return "æ“ä½œå¼‚å¸¸";
 						}
 
 					}
 				}
-				String ddsqls1 = "update subscribe set state='ÒÑ·¢ÔË'  where id='"
+				String ddsqls1 = "update subscribe set state='å·²å‘è¿'  where id='"
 						+ ddid + "'";
 				boolean tssu1 = db.executeUpdate(ddsqls1);
 
 				if (!tssu1) {
-					msg = "¸üĞÂÊ§°Ü,ÄãËùÊäÈëµÄÄÚÈİ³¬³öÏµÍ³·¶Î§»òÊäÈëÀàĞÍ²»·û!";
+					msg = "æ›´æ–°å¤±è´¥,ä½ æ‰€è¾“å…¥çš„å†…å®¹è¶…å‡ºç³»ç»ŸèŒƒå›´æˆ–è¾“å…¥ç±»å‹ä¸ç¬¦!";
 				}
 			} catch (SQLException e1) {
 				e1.printStackTrace();
-				msg = "Êı¾İ¿â²Ù×÷Òì³£";
+				msg = "æ•°æ®åº“æ“ä½œå¼‚å¸¸";
 			}
 			removeLock(ddid);
 			db.close();
@@ -1591,7 +1591,7 @@ public class WarehouseManager {
 	}
 
 	/**
-	 * µ¥¸ö²úÆ·³ö¿â
+	 * å•ä¸ªäº§å“å‡ºåº“
 	 * 
 	 * @param username
 	 * @param id
@@ -1608,35 +1608,35 @@ public class WarehouseManager {
 		String msg = null;
 
 		/**
-		 * ¼ì²éÊÇ·ñÓĞÖØ¸´²Ù×÷
+		 * æ£€æŸ¥æ˜¯å¦æœ‰é‡å¤æ“ä½œ
 		 */
 		if (checkLock(id)) {
-			msg = id + "ÕıÔÚ×öµ¥¸ö³ö¿â²Ù×÷£¬ÇëÎğÖØ¸´²Ù×÷";
+			msg = id + "æ­£åœ¨åšå•ä¸ªå‡ºåº“æ“ä½œï¼Œè¯·å‹¿é‡å¤æ“ä½œ";
 			return msg;
 		}
 		
 		try{
 			addLock(id);
 
-			// ĞÂ½¨Ò»¸ö£Ê£Ä£Â£Ã·şÎñµÄ¶ÔÏó
+			// æ–°å»ºä¸€ä¸ªï¼ªï¼¤ï¼¢ï¼£æœåŠ¡çš„å¯¹è±¡
 			DBConnection db = new DBConnection();
 			SimpleDateFormat simplew = new SimpleDateFormat("yyMMdd");
-			// »ñÈ¡µ±Ç°Ê±¼ä
+			// è·å–å½“å‰æ—¶é—´
 			String nn = simplew.format(new java.util.Date());
 
 			String strSSql = "select * from ddpro where (num-s_num)>='" + num1
 					+ "' and id='" + id + "'";
 			ResultSet rsp = db.executeQuery(strSSql);
 			if (!rsp.next()) {
-				msg = "±¾´Î³ö¿âÊıÁ¿²»·û£¬ÇëÖØĞÂÊäÈë!";
+				msg = "æœ¬æ¬¡å‡ºåº“æ•°é‡ä¸ç¬¦ï¼Œè¯·é‡æ–°è¾“å…¥!";
 				removeLock(id);
 				return msg;
 			} else {
 
-				// ĞèÒª³ö¿âµÄÊıÁ¿
+				// éœ€è¦å‡ºåº“çš„æ•°é‡
 				int n_num1 = Integer.parseInt(num1);
 
-				// ¸üĞÂ¿Í»§µÄ³ö¿âÊ±¼ä
+				// æ›´æ–°å®¢æˆ·çš„å‡ºåº“æ—¶é—´
 				String ddsqlst_sd = "update client set nsnumber='" + currentDate
 						+ "'  where coname='" + coname + "'";
 				db.executeUpdate(ddsqlst_sd);
@@ -1677,7 +1677,7 @@ public class WarehouseManager {
 					int s_num = prs.getInt("s_num");
 					int snum = n_num1 + 0;
 					String fy_states = prs.getString("fy_states").trim();
-					if (fy_states.equals("´ı·¢ÔË")) {
+					if (fy_states.equals("å¾…å‘è¿")) {
 						snum = snum + s_c_num;
 					}
 					String punit = prs.getString("unit");
@@ -1692,7 +1692,7 @@ public class WarehouseManager {
 
 					ResultSet rs = db.executeQuery(sql);
 					if (!rs.next()) {
-						msg = "²Ö¿âÔİÎŞ¸Ã²úÆ·:" + pro_model;
+						msg = "ä»“åº“æš‚æ— è¯¥äº§å“:" + pro_model;
 						removeLock(id);
 						return msg;
 					}
@@ -1702,7 +1702,7 @@ public class WarehouseManager {
 					String price_hb = rs.getString("price_hb");
 					int zpro_num = pro_num - n_num1;
 					if (pro_num < n_num1) {
-						msg = "¿â´æ²»×ã";
+						msg = "åº“å­˜ä¸è¶³";
 						removeLock(id);
 						return msg;
 					}
@@ -1712,7 +1712,7 @@ public class WarehouseManager {
 					int tno = 1;
 					String tr_types = "";
 					String sqltrdd = "select  * from transportation where invoice='"
-							+ fynumber + "' and sate='·¢ÔËÍ¨Öªµ¥'";
+							+ fynumber + "' and sate='å‘è¿é€šçŸ¥å•'";
 					ResultSet rstrr = db.executeQuery(sqltrdd);
 					if (!rstrr.next()) {
 
@@ -1764,7 +1764,7 @@ public class WarehouseManager {
 								+ datet
 								+ "','','"
 								+ sales_man
-								+ "','','·¢ÔËÍ¨Öªµ¥','','0','0','','','"
+								+ "','','å‘è¿é€šçŸ¥å•','','0','0','','','"
 								+ sales_man
 								+ "','"
 								+ dept
@@ -1785,7 +1785,7 @@ public class WarehouseManager {
 								+ "','')";
 						boolean tfy = db.executeUpdate(strSQLfy);
 						if (!tfy) {
-							msg = "·¢ÔËÊ§°Ü,ÄãËùÊäÈëµÄÄÚÈİ³¬³öÏµÍ³·¶Î§»òÊäÈëÀàĞÍ²»·û!";
+							msg = "å‘è¿å¤±è´¥,ä½ æ‰€è¾“å…¥çš„å†…å®¹è¶…å‡ºç³»ç»ŸèŒƒå›´æˆ–è¾“å…¥ç±»å‹ä¸ç¬¦!";
 							removeLock(id);
 							return msg;
 						}
@@ -1794,7 +1794,7 @@ public class WarehouseManager {
 								+ "'";
 						boolean tssu = db.executeUpdate(ddsqls);
 						if (!tssu) {
-							msg = "¸üĞÂÊ§°Ü,ÄãËùÊäÈëµÄÄÚÈİ³¬³öÏµÍ³·¶Î§»òÊäÈëÀàĞÍ²»·û!";
+							msg = "æ›´æ–°å¤±è´¥,ä½ æ‰€è¾“å…¥çš„å†…å®¹è¶…å‡ºç³»ç»ŸèŒƒå›´æˆ–è¾“å…¥ç±»å‹ä¸ç¬¦!";
 							removeLock(id);
 							return msg;
 						}
@@ -1816,7 +1816,7 @@ public class WarehouseManager {
 					Connection conn = db.getConnectionObject();
 					if (conn == null) {
 						removeLock(id);
-						return "Êı¾İ¿âÁ¬½Ó»ñÈ¡²»µ½";
+						return "æ•°æ®åº“è¿æ¥è·å–ä¸åˆ°";
 					}
 
 					try {
@@ -1828,13 +1828,13 @@ public class WarehouseManager {
 								+ pro_name + "','" + n_num1 + "','" + punit + "','"
 								+ supplier + "','" + currentDate + "','"
 								+ pro_number + "','" + username + "','" + proaddr
-								+ "','ÒÑ³ö¿â','" + ddid + "','" + p_check + "','1','"
+								+ "','å·²å‡ºåº“','" + ddid + "','" + p_check + "','1','"
 								+ co_number + "','" + saleprice + "','" + salehb
 								+ "','" + wid + "','0','" + tr_types + "','" + tno
 								+ "')";
 						boolean tq = db.executeUpdate(strSQLq);
 						if (!tq) {
-							msg = "Ìí¼Ó³ö¿âµ¥Ê§°Ü,ÄãËùÊäÈëµÄÄÚÈİ³¬³öÏµÍ³·¶Î§»òÊäÈëÀàĞÍ²»·û!";
+							msg = "æ·»åŠ å‡ºåº“å•å¤±è´¥,ä½ æ‰€è¾“å…¥çš„å†…å®¹è¶…å‡ºç³»ç»ŸèŒƒå›´æˆ–è¾“å…¥ç±»å‹ä¸ç¬¦!";
 							removeLock(id);
 							return msg;
 						}
@@ -1843,7 +1843,7 @@ public class WarehouseManager {
 								+ zpro_num + "'  where id= " + wid;
 						boolean tw = db.executeUpdate(strSQLw);
 						if (!tw) {
-							msg = "¸üĞÂ¿â´æÊ§°Ü,ÄãËùÊäÈëµÄÄÚÈİ³¬³öÏµÍ³·¶Î§»òÊäÈëÀàĞÍ²»·û!";
+							msg = "æ›´æ–°åº“å­˜å¤±è´¥,ä½ æ‰€è¾“å…¥çš„å†…å®¹è¶…å‡ºç³»ç»ŸèŒƒå›´æˆ–è¾“å…¥ç±»å‹ä¸ç¬¦!";
 							removeLock(id);
 							return msg;
 						}
@@ -1851,11 +1851,11 @@ public class WarehouseManager {
 						String strSQLwf = "update ddpro set selljg='" + pro_price
 								+ "',money='" + price_hb + "',s_num='" + nnum
 								+ "',s_c_num='" + snum + "',s_tr_date='"
-								+ currentDate + "',fy_states='´ı·¢ÔË'  where id='"
+								+ currentDate + "',fy_states='å¾…å‘è¿'  where id='"
 								+ ddproid + "' ";
 						boolean twf = db.executeUpdate(strSQLwf);
 						if (!twf) {
-							msg = "¸üĞÂÊ§°Ü,ÄãËùÊäÈëµÄÄÚÈİ³¬³öÏµÍ³·¶Î§»òÊäÈëÀàĞÍ²»·û!";
+							msg = "æ›´æ–°å¤±è´¥,ä½ æ‰€è¾“å…¥çš„å†…å®¹è¶…å‡ºç³»ç»ŸèŒƒå›´æˆ–è¾“å…¥ç±»å‹ä¸ç¬¦!";
 							removeLock(id);
 							return msg;
 						}
@@ -1872,7 +1872,7 @@ public class WarehouseManager {
 						}
 						e.printStackTrace();
 						removeLock(id);
-						return "Êı¾İ¿â²Ù×÷Òì³£";
+						return "æ•°æ®åº“æ“ä½œå¼‚å¸¸";
 					}
 
 				}
@@ -1892,7 +1892,7 @@ public class WarehouseManager {
 	}
 
 	/**
-	 * Í¨¹ı²úÆ·µÄĞÍºÅºÍÓÃ»§È¨ÏŞÀ´²éÑ¯²úÆ·ĞÅÏ¢
+	 * é€šè¿‡äº§å“çš„å‹å·å’Œç”¨æˆ·æƒé™æ¥æŸ¥è¯¢äº§å“ä¿¡æ¯
 	 * 
 	 * @return
 	 */
@@ -1906,13 +1906,13 @@ public class WarehouseManager {
 	}
 
 	/**
-	 * Í¨¹ı²úÆ·ĞÍºÅµÄÊıÁ¿ ÕâÀïµÄĞÍºÅÊÇÎ¨Ò»µÄ
+	 * é€šè¿‡äº§å“å‹å·çš„æ•°é‡ è¿™é‡Œçš„å‹å·æ˜¯å”¯ä¸€çš„
 	 * 
 	 * @return
 	 */
 	public int getProModelCount() {
 
-		// ĞÂ½¨Ò»¸ö£Ê£Ä£Â£Ã·şÎñµÄ¶ÔÏó
+		// æ–°å»ºä¸€ä¸ªï¼ªï¼¤ï¼¢ï¼£æœåŠ¡çš„å¯¹è±¡
 		DBConnection db = new DBConnection();
 
 		String sql = "select count(distinct pro_model) from warehouse";
@@ -1945,9 +1945,9 @@ public class WarehouseManager {
 		String pro_model = w.getPro_model();
 		String pro_name = w.getPro_name();
 		String remark = w.getPro_remark();
-		// ĞÂ½¨Ò»¸ö£Ê£Ä£Â£Ã·şÎñµÄ¶ÔÏó
+		// æ–°å»ºä¸€ä¸ªï¼ªï¼¤ï¼¢ï¼£æœåŠ¡çš„å¯¹è±¡
 		DBConnection db = new DBConnection();
-		String sql = "select sum(rkhouse.pro_num) from rkhouse,in_warehouse where in_warehouse.id = rkhouse.pro_rk_num and in_warehouse.[states]='ÒÑÈë¿â' and rkhouse.pro_model='"
+		String sql = "select sum(rkhouse.pro_num) from rkhouse,in_warehouse where in_warehouse.id = rkhouse.pro_rk_num and in_warehouse.[states]='å·²å…¥åº“' and rkhouse.pro_model='"
 				+ pro_model
 				+ "' and pro_name = '"
 				+ pro_name
@@ -1977,7 +1977,7 @@ public class WarehouseManager {
 		String pro_name = w.getPro_name();
 		String remark = w.getPro_remark();
 
-		// ĞÂ½¨Ò»¸ö£Ê£Ä£Â£Ã·şÎñµÄ¶ÔÏó
+		// æ–°å»ºä¸€ä¸ªï¼ªï¼¤ï¼¢ï¼£æœåŠ¡çš„å¯¹è±¡
 		DBConnection db = new DBConnection();
 		String sql = "select sum(pro_num) from outhouse where pro_model='"
 				+ pro_model + "' and pro_name = '" + pro_name
@@ -2002,7 +2002,7 @@ public class WarehouseManager {
 	}
 
 	/**
-	 * »ñÈ¡Èë¿âµ¥ÁĞ±í
+	 * è·å–å…¥åº“å•åˆ—è¡¨
 	 * 
 	 * @param id
 	 * @return
@@ -2014,12 +2014,12 @@ public class WarehouseManager {
 		String pro_name = w.getPro_name();
 		String remark = w.getPro_remark();
 
-		// ĞÂ½¨Ò»¸ö£Ê£Ä£Â£Ã·şÎñµÄ¶ÔÏó
+		// æ–°å»ºä¸€ä¸ªï¼ªï¼¤ï¼¢ï¼£æœåŠ¡çš„å¯¹è±¡
 		DBConnection db = new DBConnection();
 
 		List<Rkhouse> res = new ArrayList<Rkhouse>();
 
-		String sql = "select rkhouse.*,in_warehouse.number,in_warehouse.man from rkhouse,in_warehouse where in_warehouse.id = rkhouse.pro_rk_num and in_warehouse.[states]='ÒÑÈë¿â' and rkhouse.pro_model='"
+		String sql = "select rkhouse.*,in_warehouse.number,in_warehouse.man from rkhouse,in_warehouse where in_warehouse.id = rkhouse.pro_rk_num and in_warehouse.[states]='å·²å…¥åº“' and rkhouse.pro_model='"
 				+ pro_model
 				+ "' and pro_name = '"
 				+ pro_name
@@ -2055,7 +2055,7 @@ public class WarehouseManager {
 	}
 
 	/**
-	 * ÏÔÊ¾³ö¿â¼ÇÂ¼ÁĞ±í
+	 * æ˜¾ç¤ºå‡ºåº“è®°å½•åˆ—è¡¨
 	 * 
 	 * @param id
 	 * @return
@@ -2067,7 +2067,7 @@ public class WarehouseManager {
 		String pro_name = w.getPro_name();
 		String remark = w.getPro_remark();
 
-		// ĞÂ½¨Ò»¸ö£Ê£Ä£Â£Ã·şÎñµÄ¶ÔÏó
+		// æ–°å»ºä¸€ä¸ªï¼ªï¼¤ï¼¢ï¼£æœåŠ¡çš„å¯¹è±¡
 		DBConnection db = new DBConnection();
 
 		List<Outhouse> res = new ArrayList<Outhouse>();
@@ -2107,14 +2107,14 @@ public class WarehouseManager {
 
 	/**
 	 * 
-	 * µ÷Õû²Ö¿âÊıÁ¿
+	 * è°ƒæ•´ä»“åº“æ•°é‡
 	 * 
 	 * @param id
 	 * 
 	 */
 	public void adaptProNum(String id, String pro_num, String username) {
 		Warehouse warehouse = getWarehouseById(id);
-		// Ô­Ê¼µÄ¿â´æ
+		// åŸå§‹çš„åº“å­˜
 		int orginProNum = warehouse.getPro_num();
 		int pro_num_int = 0;
 		try {
@@ -2140,7 +2140,7 @@ public class WarehouseManager {
 		sqlList.add(sqlUpdate);
 		sqlList.add(sqlLog);
 
-		// ĞÂ½¨Ò»¸ö£Ê£Ä£Â£Ã·şÎñµÄ¶ÔÏó
+		// æ–°å»ºä¸€ä¸ªï¼ªï¼¤ï¼¢ï¼£æœåŠ¡çš„å¯¹è±¡
 		DBConnection db = new DBConnection();
 		db.execBatch(sqlList);
 		db.close();
@@ -2149,7 +2149,7 @@ public class WarehouseManager {
 
 	/**
 	 * 
-	 * µ÷Õû²Ö¿âÊıÁ¿
+	 * è°ƒæ•´ä»“åº“æ•°é‡
 	 * 
 	 * @param id
 	 * 
@@ -2159,7 +2159,7 @@ public class WarehouseManager {
 		String sql = "update warehouse set finishStoking = 1" + " where id="
 				+ id;
 
-		// ĞÂ½¨Ò»¸ö£Ê£Ä£Â£Ã·şÎñµÄ¶ÔÏó
+		// æ–°å»ºä¸€ä¸ªï¼ªï¼¤ï¼¢ï¼£æœåŠ¡çš„å¯¹è±¡
 		DBConnection db = new DBConnection();
 		db.executeUpdate(sql);
 		db.close();
@@ -2168,7 +2168,7 @@ public class WarehouseManager {
 
 	public List<Rkhouse> getRkhouse(String id) {
 		List<Rkhouse> res = new ArrayList<Rkhouse>();
-		// ĞÂ½¨Ò»¸ö£Ê£Ä£Â£Ã·şÎñµÄ¶ÔÏó
+		// æ–°å»ºä¸€ä¸ªï¼ªï¼¤ï¼¢ï¼£æœåŠ¡çš„å¯¹è±¡
 		DBConnection db = new DBConnection();
 		String sql = "select * from rkhouse where pro_rk_num = " + id;
 		ResultSet rs = db.executeQuery(sql);
@@ -2205,7 +2205,7 @@ public class WarehouseManager {
 	public InWarehouse getInWarehouse(String id) {
 
 		InWarehouse res = new InWarehouse();
-		// ĞÂ½¨Ò»¸ö£Ê£Ä£Â£Ã·şÎñµÄ¶ÔÏó
+		// æ–°å»ºä¸€ä¸ªï¼ªï¼¤ï¼¢ï¼£æœåŠ¡çš„å¯¹è±¡
 		DBConnection db = new DBConnection();
 		String sql = "select * from in_warehouse where id = " + id;
 		ResultSet rs = db.executeQuery(sql);
@@ -2280,7 +2280,7 @@ public class WarehouseManager {
 	}
 	
 	/**
-	 * É¾³ıÊ±£¬±¸·İÉ¾³ıµÄ¿â´æĞÅÏ¢
+	 * åˆ é™¤æ—¶ï¼Œå¤‡ä»½åˆ é™¤çš„åº“å­˜ä¿¡æ¯
 	 * @param id
 	 */
 	public void deleteWarehouse(int id){
@@ -2313,7 +2313,7 @@ public class WarehouseManager {
 	}
 	
 	/**
-	 * É¾³ıÊ±£¬±¸·İÉ¾³ıµÄ¿â´æĞÅÏ¢
+	 * åˆ é™¤æ—¶ï¼Œå¤‡ä»½åˆ é™¤çš„åº“å­˜ä¿¡æ¯
 	 * @param id
 	 */
 	public void deleteWarehouse(String id){
@@ -2337,7 +2337,7 @@ public class WarehouseManager {
 		
 		for(Warehouse w : warehouseList){
 			String pro_model = w.getPro_model();
-			// Èç¹ûÕâ¸öĞÍºÅÃ»ÓĞÒ»¸öÊıÁ¿²»ÎªÁã£¬»òÕßÍ¼Æ¬ÓĞÉÏ´«µÄĞÍºÅ£¬Ôö¼ÓÕâ¸öĞÍºÅ
+			// å¦‚æœè¿™ä¸ªå‹å·æ²¡æœ‰ä¸€ä¸ªæ•°é‡ä¸ä¸ºé›¶ï¼Œæˆ–è€…å›¾ç‰‡æœ‰ä¸Šä¼ çš„å‹å·ï¼Œå¢åŠ è¿™ä¸ªå‹å·
 			if(getModelCount(pro_model, addr)==0){
 				if(temp.contains(pro_model)){
 					toDeleteIds.add(w.getId());
