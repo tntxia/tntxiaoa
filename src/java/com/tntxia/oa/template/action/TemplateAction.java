@@ -11,7 +11,7 @@ public class TemplateAction extends BaseAction {
 	private DBManager dbManager = this.getDBManager();
 	
 	/**
-	 * »ñÈ¡²É¹ººÏÍ¬µÄÁĞ±í
+	 * è·å–é‡‡è´­åˆåŒçš„åˆ—è¡¨
 	 * 
 	 * @param runtime
 	 * @return
