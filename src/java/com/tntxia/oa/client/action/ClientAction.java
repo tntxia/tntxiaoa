@@ -133,6 +133,7 @@ public class ClientAction extends CommonDoAction {
 
 		String sqlCount = "select count(*) from client where  cotypes='现有客户'";
 
+		System.out.println("search client,,,," + sql + sqlWhere);
 		int totalAmount = dbManager.getCount(sqlCount + sqlWhere);
 		List list = dbManager.queryForList(sql + sqlWhere, true);
 		return this.getPagingResult(list, runtime, totalAmount);
