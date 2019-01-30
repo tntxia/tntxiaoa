@@ -321,9 +321,5 @@ public class PurchasingDao {
 		String sql = "select sum(num) from cgpro where ddid=?";
 		return dbManager.getCount(sql,new Object[]{id});
 	}
-	
-	public void del(String id) throws Exception{
-		dbManager.update("update procure set l_spqk='已删除' where id = ?",new Object[]{id});
-	}
 
 }

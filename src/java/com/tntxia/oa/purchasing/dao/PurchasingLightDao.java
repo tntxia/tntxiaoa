@@ -300,5 +300,9 @@ public class PurchasingLightDao extends BaseDao{
 	public void updateStatus(String id,String status) throws NumberFormatException, Exception{
 		this.updateStatus(Integer.parseInt(id), status);
 	}
+	
+	public void del(String id) throws Exception{
+		dbManager.update("update procure set l_spqk='已删除' where id = ?",new Object[]{id});
+	}
 
 }

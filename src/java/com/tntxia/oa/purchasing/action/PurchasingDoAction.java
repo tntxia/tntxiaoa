@@ -1408,5 +1408,84 @@ public class PurchasingDoAction extends CommonDoAction {
 		String sql = "select i.number,r.* from rkhouse r inner join in_warehouse i on r.pro_rk_num = i.id where pro_rate = ? ";
 		return dbManager.queryForList(sql, new Object[]{id}, true);
 	}
+	
+	@SuppressWarnings("rawtypes")
+	private List getProList(String id) throws Exception{
+		String sql = "select * from cgpro where ddid = ?";
+		return dbManager.queryForList(sql, new Object[]{id},true);
+	}
+	
+	
+	@SuppressWarnings("rawtypes")
+	private List<String> checkRk(String id) throws Exception{
+		List proList = this.getProList(id);
+		List<String> res = new ArrayList<String>();
+		for(int i=0;i<proList.size();i++){
+			Map map = (Map) proList.get(i);
+			Integer proId = (Integer) map.get("id");
+			String checkResult = checkRkPro(proId);
+			if(checkResult!=null){
+				if(!res.contains(checkResult))
+					res.add(checkResult);
+			}
+		}
+		return res;
+	}
+	
+	/**
+	 * 返回合同
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	public Map<String,Object> returnPurchasing(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		
+		String id = request.getParameter("id");
+		List<String> checkResult = checkRk(id);
+		if(checkResult.size()>0){
+			String msg =  "采购订单已经做了入库单，请先取消入库单，再返回：入库单号：";
+			for(int i=0;i<checkResult.size();i++){
+				msg += ","+checkResult.get(i);
+			}
+			return this.errorMsg(msg);
+		}
+		
+		String update1 = "update payment set states='草拟' where orderform=?";
+		String update2 = "update procure set l_spqk='待审批',thremark='已审合同返回' where  id=?";
+		dbManager.update(update1, new Object[] { id });
+		dbManager.update(update2, new Object[] { id });
+		return this.success();
+	}
+
+	public Map<String,Object> delPro(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		String id = request.getParameter("id");
+		dbManager.update("delete from cgpro where id = ?", new Object[] { id });
+		return this.success();
+	}
+
+	public Map<String,Object> del(HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		String id = request.getParameter("id");
+		purchasingDao.del(id);
+		return this.success();
+	}
+	
+	private String checkRkPro(Integer proId) throws Exception{
+		String sql = "select pro_rk_num from rkhouse where pro_rate = ?";
+		Integer inWarehouseId = dbManager.queryForInt(sql,new Object[]{proId});
+		if(inWarehouseId>0){
+			return getInWarehouseNumber(inWarehouseId);
+		}
+		return null;
+	}
+	
+	private String getInWarehouseNumber(Integer id){
+		String sql = "select number from in_warehouse where id = ? and states<>'已删除'";
+		return dbManager.getString(sql, new Object[]{id});
+	}
 
 }
