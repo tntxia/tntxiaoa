@@ -2,7 +2,7 @@
 	
 $(function(){
 	
-	var purchasingPath = webRoot + "/purchasing/purchasing.dispatch";
+	var purchasingPath = webRoot + "/purchasing/purchasing.do";
 	
 	$("#datagrid").datagrid({
 		title:'新增订单',
@@ -80,7 +80,6 @@ $(function(){
 		OACommonUse.openOrderTemplateChoose("新增采购合同 - 选择模板","../ddgl/new.mvc");
 		
 	});
-	
 	
 	$("#searchBtn").click(function(){
 		var param = $("#searchDiv").getParamMap(true);

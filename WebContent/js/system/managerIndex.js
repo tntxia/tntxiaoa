@@ -10,7 +10,6 @@ $(function() {
 			$.each(data, function(i, d) {
 				var row = $("<div>");
 				if (d.items) {
-					
 					$.each(d.items, function(i, d) {
 						var but = $("<button>", {
 							text : d.name,

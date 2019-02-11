@@ -1,6 +1,4 @@
 ﻿
-
-
 $(function(){
 	
 	var purchasingPath = webRoot+'/purchasing/purchasing.dispatch';
@@ -38,31 +36,29 @@ $(function(){
 		$("#showPrintHistoryDialog").modal('show');
 	});
 		
-		$("#returnBut").click(function(){
-			if (confirm("确实要返回吗？")) {
-				
-				var id = $("#id").val();
-				
-				util.ajax({
-					url:webRoot+'/purchasing/purchasing.do',
-					data:{
-						method:'returnPurchasing',
-						id:id
-					},
-					success:function(data){
-						if(data.success){
-							alert("操作成功");
-							window.opener.location.reload();
-							window.close();
-						}else{
-							alert("操作失败！"+data.msg);
-						}
-							
-								
-					}
-				});
-			 }
-		});
+	$("#returnBut").click(function(){
+		if (confirm("确实要返回吗？")) {
+			
+			var id = $("#id").val();
+			
+			util.ajax({
+				url:webRoot+'/purchasing/purchasing.do',
+				data:{
+					method:'returnPurchasing',
+					id:id
+				},
+				success:function(data){
+					if(data.success){
+						alert("操作成功");
+						window.opener.location.reload();
+						window.close();
+					}else{
+						alert("操作失败！"+data.msg);
+					}		
+				}
+			});
+		 }
+	});
 		
 		var number = $("#supplierNumber").val();
 		$.ajax({
