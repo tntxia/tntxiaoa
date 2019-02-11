@@ -440,8 +440,10 @@
 			<stylesheet>css/style.css</stylesheet>
 		</stylesheets>
 		<scripts>
-			<script>js/lib/jquery.js</script>
-			
+			<script>/static/lib/jquery/jquery.js</script>
+			<script>/static/lib/vue/vue.js</script>
+			<script>/oa_static/js/appinfo.js</script>
+			<script>/oa_static/js/top.js</script>
 			<script>js/lib/jxiaui/getParamMap.js</script>
 			<script>js/lib/jxiaui/panel.js</script>
 			<script>js/lib/jxiaui/datagrid.js</script>
@@ -450,7 +452,7 @@
 			<script>js/purchasing/deleted.js</script>
 		</scripts>
 		<templates>
-			<template>common/oa_common_header_utf8.ftl</template>
+			<template>common/oa_common_header.ftl</template>
 			<template>common/oa_common_leftbar.ftl</template>
 			<template>purchasing/deleted.ftl</template>
 		</templates>

@@ -2,7 +2,7 @@
 	$(function(){
 
 		
-		var purchasingPath = webRoot + "/purchasing/purchasing.dispatch";
+		var purchasingPath = webRoot + "/purchasing/purchasing.do";
 		showToAudit();
 		
 		function showToAudit(){
