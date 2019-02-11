@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manage>
+	<row>
+		<item>
+			<name>部门设置</name>
+			<url>/admin/index.mvc#department</url>
+			<target>_blank</target>
+		</item>
+		<item>
+			<name>职位设置</name>
+			<url>position/list.jsp</url>
+			<target>nw</target>
+			<option>height=360, width=560, top=100, left=100, toolbar=yes, menubar=no, scrollbars=yes, resizable=yes,location=no, status=no</option>
+		</item>
+		<item>
+			<name>仓库管理</name>
+			<url>warehouse/manage.jsp</url>
+			<target>pronw</target>
+			<option>height=500, width=710, top=200, left=200, toolbar=yes, menubar=no, scrollbars=yes, resizable=yes,location=no, status=no</option>
+		</item>
+		<item>
+			<name>权限信息管理</name>
+			<url>/admin/index.mvc#right</url>
+			<target>bqt</target>
+			<option>height=360, width=560, top=100, left=100, toolbar=yes, menubar=no, scrollbars=yes, resizable=yes,location=no, status=no</option>
+		</item>
+		<item>
+			<name>权限组管理</name>
+			<url>/admin/index.mvc#restrain</url>
+			<target>qadminwd</target>
+		</item>
+		
+	</row>
+
+	<row>
+		<item>
+			<name>用户管理</name>
+			<url>/admin/index.mvc#user</url>
+			<target>_blank</target>
+		</item>
+		<item>
+			<name>系统基本信息管理</name>
+			<url>../toUpdateSystemInfo.dispatch</url>
+			<target>bqt</target>
+			<option>height=380, width=650, top=100, left=50, toolbar=yes, menubar=no, scrollbars=yes, resizable=yes,location=no, status=no</option>
+		</item>
+		
+		<item>
+			<name>菜单管理</name>
+			<url>menu/menu.html</url>
+			<target>bqt</target>
+			<option>height=360, width=560, top=100, left=100, toolbar=yes, menubar=no, scrollbars=yes, resizable=yes,location=no, status=no</option>
+		</item>
+	</row>
+	
+	<hr></hr>
+	
+	<row>
+		<item>
+			<name>公司基本信息</name>
+			<url>companym.jsp</url>
+			<target>nw</target>
+			<option>height=500, width=955, top=100, left=100, toolbar=yes, menubar=no, scrollbars=yes, resizable=yes,location=no, status=no</option>
+		</item>
+		<item>
+			<name>信用级别</name>
+			<url>zdy/xyjb/hlxx.jsp</url>
+			<target>gnw</target>
+			<option>height=260, width=560, top=200, left=200, toolbar=yes, menubar=no, scrollbars=yes, resizable=yes,location=no, status=no</option>
+		</item>
+		<item>
+			<name>行业性质</name>
+			<url>../xclient/hylx.jsp</url>
+			<target>nw</target>
+			<option>height=360, width=460, top=50, left=50, toolbar=yes, menubar=no, scrollbars=yes, resizable=yes,location=no, status=no</option>
+		</item>
+		<item>
+			<name>汇率管理</name>
+			<url>hl/hlxx.jsp</url>
+			<target>nw</target>
+			<option>height=360, width=560, top=100, left=100, toolbar=yes, menubar=no, scrollbars=yes, resizable=yes,location=no, status=no</option>
+		</item>
+		<item>
+			<name>活动类型</name>
+			<url>zdy/activity/activity.jsp</url>
+			<target>pronw</target>
+			<option>height=300, width=650, top=200, left=50, toolbar=yes, menubar=no, scrollbars=yes, resizable=yes,location=no, status=no</option>
+		</item>
+	</row>
+	
+	<row>
+		<item>
+			<name>计量单位</name>
+			<url>punit/punit.jsp</url>
+			<target>adminwd</target>
+			<option>height=360, width=560, top=100, left=100, toolbar=yes, menubar=no, scrollbars=yes, resizable=yes,location=no, status=no</option>
+		</item>
+		<item>
+			<name>收款银行</name>
+			<url>bank/hlxx.jsp</url>
+			<target>nw</target>
+			<option>height=360, width=660, top=50, left=50, toolbar=yes, menubar=no, scrollbars=yes, resizable=yes,location=no, status=no</option>
+		</item>
+		<item>
+			<name>产品类别</name>
+			<url>zdy/pro-fl/secprofl.jsp</url>
+			<target>_blank</target>
+			<option>height=300, width=780, top=50, left=50, toolbar=yes, menubar=no, scrollbars=yes, resizable=yes,location=no, status=no</option>
+		</item>
+		<item>
+			<name>品牌自定义</name>
+			<url>zdy/pro-fl/lprofl.jsp</url>
+			<target>_blank</target>
+			<option>height=300, width=610, top=50, left=50, toolbar=yes, menubar=no, scrollbars=yes, resizable=yes,location=no, status=no</option>
+		</item>
+		<item>
+			<name>知识库类型</name>
+			<url>knowledge/knowledge.dispatch?method=typeList</url>
+			<target>_blank</target>
+			<option>height=360, width=650, top=100, left=50, toolbar=yes, menubar=no, scrollbars=yes, resizable=yes,location=no, status=no</option>
+		</item>
+		
+	</row>
+	
+	<row>
+		<item>
+			<name>国家自定义</name>
+			<url>region/country/credit.jsp</url>
+			<target>gnw</target>
+			<option>height=300, width=560, top=100, left=100, toolbar=yes, menubar=no, scrollbars=yes, resizable=yes,location=no, status=no</option>
+		</item>
+		<item>
+			<name>省份自定义</name>
+			<url>region/province/credit.jsp</url>
+			<target>gnw</target>
+			<option>height=300, width=560, top=100, left=100, toolbar=yes, menubar=no, scrollbars=yes, resizable=yes,location=no, status=no</option>
+		</item>
+		<item>
+			<name>城市自定义</name>
+			<url>region/city/credit.jsp</url>
+			<target>gnw</target>
+			<option>height=300, width=560, top=100, left=100, toolbar=yes, menubar=no, scrollbars=yes, resizable=yes,location=no, status=no</option>
+		</item>
+	</row>
+
+</manage>
