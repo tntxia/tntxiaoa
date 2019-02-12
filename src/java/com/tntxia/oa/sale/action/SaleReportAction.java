@@ -73,6 +73,7 @@ public class SaleReportAction extends CommonDoAction {
 		return this.success();
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public Map<String,Object> updateWorkPlanMonth(WebRuntime runtime, Map<String,Object> params) throws Exception {
 		
 		String id = (String) params.get("id");
@@ -153,10 +154,16 @@ public class SaleReportAction extends CommonDoAction {
 	@SuppressWarnings("rawtypes")
 	public Map<String,Object> listWorkReportDaily(WebRuntime runtime) throws Exception {
 		
+		boolean isManager = this.isManager(runtime);
 		PageBean pageBean = runtime.getPageBean();
-		String sql = "select top "+pageBean.getTop()+" * from work_report_daily";
+		String sqlWhere = "where 1 = 1 ";
+		if(!isManager) {
+			String username = this.getUsername(runtime);
+			sqlWhere += " and man = '" + username + "'";
+		}
+		String sql = "select top "+pageBean.getTop()+" * from work_report_daily "+sqlWhere+" order by id desc";
 		List list = dbManager.queryForList(sql, true);
-		sql = "select count(*) from work_report_daily";
+		sql = "select count(*) from work_report_daily "+sqlWhere;
 		int count = dbManager.getCount(sql);
 		
 		return this.getPagingResult(list, runtime, count);
