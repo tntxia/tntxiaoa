@@ -21,7 +21,7 @@ $(function(){
 				return false;
 			}
 		});
-		$("#banks .name").html(bank.bname);
+		$("#banks .name").html(bank.bn);
 		$("#banks .address").html(bank.ba);
 		$("#banks .code").html(bank.sc);
 		$("#banks .bname").html(bank.ben);
