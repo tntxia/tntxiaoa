@@ -566,12 +566,6 @@ public class SaleDoAction extends CommonDoAction {
 
 	}
 
-	@SuppressWarnings("rawtypes")
-	public List getSaleBanks() throws Exception {
-		String sql = "select * from sales_bank";
-		return dbManager.queryForList(sql, true);
-	}
-
 	public Map<String, Object> updateOrder(WebRuntime runtime) throws SQLException {
 
 		String id1 = runtime.unescape("id");

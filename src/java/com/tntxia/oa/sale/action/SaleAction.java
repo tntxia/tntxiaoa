@@ -1,9 +1,9 @@
 package com.tntxia.oa.sale.action;
 
-import java.io.UnsupportedEncodingException;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.NumberFormat;
+
 import java.util.ArrayList;
 
 import java.util.HashMap;
@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang.StringUtils;
+
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tntxia.db.DBConnection;
@@ -24,7 +24,6 @@ import com.tntxia.oa.sale.entity.Dh;
 import com.tntxia.oa.util.CommonAction;
 import com.tntxia.oa.util.WebUtils;
 import com.tntxia.web.ParamUtils;
-import com.tntxia.web.mvc.WebRuntime;
 
 public class SaleAction extends CommonAction {
 	
