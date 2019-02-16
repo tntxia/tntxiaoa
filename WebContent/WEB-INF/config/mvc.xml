@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mvc>
+	<charset>GBK</charset>
+	<version>20180710</version>
+	<mvcList>
+		<include file="mvc-views.xml"></include>
+		<include file="mvc-views-purchasing.xml"></include>
+		<include file="mvc-views-sale.xml"></include>
+		<include file="mvc-views-sale-client.xml"></include>
+		<include file="mvc-views-sale-project.xml"></include>
+		<include file="mvc-views-finance.xml"></include>
+		<include file="mvc-views-knowledge.xml"></include>
+		<include file="mvc-views-assay.xml"></include>
+		<include file="mvc-views-client.xml"></include>
+		<include file="mvc-views-warehouse.xml"></include>
+		<include file="mvc-views-mail.xml"></include>
+		<include file="mvc-views-hr.xml"></include>
+		<include file="mvc-views-system.xml"></include>
+	</mvcList>
+	<templateList>
+		<include file="mvc-template-common.xml"></include>
+		<include file="mvc-template-warehouse.xml"></include>
+		<include file="mvc-template-purchasing.xml"></include>
+		<include file="mvc-template-finance.xml"></include>
+	</templateList>
+	<actionlist>
+	
+		<action url="registerApp.do">com.tntxia.oa.main.action.RegisterAppAction</action>
+		
+		<action name="login">com.tntxia.oa.login.action.LoginAction</action>
+		<action name="checkLogin">com.tntxia.oa.login.action.LoginCheckAction</action>
+		
+		<!-- 仓库 -->
+		<action url="warehouse/warehouse.do">com.tntxia.oa.warehouse.action.WarehouseDoAction</action>
+		<action url="warehouse/send.do">com.tntxia.oa.warehouse.action.WarehouseSendAction</action>
+		
+		<action url="dzzz/ysgl/hdview.mvc">com.tntxia.oa.warehouse.action.mvc.HdViewAction</action>
+		
+		<action url="purchasing/purchasing.do">com.tntxia.oa.purchasing.action.PurchasingDoAction</action>
+		
+		<!-- 询价管理 -->
+		<action name="inquiry/inquiry">com.tntxia.oa.inquiry.action.InquiryAction</action>
+		
+		<!-- 销售 -->
+		<action url="sale/sale.do">com.tntxia.oa.sale.action.SaleDoAction</action>
+		<action url="sale/report.do">com.tntxia.oa.sale.action.SaleReportAction</action>
+		
+		<!-- 销售订单列表 -->
+		<action name="sale/quote/print">com.tntxia.oa.sale.action.mvc.SaleQuotePrintAction</action>
+		<action name="sale/quote">com.tntxia.oa.sale.action.QuoteAction</action>
+		
+		
+		<action url="client/client.do">com.tntxia.oa.client.action.ClientAction</action>
+		
+		<action url="finance/payment.do">com.tntxia.oa.finance.action.FinancePaymentAction</action>
+		<action url="finance/finance.do">com.tntxia.oa.finance.action.FinanceDoAction</action>
+		<action url="checkwork/checkwork.do">com.tntxia.oa.checkwork.action.CheckWorkAction</action>
+		
+		<action name="assay/do">com.tntxia.oa.assay.action.AssayAction</action>
+		
+		<action  url="system/contact_template/template.do">com.tntxia.oa.system.action.ContactTemplateDoAction</action>
+		
+		<action url="unit.do">com.tntxia.oa.unit.action.UnitAction</action>
+		
+		<action url="company.do">com.tntxia.oa.company.action.CompanyAction</action>
+		
+		<action url="department.do">com.tntxia.oa.department.action.DepartmentAction</action>
+		<action url="role.do">com.tntxia.oa.role.action.RoleAction</action>
+		<action url="position.do">com.tntxia.oa.system.action.PositionDoAction</action>
+		<action url="user.do">com.tntxia.oa.user.action.UserAction</action>
+		<action url="logout.do">com.tntxia.oa.user.action.UserLogoutAction</action>
+		<action url="logininfo.do">com.tntxia.oa.login.action.LoginInfo</action>
+		<action url="userAlert.do">com.tntxia.oa.user.action.UserAlertAction</action>
+		<action url="common.do">com.tntxia.oa.common.action.CommonAction</action>
+		<action url="public/notice.do">com.tntxia.oa.notice.action.NoticeAction</action>
+		<action url="appeal.do">com.tntxia.oa.appeal.action.AppealAction</action>
+		<action url="member/member.do">com.tntxia.oa.member.action.MemberAction</action>
+		<action url="knowledge.do">com.tntxia.oa.knowledge.action.KnowledgeAction</action>
+		<action url="payway.do">com.tntxia.oa.payment.action.PaymentAction</action>
+		<action url="brand.do">com.tntxia.oa.brand.action.BrandAction</action>
+		<action url="current.do">com.tntxia.oa.current.action.CurrentAction</action>
+		<action url="print.do">com.tntxia.oa.print.action.PrintAction</action>
+		<action url="purchasing/supplier.do">com.tntxia.oa.purchasing.action.SupplierDoAction</action>
+		<action url="system/system.do">com.tntxia.oa.system.action.SystemAction</action>
+		<action url="template.do">com.tntxia.oa.template.action.TemplateAction</action>
+		<action url="mail.do">com.tntxia.oa.mail.action.MailDoAction</action>
+		
+		<action url="menu.do">com.tntxia.oa.menu.action.MenuAction</action>
+		
+		<action url="expense.do">com.tntxia.oa.hr.action.ExpenseAction</action>
+		<action url="prepaid.do">com.tntxia.oa.hr.action.PrepaidAction</action>
+		<action url="payment.do">com.tntxia.oa.hr.action.PaymentAction</action>
+		
+		<action url="activity.do">com.tntxia.oa.hr.action.ActivityAction</action>
+		<action url="qualified.do">com.tntxia.oa.hr.action.QualifiedAction</action>
+		<action url="payway.do">com.tntxia.oa.payway.action.PaywayAction</action>
+		<action url="bank.do">com.tntxia.oa.bank.action.BankAction</action>
+		
+	</actionlist>
+	<action-mapping>
+	
+		<dispatch url="login.do">login</dispatch>
+		<dispatch url="checkLogin.do">checkLogin</dispatch>
+		<!-- 采购 -->
+		<dispatch url="inquiry/inquiry.do">inquiry/inquiry</dispatch>
+		
+		<!-- 销售 -->
+		<dispatch url="sale/quote/print.mvc">sale/quote/print</dispatch>
+		<dispatch url="sale/quote/quote.do">sale/quote</dispatch>
+		<dispatch url="assay/assay.do">assay/do</dispatch>
+		
+	</action-mapping>
+</mvc>
