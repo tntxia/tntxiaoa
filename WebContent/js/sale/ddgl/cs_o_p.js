@@ -57,3 +57,8 @@ function noteIt(){
 	
 
 }
+
+function hideBankEdit(){
+	document.getElementById("bankInput").style.display = "none";
+	document.getElementById("subs").style.display = "none";
+}

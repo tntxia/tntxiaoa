@@ -442,7 +442,7 @@ bordercolorlight="#7f9db9" border="0" frame=above>
 <td>
 <select id="bankInput" name="bankInput" style="display:none">
 </select>
-<input type="button" name="subs" id="subs" value="确定" onClick="loadXMLDoc()"  style="display:none">
+<input type="button" name="subs" id="subs" value="确定" onClick="hideBankEdit()"  style="display:none">
 
 </td>
 </tr>
