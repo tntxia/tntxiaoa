@@ -77,7 +77,7 @@ $(function(){
 			operations:[{
 				text:'检索',
 				click:function(){
-					var data = $("#datagrid .tntxiaui-form").getParamMap(true);
+					var data = $("#datagrid .tntxiaui-form").getParamMap();
 					$("#datagrid").datagrid('reload',data);
 					
 				}
