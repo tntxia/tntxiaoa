@@ -9,7 +9,7 @@ import org.apache.commons.lang.StringUtils;
 import com.tntxia.date.DateUtil;
 import com.tntxia.dbmanager.DBManager;
 import com.tntxia.oa.common.action.CommonDoAction;
-
+import com.tntxia.sqlexecutor.SQLExecutorSingleConn;
 import com.tntxia.web.mvc.WebRuntime;
 
 /**
@@ -61,44 +61,57 @@ public class MailDoAction extends CommonDoAction {
 	 */
 	@SuppressWarnings("rawtypes")
 	public Map<String,Object> getMail(WebRuntime runtime) throws Exception {
-
-		String dept = this.getDept(runtime);
-		String deptjb = this.getDeptjb(runtime);
-		String username = this.getUsername(runtime);
-		String likeUsername = "%"+username+"%";
-		SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd-HH-mm");
-		String currentDate = simple.format(new java.util.Date());
-		String strSQLproq = "select * from sendmail  "
-				+ " where (mail_to like ? or  mail_to2 like ? or  mail_to3 like ?) and form_to  not like '%"+username+",%'";
-		List list = dbManager.queryForList(strSQLproq, new Object[] {likeUsername,likeUsername,likeUsername}, true);
 		
-		for(int i=0;i<list.size();i++) {
-			Map map = (Map) list.get(i);
-			Integer id = (Integer) map.get("id");
-			String mail_to = (String)map.get("mail_to");
-			String mail_to2 = (String)map.get("mail_to2");
-			String mail_to3 = (String)map.get("mail_to3");
-			String mail_sub = (String)map.get("mail_sub");
-			String mail_nr = (String)map.get("mail_nr");
-			String mail_man = (String)map.get("mail_man");
-			String mail_datetime = (String)map.get("mail_datetime");
-			String form_to = (String)map.get("form_to");
-			if(StringUtils.isEmpty(form_to)) {
-				form_to = username + ",";
-			} else {
-				form_to += username + ",";
+		SQLExecutorSingleConn sqlExecutor=null;
+		
+		try{
+			sqlExecutor = this.getSQLExecutorSingleConn();
+			String dept = this.getDept(runtime);
+			String deptjb = this.getDeptjb(runtime);
+			String username = this.getUsername(runtime);
+			String likeUsername = "%"+username+"%";
+			SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd-HH-mm");
+			String currentDate = simple.format(new java.util.Date());
+			String strSQLproq = "select * from sendmail  "
+					+ " where (mail_to like ? or  mail_to2 like ? or  mail_to3 like ?) and form_to  not like '%"+username+",%'";
+			List list = sqlExecutor.queryForList(strSQLproq, new Object[] {likeUsername,likeUsername,likeUsername}, true);
+			
+			for(int i=0;i<list.size();i++) {
+				Map map = (Map) list.get(i);
+				Integer id = (Integer) map.get("id");
+				String mail_to = (String)map.get("mail_to");
+				String mail_to2 = (String)map.get("mail_to2");
+				String mail_to3 = (String)map.get("mail_to3");
+				String mail_sub = (String)map.get("mail_sub");
+				String mail_nr = (String)map.get("mail_nr");
+				String mail_man = (String)map.get("mail_man");
+				String mail_datetime = (String)map.get("mail_datetime");
+				String form_to = (String)map.get("form_to");
+				if(StringUtils.isEmpty(form_to)) {
+					form_to = username + ",";
+				} else {
+					form_to += username + ",";
+				}
+				
+				String sql = "update sendmail set form_to = ? where id = ?";
+				sqlExecutor.update(sql, new Object[] {form_to, id});
+				
+				String strSQLn = "insert into  getmail(mail_to,mail_to2,mail_to3,mail_sub,mail_nr,mail_man,deptjb,dept,mail_datetime,getman,form_datetime,states,sid) values('" + mail_to + "','"
+						+ mail_to2 + "','" + mail_to3 + "','" + mail_sub + "','"
+						+ mail_nr + "','" + mail_man + "','" + deptjb + "','"
+						+ dept + "','" + mail_datetime + "','" + username + "','"
+						+ currentDate + "','已收邮件','" + id + "')";
+				sqlExecutor.executeUpdate(strSQLn);
 			}
-			
-			String sql = "update sendmail set form_to = ? where id = ?";
-			dbManager.update(sql, new Object[] {form_to, id});
-			
-			String strSQLn = "insert into  getmail(mail_to,mail_to2,mail_to3,mail_sub,mail_nr,mail_man,deptjb,dept,mail_datetime,getman,form_datetime,states,sid) values('" + mail_to + "','"
-					+ mail_to2 + "','" + mail_to3 + "','" + mail_sub + "','"
-					+ mail_nr + "','" + mail_man + "','" + deptjb + "','"
-					+ dept + "','" + mail_datetime + "','" + username + "','"
-					+ currentDate + "','已收邮件','" + id + "')";
-			dbManager.executeUpdate(strSQLn);
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}finally{
+			if(sqlExecutor!=null){
+				sqlExecutor.close();
+			}
 		}
+
+		
 		return this.success();
 	}
 	
