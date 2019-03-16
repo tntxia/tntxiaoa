@@ -96,7 +96,7 @@ if(rscc.next())
   }
   }
   
- String strSQLq="select   companyname,companyname2,companyaddr,companytel,companyfax,bank_dm,companybank,companynumber,com_bank_code,com_sy_name,com_sy_code,companyemail,companylxr,companynet,picpath from company  where  id='"+cid+"'";
+ String strSQLq="select * from company  where  id='"+cid+"'";
  ResultSet rss=infocrmdb.executeQuery(strSQLq);
  if(!rss.next())
   {
@@ -119,6 +119,7 @@ if(rscc.next())
   String q_net=rss.getString("companynet");
   String picpath=rss.getString("picpath");
     String name1 = (String) session.getValue("username");
+  String taxNo = rss.getString("companysh");
   String sqlbn="select * from username where name='" + man1 + "'";
   ResultSet rsbn = infocrmdb.executeQuery(sqlbn); 
   String q_tel="";
@@ -433,8 +434,11 @@ bordercolorlight="#7f9db9" border="0" frame=above>
     <td height="17" colspan="3">受益人名称：<span class='bname'><%=com_sy_name%></span></td>
     </tr>
   <tr>
-    <td height="17" colspan="3">受益人账号：<span class='ban'><%=com_sy_code%></span></td>
+    <td colspan="3">受益人账号：<span class='ban'><%=com_sy_code%></span></td>
     </tr>
+  <tr>
+  	<td colspan="3">税号：<span><%=taxNo%></span></td>
+  </tr>
 </table>
 </div>
 </div>
