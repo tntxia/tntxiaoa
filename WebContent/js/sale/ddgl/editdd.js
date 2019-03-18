@@ -30,7 +30,10 @@ $(function(){
 				alert("后台请求失败");
 			}
 		});
-		
+	});
+	
+	OACommonSelects.fillTaxTypeSelect({
+		sel:$("[name=item]")
 	});
 	
 });

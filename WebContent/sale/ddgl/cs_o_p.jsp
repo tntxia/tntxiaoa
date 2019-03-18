@@ -423,10 +423,10 @@ bordercolorlight="#7f9db9" border="0" frame=above>
 <table  id="banks">
   <tr>
     <td height="17" colspan="3">开户银行：<span class='name'><%=companybank2%></span></td>
-    </tr>
+  </tr>
   <tr>
     <td height="17" colspan="3">银行地址：<span class='address'><%=companynumber2%></span>&nbsp;</td>
-    </tr>
+  </tr>
   <tr>
     <td height="17" colspan="3">银行代码：<span class='code'><%=com_bank_code%></span></td>
   </tr>
@@ -479,11 +479,7 @@ bordercolorlight="#7f9db9" border="0" frame=above>
 	</tr>
 	</table>
 	</td>
-	
   </tr>
-  
-  
-  
 </table></td></tr></table>
 </body>
 </html>
