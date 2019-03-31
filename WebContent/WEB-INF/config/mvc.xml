@@ -49,6 +49,8 @@
 		<action name="sale/quote/print">com.tntxia.oa.sale.action.mvc.SaleQuotePrintAction</action>
 		<action name="sale/quote">com.tntxia.oa.sale.action.QuoteAction</action>
 		
+		<action url="sale/sample.do">com.tntxia.oa.sale.action.SaleSampleAction</action>
+		
 		
 		<action url="client/client.do">com.tntxia.oa.client.action.ClientAction</action>
 		
