@@ -1048,42 +1048,6 @@ public class SaleDoAction extends CommonDoAction {
 	 * @throws Exception 
 	 */
 	@SuppressWarnings({ "rawtypes"})
-	public Map<String,Object> listSampleToReturn(WebRuntime runtime) throws Exception {
-
-		PageBean pageBean = runtime.getPageBean(50);
-		
-		String username = this.getUsername(runtime);
-		
-		String deptjb = this.getDeptjb(runtime);
-		
-		boolean r_sam_view = this.existRight(runtime, "r_sam_view");
-		
-		String strSQL="select count(*) from sample";
-		
-		String sqlWhere;
-		
-		if(r_sam_view){
-			sqlWhere = " where (state='部分入库' or   state='已发运'  or   state='已出库' or   state='待入库') and deptjb like '"+deptjb+"%'";
-		}else
-			sqlWhere = " where (state='部分入库' or   state='已发运'  or   state='已出库' or   state='待入库') and  man='"+username+"'";
-
-		int count = dbManager.getCount(strSQL+sqlWhere);
-		
-		strSQL = "select top "+pageBean.getTop()+" * from sample";
-		List list = dbManager.queryForList(strSQL+sqlWhere, true);
-		
-		return this.getPagingResult(list, pageBean, count);
-
-	}
-	
-	/**
-	 * 待归还订单列表
-	 * 
-	 * @param request
-	 * @param arg1
-	 * @throws Exception 
-	 */
-	@SuppressWarnings({ "rawtypes"})
 	public Map<String,Object> listSampleReturn(WebRuntime runtime) throws Exception {
 
 		PageBean pageBean = runtime.getPageBean(50);

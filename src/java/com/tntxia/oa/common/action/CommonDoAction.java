@@ -172,5 +172,7 @@ public class CommonDoAction  extends BaseAction{
 		String role = this.getRole(runtime);
 		return "总经理".equals(role) || "副总经理".equals(role);
 	}
+	
+	
 
 }

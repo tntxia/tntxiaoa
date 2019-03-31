@@ -1,32 +1,53 @@
 package com.tntxia.oa.sale.handler;
 
+
+import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
 
+import com.tntxia.date.DateUtil;
+import com.tntxia.math.BigDecimalUtils;
+import com.tntxia.oa.common.handler.HandlerWithHeaderAndLeftbar;
 import com.tntxia.oa.sale.dao.SampleDao;
 
-import com.tntxia.web.mvc.RedirectViewHandler;
+
 import com.tntxia.web.mvc.WebRuntime;
 
-public class SampleDetailViewHandler extends RedirectViewHandler {
+public class SampleDetailViewHandler extends HandlerWithHeaderAndLeftbar {
 	
 	private SampleDao sampleDao = new SampleDao();
-	
+
+	@SuppressWarnings("rawtypes")
 	@Override
-	public String init(WebRuntime runtime) throws Exception{
+	public void init(WebRuntime runtime) throws Exception {
 		
 		String id=runtime.getParam("id");
+		
 		Map<String,Object> detail = sampleDao.getDetail(id);
-		String state = (String) detail.get("state");
-		if("未提交".equals(state)) {
-			return "draft";
-		}else if("待审批".equals(state)){
-			return "ddd";
-		}else if("样品已批准".equals(state)){
-			return "f";
-		}else if("已发运".equals(state)){
-			return "toReturn";
+		
+		String fif = (String) detail.get("fif");
+		
+		if("是".equals(fif)){
+			detail.put("needSecondAudit", true);
+		}else{
+			detail.put("needSecondAudit", false);
 		}
-		return null;
+		
+		List list = sampleDao.getList(id);
+		BigDecimal total = BigDecimal.ZERO;
+		for(int i=0;i<list.size();i++) {
+			Map<String,Object> map = (Map<String,Object>) list.get(i);
+			Integer num = (Integer) map.get("num");
+			BigDecimal salejg = (BigDecimal) map.get("salejg");
+			total = total.add(BigDecimalUtils.multiply(salejg, num));
+		}
+		
+		this.setRootValue("detail", detail);
+		this.setRootValue("list", list);
+		this.setRootValue("total", total);
+		this.setRootValue("r_sam_add", this.existRight(runtime, "r_sam_add"));
+		this.setRootValue("currentDate", DateUtil.getCurrentDateSimpleStr());
+		this.setRootValue("id", id);
 		
 	}
 
