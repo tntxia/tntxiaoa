@@ -842,37 +842,6 @@
 		</templates>
 	</mvcView>
 	
-	<mvcView url="sale/ypgl/toReturnList.mvc"
-		handler="com.tntxia.oa.sale.handler.SampleToReturnListHandler">
-		<title>待归还样品列表</title>
-		<isWholePage>true</isWholePage>
-		<charset>UTF-8</charset>
-		<stylesheets>
-			<stylesheet>/oa_static/css/top.css</stylesheet>
-			<stylesheet>css/font-awesome/style.css</stylesheet>
-			<stylesheet>/static/lib/bootstrap/css/bootstrap.css</stylesheet>
-			<stylesheet>css/cwface.css</stylesheet>
-			<stylesheet>css/tntxiaui/style.css</stylesheet>
-			<stylesheet>css/style.css</stylesheet>
-			<stylesheet>css/sale/ddgl/sale-detail-audited.css</stylesheet>
-		</stylesheets>
-		<scripts>
-			<script>/static/lib/jquery/jquery.js</script>
-			<script>/static/lib/vue/vue.js</script>
-			<script>/static/lib/bootstrap/js/bootstrap.js</script>
-			<script>/static/lib/bootstrap-plus/js/bootstrap.grid.js</script>
-			<script>js/lib/oa/oautil.js</script>
-			<script>/oa_static/js/appinfo.js</script>
-			<script>/oa_static/js/top.js</script>
-			<script>js/sale/sample/sample-to-return-list.js</script>
-		</scripts>
-		<templates>
-			<template>common/oa_common_header.ftl</template>
-			<template>common/oa_common_leftbar.ftl</template>
-			<template>sale/ypgl/toReturnList.ftl</template>
-		</templates>
-	</mvcView>
-	
 	<mvcView url="sale/ypgl/returnList.mvc"
 		handler="com.tntxia.oa.sale.handler.SampleReturnListHandler">
 		<title>已归还样品列表</title>
