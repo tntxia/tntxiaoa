@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<leftbar>
+	<bars>
+		<bar name="品质管理">
+			<button url="qc/qc.dispatch?method=checkItemList" ico="images/left/qc/qc_check_item.gif"></button>
+			<button url="qc/qc.dispatch?method=list" ico="images/left/qc/qc_manage.gif"></button>
+		</bar>
+	</bars>
+
+
+</leftbar>

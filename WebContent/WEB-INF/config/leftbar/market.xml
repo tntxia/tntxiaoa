@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<leftbar>
+	<bars>
+		<bar name="市场营销">
+			<button url="market/trade_policy/hlxx.jsp" ico="images/left/market/hyzc.gif"
+				restrain="r_hyzc_zt">行业政策</button>
+			<button url="market/markact/hlxx.jsp" ico="images/left/market/schd.gif"
+				restrain="mactzt">市场活动</button>
+			<button url="market/publicity/hlxx.jsp" ico="images/left/market/mtxc.gif"
+				restrain="r_mtxc_zt">媒体宣传</button>
+			<button url="market/rival/mainsearch.jsp" ico="images/left/market/jzds.gif"
+				restrain="jzdszt">竞争对手</button>
+		</bar>
+	</bars>
+
+
+</leftbar>
