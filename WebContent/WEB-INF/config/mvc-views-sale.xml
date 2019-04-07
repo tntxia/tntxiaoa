@@ -41,7 +41,7 @@
 		<isWholePage>true</isWholePage>
 		<charset>UTF-8</charset>
 		<stylesheets>
-			<stylesheet>css/font-awesome/style.css</stylesheet>
+			<stylesheet>/static/lib/font-awesome/css/font-awesome.css</stylesheet>
 			<stylesheet>/static/lib/bootstrap/css/bootstrap.css</stylesheet>
 			<stylesheet>css/cwface.css</stylesheet>
 			<stylesheet>css/tntxiaui/style.css</stylesheet>
