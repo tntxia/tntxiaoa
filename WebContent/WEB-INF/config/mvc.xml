@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mvc>
 	<charset>GBK</charset>
-	<version>20180710</version>
+	<version>20190407</version>
 	<mvcList>
 		<include file="mvc-views.xml"></include>
 		<include file="mvc-views-purchasing.xml"></include>
@@ -59,9 +59,6 @@
 		<action url="checkwork/checkwork.do">com.tntxia.oa.checkwork.action.CheckWorkAction</action>
 		
 		<action name="assay/do">com.tntxia.oa.assay.action.AssayAction</action>
-		
-		<action  url="system/contact_template/template.do">com.tntxia.oa.system.action.ContactTemplateDoAction</action>
-		
 		<action url="unit.do">com.tntxia.oa.unit.action.UnitAction</action>
 		
 		<action url="company.do">com.tntxia.oa.company.action.CompanyAction</action>
