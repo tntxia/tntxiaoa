@@ -415,47 +415,6 @@ function getUserInfoAll(callback){
 	globe[name] = fun();
 })(window,"OACommonUse",function(){
 	return {
-		openOrderTemplateChoose : function(title,jumpUrl){
-			BootstrapUtils.createDialog({
-				id:'chooseOrderTemplateModal',
-				title:title,
-				template:webRoot+'/template/chooseOrderTemplate.mvc',
-				onFinish:function(){
-					var dialog = this;
-					var vm = new Vue({
-						data:{
-							rows:[],
-							page:1,
-							params:{
-								type: 'purchase'
-							}
-						},
-						created:function(){
-							this.fetchData();
-						},
-						methods:{
-							fetchData:function(){
-								var vm = this;
-								$.ajax({
-									url:webRoot+"/template!list.do",
-									type:'post',
-									data:vm.params,
-									success:function(data){
-										vm.rows = data;
-									}
-								});
-							},
-							getUrl:function(id){
-								return jumpUrl+"?id="+id;
-							}
-						}
-					});
-					
-					vm.$mount(this.find(".modal-body").get(0));
-				}
-			});
-			$("#chooseOrderTemplateModal").modal('show');
-		},
 		
 		// 公共的客户选择
 		openClientChooseDialog : function(callbackFun){
