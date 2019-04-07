@@ -367,7 +367,7 @@
 		<isWholePage>true</isWholePage>
 		<charset>UTF-8</charset>
 		<stylesheets>
-			<stylesheet>css/top.css</stylesheet>
+			<stylesheet>/oa_static/css/top.css</stylesheet>
 			<stylesheet>/static/lib/font-awesome/css/font-awesome.css</stylesheet>
 			<stylesheet>/static/lib/bootstrap/css/bootstrap.css</stylesheet>
 			<stylesheet>/static/lib/font-awesome-plus/style.css</stylesheet>
@@ -379,7 +379,8 @@
 			<script>/static/lib/jquery/jquery.js</script>
 			<script>/static/lib/vue/vue.js</script>
 			<script>js/lib/oa/oautil.js</script>
-			<script>js/top.js</script>
+			<script>/oa_static/js/appinfo.js</script>
+			<script>/oa_static/js/top.js</script>
 			<script>/static/lib/jxiaui/js/jxiaui.js</script>
 			<script>/static/lib/bootstrap/js/bootstrap.js</script>
 			<script>/static/lib/bootstrap-plus/js/bootstrap-utils.js</script>
@@ -421,7 +422,7 @@
 		<isWholePage>true</isWholePage>
 		<charset>UTF-8</charset>
 		<stylesheets>
-			<stylesheet>css/top.css</stylesheet>
+			<stylesheet>/oa_static/css/top.css</stylesheet>
 			<stylesheet>css/font-awesome/style.css</stylesheet>
 			<stylesheet>/static/lib/bootstrap/css/bootstrap.css</stylesheet>
 			<stylesheet>css/cwface.css</stylesheet>
@@ -429,10 +430,11 @@
 			<stylesheet>css/style.css</stylesheet>
 		</stylesheets>
 		<scripts>
-			<script>js/lib/jquery.js</script>
-			<script>js/lib/vue.js</script>
+			<script>/static/lib/jquery/jquery.js</script>
+			<script>/static/lib/vue/vue.js</script>
 			<script>js/lib/oa/oautil.js</script>
-			<script>js/top.js</script>
+			<script>/oa_static/js/appinfo.js</script>
+			<script>/oa_static/js/top.js</script>
 			<script>js/lib/underscore.js</script>
 			<script>js/lib/jxiaui/getParamMap.js</script>
 			<script>js/lib/jxiaui/panel.js</script>
@@ -444,7 +446,7 @@
 			<script>js/dzzz/dzys/fyglm.js</script>
 		</scripts>
 		<templates>
-			<template>common/oa_common_header_utf8.ftl</template>
+			<template>common/oa_common_header.ftl</template>
 			<template>common/oa_common_leftbar.ftl</template>
 			<template>dzzz/dzys/fyglm.ftl</template>
 
