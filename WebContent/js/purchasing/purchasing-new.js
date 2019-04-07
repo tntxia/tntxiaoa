@@ -84,8 +84,12 @@ $(function() {
 			chooseSupplier:function(){
 				let form = this;
 				OACommonUse.openSupplierChooseDialog(function(data){
+					let supplierNumber = data.co_number;
 					form.setValue("coname",data.coname);
-					form.setValue("co_number1",data.co_number);
+					form.setValue("co_number1", supplierNumber);
+					OACommonUse.openSupplierContactChooseDialog(supplierNumber,function(data){
+						form.setValue("lxr",data.name);
+					});
 				});
 			},
 			chooseContact:function(){

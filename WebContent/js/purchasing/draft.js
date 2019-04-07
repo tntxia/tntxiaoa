@@ -7,7 +7,6 @@ $(function(){
 	$("#datagrid").datagrid({
 		title:'新增订单',
 		url:webRoot + "/purchasing/purchasing!list.do",
-		
 		cols:[{
 			field:'number',
 			label:'采购编号',
@@ -77,8 +76,45 @@ $(function(){
 	
 	// 增加采购订单的按钮
 	$("#addBtn").click(function(){
-		OACommonUse.openOrderTemplateChoose("新增采购合同 - 选择模板","../ddgl/new.mvc");
-		
+		BootstrapUtils.createDialog({
+			id:'chooseOrderTemplateModal',
+			title:"新增采购合同 - 选择模板",
+			template:webRoot+'/template/chooseOrderTemplate.mvc',
+			onFinish:function(){
+				var dialog = this;
+				var vm = new Vue({
+					data:{
+						rows:[],
+						page:1,
+						params:{
+							type: 'purchase'
+						}
+					},
+					created:function(){
+						this.fetchData();
+					},
+					methods:{
+						fetchData:function(){
+							var vm = this;
+							$.ajax({
+								url:webRoot+"/template!list.do",
+								type:'post',
+								data:vm.params,
+								success:function(data){
+									vm.rows = data;
+								}
+							});
+						},
+						getUrl:function(id){
+							return "../ddgl/new.mvc?id="+id;
+						}
+					}
+				});
+				
+				vm.$mount(this.find(".modal-body").get(0));
+			}
+		});
+		$("#chooseOrderTemplateModal").modal('show');
 	});
 	
 	$("#searchBtn").click(function(){
