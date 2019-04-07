@@ -186,7 +186,6 @@ public class WarehouseLightService extends CommonService{
 			String num1, String wid) throws NumberFormatException, SQLException {
 
 		String currentDate = DateUtil.getCurrentDateSimpleStr();
-
 		String msg = null;
 
 		Transaction trans = this.getTransaction();
@@ -205,8 +204,7 @@ public class WarehouseLightService extends CommonService{
 			// 获取当前时间
 			String nn = simplew.format(new java.util.Date());
 
-			String strSSql = "select * from ddpro where (num-s_num)>='" + num1
-					+ "' and id=?";
+			String strSSql = "select * from ddpro where id=?";
 
 			Map proMap = trans.queryForMap(strSSql, new Object[] { id }, true);
 
@@ -408,7 +406,8 @@ public class WarehouseLightService extends CommonService{
 		} catch (Exception e) {
 			e.printStackTrace();
 			trans.rollback();
-			return e.getMessage();
+			String errMsg = e.getMessage();
+			return errMsg;
 		} finally {
 			trans.close();
 		}

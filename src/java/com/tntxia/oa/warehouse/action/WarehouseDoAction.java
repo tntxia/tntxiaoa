@@ -920,6 +920,13 @@ public class WarehouseDoAction extends CommonDoAction {
 		}
 
 	}
+	
+	private Map<String,Object> getSampleDetail(String id) throws Exception {
+		String sqldd = "select * from sample where id=?";
+		Map<String, Object> detail = dbManager.queryForMap(sqldd, new Object[] { id }, true);
+
+		return detail;
+	}
 
 	@SuppressWarnings("rawtypes")
 	public Map<String, Object> doOutSample(WebRuntime runtime) throws Exception {
@@ -928,10 +935,8 @@ public class WarehouseDoAction extends CommonDoAction {
 		String currentDate = simple.format(new java.util.Date());
 		
 		String id1 = runtime.getParam("id");
-		
-		String sqldd = "select * from sample where id=?";
 
-		Map<String, Object> detail = dbManager.queryForMap(sqldd, new Object[] { id1 }, true);
+		Map<String, Object> detail = this.getSampleDetail(id1);
 
 		if (detail == null) {
 			return this.errorMsg("样品ID不存在！");
@@ -1004,10 +1009,71 @@ public class WarehouseDoAction extends CommonDoAction {
 		}finally {
 			trans.close();
 		}
-		
-		
 		return this.success();
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public Map<String, Object> doInSample(WebRuntime runtime) throws Exception {
+		
+		java.text.SimpleDateFormat simple=new java.text.SimpleDateFormat("yyyy-MM-dd");
+		String currentDate=simple.format(new java.util.Date());
+		 String id1=runtime.getParam("id");
 
+			Map<String, Object> detail = this.getSampleDetail(id1);
+
+			if (detail == null) {
+				return this.errorMsg("样品ID不存在！");
+			}
+			String fynumber = (String)detail.get("number");
+		 String username = this.getUsername(runtime);
+		 String state = (String) detail.get("state");
+		 if(state.equals("已入库")) {
+			 return this.errorMsg("样品已入库");
+		 }
+		 Transaction trans = this.getTransaction();
+		 try {
+			 String strSQLpro = "select id,epro,cpro,num,pro_snum,pro_sc_num,unit,wid,salejg,pricehb from sam_pro where  ddid='"+id1+"'";
+			List proList=trans.queryForList(strSQLpro, true);
+			
+			for(int i=0;i<proList.size();i++) {
+				 Map map = (Map) proList.get(i);
+				 Integer  pid=(Integer) map.get("id");
+				String pro_model=((String) map.get("epro")).trim();
+				
+				 int num=(Integer)  map.get("num");
+				 int pro_snum=(Integer)  map.get("pro_snum");
+				 int pro_sc_num=(Integer)  map.get("pro_sc_num");
+				  pro_snum=pro_snum+pro_sc_num;
+				  pro_sc_num=pro_sc_num*(-1);
+
+				 String sql="select count(*) from warehouse where pro_model='"+pro_model+"'";
+				 int count = trans.getCount(sql);
+				 if(count==0) {
+					 return this.errorMsg("仓库暂无该产品");
+				 }
+				
+				 this.changeProductNum(trans, fynumber, username, pro_model, num, "样品归还");
+		
+				  String strSQLw1="update sam_pro set pro_sc_num='0',pro_snum='"+pro_snum+"',pro_sr_date='"+currentDate+"'  where id='" + pid + "'";
+				  trans.executeUpdate(strSQLw1);
+				  
+				  
+			}
+			
+			      
+			    String ddsqls="update sample set state='已入库'  where id='"+id1+"'";
+			    trans.executeUpdate(ddsqls);
+			    trans.commit();
+		 }catch(Exception e) {
+			 e.printStackTrace();
+			 trans.rollback();
+			 return this.errorMsg(e.getMessage());
+		 }finally {
+			 trans.close();
+		 }
+		 
+		 return this.success();    
+		
 	}
 	
 	public List<ProductType> listProductType(WebRuntime runtime) throws Exception {
