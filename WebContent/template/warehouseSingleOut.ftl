@@ -1,0 +1,1 @@
+<div>请输入你要出库的数量:</div><input><button>确认出库</button>
