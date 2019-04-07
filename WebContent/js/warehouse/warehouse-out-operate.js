@@ -107,8 +107,9 @@ function outSingle(ddid,id){
 		title:"产品出库",
 		template:webRoot+'/template/warehouseSingleOut.mvc',
 		onFinish:function(){
-			var button = this.find("button");
-			var input = this.find("input");
+			var content = this.find(".modal-body");
+			var button = content.find("button");
+			var input = content.find("input");
 			
 			button.click(function(){
 				var num = input.val();

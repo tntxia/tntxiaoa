@@ -414,9 +414,7 @@ function getUserInfoAll(callback){
 (function(globe,name,fun){
 	globe[name] = fun();
 })(window,"OACommonUse",function(){
-	
 	return {
-		
 		openOrderTemplateChoose : function(title,jumpUrl){
 			BootstrapUtils.createDialog({
 				id:'chooseOrderTemplateModal',
@@ -428,7 +426,9 @@ function getUserInfoAll(callback){
 						data:{
 							rows:[],
 							page:1,
-							params:{}
+							params:{
+								type: 'purchase'
+							}
 						},
 						created:function(){
 							this.fetchData();
@@ -459,9 +459,6 @@ function getUserInfoAll(callback){
 		
 		// 公共的客户选择
 		openClientChooseDialog : function(callbackFun){
-			
-			
-			
 			
 			BootstrapUtils.createDialog({
 				id:'chooseClientModal',
@@ -528,16 +525,13 @@ function getUserInfoAll(callback){
 				}
 			});
 			$("#chooseClientModal").modal('show');
-			
-			
-			
-			
 		},
 		
 		// 公共的供应商选择
 		openSupplierChooseDialog:function(callbackFun){
 			BootstrapUtils.createDialog({
 				id:'supplierChooseModal',
+				title: '选择供应商',
 				template:webRoot+'/template/chooseSupplier.mvc',
 				onFinish:function(){
 					var dialog = this;
@@ -580,6 +574,7 @@ function getUserInfoAll(callback){
 			
 			BootstrapUtils.createDialog({
 				id:'supplierContactChooseModal',
+				title: '选择供应商联系人',
 				template:webRoot+'/template/chooseSupplierContact.mvc',
 				onFinish:function(){
 					var dialog = this;
