@@ -24,6 +24,7 @@
 			<script>/static/lib/bootstrap/js/bootstrap.js</script>
 			<script>/static/lib/bootstrap-plus/js/bootstrap-utils.js</script>
 			<script>/static/lib/bootstrap-plus/js/bootstrap.grid.js</script>
+			<script>js/lib/bootstrap/bootstrap.tabs.js</script>
 			<script>/static/lib/module_route/module_route.js</script>
 			<script>js/warehouse/warehouse-index.js</script>
 		</scripts>
@@ -31,46 +32,6 @@
 			<template>common/oa_common_header.ftl</template>
 			<template>common/oa_common_leftbar.ftl</template>
 			<template>common/common_container.ftl</template>
-		</templates>
-	</mvcView>
-
-	<mvcView url="warehouse/manage.mvc" handler="com.tntxia.oa.warehouse.action.mvc.ManageAction">
-		<title>仓库管理</title>
-		<isWholePage>true</isWholePage>
-		<charset>UTF-8</charset>
-		<stylesheets>
-			<stylesheet>/oa_static/css/top.css</stylesheet>
-			<stylesheet>css/font-awesome/style.css</stylesheet>
-			<stylesheet>/static/lib/bootstrap/css/bootstrap.css</stylesheet>
-			<stylesheet>css/cwface.css</stylesheet>
-			<stylesheet>css/tntxiaui/style.css</stylesheet>
-			<stylesheet>css/style.css</stylesheet>
-		</stylesheets>
-		<scripts>
-			<script>/static/lib/jquery/jquery.js</script>
-			<script>/static/lib/jquery/jquery.blockUI.js</script>
-			<script>/static/lib/vue/vue.js</script>
-			<script>js/lib/vue-manager.js</script>
-			<script>/static/lib/bootstrap/js/bootstrap.js</script>
-			<script>/static/lib/bootstrap-plus/js/bootstrap-utils.js</script>
-			<script>/static/lib/bootstrap-plus/js/bootstrap.grid.js</script>
-			<script>/static/lib/jxiaui/js/jxiaui.js</script>
-			<script>js/lib/oa/oautil.js</script>
-			<script>/oa_static/js/appinfo.js</script>
-			<script>/oa_static/js/top.js</script>
-			<script>js/lib/jxiaui/message.js</script>
-			<script>js/lib/jxiaui/getParamMap.js</script>
-			<script>js/lib/jxiaui/datagrid.js</script>
-			<script>js/lib/jxiaui/crud.js</script>
-			<script>js/lib/jxiaui/panel.js</script>
-			<script>js/lib/jxiaui/dialog.js</script>
-			<script>js/common.js</script>
-			<script>js/warehouse/cwarehouse.js</script>
-		</scripts>
-		<templates>
-			<template>common/oa_common_header.ftl</template>
-			<template>common/oa_common_leftbar.ftl</template>
-			<template>warehouse/manage.ftl</template>
 		</templates>
 	</mvcView>
 	
