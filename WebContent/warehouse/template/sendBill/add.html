@@ -1,0 +1,21 @@
+<div>
+	<div id="vue">
+		<div id="company-info">
+			<div>请选择公司：
+				<select name="company" v-model="company_id" @change="changeCompany()">
+					<option v-for="c in companyList" :value="c.id">{{c.companyname}}</option>
+				</select>
+			</div>
+			<div><img alt="" :src="getUrl(company.pic_id)">{{company.picpath}}</div>
+			<div><b>公司名称：</b>{{company.companyname}}  <b>公司电话：</b>{{company.companytel}}</div>
+			<div><b>公司传真：</b>{{company.companyfax}}</div>
+		</div>
+		<div>
+			<input v-model="saleId" type="hidden">
+			销售单号: <input v-model="sale_number" readonly="readonly"> <span class="choose-btn fa fa-ellipsis-h" @click="chooseSale"></span>
+		</div>
+		<div>
+			<button @click="add">增加送票单</button>
+		</div>
+	</div>
+</div>
