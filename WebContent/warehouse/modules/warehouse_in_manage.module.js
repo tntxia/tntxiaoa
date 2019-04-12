@@ -112,6 +112,9 @@ var warehousePath = webRoot+'/warehouse/warehouse.dispatch';
 					search:function(){
 						var param = this.getParamMap(true);
 						grid.load(param);
+					},
+					add:function() {
+						window.open('in/new.mvc','_blank');
 					}
 				}
 			});
