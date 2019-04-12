@@ -31,11 +31,10 @@
 								<OPTION VALUE="借用归还">借用归还</OPTION>
 						</SELECT> 
 						<button action="search">查阅入库明细</button>
-							<input type="button" value="新增入库单"
-							onClick="window.open('new.mvc','_blank')">
+						<button action="add">新增入库单</button>
 
 							<input type="button" value="入库单报表"
-							onClick="window.open('rk_r.jsp?ddnum=&coname=&pro_model=&startdate=&enddate=&g_man=&int_types=','_blank', 'height=500, width=955, top=50, left=50, toolbar=yes, menubar=no, scrollbars=yes, resizable=yes,location=no, status=no')">
+							onClick="window.open('in/rk_r.jsp?ddnum=&coname=&pro_model=&startdate=&enddate=&g_man=&int_types=','_blank', 'height=500, width=955, top=50, left=50, toolbar=yes, menubar=no, scrollbars=yes, resizable=yes,location=no, status=no')">
 							
 							&nbsp;
 					</div></td>
