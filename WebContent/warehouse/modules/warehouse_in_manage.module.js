@@ -73,20 +73,6 @@ var warehousePath = webRoot+'/warehouse/warehouse.dispatch';
 		template:'in/template_list.mvc',
 		handler:function(){
 			
-			var form = $("#searchTable").buildform({
-				actions:{
-					search:function(){
-						var param = this.getParamMap(true);
-						$("#inListDatagrid").datagrid('load',param);
-					}
-				}
-			});
-			
-			$("[name=startdate]").datepick();
-			$("[name=enddate]").datepick({
-				showNowDate:true
-			});
-			
 			let grid;
 			let url = webRoot+"/warehouse/warehouse!listIn.do";
 			let target = $("#inListDatagrid");
@@ -107,7 +93,7 @@ var warehousePath = webRoot+'/warehouse/warehouse.dispatch';
 					}
 				},{
 					label:'供应商名称',
-					field:'coname'
+					field:'supplier'
 				},{
 					label:'入库类别',
 					field:'int_types'
@@ -120,6 +106,20 @@ var warehousePath = webRoot+'/warehouse/warehouse.dispatch';
 				}]
 			});
 			grid.init();
+			
+			var form = $("#searchTable").buildform({
+				actions:{
+					search:function(){
+						var param = this.getParamMap(true);
+						grid.load(param);
+					}
+				}
+			});
+			
+			$("[name=startdate]").datepick();
+			$("[name=enddate]").datepick({
+				showNowDate:true
+			});
 		}
 	});
 	
