@@ -17,7 +17,6 @@ exports.init = function(){
 		el:target,
 		methods: {
 			loadWait() {
-				
 				let target = $("#rkList");
 				let url = webRoot+'/purchasing/purchasing!listWaitRk.do';
 				let grid;
