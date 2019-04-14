@@ -8,6 +8,7 @@
 		<stylesheets>
 			<stylesheet>/oa_static/css/top.css</stylesheet>
 			<stylesheet>css/font-awesome/style.css</stylesheet>
+			<stylesheet>/static/lib/jxiaui/0.1/css/jxiaui.tabs.css</stylesheet>
 			<stylesheet>/static/lib/bootstrap/css/bootstrap.css</stylesheet>
 			<stylesheet>css/cwface.css</stylesheet>
 			<stylesheet>css/tntxiaui/style.css</stylesheet>
@@ -21,6 +22,8 @@
 			<script>/static/lib/jxiaui/js/jxiaui.js</script>
 			<script>/static/lib/jxiaui/js/datepick.js</script>
 			<script>/static/lib/jxiaui/js/http.js</script>
+			<script>/static/lib/jxiaui/0.1/js/jxiaui.js</script>
+			<script>/static/lib/jxiaui/0.1/js/tabs.js</script>
 			<script>/static/lib/bootstrap/js/bootstrap.js</script>
 			<script>/static/lib/bootstrap-plus/js/bootstrap-utils.js</script>
 			<script>/static/lib/bootstrap-plus/js/bootstrap.grid.js</script>
