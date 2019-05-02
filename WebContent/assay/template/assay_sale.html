@@ -1,0 +1,72 @@
+
+<div class="main_sec" id="vue">
+
+  <table width="100%" id="searchBar">
+    <tr bgcolor="#d3d8eb">
+      <td height="24" colspan="15" nowrap bgcolor="#FFFFFF">
+      <span class="STYLE4">销售合同统计</span></td>
+    </tr>
+    <tr bgcolor="#d3d8eb">
+      <td height="24" colspan="15" nowrap bgcolor="#FFFFFF">
+   合同号
+       <input name="fpnum" size="10">
+   销售人员
+   		<select name="man" id="man">
+   			<option value="">请选择</option>
+   		</select>
+        客户名称
+       <input name="coname" type="text" size="10">
+       品牌
+       <input name="supplier" type="text" size="10">
+       
+  型号
+       <input name="model" type="text" size="10">
+      起始日期:<input name="sdate" type="text" value="" size="10">
+       终止日期:<input name="edate" size="10">
+       <button action="sub">统计</button>
+      </td>
+    </tr>
+  </table>
+
+<div id="res_table">
+	<table class="table table-border table-hover">
+	<thead>
+		<tr><th>合同号</th><th>客户名称</th><th>合同金额</th><th>暂估成本</th><th>暂估利润</th><th>发货成本</th>
+		<th>开票金额</th><th>回款金额</th><th>冲销金额</th><th>销售员</th><th>客户合同号</th><th>签订日期</th>
+		<th>发货金额</th><th>执行情况</th><th>成本合计</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr v-for="r in rows">
+			<td><a :href="getUrl(r.id)" target="_blank">{{r.number}}</a></td>
+			<td>{{r.coname}}</td>
+			<td>{{r.totalPrice}}</td>
+			<td>{{r.totalPurchasePrice}}</td>
+			<td>{{r.totalPrice - r.totalPurchasePrice}}</td>
+			<td>{{r.totalSendPurchasePrice}}</td>
+			<td>{{r.iman}}</td>
+			<td>{{r.sk}}</td>
+			<td></td>
+			<td>{{r.man}}</td>
+			<td></td>
+			<td>{{r.send_date}}</td>
+			<td>{{r.totalSendPrice}}</td>
+			<td>{{r.totalPrice - r.totalSendPrice}}</td>
+			<td>{{r.totalSendPrice}}</td>
+		</tr>
+	</tbody>
+</table>
+<div>
+	<span v-if="page<totalPage"> <a @click="nextPage">下一页</a></span>
+	<span v-if="page>1"> <a @click="prePage">上一页</a></span>
+	<input size=3 v-model="pageJump">页 
+	<button @click="jumpPage">转页</button>共{{count}}销售合同累计，当前第{{page}}页,共{{totalPage}}页
+</div>
+
+<div style="position:fixed;bottom:0;right:30px;background:white;padding:20px;border:1px solid #ccc;">
+累计销售金额:
+<div v-for="t in totals">{{t.money}}:{{t.ys}}</div>
+</div>
+     
+</div>
+</div>
