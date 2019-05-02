@@ -1,0 +1,98 @@
+<br>  
+
+<table height=8 width="100%" 
+bordercolor="#CCBE5A" cellspacing="0" 
+                        bordercolordark="#ffffff" cellpadding="3" 
+                        align="center" bgcolor="#ffffff" bordercolorlight="#7f9db9" 
+                        border="1" id="outedVue">
+        <tr bgcolor="#d3d8eb">
+          <td height="17" nowrap><div align="left">序号</div></td>
+          <td nowrap><div align="left">合同编号&nbsp;</div></td>
+          <td nowrap><div align="left">公司合同号&nbsp;</div></td>
+          <td height="17" nowrap><div align="left">客户名称&nbsp;</div></td>
+          <td height="17" nowrap><div align="left">产品型号&nbsp;</div></td>
+          <td nowrap><div align="left">产品批号</div></td>
+          <td nowrap><div align="left">税率</div></td>
+          <td nowrap><div align="left">单价</div></td>
+          <td nowrap><div align="left">货币</div></td>
+          <td height="17" nowrap><div align="left">数量&nbsp;</div></td>
+          <td height="17" nowrap><div align="left">出库日期&nbsp;</div></td>
+          <td nowrap><div align="left">出库人&nbsp;</div></td>
+          <td height="17" nowrap><div align="left">仓库名称&nbsp;</div></td>
+          <td height="17" nowrap><div align="left">销售员&nbsp;</div></td>
+      </tr>
+        <%
+   i = 0;
+   while(i<intPageSize && sqlRst.next()){ 
+   		String ddid = sqlRst.getString("ddid");
+   		int num=sqlRst.getInt("pro_num");
+   		String pro_unit = sqlRst.getString("pro_unit");
+   		String pro_fynum=sqlRst.getString("pro_fynum");
+   		String pro_fynumc=sqlRst.getString("pro_coname");
+   		if(pro_unit==null){
+   			pro_unit = "";
+   		}
+   		String pro_model1=sqlRst.getString("pro_model");
+		String pro_name=sqlRst.getString("pro_name");
+		String pro_rate=sqlRst.getString("pro_rate");
+		String item=sqlRst.getString(9);
+		String pro_sales_price=sqlRst.getString("salejg");
+		String pro_price_hb=sqlRst.getString("pro_price_hb");
+   		%>
+        <tr bgcolor="<%if ((i % 2)==0) out.print("#eeeeee");
+        	       else out.print("#ffffff");%>" style="cursor:hand;" onMouseOver="this.bgColor='#B5DAFF'" onMouseOut="this.bgColor='<%if ((i % 2)==0) out.print("#eeeeee");
+        	       else out.print("#ffffff");%>'" height="8">
+            <td height="8" nowrap><div align="left"><font size="2">
+            
+		  <a href="ydd-view.jsp?id=<%=ddid%>" target="w" onClick="javascript:window.open('ydd-view.jsp?id=<%=ddid%>','w','height=550,width=955,left=25,top=25,toolbar=yes, menubar=no, scrollbars=yes, resizable=yes,location=no, status=no')">
+            <%=i+1 %></a></font>&nbsp;</div></td>
+          <td nowrap><div align="left"><font size="2">
+          
+		  
+			<a href="ydd-view.jsp?id=<%=ddid%>" target="w" onClick="javascript:window.open('ydd-view.jsp?id=<%=ddid%>','w','height=550,width=955,left=25,top=25,toolbar=yes, menubar=no, scrollbars=yes, resizable=yes,location=no, status=no')"><%=pro_fynum%></a>
+			
+		  </font>&nbsp;</div></td>
+          <td nowrap><div align="left"><font size="2">
+          
+          <%String sub=sqlRst.getString("sub");
+			out.print(sub);
+			%>
+          </font>&nbsp;</div></td>
+          <td height="8" nowrap><div align="left"><font size="2"><%=pro_fynumc %> </font>&nbsp;</div>
+          </td>
+		  <td height="8" nowrap><div align="left"><font size="2"><%=pro_model1%>        
+           </font>&nbsp;</div></td>
+		  <td nowrap><div align="left"><%=pro_name%>&nbsp;</div></td>
+		  
+          <td nowrap><div align="left"><font size="2"><%=pro_rate%></font>&nbsp;</div></td>
+            <td nowrap><div align="left"><font size="2">
+                <%if(proview_price.equals("有")) {out.print(pro_sales_price);}%>
+            </font>&nbsp;</div></td>
+		  
+          <td nowrap><div align="left"><font size="2"><%=pro_price_hb%></font>&nbsp;</div></td>
+			<td height="8" nowrap><div align="left"><font size="2"><%=num%><%=pro_unit%></font></div></td>
+          <td height="8" nowrap><div align="left"><font size="2"><%=sqlRst.getString("PRO_DATETIME")%></font>&nbsp;</div></td>
+          <td nowrap><div align="left"><font size="2"><%=sqlRst.getString("SLINKMAN")%></font>&nbsp;</div></td>
+          <td height="8" nowrap><div align="left"><font size="2"><%=sqlRst.getString("SLINKTEL")%></font>&nbsp;</div></td>
+          <td height="8" nowrap><div align="left"><font size="2"><%=sqlRst.getString("man")%></font>&nbsp;</div></td>
+      </tr>
+        <% i++; } %>
+        <tr>
+            <td colspan=14 align=center height="22"><div align="right"><font color="#000000" size="2"> 共<%=intRowCount%>个已出库单</font><FONT COLOR="#000000"><FONT COLOR="#000000"><FONT SIZE="2">,当前是第<%=intPage%>页,共<%=intPageCount%>页</FONT></FONT></FONT> <font color="#C1D9FF" size="2">
+                    <%if(intPage<intPageCount){%>
+                    <a href="zouthousem.jsp?page=<%=intPage+1%>">下一页</a>
+                    <% } %>
+                    <%if(intPage>1){%>
+                    <a href="zouthousem.jsp?page=<%=intPage-1%>">上一页</a>
+                    <%  }  %>
+                    </font>&nbsp;</div></td>
+        </tr>
+  </table>
+    <%
+  
+  sqlRst.close();
+ einfodb.closeStmt();
+ einfodb.closeConn();
+}%>
+<br>
+
