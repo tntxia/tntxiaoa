@@ -4,7 +4,7 @@
 		<bar name="仓库管理">
 			<button url="warehouse/index.mvc#warehouse_manage">仓库管理</button>
 			<button url="warehouse/index.mvc#warehouse_in_manage">入库管理</button>
-			<button url="warehouse/out/index.mvc">出库管理</button>
+			<button url="warehouse/index.mvc#warehouse_out_manage">出库管理</button>
 		</bar>
 		<bar name="发货管理">
 			<button url="warehouse/send-bill.mvc">送货单管理</button>

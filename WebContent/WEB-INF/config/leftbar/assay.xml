@@ -22,7 +22,7 @@
 			<button url="assay/sale/monthTrend.mvc">月走势图</button>
 		</bar>
 		<bar name="合同统计" restrain="jcfxzt">
-			<button url="sale/xstj/index.mvc">销售合同统计</button>
+			<button url="assay/index.mvc#assay_sale">销售合同统计</button>
 			<button url="sale/xstj/month.mvc">月合同统计</button>
 			<button url="assay/statist/purchasing.mvc">采购统计</button>
 		</bar>
