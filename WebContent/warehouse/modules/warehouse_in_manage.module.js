@@ -9,8 +9,6 @@ var exports = Object.create(null);
 module.exports=exports;
 exports.init = function(){
 	
-	var warehousePath = webRoot+'/warehouse/warehouse.dispatch';
-	
 	var target = $("#container");
 	
 	var tabs = new JxiaUI({
