@@ -49,7 +49,7 @@ exports.init = function(){
 							var number = vm.number;
 							
 							$.ajax({
-								url:'../warehouse!getOutList.do',
+								url:webRoot+'/warehouse/warehouse!getOutList.do',
 								type:'post',
 								data:{
 									coname:coname,
