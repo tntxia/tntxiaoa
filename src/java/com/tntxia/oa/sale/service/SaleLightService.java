@@ -670,10 +670,11 @@ public class SaleLightService extends CommonService{
 		String remark = pro.getRemark();
 		String pro_tr = pro.getPro_tr();
 		String mpn = pro.getMpn();
+		String money = pro.getMoney();
 		
-		String strSQL="insert into ddpro(ddid,epro,num,unit,rale_types,rale,supplier,salejg,fyproall,wid,x_no,remark,s_num,s_c_num,s_tr_date,fy_states,p_check,mpn,pro_jz,pro_mz,pro_cc,pro_cd,th_num,PRICEHB) "
-		   		+"values(?,?,?,?,'价外税','0',?,?,'no',?,'',?,'0','0','"+pro_tr+"','待发运','',?,'','','','',0,'')";
-		   	dbManager.executeUpdate(strSQL,new Object[] {ddid,epro,num,unit,supplier,price,wid,remark,mpn});
+		String strSQL="insert into ddpro(ddid,epro,num,unit,rale_types,rale,supplier,salejg,fyproall,wid,x_no,remark,s_num,s_c_num,s_tr_date,fy_states,p_check,mpn,pro_jz,pro_mz,pro_cc,pro_cd,th_num,PRICEHB,money) "
+		   		+"values(?,?,?,?,'价外税','0',?,?,'no',?,'',?,'0','0','"+pro_tr+"','待发运','',?,'','','','',0,'',?)";
+		   	dbManager.executeUpdate(strSQL,new Object[] {ddid,epro,num,unit,supplier,price,wid,remark,mpn,money});
 	}
 	
 	

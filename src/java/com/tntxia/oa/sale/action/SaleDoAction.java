@@ -267,6 +267,10 @@ public class SaleDoAction extends CommonDoAction {
 		String sql = "select * from subscribe where id = ?";
 		return dbManager.queryForMap(sql, new Object[] { id }, true);
 	}
+	
+	private Map<String, Object> getDetail(Integer id) throws Exception {
+		return this.getDetail(String.valueOf(id));
+	}
 
 	private String getFinanceNote(String number) {
 		String sql = "select note from gathering where orderform=?";
@@ -2618,9 +2622,11 @@ public class SaleDoAction extends CommonDoAction {
 	}
 	
 	public Map<String,Object> savePro(WebRuntime runtime) throws Exception {
+		int quoteid=runtime.getInt("ddid");
 		
-		 int quoteid=runtime.getInt("ddid");
-		  int t=0;
+		Map<String,Object> sale = this.getDetail(quoteid);
+		String money = (String) sale.get("money");
+		int t=0;
 		 String i1=runtime.getParam("i");
 		 if(i1!=null)
 		  t=Integer.parseInt(i1);
@@ -2688,6 +2694,7 @@ public class SaleDoAction extends CommonDoAction {
 			  	String qprice=runtime.getParam("2qprice");
 			  	pro.setSalejg(BigDecimalUtils.toBigDecimal(qprice));
 			  String supplier=runtime.getParam("2supplier");
+			  pro.setMoney(money);
 			  pro.setSupplier(supplier);
 			  String pro_tr=runtime.getParam("2pro_tr");
 			  pro.setPro_tr(pro_tr);
