@@ -81,7 +81,7 @@ exports.init = function(){
 							this.fetchData();
 						},
 						getUrl:function(ddid){
-							return "operate.mvc?id="+ddid;
+							return "out/operate.mvc?id="+ddid;
 						}
 					}
 				});
