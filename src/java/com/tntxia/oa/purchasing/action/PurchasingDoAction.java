@@ -437,14 +437,14 @@ public class PurchasingDoAction extends CommonDoAction {
 	 * @param arg1
 	 */
 	@SuppressWarnings({ "rawtypes" })
-	public Map<String, Object> listWaitRk(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public Map<String, Object> listWaitRk(WebRuntime runtime) throws Exception {
 
-		String model = ParamUtils.unescape(request, "model");
-		String coname = ParamUtils.unescape(request, "coname");
-		String number = ParamUtils.unescape(request, "number");
-		String supplier = ParamUtils.unescape(request, "supplier");
+		String model = runtime.getParam("model");
+		String coname = runtime.getParam("coname");
+		String number = runtime.getParam("number");
+		String supplier = runtime.getParam("supplier");
 
-		PageBean pageBean = this.getPageBean(request, 50);
+		PageBean pageBean = runtime.getPageBean(50);
 
 		int top = pageBean.getTop();
 		String countSql = "select count(*) from procure";

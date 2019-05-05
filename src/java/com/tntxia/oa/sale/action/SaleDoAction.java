@@ -842,17 +842,17 @@ public class SaleDoAction extends CommonDoAction {
 		}
 		
 		if(subviewRight){
-			sql = "select pricehb,sum(num*salejg) ys from subview where (state='预收款' or state='已发运' or state='待出库' or state='订单已批准')   and deptjb like '"
+			sql = "select money,sum(num*salejg) ys from subview where (state='预收款' or state='已发运' or state='待出库' or state='订单已批准')   and deptjb like '"
 					+ deptjb
 					+ "%'"
 					+ sqlWhere
-					+ "  group by pricehb order by 2 desc";
+					+ "  group by money order by 2 desc";
 		}else{
-			sql = "select pricehb,sum(num*salejg) ys from subview where  man='"
+			sql = "select money,sum(num*salejg) ys from subview where  man='"
 					+ username
 					+ "' and (state='预收款' or state='已发运' or state='待出库' or state='订单已批准') "
 					+ sqlWhere
-					+ "  group by pricehb order by 2 desc";
+					+ "  group by money order by 2 desc";
 		}
 	
 		return dbManager.queryForList(sql, true);
