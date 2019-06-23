@@ -29,7 +29,8 @@ public class SaleApprovingViewAction extends RedirectViewHandler {
 				path = "sd";
 			}
 		} else if (states.equals("待复审")) {
-			if (fspman.equals(username)) {
+			System.out.println("复审人：" + man + ":用户名：" + username);
+			if (fspman.trim().equals(username)) {
 				path = "fddd";
 			} else {
 				path = "dddman";
