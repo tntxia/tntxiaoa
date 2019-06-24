@@ -3,7 +3,6 @@ package com.tntxia.oa.sale.action;
 import infocrmdb.DealString;
 
 import java.math.BigDecimal;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -1940,120 +1939,72 @@ public class SaleDoAction extends CommonDoAction {
 	@SuppressWarnings({ "rawtypes"})
 	public Map<String,Object> approvingList(WebRuntime runtime) throws Exception {
 
-		Map<String, Object> res = new HashMap<String, Object>();
-		List rows = new ArrayList();
-		java.sql.ResultSet sqlRst;
-
-		java.lang.String strSQL;
-		
-		int intRowCount;
-		
-		int i, j;
-		
-		PageBean pageBean = runtime.getPageBean();
+		String strSQL;
 		
 		String name1 = this.getUsername(runtime);
 		
 		String dept = this.getDept(runtime);
 		
-		String restrain_name = runtime.getSessionStr("restrain_name");
 		String deptjb = this.getDeptjb(runtime);
-		String modsql = "select * from restrain where restrain_name='"
-				+ restrain_name + "'";
-		DBConnection einfodb = new DBConnection();
-		ResultSet rsmod = einfodb.executeQuery(modsql);
-		if (rsmod.next()) {
-			
-			String subview = rsmod.getString("subview").trim();
-			if (subview.equals("有")) {
-				strSQL = "select count(*) from subscribe  where state='待审批'  and deptjb like '"
-						+ deptjb
-						+ "%' or state='待复审'  and deptjb like '"
-						+ deptjb
-						+ "%'   or  dept='"
-						+ dept
-						+ "' and state='待审批'  or  dept='"
-						+ dept
-						+ "' and state='待复审'   or  state='待审批' and spman='"
-						+ name1
-						+ "' or state='待复审' and cwman='"
-						+ name1
-						+ "' and fif='是' ";
-			} else
-				strSQL = "select count(*) from subscribe where state='待审批' and spman='"
-						+ name1
-						+ "' or state='待复审' and cwman='"
-						+ name1
-						+ "' and fif='是' or man='"
-						+ name1
-						+ "' and state='待审批' or man='"
-						+ name1
-						+ "' and state='待复审'";
+		
+		boolean subview = this.existRight(runtime, "subview");
+		
+		if (subview) {
+			strSQL = "select count(*) from subscribe  where state='待审批'  and deptjb like '"
+					+ deptjb
+					+ "%' or state='待复审'  and deptjb like '"
+					+ deptjb
+					+ "%'   or  dept='"
+					+ dept
+					+ "' and state='待审批'  or  dept='"
+					+ dept
+					+ "' and state='待复审'   or  state='待审批' and spman='"
+					+ name1
+					+ "' or state='待复审' and cwman='"
+					+ name1
+					+ "' and fif='是' ";
+		} else
+			strSQL = "select count(*) from subscribe where state='待审批' and spman='"
+					+ name1
+					+ "' or state='待复审' and cwman='"
+					+ name1
+					+ "' and fif='是' or man='"
+					+ name1
+					+ "' and state='待审批' or man='"
+					+ name1
+					+ "' and state='待复审'";
 
-			sqlRst = einfodb.executeQuery(strSQL);
-			sqlRst.next();
-			intRowCount = sqlRst.getInt(1);
-			sqlRst.close();
-			pageBean.setTotalAmount(intRowCount);
-			
-			if (subview.equals("有")) {
-				strSQL = "select id,state,man,spman,cwman,fif,number,coname,sub from subscribe  where state='待审批'  and deptjb like '"
-						+ deptjb
-						+ "%' or state='待复审'  and deptjb like '"
-						+ deptjb
-						+ "%'   or  dept='"
-						+ dept
-						+ "' and state='待审批'  or  dept='"
-						+ dept
-						+ "' and state='待复审'   or  state='待审批' and spman='"
-						+ name1
-						+ "' or state='待复审' and cwman='"
-						+ name1
-						+ "' and fif='是'  order by number desc";
-			} else
-				strSQL = "select id,state,man,spman,cwman,fif,number,coname,sub from subscribe where state='待审批' and spman='"
-						+ name1
-						+ "' or state='待复审' and cwman='"
-						+ name1
-						+ "' and fif='是' or man='"
-						+ name1
-						+ "' and state='待审批' or man='"
-						+ name1
-						+ "' and state='待复审' order by number desc";
+		int count = dbManager.getCount(strSQL);
+		
+		if (subview) {
+			strSQL = "select id,state,man,spman,cwman,fif,number,coname,sub from subscribe  where state='待审批'  and deptjb like '"
+					+ deptjb
+					+ "%' or state='待复审'  and deptjb like '"
+					+ deptjb
+					+ "%'   or  dept='"
+					+ dept
+					+ "' and state='待审批'  or  dept='"
+					+ dept
+					+ "' and state='待复审'   or  state='待审批' and spman='"
+					+ name1
+					+ "' or state='待复审' and cwman='"
+					+ name1
+					+ "' and fif='是'  order by number desc";
+		} else
+			strSQL = "select id,state,man,spman,cwman,fif,number,coname,sub from subscribe where state='待审批' and spman='"
+					+ name1
+					+ "' or state='待复审' and cwman='"
+					+ name1
+					+ "' and fif='是' or man='"
+					+ name1
+					+ "' and state='待审批' or man='"
+					+ name1
+					+ "' and state='待复审' order by number desc";
+		
+		List list = dbManager.queryForList(strSQL, true);
+		
+		return this.getPagingResult(list, runtime, count);
 
-			sqlRst = einfodb.executeQuery(strSQL);
-			int intPageSize = pageBean.getPageSize();
-			i = (pageBean.getPage() - 1) * intPageSize;
-			for (j = 0; j < i; j++)
-				sqlRst.next();
-
-			while (i < intPageSize && sqlRst.next()) {
-				int id = sqlRst.getInt(1);
-				String states = sqlRst.getString("state");
-				String man = sqlRst.getString("man");
-				String spman = sqlRst.getString("spman").trim();
-				String fif = sqlRst.getString("fif").trim();
-				String fspman = sqlRst.getString("cwman").trim();
-				String number1 = sqlRst.getString("number");
-				String coname = sqlRst.getString("coname");
-				String sub1 = sqlRst.getString("sub");
-
-				Map map = new HashMap();
-				map.put("id", id);
-				map.put("state", states);
-				map.put("man", man);
-				map.put("spman", spman);
-				map.put("fif", fif);
-				map.put("cwman", fspman);
-				map.put("number", number1);
-				map.put("coname", coname);
-				map.put("sub", sub1);
-				rows.add(map);
-			}
-		}
-		einfodb.close();
-		res.put("rows", rows);
-		return res;
 	}
 	
 	

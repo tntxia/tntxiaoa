@@ -16,7 +16,6 @@ import javax.sql.DataSource;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
-import com.alibaba.fastjson.JSON;
 import com.tntxia.dbmanager.DBManager;
 import com.tntxia.excel.ExcelData;
 import com.tntxia.excel.ExcelRow;
@@ -29,9 +28,7 @@ import com.tntxia.oa.common.action.CommonDoAction;
 import com.tntxia.oa.finance.dao.FinanceLightDao;
 import com.tntxia.oa.finance.service.FinanceAccountService;
 import com.tntxia.oa.finance.service.FinanceLightService;
-//import com.tntxia.oa.purchasing.service.PurchasingLightService;
 import com.tntxia.oa.sale.service.SaleLightService;
-//import com.tntxia.oa.system.SystemCache;
 import com.tntxia.oa.system.entity.FinanceAccountDetail;
 import com.tntxia.oa.util.DateUtil;
 import com.tntxia.sqlexecutor.SQLExecutor;
@@ -348,46 +345,12 @@ public class FinanceDoAction extends CommonDoAction {
 		if(!this.existRight(runtime, "gathering_export")) {
 			return this.errorMsg("你没有导出欠款的权限");
 		}
-
-		List list = financeService.exportToGather();
-
-		String[] cols = new String[] { "序号", "合同编号", "票据号", "是否开发票", "客户名称",
-				"合同金额", "出货金额", "退货金额", "欠款金额", "财务审批", "预计收款日期", "部门", "当前状态" };
-
-		ExcelData data = new ExcelData();
-
-		for (int i = 0; i < list.size(); i++) {
-			Map map = (Map) list.get(i);
-			ExcelRow row = new ExcelRow();
-			row.add(i + 1);
-			row.add(map.get("orderform"));
-			row.add(map.get("remark"));
-			row.add(map.get("rate"));
-			row.add(map.get("coname"));
-			row.add(map.get("total"));
-			row.add(map.get("stotal"));
-			row.add(map.get("rTotal"));
-			row.add(map.get("left"));
-			row.add(map.get("note"));
-			row.add(map.get("sjskdate"));
-			row.add(map.get("sale_dept"));
-			row.add(map.get("states"));
-
-			data.add(row);
-		}
-
-		String excelPath = ExcelUtils.makeCommonExcel("欠款信息", cols, data);
 		
-		HttpTransfer trans = HttpTransferFactory.generate("file_center");
-		
-		String transResult = trans.uploadFile("file!upload", excelPath, new HashMap<String,String>());
-		
-		System.out.println("transResult:"+transResult);
-		
-		Map resMap = JSON.parseObject(transResult, Map.class);
-		
-		String uuid = (String) resMap.get("uuid");
-		
+		HttpTransfer ht = HttpTransferFactory.generate("ReportCenter");
+		Map<String,Object> p = new HashMap<String,Object>();
+		p.put("template", "gathering_export");
+		Map<String,Object> res = ht.getMap("report!generate", p);
+		String uuid = (String) res.get("uuid");
 		return this.success("uuid", uuid);
 
 	}
