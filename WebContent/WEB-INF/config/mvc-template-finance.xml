@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templateList>
+
+	<template url="finance/needGatherFlush.mvc">
+		/finance/bank/needGatherFlush.ftl
+	</template>
+	
+	<template url="finance/template/bankChoose.mvc">
+		/finance/template/bankChoose.ftl
+	</template>
+	
+	<template url="finance/template/tax-wait.mvc">
+		/finance/template/tax-wait.ftl
+	</template>
+	
+	<template url="finance/template/tax-finish.mvc">
+		/finance/template/tax-finish.ftl
+	</template>
+	
+</templateList>
