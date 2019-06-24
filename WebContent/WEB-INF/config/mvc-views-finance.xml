@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mvcList>
+
+	<mvcView url="finance/index.mvc"
+		handler="com.tntxia.oa.finance.action.mvc.FinanceIndexAction">
+		<title>财务管理</title>
+		<isWholePage>true</isWholePage>
+		<charset>UTF-8</charset>
+		<stylesheets>
+			<stylesheet>/oa_static/css/top.css</stylesheet>
+			<stylesheet>css/font-awesome/style.css</stylesheet>
+			<stylesheet>/static/lib/font-awesome/css/font-awesome.css</stylesheet>
+			<stylesheet>/static/lib/jxiaui/0.1/css/jxiaui.datepicker.css</stylesheet>
+			<stylesheet>/static/lib/jxiaui/0.1/css/jxiaui.datagrid.css</stylesheet>
+			<stylesheet>/static/lib/bootstrap/css/bootstrap.css</stylesheet>
+			<stylesheet>css/cwface.css</stylesheet>
+			<stylesheet>css/tntxiaui/style.css</stylesheet>
+			<stylesheet>css/style.css</stylesheet>
+		</stylesheets>
+		<scripts>
+			<script>/static/lib/jquery/jquery.js</script>
+			<script>/static/lib/vue/vue.js</script>
+			<script>js/lib/underscore.js</script>
+			<script>/static/lib/jxiaui/0.1/dist/jxiaui.js</script>
+			
+			<script>js/lib/underscore.js</script>
+			<script>js/lib/jxiaui/getParamMap.js</script>
+			<script>js/lib/jxiaui/panel.js</script>
+			<script>js/lib/jxiaui/datagrid.js</script>
+			<script>js/lib/jxiaui/dialog.js</script>
+			
+			<script>/static/lib/bootstrap/js/bootstrap.js</script>
+			<script>/static/lib/bootstrap-plus/js/bootstrap-utils.js</script>
+			<script>/static/lib/bootstrap-plus/js/bootstrap.grid.js</script>
+			<script>/static/lib/module_route/module_route.js</script>
+			<script>/oa_static/js/appinfo.js</script>
+			<script>/oa_static/js/top.js</script>
+			<script>js/common.js</script>
+			<script>js/finance/index.js</script>
+		</scripts>
+		<templates>
+			<template>common/oa_common_header.ftl</template>
+			<template>common/oa_common_leftbar.ftl</template>
+			<template>common/common_container.ftl</template>
+		</templates>
+	</mvcView>
+
+	<mvcView url="finance/money/exchange.mvc" handler="com.tntxia.oa.finance.action.mvc.FinanceExchangeAction">
+		<title>财务管理 - 往来账目</title>
+		<isWholePage>true</isWholePage>
+		<charset>UTF-8</charset>
+		<stylesheets>
+			<stylesheet>/oa_static/css/top.css</stylesheet>
+			<stylesheet>css/font-awesome/style.css</stylesheet>
+			<stylesheet>/static/lib/bootstrap/css/bootstrap.css</stylesheet>
+			<stylesheet>css/cwface.css</stylesheet>
+			<stylesheet>css/tntxiaui/style.css</stylesheet>
+			<stylesheet>css/style.css</stylesheet>
+		</stylesheets>
+		<scripts>
+			<script>/static/lib/jquery/jquery.js</script>
+			<script>/static/lib/vue/vue.js</script>
+			<script>/static/lib/bootstrap/js/bootstrap.js</script>
+			<script>js/lib/bootstrap/bootstrap-utils.js</script>
+			<script>/static/lib/bootstrap-plus/js/bootstrap.grid.js</script>
+			<script>js/lib/jxiaui/getParamMap.js</script>
+			<script>js/lib/jxiaui/datepick.js</script>
+			<script>js/lib/jxiaui/panel.js</script>
+			<script>js/lib/jxiaui/datagrid.js</script>
+			<script>js/lib/jxiaui/dialog.js</script>
+			<script>/oa_static/js/appinfo.js</script>
+			<script>/oa_static/js/top.js</script>
+			<script>js/common.js</script>
+			<script>js/finance/money/exchange.js</script>
+		</scripts>
+		<templates>
+			<template>common/oa_common_header.ftl</template>
+			<template>common/oa_common_leftbar.ftl</template>
+			<template>finance/money/exchange.ftl</template>
+		</templates>
+	</mvcView>
+
+	<mvcView url="finance/tax.mvc"  handler="com.tntxia.oa.finance.action.mvc.FinanceTaxHandler">
+		<title>财务管理 - 发票管理</title>
+		<isWholePage>true</isWholePage>
+		<charset>UTF-8</charset>
+		<stylesheets>
+			<stylesheet>/oa_static/css/top.css</stylesheet>
+			<stylesheet>css/font-awesome/style.css</stylesheet>
+			<stylesheet>libs/bootstrap/css/bootstrap.css</stylesheet>
+			<stylesheet>css/cwface.css</stylesheet>
+			<stylesheet>css/tntxiaui/style.css</stylesheet>
+			<stylesheet>css/style.css</stylesheet>
+		</stylesheets>
+		<scripts>
+			<script>/static/lib/jquery/jquery.js</script>
+			<script>/static/lib/vue/vue.js</script>
+			<script>/static/lib/bootstrap/js/bootstrap.js</script>
+			
+			<script>js/lib/bootstrap/bootstrap.grid.js</script>
+			<script>js/lib/bootstrap/bootstrap.tabs.js</script>
+			<script>js/lib/oa/oautil.js</script>
+			<script>js/top.js</script>
+			<script>js/lib/underscore.js</script>
+			<script>js/lib/jxiaui/getParamMap.js</script>
+			<script>js/lib/jxiaui/panel.js</script>
+			<script>js/lib/jxiaui/datagrid.js</script>
+			<script>js/lib/jxiaui/crud.js</script>
+			<script>js/lib/jxiaui/dialog.js</script>
+			<script>js/lib/jxiaui/tab.js</script>
+			<script>js/lib/jxiaui/datepick.js</script>
+			<script>js/finance/finance-tax.js</script>
+		</scripts>
+		<templates>
+			<template>common/oa_common_header.ftl</template>
+			<template>common/oa_common_leftbar.ftl</template>
+			<template>finance/tax.ftl</template>
+		</templates>
+	</mvcView>
+	
+	<mvcView url="finance/noGatheredOrder.mvc" handler="com.tntxia.oa.finance.handler.NoGatherOrderHandler">
+			
+		<title>财务管理 - 未收款订单列表</title>
+		<isWholePage>true</isWholePage>
+		<charset>UTF-8</charset>
+		<stylesheets>
+			<stylesheet>/oa_static/css/top.css</stylesheet>
+			<stylesheet>css/font-awesome/style.css</stylesheet>
+			<stylesheet>/static/lib/bootstrap/css/bootstrap.css</stylesheet>
+			<stylesheet>css/cwface.css</stylesheet>
+			<stylesheet>css/tntxiaui/style.css</stylesheet>
+			<stylesheet>css/style.css</stylesheet>
+		</stylesheets>
+		<scripts>
+			<script>/static/lib/jquery/jquery.js</script>
+			<script>/static/lib/vue/vue.js</script>
+			<script>/oa_static/js/appinfo.js</script>
+			<script>/oa_static/js/top.js</script>
+			<script>js/lib/jxiaui/getParamMap.js</script>
+			<script>js/lib/jxiaui/panel.js</script>
+			<script>js/lib/jxiaui/datagrid.js</script>
+			<script>js/lib/jxiaui/dialog.js</script>
+			<script>js/common.js</script>
+			<script>js/lib/oa/checkmessage.js</script>
+			<script>js/finance/finance-nogathered-order.js</script>
+		</scripts>
+		<templates>
+			<template>common/oa_common_header.ftl</template>
+			<template>common/oa_common_leftbar.ftl</template>
+			<template>finance/noGatheredOrder.ftl</template>
+		</templates>
+	</mvcView>
+	
+	<mvcView url="finance/gatheringView.mvc"
+		handler="com.tntxia.oa.finance.handler.FinanceGatheringViewHandler">
+		<title>收款</title>
+		<isWholePage>true</isWholePage>
+		<stylesheets>
+			<stylesheet>css/top.css</stylesheet>
+			<stylesheet>css/font-awesome/style.css</stylesheet>
+			<stylesheet>css/cwface.css</stylesheet>
+			<stylesheet>css/tntxiaui/style.css</stylesheet>
+			<stylesheet>css/style.css</stylesheet>
+		</stylesheets>
+		<scripts>
+			<script>js/lib/jquery.js</script>
+			<script>js/lib/angular.js</script>
+			<script>js/lib/underscore.js</script>
+			<script>js/lib/jxiaui/getParamMap.js</script>
+			<script>js/lib/jxiaui/panel.js</script>
+			<script>js/lib/jxiaui/datagrid.js</script>
+			<script>js/lib/jxiaui/dialog.js</script>
+			<script>js/lib/oa/oautil.js</script>
+			<script>js/finance/gathering-view.js</script>
+		</scripts>
+		<templates>
+			<template>finance/gather/gathering/gathering-view.ftl</template>
+		</templates>
+	</mvcView>
+	
+	<mvcView url="finance/addCredit.mvc" handler="com.tntxia.oa.finance.handler.AddCreditHandler">
+			
+		<title>增加凭证</title>
+		<isWholePage>true</isWholePage>
+		<charset>UTF-8</charset>
+		<stylesheets>
+			<stylesheet>libs/bootstrap/css/bootstrap.css</stylesheet>
+		</stylesheets>
+		<scripts>
+			<script>/static/lib/jquery/jquery.js</script>
+			<script>/static/lib/vue/vue.js</script>
+			<script>js/lib/jxiaui/getParamMap.js</script>
+			<script>js/lib/jxiaui/select.js</script>
+			<script>/static/lib/bootstrap/js/bootstrap.js</script>
+			<script>js/lib/bootstrap/bootstrap-utils.js</script>
+			<script>js/common.js</script>
+			<script>js/finance/toAddCredit.js</script>
+		</scripts>
+		<templates>
+			<template>finance/money/addCredit.ftl</template>
+		</templates>
+	</mvcView>
+	
+	<mvcView url="finance/creditView.mvc" handler="com.tntxia.oa.finance.action.mvc.FinanceCreditViewHandler">
+			
+		<title>往来帐目</title>
+		<isWholePage>true</isWholePage>
+		<charset>UTF-8</charset>
+		<stylesheets>
+			<stylesheet>css/font-awesome/style.css</stylesheet>
+			<stylesheet>css/cwface.css</stylesheet>
+			<stylesheet>css/tntxiaui/style.css</stylesheet>
+			<stylesheet>css/style.css</stylesheet>
+			<stylesheet>libs/bootstrap/css/bootstrap.css</stylesheet>
+		</stylesheets>
+		<scripts>
+			<script>js/config.js</script>
+			<script>js/lib/jquery.js</script>
+			<script>js/lib/vue.js</script>
+			<script>js/lib/jxiaui/panel.js</script>
+			<script>js/lib/jxiaui/dialog.js</script>
+			<script>js/lib/jxiaui/datagrid.js</script>
+			<script>js/tntxia.js</script>
+			<script>/static/lib/bootstrap/js/bootstrap.js</script>
+			<script>/static/lib/bootstrap-plus/js/bootstrap-utils.js</script>
+			<script>js/common.js</script>
+			<script>js/finance/w-view.js</script>
+		</scripts>
+		<templates>
+			<template>finance/money/w-view.ftl</template>
+		</templates>
+	</mvcView>
+	
+	<mvcView url="finance/statistic.mvc"
+		handler="com.tntxia.oa.finance.action.mvc.FinanceStatisticAction">
+		<title>收款汇总 - 财务管理</title>
+		<isWholePage>true</isWholePage>
+		<charset>UTF-8</charset>
+		<stylesheets>
+			<stylesheet>css/top.css</stylesheet>
+			<stylesheet>css/font-awesome/style.css</stylesheet>
+			<stylesheet>/static/lib/bootstrap/css/bootstrap.css</stylesheet>
+			<stylesheet>/static/lib/bootstrap-plus/css/bootstrap.grid.css</stylesheet>
+			<stylesheet>css/cwface.css</stylesheet>
+			<stylesheet>css/tntxiaui/style.css</stylesheet>
+			<stylesheet>css/style.css</stylesheet>
+		</stylesheets>
+		<scripts>
+			<script>/static/lib/jquery/jquery.js</script>
+			<script>/static/lib/bootstrap/js/bootstrap.js</script>
+			<script>/static/lib/bootstrap-plus/js/bootstrap.grid.js</script>
+			<script>/static/lib/bootstrap-plus/js/bootstrap-utils.js</script>
+			<script>js/lib/vue.js</script>
+			<script>js/lib/underscore.js</script>
+			<script>js/lib/jxiaui/getParamMap.js</script>
+			<script>js/lib/jxiaui/panel.js</script>
+			<script>js/lib/jxiaui/datagrid.js</script>
+			<script>js/lib/jxiaui/dialog.js</script>
+			<script>js/lib/jxiaui/datepick.js</script>
+			<script>js/lib/oa/oautil.js</script>
+			<script>js/top.js</script>
+			<script>js/finance/statistic.js</script>
+		</scripts>
+		<templates>
+			<template>common/oa_common_header_utf8.ftl</template>
+			<template>common/oa_common_leftbar.ftl</template>
+			<template>finance/statistic.ftl</template>
+		</templates>
+	</mvcView>
+	
+	<mvcView url="finance/editTax.mvc"
+		handler="com.tntxia.oa.finance.action.mvc.FinanceEditTaxHandler">
+		<title>发票</title>
+		<isWholePage>true</isWholePage>
+		<charset>UTF-8</charset>
+		<stylesheets>
+			<stylesheet>css/top.css</stylesheet>
+			<stylesheet>css/font-awesome/style.css</stylesheet>
+			<stylesheet>libs/bootstrap/css/bootstrap.css</stylesheet>
+			<stylesheet>css/cwface.css</stylesheet>
+			<stylesheet>css/tntxiaui/style.css</stylesheet>
+			<stylesheet>css/style.css</stylesheet>
+		</stylesheets>
+		<scripts>
+			<script>/static/lib/jquery/jquery.js</script>
+			<script>/static/lib/bootstrap/js/bootstrap.js</script>
+			<script>js/lib/bootstrap/bootstrap.grid.js</script>
+			<script>js/lib/bootstrap/bootstrap-utils.js</script>
+			<script>js/lib/vue.js</script>
+			<script>js/lib/underscore.js</script>
+			<script>js/lib/jxiaui/getParamMap.js</script>
+			<script>js/lib/jxiaui/panel.js</script>
+			<script>js/lib/jxiaui/datagrid.js</script>
+			<script>js/lib/jxiaui/dialog.js</script>
+			<script>js/lib/jxiaui/datepick.js</script>
+			<script>js/finance/finance-edit-tax.js</script>
+		</scripts>
+		<templates>
+			<template>finance/finance-edit-tax.ftl</template>
+		</templates>
+	</mvcView>
+	
+	<mvcView url="finance/gathered.mvc"
+		handler="com.tntxia.oa.finance.action.mvc.FinanceGatheredListAction">
+		<title>收款管理</title>
+		<isWholePage>true</isWholePage>
+		<charset>UTF-8</charset>
+		<stylesheets>
+			<stylesheet>css/top.css</stylesheet>
+			<stylesheet>css/font-awesome/style.css</stylesheet>
+			<stylesheet>libs/bootstrap/css/bootstrap.css</stylesheet>
+			<stylesheet>css/cwface.css</stylesheet>
+			<stylesheet>css/tntxiaui/style.css</stylesheet>
+			<stylesheet>css/style.css</stylesheet>
+		</stylesheets>
+		<scripts>
+			<script>/static/lib/jquery/jquery.js</script>
+			<script>/static/lib/bootstrap/js/bootstrap.js</script>
+			<script>js/lib/bootstrap/bootstrap.grid.js</script>
+			<script>js/lib/bootstrap/bootstrap-utils.js</script>
+			<script>js/lib/vue.js</script>
+			<script>js/lib/underscore.js</script>
+			<script>js/lib/jxiaui/getParamMap.js</script>
+			<script>js/lib/jxiaui/panel.js</script>
+			<script>js/lib/jxiaui/datagrid.js</script>
+			
+			<script>js/lib/jxiaui/dialog.js</script>
+			<script>js/lib/jxiaui/datepick.js</script>
+			<script>js/lib/oa/oautil.js</script>
+			<script>js/top.js</script>
+			<script>js/finance/gathered.js</script>
+		</scripts>
+		<templates>
+			<template>common/oa_common_header_utf8.ftl</template>
+			<template>common/oa_common_leftbar.ftl</template>
+			<template>finance/gathered.ftl</template>
+		</templates>
+	</mvcView>
+	
+	<mvcView url="finance/payment.mvc" handler="com.tntxia.oa.finance.action.mvc.FinancePaymentAction">
+		<title>付款管理</title>
+		<charset>UTF-8</charset>
+		<isWholePage>true</isWholePage>
+		<stylesheets>
+			<stylesheet>/oa_static/css/top.css</stylesheet>
+			<stylesheet>css/font-awesome/style.css</stylesheet>
+			<stylesheet>/static/lib/bootstrap/css/bootstrap.css</stylesheet>
+			<stylesheet>/static/lib/bootstrap-plus/css/bootstrap.grid.css</stylesheet>
+			<stylesheet>css/font-awesome/style.css</stylesheet>
+			<stylesheet>css/tntxiaui/style.css</stylesheet>
+			<stylesheet>css/style.css</stylesheet>
+			<stylesheet>libs/bootstrap/css/bootstrap.css</stylesheet>
+		</stylesheets>
+		<scripts>
+			<script>/static/lib/jquery/jquery.js</script>
+			<script>/static/lib/bootstrap/js/bootstrap.js</script>
+			<script>js/lib/bootstrap/bootstrap.tabs.js</script>
+			<script>/static/lib/bootstrap-plus/js/bootstrap.grid.js</script>
+			<script>js/lib/bootstrap/bootstrap-utils.js</script>
+			<script>js/lib/vue.js</script>
+			<script>js/lib/jxiaui/getParamMap.js</script>
+			<script>js/lib/jxiaui/panel.js</script>
+			<script>js/lib/jxiaui/datagrid.js</script>
+			<script>js/lib/jxiaui/dialog.js</script>
+			<script>js/lib/angular.js</script>
+			<script>js/lib/angular-route.js</script>
+			<script>js/lib/oa/checkmessage.js</script>
+			<script>js/lib/oa/oautil.js</script>
+			<script>/oa_static/js/appinfo.js</script>
+			<script>/oa_static/js/top.js</script>
+			<script>js/finance/payment.js</script>
+		</scripts>
+		<templates>
+			<template>common/oa_common_header.ftl</template>
+			<template>common/oa_common_leftbar.ftl</template>
+			<template>finance/payment.ftl</template>
+		</templates>
+	</mvcView>
+	
+	<mvcView url="finance/paymentDetail.mvc" handler="com.tntxia.oa.finance.action.mvc.FinancePaymentDetailAction">
+		<title>付款信息</title>
+		<charset>UTF-8</charset>
+		<isWholePage>true</isWholePage>
+		<stylesheets>
+			<stylesheet>/oa_static/css/top.css</stylesheet>
+			<stylesheet>css/font-awesome/style.css</stylesheet>
+			<stylesheet>/static/lib/bootstrap/css/bootstrap.css</stylesheet>
+			<stylesheet>/static/lib/bootstrap-plus/css/bootstrap.grid.css</stylesheet>
+			<stylesheet>css/font-awesome/style.css</stylesheet>
+			<stylesheet>css/tntxiaui/style.css</stylesheet>
+			<stylesheet>css/style.css</stylesheet>
+		</stylesheets>
+		<scripts>
+			<script>/static/lib/jquery/jquery.js</script>
+			<script>/static/lib/bootstrap/js/bootstrap.js</script>
+			<script>js/lib/bootstrap/bootstrap.tabs.js</script>
+			<script>/static/lib/bootstrap-plus/js/bootstrap.grid.js</script>
+			<script>js/lib/bootstrap/bootstrap-utils.js</script>
+			<script>js/lib/vue.js</script>
+			<script>js/lib/jxiaui/getParamMap.js</script>
+			<script>js/lib/jxiaui/panel.js</script>
+			<script>js/lib/jxiaui/datagrid.js</script>
+			<script>js/lib/jxiaui/dialog.js</script>
+			<script>js/lib/oa/checkmessage.js</script>
+			<script>js/lib/oa/oautil.js</script>
+			<script>js/finance/paymentDetail.js</script>
+		</scripts>
+		<templates>
+			<template>finance/paymentDetail.ftl</template>
+		</templates>
+	</mvcView>
+	
+	<mvcView url="finance/payment_to_pay.mvc" handler="com.tntxia.oa.common.handler.RightAndRoleHandler">
+		<charset>UTF-8</charset>
+		<templates>
+			<template>finance/listToPay.ftl</template>
+		</templates>
+	</mvcView>
+	
+	<mvcView url="finance/money/toAddPaymentCredit.mvc" handler="com.tntxia.oa.finance.action.mvc.FinanceToAddCreditAction">
+		<charset>UTF-8</charset>
+		<templates>
+			<template>finance/money/toAddPaymentCredit.ftl</template>
+		</templates>
+	</mvcView>
+
+
+</mvcList>
