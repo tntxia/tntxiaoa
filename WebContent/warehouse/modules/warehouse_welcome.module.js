@@ -12,14 +12,5 @@ exports.init = function(){
 	
 	$("#curr-module").text("仓库管理模块");
 	
-	$.ajax({
-		url:webRoot+"/logininfo.do"
-	}).done(res=>{
-		$("#online-num").text(res.loginList.length);
-		$.each(res.loginList,function(i,d){
-			$("#loginList").append(d+";")
-		})
-	})
-	
 };
 return module.exports;});
