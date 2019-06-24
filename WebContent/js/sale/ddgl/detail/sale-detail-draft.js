@@ -116,7 +116,6 @@ $(function(){
 		}else{
 			submitOrder();
 		}
-			
 	});
 		
 });
