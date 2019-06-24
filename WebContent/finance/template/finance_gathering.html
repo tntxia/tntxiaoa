@@ -1,0 +1,46 @@
+<div style="display: flex;flex-direction: column;height:100%;" id="gathering-container">
+		<div id="searchForm" style="height:23px;">
+			<select size="1" name="depts" id="depts">
+				<option value=''>选择部门</option>
+				<option v-for="p in departmentList">{{p}}</option>
+			</select> 
+			<select name="sendcompany" size="1" id="sendcompany">
+				<option value=''>销售员</option> <#list users as u>
+				<option>${u.name }</option> </#list>
+			</select>
+			按客户 <input type="text" name="coname" size="10"> 
+			合同编号 <input type="text" name="fpnum" size="10"> 
+			
+			起始日期 
+			<jxiaui-datepicker v-model="form.sdate"></jxiaui-datepicker>
+			终止日期
+			<jxiaui-datepicker v-model="form.edate"></jxiaui-datepicker>
+			<button @click="query">搜索</button>
+			<button id="exportBtn">导出</button>
+		</div>
+		 
+		<div style="height:23px;">
+			欠款统计：<span id="statistSpan"></span>
+		</div>
+		<div style="height: calc(100vh - 146px);">
+			<jxiaui-datagrid class="table" ref="gatheringTable">
+	         	<jxiaui-datagrid-item label="序号" type="index"></jxiaui-datagrid-item>
+				<jxiaui-datagrid-item label="合同编号">
+					<template v-slot="row">
+						<a href="javascript:void(0)" @click="goGathering(row)">{{row.orderform}}</a>
+					</template>
+				</jxiaui-datagrid-item>
+				<jxiaui-datagrid-item label="票据号" field="remark"></jxiaui-datagrid-item>
+				<jxiaui-datagrid-item label="是否开发票" field="bankaccounts"></jxiaui-datagrid-item>
+				<jxiaui-datagrid-item label="客户名称" field="coname"></jxiaui-datagrid-item>
+				<jxiaui-datagrid-item label="合同金额" field="total"></jxiaui-datagrid-item>
+				<jxiaui-datagrid-item label="出货金额" field="stotal"></jxiaui-datagrid-item>
+				<jxiaui-datagrid-item label="退货金额" field="rTotal"></jxiaui-datagrid-item>
+				<jxiaui-datagrid-item label="欠款金额" field="left"></jxiaui-datagrid-item>
+				<jxiaui-datagrid-item label="财务审批" field="note"></jxiaui-datagrid-item>
+				<jxiaui-datagrid-item label="预计收款日期" field="sjskdate"></jxiaui-datagrid-item>
+				<jxiaui-datagrid-item label="部门" field="sale_dept"></jxiaui-datagrid-item>
+				<jxiaui-datagrid-item label="当前状态" field="states"></jxiaui-datagrid-item>
+	     	</jxiaui-datagrid>
+		</div>
+	</div>
