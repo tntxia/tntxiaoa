@@ -15,6 +15,8 @@ exports.init = function(){
 		data: {
 			departmentList: [],
 			form: {
+				coname: null,
+				fpnum: null,
 				sdate: null,
 				edate: null,
 			}

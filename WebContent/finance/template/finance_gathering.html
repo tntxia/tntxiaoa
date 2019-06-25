@@ -8,8 +8,8 @@
 				<option value=''>销售员</option> <#list users as u>
 				<option>${u.name }</option> </#list>
 			</select>
-			按客户 <input type="text" name="coname" size="10"> 
-			合同编号 <input type="text" name="fpnum" size="10"> 
+			按客户 <input type="text" v-model="form.coname" size="10"> 
+			合同编号 <input type="text" v-model="form.fpnum" size="10"> 
 			
 			起始日期 
 			<jxiaui-datepicker v-model="form.sdate"></jxiaui-datepicker>
