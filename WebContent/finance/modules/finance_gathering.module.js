@@ -29,7 +29,7 @@ exports.init = function(){
 				let me = this;
 				$.ajax({
 					url:webRoot+"/department!list.do",
-					param: this.form,
+					data: this.form,
 					type:'post',
 					success:function(data){
 						let departmentList = [];
