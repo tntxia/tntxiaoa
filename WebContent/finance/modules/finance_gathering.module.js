@@ -42,6 +42,7 @@ exports.init = function(){
 				
 				$.ajax({
 					url: webRoot + "/finance/finance!listToGather.do",
+					type:'post',
 					data: this.form
 				}).done(res=> {
 					console.log("gathering list,,,", res);
