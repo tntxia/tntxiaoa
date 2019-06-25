@@ -29,7 +29,6 @@ exports.init = function(){
 				let me = this;
 				$.ajax({
 					url:webRoot+"/department!list.do",
-					data: this.form,
 					type:'post',
 					success:function(data){
 						let departmentList = [];
@@ -42,7 +41,8 @@ exports.init = function(){
 				});
 				
 				$.ajax({
-					url: webRoot + "/finance/finance!listToGather.do"
+					url: webRoot + "/finance/finance!listToGather.do",
+					data: this.form
 				}).done(res=> {
 					console.log("gathering list,,,", res);
 					me.$refs["gatheringTable"].setRows(res.rows);
