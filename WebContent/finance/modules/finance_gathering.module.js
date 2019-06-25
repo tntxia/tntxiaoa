@@ -13,6 +13,7 @@ exports.init = function(){
 	new Vue({
 		el: '#gathering-container',
 		data: {
+			loading: false,
 			departmentList: [],
 			form: {
 				coname: null,
@@ -27,6 +28,7 @@ exports.init = function(){
 		methods: {
 			loadData() {
 				let me = this;
+				
 				$.ajax({
 					url:webRoot+"/department!list.do",
 					type:'post',
@@ -39,14 +41,17 @@ exports.init = function(){
 					},
 					dataType:'json'
 				});
-				
+				this.loading = true;
 				$.ajax({
 					url: webRoot + "/finance/finance!listToGather.do",
 					type:'post',
 					data: this.form
 				}).done(res=> {
+					me.loading = false
 					console.log("gathering list,,,", res);
 					me.$refs["gatheringTable"].setRows(res.rows);
+				}).fail(e=> {
+					me.loading = false
 				})
 			},
 			query() {
