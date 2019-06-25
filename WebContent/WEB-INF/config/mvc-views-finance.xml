@@ -216,7 +216,7 @@
 		<scripts>
 			<script>js/config.js</script>
 			<script>js/lib/jquery.js</script>
-			<script>js/lib/vue.js</script>
+			<script>/static/lib/vue/vue.js</script>
 			<script>js/lib/jxiaui/panel.js</script>
 			<script>js/lib/jxiaui/dialog.js</script>
 			<script>js/lib/jxiaui/datagrid.js</script>
@@ -250,7 +250,7 @@
 			<script>/static/lib/bootstrap/js/bootstrap.js</script>
 			<script>/static/lib/bootstrap-plus/js/bootstrap.grid.js</script>
 			<script>/static/lib/bootstrap-plus/js/bootstrap-utils.js</script>
-			<script>js/lib/vue.js</script>
+			<script>/static/lib/vue/vue.js</script>
 			<script>js/lib/underscore.js</script>
 			<script>js/lib/jxiaui/getParamMap.js</script>
 			<script>js/lib/jxiaui/panel.js</script>
@@ -284,9 +284,9 @@
 		<scripts>
 			<script>/static/lib/jquery/jquery.js</script>
 			<script>/static/lib/bootstrap/js/bootstrap.js</script>
-			<script>js/lib/bootstrap/bootstrap.grid.js</script>
-			<script>js/lib/bootstrap/bootstrap-utils.js</script>
-			<script>js/lib/vue.js</script>
+			<script>/static/lib/bootstrap-plus/js/bootstrap.grid.js</script>
+			<script>/static/lib/bootstrap-plus/js/bootstrap-utils.js</script>
+			<script>/static/lib/vue/vue.js</script>
 			<script>js/lib/underscore.js</script>
 			<script>js/lib/jxiaui/getParamMap.js</script>
 			<script>js/lib/jxiaui/panel.js</script>
@@ -306,9 +306,9 @@
 		<isWholePage>true</isWholePage>
 		<charset>UTF-8</charset>
 		<stylesheets>
-			<stylesheet>css/top.css</stylesheet>
+			<stylesheet>/oa_static/css/top.css</stylesheet>
 			<stylesheet>css/font-awesome/style.css</stylesheet>
-			<stylesheet>libs/bootstrap/css/bootstrap.css</stylesheet>
+			<stylesheet>/static/lib/bootstrap/css/bootstrap.css</stylesheet>
 			<stylesheet>css/cwface.css</stylesheet>
 			<stylesheet>css/tntxiaui/style.css</stylesheet>
 			<stylesheet>css/style.css</stylesheet>
@@ -316,9 +316,9 @@
 		<scripts>
 			<script>/static/lib/jquery/jquery.js</script>
 			<script>/static/lib/bootstrap/js/bootstrap.js</script>
-			<script>js/lib/bootstrap/bootstrap.grid.js</script>
-			<script>js/lib/bootstrap/bootstrap-utils.js</script>
-			<script>js/lib/vue.js</script>
+			<script>/static/lib/bootstrap-plus/js/bootstrap.grid.js</script>
+			<script>/static/lib/bootstrap-plus/js/bootstrap-utils.js</script>
+			<script>/static/lib/vue/vue.js</script>
 			<script>js/lib/underscore.js</script>
 			<script>js/lib/jxiaui/getParamMap.js</script>
 			<script>js/lib/jxiaui/panel.js</script>
@@ -327,11 +327,12 @@
 			<script>js/lib/jxiaui/dialog.js</script>
 			<script>js/lib/jxiaui/datepick.js</script>
 			<script>js/lib/oa/oautil.js</script>
-			<script>js/top.js</script>
+			<script>/oa_static/js/appinfo.js</script>
+			<script>/oa_static/js/top.js</script>
 			<script>js/finance/gathered.js</script>
 		</scripts>
 		<templates>
-			<template>common/oa_common_header_utf8.ftl</template>
+			<template>common/oa_common_header.ftl</template>
 			<template>common/oa_common_leftbar.ftl</template>
 			<template>finance/gathered.ftl</template>
 		</templates>
@@ -396,7 +397,7 @@
 			<script>js/lib/bootstrap/bootstrap.tabs.js</script>
 			<script>/static/lib/bootstrap-plus/js/bootstrap.grid.js</script>
 			<script>js/lib/bootstrap/bootstrap-utils.js</script>
-			<script>js/lib/vue.js</script>
+			<script>/static/lib/vue/vue.js</script>
 			<script>js/lib/jxiaui/getParamMap.js</script>
 			<script>js/lib/jxiaui/panel.js</script>
 			<script>js/lib/jxiaui/datagrid.js</script>
