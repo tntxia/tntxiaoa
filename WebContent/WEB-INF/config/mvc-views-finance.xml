@@ -12,6 +12,7 @@
 			<stylesheet>/static/lib/font-awesome/css/font-awesome.css</stylesheet>
 			<stylesheet>/static/lib/jxiaui/0.1/css/jxiaui.datepicker.css</stylesheet>
 			<stylesheet>/static/lib/jxiaui/0.1/css/jxiaui.datagrid.css</stylesheet>
+			<stylesheet>/static/lib/jxiaui/0.1/css/jxiaui.dialog.css</stylesheet>
 			<stylesheet>/static/lib/bootstrap/css/bootstrap.css</stylesheet>
 			<stylesheet>css/cwface.css</stylesheet>
 			<stylesheet>css/tntxiaui/style.css</stylesheet>
@@ -36,6 +37,7 @@
 			<script>/oa_static/js/appinfo.js</script>
 			<script>/oa_static/js/top.js</script>
 			<script>js/common.js</script>
+			<script>finance/components/finance-gathering-view.js</script>
 			<script>js/finance/index.js</script>
 		</scripts>
 		<templates>

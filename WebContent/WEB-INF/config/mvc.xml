@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mvc>
 	<charset>GBK</charset>
-	<version>20190407</version>
+	<version>20190626</version>
 	<mvcList>
 		<include file="mvc-views.xml"></include>
 		<include file="mvc-views-purchasing.xml"></include>
