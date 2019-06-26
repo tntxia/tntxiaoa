@@ -20,7 +20,8 @@ exports.init = function(){
 				fpnum: null,
 				sdate: null,
 				edate: null,
-			}
+			},
+			gatheringId: null
 		},
 		mounted() {
 			this.loadData();
@@ -59,9 +60,8 @@ exports.init = function(){
 				console.log("query,,,", this.sdate, this.edate);
 			},
 			goGathering(row) {
-				router.goRoute("finance_gathering_view", {
-					id: row.id
-				});
+				this.gatheringId = row.id;
+				this.$refs["view"].show();
 			}
 		}
 	});
