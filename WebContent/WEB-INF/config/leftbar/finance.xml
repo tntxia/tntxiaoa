@@ -23,7 +23,7 @@
 			<button url="finance/tax.mvc" restrain="qkzt">发票管理</button>
 			<button url="finance/noGatheredOrder.mvc" restrain="qkzt">未收款订单</button>
 			<button url="finance/index.mvc#finance_gathering" restrain="qkzt">欠款信息</button>
-			<button url="finance/gathered.mvc" restrain="qkzt">收款信息</button>
+			<button url="finance/index.mvc#finance_gathered" restrain="qkzt">收款信息</button>
 			<button url="finance/index.mvc#finance_refund" restrain="r_thje_zt">退货金额(未收)</button>
 			<button url="finance/index.mvc#finance_refund_gathered" restrain="r_thje_zt">退货金额（已收）</button>
 			<button url="finance/bank/statistic.mvc" restrain="skhzzt">收款汇总</button>
