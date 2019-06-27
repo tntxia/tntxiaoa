@@ -3,11 +3,11 @@ if(!window.modules){
 window.modules=Object.create(null);
 };
 window.modules[name]=module();
-})('finance_gathering',function(){
+})('finance_gathered',function(){
 var module=Object.create(null);
 var exports = Object.create(null);
 module.exports=exports;
-exports.template = 'template/finance_gathering.html';
+exports.template = 'template/finance_gathered.html';
 exports.init = function(){
 	
 	new Vue({
@@ -21,12 +21,7 @@ exports.init = function(){
 				sdate: null,
 				edate: null,
 			},
-			gatheringId: null,
-			totalAll: null,
-			stotalAll: null,
-			rTotalAll: null,
-			gatheredAll: null,
-			leftAll: null
+			gatheringId: null
 		},
 		mounted() {
 			this.loadData();
@@ -48,9 +43,8 @@ exports.init = function(){
 					dataType:'json'
 				});
 				this.loading = true;
-				
 				$.ajax({
-					url: webRoot + "/finance/finance!listToGather.do",
+					url: webRoot + "/finance/finance!listGathered.do",
 					type:'post',
 					data: this.form
 				}).done(res=> {
@@ -59,23 +53,7 @@ exports.init = function(){
 					me.$refs["gatheringTable"].setRows(res.rows);
 				}).fail(e=> {
 					me.loading = false
-				});
-				
-				$.ajax({
-					url:webRoot + "/finance/finance!gatherStatist.do",
-					type:'post',
-					data:this.form
-				}).done(function(data){
-					me.totalAll = data.totalAll;
-					me.stotalAll = data.stotalAll;
-					me.rTotalAll = data.rTotalAll;
-					me.gatheredAll = data.gatheredAll;
-					me.leftAll = data.leftAll;
-				}).fail(function(){
-					
 				})
-				
-				
 			},
 			query() {
 				this.loadData();
@@ -87,6 +65,23 @@ exports.init = function(){
 			}
 		}
 	});
+	
+	renderStatic();
+	
+	function renderStatic(){
+		
+		var param = $("#searchForm").getParamMap();
+		
+		$.ajax({
+			url:webRoot + "/finance/finance!gatherStatist.do",
+			type:'post',
+			data:param
+		}).done(function(data){
+			$("#statistSpan").html("合同总金额："+data.totalAll+" 出库总金额："+data.stotalAll+" 退货总金额："+data.rTotalAll+" 已收款："+data.gatheredAll + " 欠款："+data.leftAll);
+		}).fail(function(){
+			
+		})
+	}
 	
 	$("#exportBtn").click(function(){
 		
