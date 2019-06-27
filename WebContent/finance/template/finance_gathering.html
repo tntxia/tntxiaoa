@@ -20,6 +20,7 @@
 	</div>
 	 
 	<div style="height:23px;">
+		<span class="fa fa-spinner fa-spin" v-if="stasticLoading"></span>
 		欠款统计：合同总金额 {{totalAll}} 出库总金额：{{stotalAll}} 退货总金额：{{rTotalAll}} 已收款：{{gatheredAll}} 欠款：{{leftAll}}
 	</div>
 	<div style="height: calc(100vh - 146px);">

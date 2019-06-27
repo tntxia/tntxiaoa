@@ -14,6 +14,7 @@ exports.init = function(){
 		el: '#gathering-container',
 		data: {
 			loading: false,
+			stasticLoading: false,
 			departmentList: [],
 			form: {
 				coname: null,
@@ -61,18 +62,20 @@ exports.init = function(){
 					me.loading = false
 				});
 				
+				this.stasticLoading = true;
 				$.ajax({
 					url:webRoot + "/finance/finance!gatherStatist.do",
 					type:'post',
 					data:this.form
 				}).done(function(data){
+					me.stasticLoading = false;
 					me.totalAll = data.totalAll;
 					me.stotalAll = data.stotalAll;
 					me.rTotalAll = data.rTotalAll;
 					me.gatheredAll = data.gatheredAll;
 					me.leftAll = data.leftAll;
 				}).fail(function(){
-					
+					me.stasticLoading = false;
 				})
 				
 				
