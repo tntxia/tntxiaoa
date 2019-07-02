@@ -75,6 +75,9 @@ exports.init = function(){
 				
 			},
 			query() {
+				let datagrid = this.$refs["gatheringTable"];
+				datagrid.setParams(this.form);
+				datagrid.loadData();
 				this.loadData();
 				console.log("query,,,", this.sdate, this.edate);
 			},
