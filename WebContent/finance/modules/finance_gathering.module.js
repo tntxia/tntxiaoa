@@ -10,10 +10,17 @@ module.exports=exports;
 exports.template = 'template/finance_gathering.html';
 exports.init = function(){
 	
+	let url = webRoot + "/finance/finance!listToGather.do";
+	
 	new Vue({
 		el: '#gathering-container',
 		data: {
 			loading: false,
+			dataset: {
+				url: url,
+				method: 'post',
+				pageSize: 50
+			},
 			stasticLoading: false,
 			departmentList: [],
 			form: {
@@ -47,19 +54,6 @@ exports.init = function(){
 						me.departmentList = departmentList;
 					},
 					dataType:'json'
-				});
-				this.loading = true;
-				
-				$.ajax({
-					url: webRoot + "/finance/finance!listToGather.do",
-					type:'post',
-					data: this.form
-				}).done(res=> {
-					me.loading = false
-					console.log("gathering list,,,", res);
-					me.$refs["gatheringTable"].setRows(res.rows);
-				}).fail(e=> {
-					me.loading = false
 				});
 				
 				this.stasticLoading = true;
