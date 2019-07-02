@@ -18,7 +18,6 @@ public class FinanceLightDao extends BaseDao{
 	
 	@SuppressWarnings("rawtypes")
 	public List getGatheringList(Map<String,Object> param) throws Exception{
-		
 		String sql = SqlCache.get("gathering", param);
 		return dbManager.queryForList(sql, true);
 	}

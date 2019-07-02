@@ -371,6 +371,9 @@ public class FinanceLightService extends CommonService{
 			}
 			BigDecimal smoney = (BigDecimal) map.get("smoney");
 			Sale sale = saleDao.getSaleById(fyid);
+			if (sale== null) {
+				continue;
+			}
 			map.put("rate", sale.getRate());
 			
 			List proList = saleDao.getSaleProList(fyid);
