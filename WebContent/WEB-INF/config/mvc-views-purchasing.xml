@@ -462,8 +462,7 @@
 		<forward name="draft">/purchasing/draftDetail.mvc</forward>
 		<forward name="auditing_operator">/purchasing/detail/auditing_operator.mvc</forward>
 		<forward name="auditing_not_operator">/ddgl/sfdd-view.jsp</forward>
-		<forward name="auditing_second_operator">/purchasing/detail/auditing_second_operator.mvc</forward>
-		<forward name="auditing_second_not_operator">/ddgl/sfdd-view.jsp</forward>
+		<forward name="auditing_second">/purchasing/detail/auditing_second_operator.mvc</forward>
 		<forward name="audited">/purchasing/detail/audited.mvc</forward>
 	</redirectView>
 	

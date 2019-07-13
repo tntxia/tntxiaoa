@@ -11,10 +11,13 @@
 			<stylesheet>/static/lib/bootstrap/css/bootstrap.css</stylesheet>
 			<stylesheet>css/tntxiaui/style.css</stylesheet>
 			<stylesheet>css/style.css</stylesheet>
+			<stylesheet>/static/lib/jxiaui/0.1/css/jxiaui.css</stylesheet>
+			<stylesheet>/static/lib/jxiaui/0.1/css/jxiaui.datagrid.css</stylesheet>
 		</stylesheets>
 		<scripts>
 			<script>/static/lib/jquery/jquery.js</script>
 			<script>/static/lib/vue/vue.js</script>
+			<script>/static/lib/jxiaui/0.1/dist/jxiaui.js</script>
 			<script>/oa_static/js/appinfo.js</script>
 			<script>/oa_static/js/top.js</script>
 			<script>/static/lib/jxiaui/js/datepick.js</script>
