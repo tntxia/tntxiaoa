@@ -71,8 +71,6 @@ exports.init = function(){
 				}).fail(function(){
 					me.stasticLoading = false;
 				})
-				
-				
 			},
 			query() {
 				let datagrid = this.$refs["gatheringTable"];
@@ -84,26 +82,23 @@ exports.init = function(){
 			goGathering(row) {
 				this.gatheringId = row.id;
 				this.$refs["view"].show();
+			},
+			exportGathering() {
+				$.ajax({
+					url:webRoot + "/finance/finance!exportToGather.do"
+				}).done(res=> {
+					if(res.success){
+						window.open("/ReportCenter/view.mvc?id="+res.uuid);
+					}else{
+						alert("操作失败："+data.msg);
+					}
+				}).fail(e=> {
+					alert("操作异常");
+				});
 			}
 		}
 	});
 	
-	$("#exportBtn").click(function(){
-		
-		http.post({
-			url:webRoot + "/finance/finance!exportToGather.do"
-		}).then(data=>{
-			if(data.success){
-				window.open("/ReportCenter/view.mvc?id="+data.uuid);
-			}else{
-				alert("操作失败："+data.msg);
-			}
-			
-		},e=>{
-			alert("操作异常");
-		})
-		
-	});
 	
 };
 return module.exports;});
