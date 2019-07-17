@@ -338,7 +338,6 @@ public class FinanceDoAction extends CommonDoAction {
 	 * @throws Exception
 	 * 
 	 */
-	@SuppressWarnings("rawtypes")
 	public Map<String, Object> exportToGather(WebRuntime runtime)
 			throws Exception {
 		
@@ -350,6 +349,9 @@ public class FinanceDoAction extends CommonDoAction {
 		Map<String,Object> p = new HashMap<String,Object>();
 		p.put("template", "gathering_export");
 		Map<String,Object> res = ht.getMap("report!generate", p);
+		if (res == null) {
+			return this.errorMsg("报表中心没有数据返回");
+		}
 		String uuid = (String) res.get("uuid");
 		return this.success("uuid", uuid);
 
