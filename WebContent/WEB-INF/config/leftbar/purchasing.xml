@@ -8,7 +8,7 @@
 			<button url="supplier/shift.mvc" restrain="custzyzt">供应商转移</button>
 		</bar>
 		<bar name="合同管理">
-			<button url="purchasing/draft.mvc" restrain="cgzt">新增合同</button>
+			<button url="purchasing/index.mvc#purchasing_list_draft" restrain="cgzt">新增合同</button>
 			<button url="purchasing/toAudit.mvc" restrain="cgzt">待审合同</button>
 			<button url="purchasing/audited.mvc" restrain="cgzt">已审合同</button>
 			<button url="purchasing/deleted.mvc" restrain="delete_contact_cg">已删合同</button>

@@ -26,6 +26,7 @@
 			<script>/static/lib/bootstrap-plus/js/bootstrap-utils.js</script>
 			<script>/static/lib/bootstrap-plus/js/bootstrap.grid.js</script>
 			<script>/static/lib/module_route/module_route.js</script>
+			<script>js/common.js</script>
 			<script>js/sale/index.js</script>
 		</scripts>
 		<templates>
@@ -68,44 +69,8 @@
 			<template>sale/ddgl/sale-new.ftl</template>
 		</templates>
 	</mvcView>
-
-	<mvcView url="sale/ddgl/draftList.mvc"
-		handler="com.tntxia.oa.sale.action.mvc.SaleDraftListAction">
-		<title>新增订单列表</title>
-		<isWholePage>true</isWholePage>
-		<charset>UTF-8</charset>
-		<stylesheets>
-			<stylesheet>/oa_static/css/top.css</stylesheet>
-			<stylesheet>css/font-awesome/style.css</stylesheet>
-			<stylesheet>/static/lib/bootstrap/css/bootstrap.css</stylesheet>
-			<stylesheet>css/cwface.css</stylesheet>
-			<stylesheet>css/tntxiaui/style.css</stylesheet>
-			<stylesheet>css/style.css</stylesheet>
-		</stylesheets>
-		<scripts>
-			<script>/static/lib/jquery/jquery.js</script>
-			<script>/static/lib/vue/vue.js</script>
-			<script>/static/lib/bootstrap/js/bootstrap.js</script>
-			<script>/static/lib/bootstrap-plus/js/bootstrap-utils.js</script>
-			<script>/oa_static/js/appinfo.js</script>
-			<script>/oa_static/js/top.js</script>
-			<script>js/lib/jxiaui/panel.js</script>
-			<script>js/lib/jxiaui/datagrid.js</script>
-			<script>js/lib/jxiaui/crud.js</script>
-			<script>js/lib/jxiaui/dialog.js</script>
-			<script>js/lib/jxiaui/datepick.js</script>
-			<script>js/common.js</script>
-			<script>js/sale/ddgl/draftList.js</script>
-		</scripts>
-		<templates>
-			<template>common/oa_common_header.ftl</template>
-			<template>common/oa_common_leftbar.ftl</template>
-			<template>sale/ddgl/draftList.ftl</template>
-		</templates>
-	</mvcView>
 	
-	<mvcView url="sale/ddgl/approvingList.mvc"
-		handler="com.tntxia.oa.sale.action.mvc.SaleApprovingListAction">
+	<mvcView url="sale/ddgl/approvingList.mvc">
 		<title>待审订单列表</title>
 		<isWholePage>true</isWholePage>
 		<charset>UTF-8</charset>

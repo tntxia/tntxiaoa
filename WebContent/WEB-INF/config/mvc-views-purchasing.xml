@@ -13,14 +13,21 @@
 			<stylesheet>css/cwface.css</stylesheet>
 			<stylesheet>css/tntxiaui/style.css</stylesheet>
 			<stylesheet>css/style.css</stylesheet>
+			<stylesheet>/static/lib/jxiaui/0.1/css/jxiaui.css</stylesheet>
+			<stylesheet>/static/lib/jxiaui/0.1/css/jxiaui.datagrid.css</stylesheet>
 		</stylesheets>
 		<scripts>
 			<script>/static/lib/jquery/jquery.js</script>
 			<script>/static/lib/vue/vue.js</script>
+			<script>/static/lib/jxiaui/0.1/dist/jxiaui.js</script>
+			<script>/static/lib/module_route/module_route.js</script>
+			<script>/static/lib/bootstrap/js/bootstrap.js</script>
+			<script>/static/lib/bootstrap-plus/js/bootstrap-utils.js</script>
+			<script>/static/lib/bootstrap-plus/js/bootstrap.grid.js</script>
 			<script>js/lib/oa/oautil.js</script>
 			<script>/oa_static/js/appinfo.js</script>
 			<script>/oa_static/js/top.js</script>
-			<script>js/userlist.js</script>
+			<script>js/common.js</script>
 			<script>js/purchasing/index.js</script>
 		</scripts>
 		<templates>

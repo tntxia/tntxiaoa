@@ -3,8 +3,8 @@
 	<currentBarIndex>7</currentBarIndex>
 	<bars>
 		<bar name="合同管理" restrain="subzt">
-			<button url="sale/ddgl/draftList.mvc">新增合同</button>
-			<button url="sale/ddgl/approvingList.mvc">待审合同</button>
+			<button url="sale/index.mvc#sale_list_draft">新增合同</button>
+			<button url="sale/index.mvc#sale_list_approving">待审合同</button>
 			<button url="sale/ddgl/approvedList.mvc">已审合同</button>
 			<button url="sale/ddgl/deletedList.mvc"
 				restrain="view_sale_del">已删合同</button>
