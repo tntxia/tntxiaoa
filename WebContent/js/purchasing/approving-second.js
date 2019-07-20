@@ -17,6 +17,10 @@
 		}).done(function(data){
 			if(data.success){
 				alert("操作成功")
+				if (window.opener) {
+					window.opener.location.reload();
+				}
+				window.close();
 			}else{
 				alert("操作失败")
 			}

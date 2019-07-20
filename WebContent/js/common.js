@@ -1,4 +1,19 @@
-﻿function selectOption(id,value){
+﻿
+function selectLeftbar() {
+	
+	let hash = window.location.hash;
+	
+	let leftItems = $(".leftbar-list li");
+	leftItems.removeClass("selected");
+	leftItems.each(function() {
+		let item = $(this);
+		if (item.find("a").attr("href").indexOf(hash)>=0) {
+			item.addClass("selected");
+		}
+	});
+}
+
+function selectOption(id,value){
 	var o = document.getElementById(id);
 	if(o){
 		for(var i=0;i<o.options.length;i++){
