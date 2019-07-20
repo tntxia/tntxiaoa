@@ -1,0 +1,36 @@
+
+
+
+<table id="form" class="table table-bordered">
+	<th>报告开始日期：<input type="hidden" name="id"></th>
+		<td>
+			<label name="report_date_start"></label>
+		</td>
+		<th>报告结束日期：</th>
+		<td colspan="3">
+			<label name="report_date_end"></label>
+		</td>
+	<tr>
+	  <th>报告人：</th>
+	  <td><label name="man"></label></td>
+	  <th>部门：</th>
+	  <td><label name="dept"></label></td>
+	  <th>创建日期：</th>
+	  <td><label name="create_time"></label></td>
+	</tr>
+	<tr>
+  		<th>本周销售额：</th><td colspan="5"><input ui="number" name="total">元</td>
+  	</tr>
+  	<tr>
+  		<th>工作描述：</th>
+  		<td colspan="5">
+  			<div ui="rich-editor" name="report_desc"></div>
+  		</td>
+  	</tr>
+  <tr>
+  	<td colspan="6">
+  		<button action="update">修改</button>
+  		<button action="del">删除</button>
+  		<button action="back">返回</button>
+  	</td></tr>
+</table>

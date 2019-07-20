@@ -1,0 +1,58 @@
+
+
+<div style="text-align:center;">
+	<h1>月　工　作　计　划　单</h1>
+</div>
+
+<div id="form">
+	<table class="table table-bordered">
+		<tr>
+			<th>计划日期：</th>
+			<td><select name="year"></select>年<select name="month"></select>月</td>
+			<th>创建日期：</th>
+	    	<td colspan="3">
+	    		<label ui="date"></label>
+	    	</td>
+		</tr>
+	  <tr>
+	    <th>本月销售目标：</th>
+	    <td><input name="total"> (万元) </td>
+	    <th>计划员工：</th>
+	    <td id="plan_man"></td>
+	  </tr>
+	</table>
+	
+	<div style="padding: 5px;margin: 5px;border:1px #ccc solid;">
+		<h2>主项产品销售计划</h2>
+		<table class="table table-bordered">
+			<tr>
+				<td>目标客户</td>
+				<td><div ui="rich-editor" name="client"></div></td>
+			</tr>
+			<tr>
+				<td>产品销售</td>
+				<td><div ui="rich-editor" name="product"></div></td>
+			</tr>
+		</table>
+		<div>
+			<button action="addPlan">增加计划</button>
+		</div>
+		<div id="main_plan_table"></div>
+	</div>
+	
+	<div style="padding: 5px;margin: 5px;border:1px #ccc solid;">
+		<h2>重点工作内容和目标</h2>
+		<div>
+			<button action="addTarget">增加目标</button>
+		</div>
+		<div id="main_target_table"></div>
+	</div>
+	
+	<div style="text-align: center">
+		<button class="btn btn-primary" action="add">增加</button>
+	  	<button class="btn btn-primary" action="back">返回</button>
+	</div>
+	
+	
+</div>
+

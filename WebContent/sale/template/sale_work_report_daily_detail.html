@@ -1,0 +1,29 @@
+
+
+
+<table id="form" class="table table-bordered">
+	<tr>
+		<th>报告日期：<input type="hidden" name="id"></th>
+		<td colspan="5"><label name="report_date"></label></td>
+	</tr>
+	<tr>
+	  <th>报告人：</th>
+	  <td><label name="man"></label></td>
+	  <th>部门：</th>
+	  <td><label name="dept"></label></td>
+	  <th>创建日期：</th>
+	  <td><label name="create_time"></label></td>
+	</tr>
+  	<tr>
+  		<th>工作描述：</th>
+  		<td colspan="5">
+  			<div ui="rich-editor" name="report_desc"></div>
+  		</td>
+  	</tr>
+  <tr>
+  	<td colspan="6">
+  		<button action="update">修改</button>
+  		<button action="del">删除</button>
+  		<button action="back">返回</button>
+  	</td></tr>
+</table>
