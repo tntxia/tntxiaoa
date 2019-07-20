@@ -63,8 +63,11 @@ public class UserDao extends BaseDao{
 	private User getUserFromMap(Map map) throws SQLException{
 		
 		User res = new User();
+		String ipbd = (String) map.get("ipbd");
 		BeanUtil.transMap2Bean(map, res);
-		
+		if (ipbd.equals("Y")) {
+			res.setIpBind(true);
+		}
 		return res;
 	}
 	

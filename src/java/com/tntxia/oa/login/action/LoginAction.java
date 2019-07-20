@@ -74,7 +74,7 @@ public class LoginAction extends CommonDoAction {
 		String q_company = systemInfo.getCompanyName();
 
 		String pwd1 = runtime.unescape("password");
-		String ip = runtime.getIP();
+		String ip = runtime.getHeader("x-real-ip");
 		
 		Map<String,Object> checkResult = loginService.checkLogin(username, pwd1, ip);
 		

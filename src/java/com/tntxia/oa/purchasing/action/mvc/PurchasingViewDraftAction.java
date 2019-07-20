@@ -1,5 +1,6 @@
 package com.tntxia.oa.purchasing.action.mvc;
 
+import java.util.List;
 import java.util.Map;
 
 import com.tntxia.dbmanager.DBManager;
@@ -39,7 +40,8 @@ public class PurchasingViewDraftAction extends OACommonHandler {
 		String subMan = this.getSaleMan(sub);
 		setRootValue("subMan", subMan);
 		// root.put("units", SystemCache.)
-		setRootValue("rights", this.getUserRight(runtime));
+		List<String> rights = this.getUserRight(runtime);
+		setRootValue("rights", rights);
 		setRootValue("suppliers", SystemCache.suppliers);
 	}
 

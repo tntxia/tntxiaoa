@@ -53,13 +53,12 @@ public class LoginService {
 				return returnErrorMap("该用户被锁定(三次错误输入密码,将被锁定),请与系统管理员联系!");
 			}
 			int nameid = user.getId();
-			
-			
-			System.out.println("user:"+JSON.toJSONString(user));
-			
-			
 			boolean ipbd = user.isIpBind();
-			
+			if (ipbd) {
+				if (!ip.equals(user.getIp())) {
+					return returnErrorMap("该用户被锁定是IP绑定用户，当前登陆的IP与绑定IP不符,请与系统管理员联系!");
+				}
+			}
 			
 
 			if (user.getPassword().equals(password)) {

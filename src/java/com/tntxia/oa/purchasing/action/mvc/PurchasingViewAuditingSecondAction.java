@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.tntxia.dbmanager.DBManager;
 import com.tntxia.oa.common.handler.OACommonHandler;
+import com.tntxia.oa.supplier.service.SupplierService;
 import com.tntxia.oa.warehouse.service.WarehouseLightService;
 import com.tntxia.sqlexecutor.SQLExecutorSingleConn;
 import com.tntxia.web.mvc.WebRuntime;
@@ -17,9 +18,19 @@ public class PurchasingViewAuditingSecondAction extends OACommonHandler {
 	
 	private WarehouseLightService service = new WarehouseLightService();
 	
+	private SupplierService supplierService = new SupplierService();
+	
 	private Map<String,Object> getDetail(String id) throws Exception{
 		String sql = "select * from procure where id = ?";
-		return dbManager.queryForMap(sql, new Object[]{id}, true);
+		Map<String,Object> purchasing = dbManager.queryForMap(sql, new Object[]{id}, true);
+		String coname = (String) purchasing.get("coname");
+		Map<String, Object> supplier = supplierService.getSupplierByName(coname);
+		String coaddr = (String) supplier.get("coaddr");
+		String cojsfs = (String) supplier.get("cojsfs");
+		purchasing.put("coaddr", coaddr);
+		purchasing.put("cojsfs", cojsfs);
+		
+		return purchasing; 
 	}
 	
 	private Map<String,Object> getSalePro(Integer id) throws Exception{
@@ -81,7 +92,12 @@ public class PurchasingViewAuditingSecondAction extends OACommonHandler {
 			throws Exception {
 		
 		String id = runtime.getParam("id");
-		this.putAllRootValue(this.getDetail(id));
+		Map<String,Object> purchasing = this.getDetail(id);
+		this.putAllRootValue(purchasing);
+		
+		String l_fspman = (String) purchasing.get("l_fspman");
+		String username = this.getUsername(runtime);
+		this.setRootValue("canAudit", l_fspman.trim().equals(username.trim()));
 		
 		List proList = this.getProList(id);
 		this.setRootValue("proList", proList);

@@ -32,15 +32,7 @@ public class PurchasingDetailRedirectHandler extends RedirectViewHandler {
 			}
 		// 待复审
 		}else if(status==2) {
-			String fspman = purchasing.getSecondApprover();
-			fspman = fspman.trim();
-			String username = WebUtils.getUsername(runtime);
-			username = username.trim();
-			if(fspman.equals(username)) {
-				return "auditing_second_operator";
-			}else {
-				return "auditing_second_not_operator";
-			}
+			return "auditing_second";
 		}else {
 			return "draft";
 		}

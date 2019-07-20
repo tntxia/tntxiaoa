@@ -36,6 +36,7 @@ import com.tntxia.oa.sale.entity.Sale;
 import com.tntxia.oa.sale.entity.SalePro;
 import com.tntxia.oa.sale.service.SaleLightService;
 import com.tntxia.oa.system.SystemCache;
+import com.tntxia.oa.user.service.UserService;
 import com.tntxia.oa.util.BigDecimalUtils;
 import com.tntxia.oa.util.ListUtils;
 import com.tntxia.oa.util.MapUtils;
@@ -58,6 +59,8 @@ public class SaleDoAction extends CommonDoAction {
 	private QuoteDao quoteDao = new QuoteDao();
 	
 	private SaleLightService saleService = new SaleLightService();
+	
+	private UserService userService = new UserService();
 	
 	/**
 	 * 新增订单列表
@@ -1938,70 +1941,36 @@ public class SaleDoAction extends CommonDoAction {
 	
 	@SuppressWarnings({ "rawtypes"})
 	public Map<String,Object> approvingList(WebRuntime runtime) throws Exception {
-
-		String strSQL;
 		
 		String name1 = this.getUsername(runtime);
-		
-		String dept = this.getDept(runtime);
 		
 		String deptjb = this.getDeptjb(runtime);
 		
 		boolean subview = this.existRight(runtime, "subview");
 		
+		String coname = runtime.getParam("coname");
+	
+		String sqlWhere = " where  (state='待审批' or state='待复审') ";
+		
 		if (subview) {
-			strSQL = "select count(*) from subscribe  where state='待审批'  and deptjb like '"
+			sqlWhere += " and deptjb like '"
 					+ deptjb
-					+ "%' or state='待复审'  and deptjb like '"
-					+ deptjb
-					+ "%'   or  dept='"
-					+ dept
-					+ "' and state='待审批'  or  dept='"
-					+ dept
-					+ "' and state='待复审'   or  state='待审批' and spman='"
-					+ name1
-					+ "' or state='待复审' and cwman='"
-					+ name1
-					+ "' and fif='是' ";
+					+ "%'";
 		} else
-			strSQL = "select count(*) from subscribe where state='待审批' and spman='"
+			sqlWhere += " and (cwman='"
 					+ name1
-					+ "' or state='待复审' and cwman='"
+					+ "' or man='"
 					+ name1
-					+ "' and fif='是' or man='"
+					+ " or spman='"
 					+ name1
-					+ "' and state='待审批' or man='"
-					+ name1
-					+ "' and state='待复审'";
+					+ "')";
+		
+		if (StringUtils.isNotEmpty(coname)) {
+			sqlWhere += " and coname like '%" + coname + "%'";
+		}
 
-		int count = dbManager.getCount(strSQL);
-		
-		if (subview) {
-			strSQL = "select id,state,man,spman,cwman,fif,number,coname,sub from subscribe  where state='待审批'  and deptjb like '"
-					+ deptjb
-					+ "%' or state='待复审'  and deptjb like '"
-					+ deptjb
-					+ "%'   or  dept='"
-					+ dept
-					+ "' and state='待审批'  or  dept='"
-					+ dept
-					+ "' and state='待复审'   or  state='待审批' and spman='"
-					+ name1
-					+ "' or state='待复审' and cwman='"
-					+ name1
-					+ "' and fif='是'  order by number desc";
-		} else
-			strSQL = "select id,state,man,spman,cwman,fif,number,coname,sub from subscribe where state='待审批' and spman='"
-					+ name1
-					+ "' or state='待复审' and cwman='"
-					+ name1
-					+ "' and fif='是' or man='"
-					+ name1
-					+ "' and state='待审批' or man='"
-					+ name1
-					+ "' and state='待复审' order by number desc";
-		
-		List list = dbManager.queryForList(strSQL, true);
+		int count = dbManager.getCount("select count(*) from subscribe " + sqlWhere);
+		List list = dbManager.queryForList("select * from subscribe " + sqlWhere + " order by number desc", true);
 		
 		return this.getPagingResult(list, runtime, count);
 
@@ -2640,25 +2609,30 @@ public class SaleDoAction extends CommonDoAction {
 		   		pro.setDdid(quoteid);
 		   		int  num=runtime.getInt("2num");
 		   		pro.setNum(num);
-			  String punit=runtime.getParam("2punit");
+		   		String punit=runtime.getParam("2punit");
 			  	pro.setUnit(punit);
 			  	String qprice=runtime.getParam("2qprice");
 			  	pro.setSalejg(BigDecimalUtils.toBigDecimal(qprice));
-			  String supplier=runtime.getParam("2supplier");
-			  pro.setMoney(money);
-			  pro.setSupplier(supplier);
-			  String pro_tr=runtime.getParam("2pro_tr");
-			  pro.setPro_tr(pro_tr);
-			  String mpn=runtime.getParam("2mpn");
-			  pro.setMpn(mpn);
-			  
-			  String pro_remark=runtime.getParam("2pro_remark");
-			  pro.setRemark(pro_remark);
+				  String supplier=runtime.getParam("2supplier");
+				  pro.setMoney(money);
+				  pro.setSupplier(supplier);
+				  String pro_tr=runtime.getParam("2pro_tr");
+				  pro.setPro_tr(pro_tr);
+				  String mpn=runtime.getParam("2mpn");
+				  pro.setMpn(mpn);
+				  
+				  String pro_remark=runtime.getParam("2pro_remark");
+				  pro.setRemark(pro_remark);
 			  
 		   		saleService.addPro(pro);
 		   	}
 		   	
 		   	return this.success();
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public List getSaleUserList() throws Exception {
+		return userService.getSaleUserList();
 	}
 
 }

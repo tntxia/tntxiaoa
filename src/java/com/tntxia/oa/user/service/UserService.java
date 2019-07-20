@@ -1,5 +1,7 @@
 package com.tntxia.oa.user.service;
 
+import java.util.List;
+
 import com.tntxia.dbmanager.DBManager;
 import com.tntxia.web.mvc.service.CommonService;
 
@@ -13,6 +15,13 @@ public class UserService extends CommonService {
 		sql = "select departname from department where id = ?";
 		return dbManager.getString(sql,new Object[] {deptId});
 		
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public List getSaleUserList() throws Exception {
+		String sql = "select * from username where department_id in (select id from department where departname='销售部')";
+		
+		return dbManager.queryForList(sql, true);
 	}
 
 }
