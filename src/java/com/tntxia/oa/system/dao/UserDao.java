@@ -65,7 +65,7 @@ public class UserDao extends BaseDao{
 		User res = new User();
 		String ipbd = (String) map.get("ipbd");
 		BeanUtil.transMap2Bean(map, res);
-		if (ipbd.equals("Y")) {
+		if ("Y".equals(ipbd)) {
 			res.setIpBind(true);
 		}
 		return res;
