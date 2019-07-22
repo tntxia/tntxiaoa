@@ -1968,6 +1968,8 @@ public class SaleDoAction extends CommonDoAction {
 		if (StringUtils.isNotEmpty(coname)) {
 			sqlWhere += " and coname like '%" + coname + "%'";
 		}
+		
+		System.out.println("approving list,,," + sqlWhere);
 
 		int count = dbManager.getCount("select count(*) from subscribe " + sqlWhere);
 		List list = dbManager.queryForList("select * from subscribe " + sqlWhere + " order by number desc", true);
