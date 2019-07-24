@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mvcList>
+
+	<mvcView url="registerApp.mvc" handler="com.tntxia.oa.main.action.mvc.RegisterAppViewAction">
+		<title>应用注册</title>
+		<isWholePage>true</isWholePage>
+		<charset>UTF-8</charset>
+		<stylesheets>
+		</stylesheets>
+		<scripts>
+			<script>/static/lib/jquery/jquery.js</script>
+			<script>js/lib/jxiaui/getParamMap.js</script>
+			<script>js/registerApp.js</script>
+		</scripts>
+		<templates>
+			<template>registerApp.ftl</template>
+		</templates>
+	</mvcView>
+
+	<mvcView url="login.mvc" handler="com.tntxia.oa.main.action.mvc.LoginViewAction">
+		<title>登陆</title>
+		<isWholePage>true</isWholePage>
+		<charset>UTF-8</charset>
+		<stylesheets>
+			<stylesheet>/oa_static/css/top.css</stylesheet>
+			<stylesheet>/oa_static/css/login.css</stylesheet>
+		</stylesheets>
+		<scripts>
+			<script>/static/lib/jquery/jquery.js</script>
+			<script>/static/lib/jquery/jquery.form.js</script>
+			<script>/static/lib/jquery/jquery.blockUI.js</script>
+			<script>/oa_static/js/appinfo.js</script>
+			<script>/oa_static/js/login.js</script>
+		</scripts>
+		<templates>
+			<template>login/login.ftl</template>
+		</templates>
+	</mvcView>
+	
+	<mvcView url="login_mobile.mvc" handler="com.tntxia.oa.main.action.mvc.LoginViewAction">
+		<title>登陆 - 移动版</title>
+		<isWholePage>true</isWholePage>
+		<charset>UTF-8</charset>
+		<stylesheets>
+			<stylesheet>/oa_static/css/top_mobile.css</stylesheet>
+			<stylesheet>/oa_static/css/login_mobile.css</stylesheet>
+		</stylesheets>
+		<scripts>
+			<script>/static/lib/jquery/jquery.js</script>
+			<script>/static/lib/jquery/jquery.form.js</script>
+			<script>/static/lib/jquery/jquery.blockUI.js</script>
+			<script>/oa_static/js/appinfo.js</script>
+			<script>/oa_static/js/login.js</script>
+		</scripts>
+		<templates>
+			<template>login/login_mobile.ftl</template>
+		</templates>
+	</mvcView>
+	
+	<mvcView url="index.mvc" handler="com.tntxia.oa.main.action.IndexAction">
+		<title>首页</title>
+		<isWholePage>true</isWholePage>
+		<charset>UTF-8</charset>
+		<stylesheets>
+			<stylesheet>/oa_static/css/top.css</stylesheet>
+			<stylesheet>/static/lib/font-awesome/css/font-awesome.css</stylesheet>
+			<stylesheet>/static/lib/bootstrap/css/bootstrap.css</stylesheet>
+			<stylesheet>/static/lib/jxiaui/0.1/css/jxiaui.css</stylesheet>
+			<stylesheet>/static/lib/jxiaui/0.1/css/jxiaui.datepicker.css</stylesheet>
+			<stylesheet>/static/lib/jxiaui/0.1/css/jxiaui.datagrid.css</stylesheet>
+			<stylesheet>/static/lib/jxiaui/0.1/css/jxiaui.dialog.css</stylesheet>
+			<stylesheet>css/cwface.css</stylesheet>
+			<stylesheet>css/tntxiaui/style.css</stylesheet>
+			<stylesheet>css/style.css</stylesheet>
+		</stylesheets>
+		<scripts>
+			<script>/static/lib/jquery/jquery.js</script>
+			<script>/static/lib/vue/vue.js</script>
+			<script>/static/lib/jxiaui/0.1/dist/jxiaui.js</script>
+			<script>/static/lib/bootstrap/js/bootstrap.js</script>
+			<script>/static/lib/bootstrap-plus/js/bootstrap-utils.js</script>
+			<script>/oa_static/js/appinfo.js</script>
+			<script>/oa_static/js/top.js</script>
+			<script>components/my-todo-dialog.js</script>
+			<script>js/welcome.js</script>
+			<script>js/index.js</script>
+		</scripts>
+		<templates>
+			<template>common/oa_common_header.ftl</template>
+			<template>index.ftl</template>
+		</templates>
+	</mvcView>
+	
+	<mvcView url="workAgent.mvc" handler="com.tntxia.oa.main.action.mvc.WorkAgentAction">
+		<title>工作代理</title>
+		<isWholePage>true</isWholePage>
+		<charset>UTF-8</charset>
+		<stylesheets>
+			<stylesheet>/oa_static/css/top.css</stylesheet>
+			<stylesheet>css/font-awesome/style.css</stylesheet>
+			<stylesheet>/static/lib/bootstrap/css/bootstrap.css</stylesheet>
+			<stylesheet>css/cwface.css</stylesheet>
+			<stylesheet>css/tntxiaui/style.css</stylesheet>
+			<stylesheet>css/style.css</stylesheet>
+		</stylesheets>
+		<scripts>
+			<script>/static/lib/jquery/jquery.js</script>
+			<script>/static/lib/vue/vue.js</script>
+			<script>libs/bootstrap/js/bootstrap.js</script>
+			<script>js/lib/oa/oautil.js</script>
+			<script>/oa_static/js/appinfo.js</script>
+			<script>/oa_static/js/top.js</script>
+			<script>js/rule.js</script>
+		</scripts>
+		<templates>
+			<template>common/oa_common_header_utf8.ftl</template>
+			<template>setting/workAgent.ftl</template>
+		</templates>
+	</mvcView>
+	
+	<mvcView url="rule.mvc" handler="com.tntxia.oa.main.action.mvc.RuleListAction">
+		<title>规章制度</title>
+		<isWholePage>true</isWholePage>
+		<charset>UTF-8</charset>
+		<stylesheets>
+			<stylesheet>/oa_static/css/top.css</stylesheet>
+			<stylesheet>css/font-awesome/style.css</stylesheet>
+			<stylesheet>/static/lib/bootstrap/css/bootstrap.css</stylesheet>
+			<stylesheet>css/cwface.css</stylesheet>
+			<stylesheet>css/tntxiaui/style.css</stylesheet>
+			<stylesheet>css/style.css</stylesheet>
+		</stylesheets>
+		<scripts>
+			<script>/static/lib/jquery/jquery.js</script>
+			<script>/static/lib/vue/vue.js</script>
+			<script>libs/bootstrap/js/bootstrap.js</script>
+			<script>js/lib/oa/oautil.js</script>
+			<script>/oa_static/js/appinfo.js</script>
+			<script>/oa_static/js/top.js</script>
+			<script>js/rule.js</script>
+		</scripts>
+		<templates>
+			<template>common/oa_common_header.ftl</template>
+			<template>rule.ftl</template>
+		</templates>
+	</mvcView>
+
+	
+
+	<mvcView url="warehouse/in/report.mvc" handler="com.tntxia.oa.warehouse.action.mvc.InIndexAction">
+		<title>入库管理 - 入库报表</title>
+		<isWholePage>true</isWholePage>
+		<charset>UTF-8</charset>
+		<stylesheets>
+			<stylesheet>/oa_static/css/top.css</stylesheet>
+			<stylesheet>css/font-awesome/style.css</stylesheet>
+			<stylesheet>/static/lib/bootstrap/css/bootstrap.css</stylesheet>
+			<stylesheet>css/cwface.css</stylesheet>
+			<stylesheet>css/tntxiaui/style.css</stylesheet>
+			<stylesheet>css/style.css</stylesheet>
+		</stylesheets>
+		<scripts>
+			<script>/static/lib/jquery/jquery.js</script>
+			<script>/static/lib/vue/vue.js</script>
+			<script>libs/bootstrap/js/bootstrap.js</script>
+			<script>/oa_static/js/appinfo.js</script>
+			<script>/oa_static/js/top.js</script>
+			<script>js/lib/jxiaui/getParamMap.js</script>
+			<script>js/lib/jxiaui/panel.js</script>
+			<script>js/lib/jxiaui/datagrid.js</script>
+			<script>js/lib/jxiaui/crud.js</script>
+			<script>js/lib/jxiaui/dialog.js</script>
+			<script>js/lib/jxiaui/datepick.js</script>
+			<script>js/lib/oa/oautil.js</script>
+			<script>js/warehouse/zrkhouse.js</script>
+		</scripts>
+		<templates>
+			<template>warehouse/in/date_r.ftl</template>
+		</templates>
+	</mvcView>
+
+	<!-- 财务 -->
+	<mvcView url="qclient/index.mvc"
+		handler="com.tntxia.oa.client.action.mvc.PotentialClientIndexAction">
+		<title>潜在客户</title>
+		<isWholePage>true</isWholePage>
+		<charset>UTF-8</charset>
+		<stylesheets>
+			<stylesheet>/oa_static/css/top.css</stylesheet>
+			<stylesheet>css/font-awesome/style.css</stylesheet>
+			<stylesheet>/static/lib/bootstrap/css/bootstrap.css</stylesheet>
+			<stylesheet>css/cwface.css</stylesheet>
+			<stylesheet>css/tntxiaui/style.css</stylesheet>
+			<stylesheet>css/style.css</stylesheet>
+			<stylesheet>libs/bootstrap/css/bootstrap.css</stylesheet>
+		</stylesheets>
+		<scripts>
+			<script>/static/lib/jquery/jquery.js</script>
+			<script>/static/lib/vue/vue.js</script>
+			<script>/oa_static/js/appinfo.js</script>
+			<script>/oa_static/js/top.js</script>
+
+			<script>js/lib/underscore.js</script>
+			<script>js/lib/jxiaui/getParamMap.js</script>
+			<script>js/lib/jxiaui/panel.js</script>
+			<script>js/lib/jxiaui/datagrid.js</script>
+			<script>js/lib/jxiaui/crud.js</script>
+			<script>js/lib/jxiaui/dialog.js</script>
+			<script>js/lib/jxiaui/tab.js</script>
+			<script>js/lib/jxiaui/datepick.js</script>
+			<script>js/lib/oa/oautil.js</script>
+			<script>js/lib/oa/checkmessage.js</script>
+			<script>js/qclient/qclient.js</script>
+		</scripts>
+		<templates>
+			<template>common/oa_common_header_utf8.ftl</template>
+			<template>common/oa_common_leftbar.ftl</template>
+			<template>qclient/index.ftl</template>
+		</templates>
+	</mvcView>
+
+	<mvcView url="public/new.mvc" handler="com.tntxia.oa.notice.handler.PublicNewHandler">
+		<title>公告</title>
+		<isWholePage>true</isWholePage>
+		<charset>UTF-8</charset>
+		<stylesheets>
+			<stylesheet>/static/lib/bootstrap/css/bootstrap.css</stylesheet>
+		</stylesheets>
+		<scripts>
+			<script>/static/lib/jquery/jquery.js</script>
+			<script>js/lib/vue.js</script>
+			<script>js/ckeditor.js</script>
+			<script>js/public/public-new.js</script>
+		</scripts>
+		<templates>
+			<template>public/new.ftl</template>
+		</templates>
+	</mvcView>
+	
+	<mvcView url="public/view.mvc" handler="com.tntxia.oa.notice.handler.PublicViewHandler">
+		<title>查看公告</title>
+		<isWholePage>true</isWholePage>
+		<charset>UTF-8</charset>
+		<stylesheets>
+			<stylesheet>css/public/view.css</stylesheet>
+		</stylesheets>
+		<scripts>
+		</scripts>
+		<templates>
+			<template>public/view.ftl</template>
+		</templates>
+	</mvcView>
+
+	<mvcView url="system/notice/auditFlow.mvc">
+		<title>公告审批流程</title>
+		<isWholePage>true</isWholePage>
+		<charset>UTF-8</charset>
+		<stylesheets>
+			<stylesheet>/static/lib/bootstrap/css/bootstrap.css</stylesheet>
+		</stylesheets>
+		<scripts>
+			<script>/static/lib/jquery/jquery.js</script>
+			<script>/static/lib/vue/vue.js</script>
+			<script>libs/bootstrap/js/bootstrap.js</script>
+			<script>js/system/notice/auditFlow.js</script>
+		</scripts>
+		<templates>
+			<template>system/notice/auditFlow.ftl</template>
+		</templates>
+	</mvcView>
+
+	<mvcView url="system/notice/toEditAuditFlow.mvc"
+		handler="com.tntxia.oa.system.handler.ToEditNoticeAuditFlowHandler">
+		<title>修改公告审批流程</title>
+		<isWholePage>true</isWholePage>
+		<charset>UTF-8</charset>
+		<stylesheets>
+
+		</stylesheets>
+		<scripts>
+			<script>/static/lib/jquery/jquery.js</script>
+			<script>/static/lib/vue/vue.js</script>
+			<script>js/lib/oa/oautil.js</script>
+			<script>js/system/notice/toEditFlow.js</script>
+		</scripts>
+		<templates>
+			<template>system/notice/toEditFlow.ftl</template>
+		</templates>
+	</mvcView>
+	
+	<mvcView url="template/chooseClient.mvc">
+		<charset>UTF-8</charset>
+		<templates>
+			<template>template/chooseClient.ftl</template>
+		</templates>
+	</mvcView>
+	
+	<mvcView url="template/chooseSupplier.mvc">
+		<charset>UTF-8</charset>
+		<templates>
+			<template>template/chooseSupplier.ftl</template>
+		</templates>
+	</mvcView>
+	
+	
+</mvcList>
