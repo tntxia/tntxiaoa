@@ -18,7 +18,7 @@ exports.init = function(){
 			},
 			dataset: {
 				url: webRoot+"/warehouse/warehouse!warehouseList.do",
-				type: 'post'
+				method: 'post'
 			}
 		},
 		methods: {
@@ -63,7 +63,7 @@ exports.init = function(){
 			query() {
 				let datagrid = this.$refs["datagrid"];
 				datagrid.setParams(this.form);
-				datagrid.loadData();
+				datagrid.query();
 			},
 			exports:function(){
 				$.ajax({
