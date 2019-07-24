@@ -69,6 +69,7 @@
 			<stylesheet>/static/lib/jxiaui/0.1/css/jxiaui.datepicker.css</stylesheet>
 			<stylesheet>/static/lib/jxiaui/0.1/css/jxiaui.datagrid.css</stylesheet>
 			<stylesheet>/static/lib/jxiaui/0.1/css/jxiaui.dialog.css</stylesheet>
+			<stylesheet>/static/lib/jxiaui/0.1/css/jxiaui.tabs.css</stylesheet>
 			<stylesheet>css/cwface.css</stylesheet>
 			<stylesheet>css/tntxiaui/style.css</stylesheet>
 			<stylesheet>css/style.css</stylesheet>
@@ -76,11 +77,16 @@
 		<scripts>
 			<script>/static/lib/jquery/jquery.js</script>
 			<script>/static/lib/vue/vue.js</script>
+			<script>/static/lib/jxiaui/js/jxiaui.js</script>
 			<script>/static/lib/jxiaui/0.1/dist/jxiaui.js</script>
+			<script>/static/lib/jxiaui/0.1/js/jxiaui.js</script>
+			<script>/static/lib/jxiaui/0.1/js/tabs.js</script>
 			<script>/static/lib/bootstrap/js/bootstrap.js</script>
 			<script>/static/lib/bootstrap-plus/js/bootstrap-utils.js</script>
+			<script>/static/lib/bootstrap-plus/js/bootstrap.grid.js</script>
 			<script>/oa_static/js/appinfo.js</script>
 			<script>/oa_static/js/top.js</script>
+			<script>/static/lib/module_route/module_route.js</script>
 			<script>components/my-todo-dialog.js</script>
 			<script>js/welcome.js</script>
 			<script>js/index.js</script>

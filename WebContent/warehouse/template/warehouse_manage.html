@@ -1,16 +1,55 @@
 
-<div class="main_sec" id="vue">
+<div class="main_sec" id="app">
 	
 	<div id="toolbar">
-		型号：<input name="model">
-		品牌：<select name="supplier" ui="select" url="../brand!list.do" label="cpro" value="cpro">
+		型号：<input v-model="form.model">
+		品牌：<select v-model="form.supplier" ui="select" url="../brand!list.do" label="cpro" value="cpro">
 			<option value="">请选择</option>
 		</select>
-		<button action="search">查询</button>
-		<button action="add">增加</button>
-		<button action="exports">导出</button>
+		<button @click="query">查询</button>
+		<button @click="add">增加</button>
+		<button @click="exports">导出</button>
 	</div>
-	<div id="warehouseList"></div>
+	<div>
+		<jxiaui-datagrid class="table" ref="datagrid" :dataset="dataset">
+	        <jxiaui-datagrid-item label="序号" type="index"></jxiaui-datagrid-item>
+			<jxiaui-datagrid-item label="产品型号">
+				<template v-slot="row">
+					<a :href="getUrl(row)" target="_blank">{{row.promodel}}</a>
+				</template>
+			</jxiaui-datagrid-item>
+			<jxiaui-datagrid-item label="品牌">
+				<template v-slot="row">
+					<a :href="getUrl(row)" target="_blank">{{row.pro_sup_number}}</a>
+				</template>
+			</jxiaui-datagrid-item>
+			<jxiaui-datagrid-item label="货期" field="yqdate">
+			</jxiaui-datagrid-item>
+			<jxiaui-datagrid-item label="当前库存">
+				<template v-slot="row">
+					<span :class="getProNumClass(row)">{{row.pro_num}}</span>
+				</template>
+			</jxiaui-datagrid-item>
+			<jxiaui-datagrid-item label="最小库存" field="pro_min_num">
+			</jxiaui-datagrid-item>
+			<jxiaui-datagrid-item label="最大库存" field="pro_max_num">
+			</jxiaui-datagrid-item>
+			<jxiaui-datagrid-item label="待出库数">
+				<template v-slot="row">
+					<a href="javascript:void(0)" @click="viewToOut(row)">{{row.ttnum}}</a>
+				</template>
+			</jxiaui-datagrid-item>
+			<jxiaui-datagrid-item label="在途数">
+				<template v-slot="row">
+					<a href="javascript:void(0)" @click="viewComming(row)">{{row.zint_num}}</a>
+				</template>
+			</jxiaui-datagrid-item>
+			<jxiaui-datagrid-item label="产品状态" field="pro_secid">
+			</jxiaui-datagrid-item>
+			<jxiaui-datagrid-item label="备注" field="pro_remark">
+			</jxiaui-datagrid-item>
+	    </jxiaui-datagrid>
+	</div>
 </div>
 
 <div class="modal fade" tabindex="-1" role="dialog">

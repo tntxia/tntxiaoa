@@ -1,26 +1,34 @@
 
 <br>
 <div>
-<TABLE width="98%" border=0 align="center" cellPadding=1 cellSpacing=1>
-  <TR> 
-    <TD height="25">
-   	<img src="${basePath}/svg/bbs.svg" height="14" width="14"> 
-   	<a href="#" onClick="window.open('/bbs/','_blank')">
-   		内部论坛
-   	</a>&nbsp;
-    <a href="#"  onClick="window.open('${basePath}/public/new.mvc','nw')">
-    	<img src="${basePath}/svg/notice.svg" height="14" width="14" vspace="0" border="0">
-    	新增公告
-    </a>&nbsp;
-    
-    <i class="glyphicon glyphicon-envelope"></i> <a href="${basePath}/mail.mvc">邮件管理</a>
-    <TD width="28%" height="25" colSpan=2 valign="bottom"> 
-      <div id="timeDiv" align="right"><font size=2 color=#666666></font>&nbsp;</div>
-    </TD>
-  </TR>
+<div class="leftbar">
+	<div class="leftbar-item">
+		<div class="leftbar-header">首页</div>
+		<ul class="leftbar-list">
+			<li>
+				<img src="${basePath}/svg/bbs.svg" height="14" width="14"> 
+			   	<a href="#" onClick="window.open('/bbs/','_blank')">
+			   		内部论坛
+			   	</a>
+			</li>
+			<li>
+				<img src="${basePath}/svg/notice.svg" height="14" width="14"> 
+			   	<a href="#"   onClick="window.open('${basePath}/public/new.mvc','nw')">
+			   		新增公告
+			   	</a>
+			</li>
+			<li>
+				<i class="glyphicon glyphicon-envelope"></i> <a href="${basePath}/mail.mvc">邮件管理</a>
+			</li>
+		</ul>
+	</div>
+</div>
+<div class="main_sec">
+	<div id="timeDiv" align="right" style="margin-right: 10px;"></div>
+	<TABLE width="98%" border=0 align="center" cellPadding=1 cellSpacing=1>
   <TBODY>
   <TR> 
-    <TD colspan="3" height="106" > 
+    <TD colspan="3" > 
   <table height=8 width="100%" class="customer-follow-table"
 bordercolor="#CCBE5A" cellspacing="0" 
                         bordercolordark="#ffffff" cellpadding="3" 
@@ -65,7 +73,6 @@ bordercolor="#CCBE5A" cellspacing="0"
   </TR>
   </TBODY> 
 </TABLE>
-</div>
 
 <p><font size="2" color="#213e9b"><strong>公告 >> </strong></font></p>
 <table width="98%" id="pubTable"
@@ -93,3 +100,5 @@ bordercolor="#CCBE5A" cellspacing="0"
   </tr>
   
 </table>
+</div>
+

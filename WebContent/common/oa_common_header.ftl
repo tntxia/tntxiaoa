@@ -1,5 +1,5 @@
 
-<div id="topDiv">
+<div id="topDiv" style="position: relative;z-index: 100;">
 	<div class="logo_and_nav">
 		<div class="logo">
 		</div>

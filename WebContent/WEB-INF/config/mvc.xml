@@ -70,6 +70,7 @@
 		<action url="logout.do">com.tntxia.oa.user.action.UserLogoutAction</action>
 		<action url="logininfo.do">com.tntxia.oa.login.action.LoginInfo</action>
 		<action url="userAlert.do">com.tntxia.oa.user.action.UserAlertAction</action>
+		<action url="userAlertCount.do">com.tntxia.oa.user.action.UserAlertCountAction</action>
 		<action url="common.do">com.tntxia.oa.common.action.CommonAction</action>
 		<action url="public/notice.do">com.tntxia.oa.notice.action.NoticeAction</action>
 		<action url="appeal.do">com.tntxia.oa.appeal.action.AppealAction</action>
@@ -84,6 +85,7 @@
 		<action url="template.do">com.tntxia.oa.template.action.TemplateAction</action>
 		<action url="mail.do">com.tntxia.oa.mail.action.MailDoAction</action>
 		
+		<action url="leftbar.do">com.tntxia.oa.main.action.LeftbarAction</action>
 		<action url="menu.do">com.tntxia.oa.menu.action.MenuAction</action>
 		
 		<action url="expense.do">com.tntxia.oa.hr.action.ExpenseAction</action>
