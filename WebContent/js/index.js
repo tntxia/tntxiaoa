@@ -57,6 +57,10 @@ $(function(){
 			"sale_list_approving": {
 				path: webRoot + "/sale/modules/sale_list_approving.module.js",
 				template: webRoot + "/sale/template/sale_list_approving.html"
+			},
+			"sale_quote_list_draft": {
+				path: webRoot + "/sale/modules/sale_quote_list_draft.module.js",
+				template: webRoot + "/sale/template/sale_quote_list_draft.html"
 			}
 		},
 		onChange(module) {
