@@ -1,0 +1,206 @@
+
+.user-alert{
+	padding-left:30px;
+	padding-top:20px;
+	width:200px;
+	height:100px;
+	position:fixed;
+	bottom:0;
+	right:0;
+	border:1px solid #ccc;
+	background:white;
+	display:none;
+	overflow:auto;
+}
+
+td,th,p,select,input,textarea {
+	font-size: 12px;
+}
+
+th{
+	
+}
+
+A:link {
+	text-decoration: underline;
+	color: #0000ff;
+}
+
+A:visited {
+	text-decoration: underline;
+	color: #800080;
+}
+
+A:active {
+	text-decoration: underline;
+	color: #0000ff;
+}
+
+A:hover {
+	text-decoration: underline;
+	color: #0000ff;
+}
+
+.pretty_table td {
+	border: 1px solid #000;
+	font-size: 12px;
+}
+
+.classic_button {
+	background-color: #E1E1E1;
+	font-family: ����;
+	font-size: 9pt;
+	border: 1 groove #C3D9FF
+}
+
+.link-image{
+	cursor:pointer;
+}
+
+.tntxiaui-form{
+	font-size:12px;
+}
+
+.tntxia-ui-dialog-div{
+	border:1px solid;
+}
+
+.tntxiaui-datagrid{
+	font-size:12px;
+	border:1px solid;
+}
+
+.tntxiaui-datagrid table{
+	border:1px solid;
+}
+
+.tntxiaui-datagrid a{
+	padding-left:6px;
+	text-decoration: underline;
+	color:blue;
+	cursor:pointer;
+}
+
+.tntxiaui-datagrid td,th{
+	border:1px solid;
+}
+
+.tntxiaui-datagrid-tr-hover{
+	background:#B5DAFF;
+}
+
+.tntxiaui-datagrid .nav{
+	text-align:right;
+}
+
+.tntxia-ui-datagrid-databody tr:nth-child(odd){
+	background:#eeeeee;
+}
+
+.leftbar{
+	float:left;
+	position:fixed;
+	width:110px;
+	bottom:0;
+	top:80px;
+	border-right:1px solid blue;
+	overflow:auto;
+}
+
+.main_sec{
+	position:fixed;
+	left:110px;
+	top:82px;
+	right:0;
+	bottom:0;
+	overflow:auto;
+	background:white;
+}
+
+#bk {
+    border: 1px solid #909ECD;
+    padding-right: 5px;
+    padding-left: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.leftbar-item{
+	border-bottom:1px solid #227dc5;
+	
+}
+
+.leftbar-header{
+	background-color:#227dc5;
+	color:#ffffff;
+	font-size:14px;
+	padding: 3px;
+}
+
+.leftbar-list {
+	padding: 0px;
+	margin: 0px;
+	list-style-type:none;
+	font-size:12px;
+}
+
+.leftbar-list ul {
+	list-style-type:none;
+	font-size:12px;
+	
+}
+
+.leftbar-list li {
+	padding-left:10px;
+	margin: 0px;
+	list-style-type:none;
+	font-size:12px;
+}
+
+.leftbar-list li.selected{
+	background:#fffccc;
+}
+
+.img_but {
+	cursor:pointer;
+}
+
+.order-head-title{
+	
+	text-align:center;
+	margin-left:auto;
+	margin-right:auto;
+	font-size:24px;
+	color:#213e9b;
+	font-weight:bold;
+	border-bottom:1px solid #213e9b;
+	padding-bottom:10px;
+	
+}
+.red{
+	color:red;
+}
+
+.customer-follow--table body tr:nth-child(odd){
+	background:#eeeeee;
+}
+
+.customer-follow--table body tr:hover{
+	background:#B5DAFF;
+}
+
+.my-todo-dialog-content {
+	padding: 15px;
+}
+
+.not-enough-num {
+	color: green;
+}
+
+.not-enough-num {
+	color: green;
+}
+
+.too-much-num {
+	color: red;
+}
