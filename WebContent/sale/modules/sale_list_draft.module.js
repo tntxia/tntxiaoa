@@ -11,8 +11,6 @@ exports.init = function(){
 	
 	let url = webRoot + '/sale/sale!list.do';
 	
-	selectLeftbar()
-	
 	new Vue({
 		el: '#app',
 		data: {

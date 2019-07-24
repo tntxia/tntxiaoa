@@ -10,7 +10,6 @@ module.exports=exports;
 exports.init = function(){
 	
 	let url = webRoot + '/sale/sale!approvingList.do';
-	selectLeftbar();
 	
 	new Vue({
 		el: '#app',

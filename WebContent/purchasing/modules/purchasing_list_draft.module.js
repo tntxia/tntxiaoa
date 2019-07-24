@@ -9,8 +9,6 @@ var exports = Object.create(null);
 module.exports=exports;
 exports.init = function(){
 	
-	selectLeftbar();
-	
 	let url = webRoot + '/purchasing/purchasing!list.do';
 	new Vue({
 		el: '#app',

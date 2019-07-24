@@ -11,7 +11,7 @@ exports.init = function(){
 	
 	var grid = new BootstrapGrid({
 		target:$("#datagrid"),
-		url:'warehouse!listSaleApproving.do',
+		url:webRoot+'/warehouse/warehouse!listSaleApproving.do',
 		cols:[{
 			label:'序号',
 			type:'index'

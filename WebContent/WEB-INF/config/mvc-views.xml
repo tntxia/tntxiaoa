@@ -81,6 +81,7 @@
 			<script>/static/lib/jxiaui/0.1/dist/jxiaui.js</script>
 			<script>/static/lib/jxiaui/0.1/js/jxiaui.js</script>
 			<script>/static/lib/jxiaui/0.1/js/tabs.js</script>
+			<script>js/lib/jxiaui/datepick.js</script>
 			<script>/static/lib/bootstrap/js/bootstrap.js</script>
 			<script>/static/lib/bootstrap-plus/js/bootstrap-utils.js</script>
 			<script>/static/lib/bootstrap-plus/js/bootstrap.grid.js</script>

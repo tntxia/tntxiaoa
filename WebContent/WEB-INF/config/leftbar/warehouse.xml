@@ -4,17 +4,17 @@
 		<bar name="仓库管理">
 			<button url="index.mvc#warehouse_manage">仓库管理</button>
 			<button url="index.mvc#warehouse_in_manage">入库管理</button>
-			<button url="warehouse/index.mvc#warehouse_out_manage">出库管理</button>
+			<button url="index.mvc#warehouse_out_manage">出库管理</button>
 		</bar>
 		<bar name="发货管理">
 			<button url="warehouse/send-bill.mvc">送货单管理</button>
 			<button url="dzzz/dzys/fyglm.mvc">发货管理</button>
-			<button url="warehouse/index.mvc#logistics_company">货代公司</button>
+			<button url="index.mvc#warehouse_logistics_company">货代公司</button>
 		</bar>
 		<bar name="销售管理">
-			<button url="warehouse/index.mvc#warehouse_sale_approving">待审订单</button>
-			<button url="warehouse/index.mvc#warehouse_sale">已审订单</button>
-			<button url="warehouse/index.mvc#warehouse_sale_outed">已出库订单</button>
+			<button url="index.mvc#warehouse_sale_approving">待审订单</button>
+			<button url="index.mvc#warehouse_sale">已审订单</button>
+			<button url="index.mvc#warehouse_sale_outed">已出库订单</button>
 		</bar>
 	</bars>
 

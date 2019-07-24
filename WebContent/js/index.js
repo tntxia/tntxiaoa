@@ -25,6 +25,38 @@ $(function(){
 			"warehouse_in_manage": {
 				path: webRoot + "/warehouse/modules/warehouse_in_manage.module.js",
 				template: webRoot + "/warehouse/template/warehouse_in_manage.html"
+			},
+			"warehouse_out_manage": {
+				path: webRoot + "/warehouse/modules/warehouse_out_manage.module.js",
+				template: webRoot + "/warehouse/template/warehouse_out_manage.html"
+			},
+			"warehouse_logistics_company": {
+				path: webRoot + "/warehouse/modules/warehouse_logistics_company.module.js",
+				template: webRoot + "/warehouse/template/warehouse_logistics_company.html"
+			},
+			"warehouse_sale_approving": {
+				path: webRoot + "/warehouse/modules/warehouse_sale_approving.module.js",
+				template: webRoot + "/warehouse/template/warehouse_sale_approving.html"
+			},
+			"warehouse_sale": {
+				path: webRoot + "/warehouse/modules/warehouse_sale.module.js",
+				template: webRoot + "/warehouse/template/warehouse_sale.html"
+			},
+			"warehouse_sale_outed": {
+				path: webRoot + "/warehouse/modules/warehouse_sale_outed.module.js",
+				template: webRoot + "/warehouse/template/warehouse_sale_outed.html"
+			},
+			"purchasing_list_draft": {
+				path: webRoot + "/purchasing/modules/purchasing_list_draft.module.js",
+				template: webRoot + "/purchasing/template/purchasing_list_draft.html"
+			},
+			"sale_list_draft": {
+				path: webRoot + "/sale/modules/sale_list_draft.module.js",
+				template: webRoot + "/sale/template/sale_list_draft.html"
+			},
+			"sale_list_approving": {
+				path: webRoot + "/sale/modules/sale_list_approving.module.js",
+				template: webRoot + "/sale/template/sale_list_approving.html"
 			}
 		},
 		onChange(module) {
