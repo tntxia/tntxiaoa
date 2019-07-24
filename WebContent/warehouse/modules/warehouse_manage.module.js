@@ -86,7 +86,7 @@ exports.init = function(){
 			},
 			getUrl(row){
 				return webRoot
-					+ "/sale/productView.mvc?id="+row.id;
+					+ "/warehouse/productView.mvc?id="+row.id;
 			},
 			getProNumClass(row) {
 				let val = row.pro_num;

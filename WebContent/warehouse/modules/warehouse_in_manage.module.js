@@ -25,7 +25,7 @@ exports.init = function(){
 						label:'采购编号',
 						field:'number',
 						renderer:function(value,data){
-							let href = "in/purchasingDetail.mvc?id="+data.id;
+							let href = webRoot + "/warehouse/in/purchasingDetail.mvc?id="+data.id;
 							var a = $("<a>",{
 								text:value,
 								href:href,
