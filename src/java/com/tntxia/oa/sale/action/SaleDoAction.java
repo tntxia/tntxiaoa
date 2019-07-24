@@ -2125,51 +2125,40 @@ public class SaleDoAction extends CommonDoAction {
 	 * @throws Exception
 	 */
 	@SuppressWarnings({ "rawtypes" })
-	public Map<String,Object> listQuote(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-
-		Map<String, Object> result = new HashMap<String, Object>();
-
-		java.text.SimpleDateFormat simple = new java.text.SimpleDateFormat(
-				"yyyy-MM-dd");
-		String currentDate = simple.format(new java.util.Date());
+	public Map<String,Object> listQuote(WebRuntime runtime) throws Exception {
 		
 		String strSQL;
-		int intPageSize=50;
-		int intPage;
-		String strPage;
 		
-		strPage = request.getParameter("page");
-
-		if (strPage == null) {
-			intPage = 1;
-		} else {
-			intPage = java.lang.Integer.parseInt(strPage);
-			if (intPage < 1)
-				intPage = 1;
-		}
-		HttpSession session = request.getSession();
-		String username1 = (String) session.getAttribute("username");
-		String deptjb = (String) session.getAttribute("deptjb");
+		PageBean pageBean = runtime.getPageBean();
+		String username1 = this.getUsername(runtime);
+		String deptjb = this.getDeptjb(runtime);
 		
-		boolean quoteview = super.existRight(request, "quoteview");
+		boolean quoteview = super.existRight(runtime, "quoteview");
 
 		String sqlWhere = "";
 
-		String pro_model = ParamUtils.unescape(request, "pro_model");
+		String pro_model = runtime.getParam("model");
 		if (StringUtils.isNotEmpty(pro_model)) {
 			sqlWhere += " and id in (select quoteid from quoteproduct where product like '%"
 					+ pro_model + "%')";
 		}
 
-		String number = ParamUtils.getString(request, "number");
+		String number = runtime.getParam("number");
 		if (StringUtils.isNotEmpty(number)) {
 			sqlWhere += " and number like '%" + number + "%'";
 		}
 
-		String coname = ParamUtils.unescape(request, "coname");
+		String coname = runtime.getParam("coname");
 		if (StringUtils.isNotEmpty(coname)) {
 			sqlWhere += " and coname like '%" + coname + "%'";
+		}
+		
+		String status = runtime.getParam("status");
+		if (StringUtils.isNotEmpty(status)) {
+			if (status.equals("approving")) {
+				status = "待审批";
+			}
+			sqlWhere += " and states = '" + status + "'";
 		}
 
 		if (quoteview) {
@@ -2180,8 +2169,6 @@ public class SaleDoAction extends CommonDoAction {
 		
 		int intRowCount = dbManager.queryForInt(strSQL);
 		
-		PageBean pageBean = this.getPageBean(request, intPageSize);
-		
 		if (quoteview) {
 			strSQL = "select top "+pageBean.getTop()+" id,spman, number,states,linkman,coname,quotedatetime,man from quote  where deptjb  like '"
 					+ deptjb + "%'  " + sqlWhere + " order by id desc";
@@ -2191,21 +2178,10 @@ public class SaleDoAction extends CommonDoAction {
 		
 		List list = dbManager.queryForList(strSQL, true);
 		
-		this.getRows(list, pageBean);
+		pageBean.setTotalAmount(intRowCount);
+		List rows = this.getRows(list, pageBean);
 
-
-		result.put("rows", this.getRows(list, pageBean));
-
-		result.put("currentDate", currentDate);
-		result.put("totalAmount", intRowCount);
-		result.put("page", intPage);
-		result.put("pageSize", intPageSize);
-
-		// 用户是否有查看前50销售产品的权限
-		result.put("hasViewTopRight",
-				super.existRight(request, "sale_view_top_50"));
-
-		return result;
+		return this.getPagingResult(rows, pageBean);
 	}
 	
 	public Map<String,Object> listRefund(WebRuntime runtime) throws Exception {

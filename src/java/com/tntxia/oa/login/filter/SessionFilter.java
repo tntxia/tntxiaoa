@@ -31,7 +31,7 @@ public class SessionFilter extends OncePerRequestFilter {
 
 		// 不过滤的uri
 		String[] notFilter = new String[] {"registerApp.do","registerApp.mvc","logout.dispatch","manageslogin.jsp",
-				"login.dispatch","login.do", "login",".css", ".js", ".gif",".png",".htm",".asp",".jpg","login.jsp" };
+				"login.dispatch","login.do", "login",".css", ".gif",".png",".htm",".asp",".jpg","login.jsp" };
 
 		// 请求的uri
 		String uri = request.getRequestURI();
@@ -39,56 +39,67 @@ public class SessionFilter extends OncePerRequestFilter {
 		String basePath = request.getContextPath();
 
 		// 是否过滤
-		boolean doFilter = true;
+		boolean notFilterFlag = false;
 		for (String s : notFilter) {
-			
 			if (uri.toLowerCase().endsWith(s.toLowerCase())) {
 				// 如果uri中包含不过滤的uri，则不进行过滤
-				doFilter = false;
+				notFilterFlag = true;
 				break;
 			}
 		}
-		if (doFilter) {
-			
-			HttpSession session = request.getSession();
-			
-			// 执行过滤
-			// 从session中获取登录者实体
-			String username = (String)session.getAttribute("username");
-			if (null == username) {
-				String loginPath;
-				if(isMobileUserAgent(request)) {
-					loginPath = "/login_mobile.mvc";
-				}else {
-					loginPath = "/login.mvc";
-				}
-				
-				
-				session.setAttribute("lastUrl", uri);
-				request.getRequestDispatcher(loginPath).forward(request, response);
-				return;
+		
+		if (uri.toLowerCase().endsWith(".js")) {
+			if (!uri.toLowerCase().endsWith(".module.js")) {
+				notFilterFlag = true;
 			}
-			
-			String adminlogin = PropertiesUtils.getProperty("adminlogin");
-			
-			if(StringUtils.equals(adminlogin, "true")){
-				if(uri.indexOf("/system")!=-1){
-					String admin = (String)request.getSession().getAttribute("admin");
-					if(admin==null){
-						response.sendRedirect(basePath+"/system/manageslogin.jsp");
-						return;
-					}
-						
-				}
-			}
-			
-			// 如果session中存在登录者实体，则继续
-			filterChain.doFilter(request, response);
-			
-		} else {
+		}
+		
+		if (notFilterFlag) {
 			// 如果不执行过滤，则继续
 			filterChain.doFilter(request, response);
+			return;
 		}
+			
+		HttpSession session = request.getSession();
+		
+		// 执行过滤
+		// 从session中获取登录者实体
+		String username = (String)session.getAttribute("username");
+		if (null == username) {
+			
+			String requestWith = request.getHeader("x-requested-with");
+			
+			String redirectPath;
+			if ("XMLHttpRequest".equals(requestWith)) {
+				redirectPath = "/json/noLogin.json";
+			} else {
+				if(isMobileUserAgent(request)) {
+					redirectPath = "/login_mobile.mvc";
+				}else {
+					redirectPath = "/login.mvc";
+				}
+			}
+			
+			session.setAttribute("lastUrl", uri);
+			request.getRequestDispatcher(redirectPath).forward(request, response);
+			return;
+		}
+		
+		String adminlogin = PropertiesUtils.getProperty("adminlogin");
+		
+		if(StringUtils.equals(adminlogin, "true")){
+			if(uri.indexOf("/system")!=-1){
+				String admin = (String)request.getSession().getAttribute("admin");
+				if(admin==null){
+					response.sendRedirect(basePath+"/system/manageslogin.jsp");
+					return;
+				}
+					
+			}
+		}
+		
+		// 如果session中存在登录者实体，则继续
+		filterChain.doFilter(request, response);
 
 	}
 	

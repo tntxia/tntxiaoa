@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.tntxia.date.DateUtil;
 import com.tntxia.dbmanager.DBManager;
 import com.tntxia.oa.common.action.CommonDoAction;
 import com.tntxia.web.mvc.WebRuntime;
@@ -19,7 +20,7 @@ public class UserAlertAction extends CommonDoAction{
 		return dbManager.queryForInt(sql);
 	}
 	
-	private int getSaleToAuditCount(String deptjb,String username) throws Exception{
+	private int getSaleToAuditCount(String deptjb,String username) throws Exception {
 		String strSQL = "select count(*) from subscribe where state='待审批' and spman='"
 				+ username
 				+ "' or state='待复审' and cwman='"
@@ -27,7 +28,6 @@ public class UserAlertAction extends CommonDoAction{
 				+ "' and fif='是'";
 		
 		return dbManager.queryForInt(strSQL);
-
 	}
 	
 	private int getPublicToAuditCount(String username) throws Exception{
@@ -92,6 +92,12 @@ public class UserAlertAction extends CommonDoAction{
 		
 	}
 	
+	private int getSampleToReturnCount(String username) throws Exception {
+		String strSQL3 = "select count(*) from samview where state='已发运' and  man=? and num!=pro_snum and pro_r_date<='"+DateUtil.getCurrentDateSimpleStr()+"'";
+		return dbManager.queryForInt(strSQL3, new Object[]{username});
+		
+	}
+	
 	public Map<String,Object> execute(WebRuntime runtime) throws Exception{
 		
 		Map<String,Object> res = new HashMap<String,Object>();
@@ -107,11 +113,12 @@ public class UserAlertAction extends CommonDoAction{
 		items.add(new Item("未读邮件",runtime.getBasePath()+"/mail.mvc",this.getMailCount(username)));
 		
 		items.add(new Item("待跟进客户数量","#",this.getCustomerFollowCount(username)));
-		items.add(new Item("销售待审批数量",runtime.getBasePath()+"/sale/ddgl/approvingList.mvc",this.getSaleToAuditCount(deptjb, username)));
+		items.add(new Item("销售待审批数量",runtime.getBasePath()+"/sale/index.mvc#sale_list_approving",this.getSaleToAuditCount(deptjb, username)));
 		items.add(new Item("待审批退货","#",this.getRefundToAuditCount(username)));
-		items.add(new Item("待审报价单数量","#",this.getQuoteCount(username)));
+		items.add(new Item("待审报价单数量",runtime.getBasePath()+"/sale/index.mvc#sale_quote_list_draft?status=approving",this.getQuoteCount(username)));
 		items.add(new Item("待审凭证数量","#",this.getCreditDebitCount(username)));
 		items.add(new Item("待审批样品","#",this.getSampleToAuditCount(username)));
+		items.add(new Item("待归还样品","#",this.getSampleToReturnCount(username)));
 		
 		items.add(new Item("待审采购订单数量",runtime.getBasePath()+"/purchasing/toAudit.mvc",this.getPurchaseCount(username)));
 		items.add(new Item("采购退货待审批数量",runtime.getBasePath()+"/purchasing/refund/approving.mvc",this.getPurchaseRefundToAuditCount(deptjb, username)));
