@@ -14,7 +14,7 @@
 				restrain="r_xscp_zt">产品列表</button>
 			<button url="sale/Inquiry/index.mvc" ico="images/left/sale/op.gif"
 				restrain="r_cus_xj_zt">询价管理</button>
-			<button url="sale/quote/index.mvc" ico="ico/3-13.gif" restrain="quotezt">报价管理</button>
+			<button url="sale/index.mvc#sale_quote_list_draft" restrain="quotezt">报价管理</button>
 			<button url="sale/messages/index.mvc"
 				restrain="r_dzzx_zt">短信群发</button>
 			<button url="sale/mail/send.jsp" ico="ico/3-12.gif" restrain="r_dzzx_zt">电子邮件</button>

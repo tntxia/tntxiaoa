@@ -1209,42 +1209,6 @@
 			<template>sale/quote/quote-view.ftl</template>
 		</templates>
 	</mvcView>
-
-	<mvcView url="sale/quote/index.mvc"
-		handler="com.tntxia.oa.sale.action.mvc.SaleQuoteListAction">
-
-		<title>报价管理 - 销售管理</title>
-		<isWholePage>true</isWholePage>
-		<charset>UTF-8</charset>
-		<stylesheets>
-			<stylesheet>/oa_static/css/top.css</stylesheet>
-			<stylesheet>css/font-awesome/style.css</stylesheet>
-			<stylesheet>/static/lib/bootstrap/css/bootstrap.css</stylesheet>
-			<stylesheet>css/cwface.css</stylesheet>
-			<stylesheet>css/tntxiaui/style.css</stylesheet>
-			<stylesheet>css/style.css</stylesheet>
-		</stylesheets>
-		<scripts>
-			<script>/static/lib/jquery/jquery.js</script>
-			<script>/static/lib/vue/vue.js</script>
-			<script>/oa_static/js/appinfo.js</script>
-			<script>/oa_static/js/top.js</script>
-
-			<script>js/lib/jxiaui/getParamMap.js</script>
-			<script>js/lib/jxiaui/panel.js</script>
-			<script>js/lib/jxiaui/datagrid.js</script>
-			<script>js/lib/jxiaui/dialog.js</script>
-			<script>libs/bootstrap/js/bootstrap.js</script>
-			<script>js/lib/vue-manager.js</script>
-			<script>js/lib/oa/oautil.js</script>
-			<script>js/sale/quote/quote.js</script>
-		</scripts>
-		<templates>
-			<template>common/oa_common_header.ftl</template>
-			<template>common/oa_common_leftbar.ftl</template>
-			<template>sale/quote/index.ftl</template>
-		</templates>
-	</mvcView>
 	
 	<mvcView url="sale/quote/new.mvc"
 		handler="com.tntxia.oa.common.handler.OACommonEmptyHandler">
