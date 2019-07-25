@@ -263,43 +263,6 @@
 			<template>warehouse/template/sendBill/send-bill-print.ftl</template>
 		</templates>
 	</mvcView>
-	
-	<mvcView url="dzzz/dzys/fyglm.mvc" handler="com.tntxia.oa.warehouse.action.mvc.FhIndexAction">
-		<title>发货管理</title>
-		<isWholePage>true</isWholePage>
-		<charset>UTF-8</charset>
-		<stylesheets>
-			<stylesheet>/oa_static/css/top.css</stylesheet>
-			<stylesheet>/static/lib/font-awesome/css/font-awesome.css</stylesheet>
-			<stylesheet>/static/lib/bootstrap/css/bootstrap.css</stylesheet>
-			<stylesheet>css/cwface.css</stylesheet>
-			<stylesheet>css/tntxiaui/style.css</stylesheet>
-			<stylesheet>css/style.css</stylesheet>
-		</stylesheets>
-		<scripts>
-			<script>/static/lib/jquery/jquery.js</script>
-			<script>/static/lib/vue/vue.js</script>
-			<script>js/lib/oa/oautil.js</script>
-			<script>/oa_static/js/appinfo.js</script>
-			<script>/oa_static/js/top.js</script>
-			<script>js/lib/underscore.js</script>
-			<script>js/lib/jxiaui/getParamMap.js</script>
-			<script>js/lib/jxiaui/panel.js</script>
-			<script>js/lib/jxiaui/datagrid.js</script>
-			<script>js/lib/jxiaui/crud.js</script>
-			<script>js/lib/jxiaui/dialog.js</script>
-			<script>js/lib/jxiaui/tab.js</script>
-			<script>js/lib/jxiaui/datepick.js</script>
-			<script>js/dzzz/dzys/fyglm.js</script>
-		</scripts>
-		<templates>
-			<template>common/oa_common_header.ftl</template>
-			<template>common/oa_common_leftbar.ftl</template>
-			<template>dzzz/dzys/fyglm.ftl</template>
-
-		</templates>
-	</mvcView>
-	
 	<mvcView url="dzzz/ysgl/hdgsm.mvc">
 		<title>货代公司</title>
 		<isWholePage>true</isWholePage>

@@ -7,8 +7,8 @@
 			<button url="index.mvc#warehouse_out_manage">出库管理</button>
 		</bar>
 		<bar name="发货管理">
-			<button url="warehouse/send-bill.mvc">送货单管理</button>
-			<button url="dzzz/dzys/fyglm.mvc">发货管理</button>
+			<button url="index.mvc#warehouse_send_bill_list">送货单管理</button>
+			<button url="index.mvc#warehouse_delivery_list">发货管理</button>
 			<button url="index.mvc#warehouse_logistics_company">货代公司</button>
 		</bar>
 		<bar name="销售管理">

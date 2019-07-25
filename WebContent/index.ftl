@@ -1,6 +1,5 @@
 
-<br>
-<div>
+<div id="mainDiv">
 <div class="leftbar">
 	<div class="leftbar-item">
 		<div class="leftbar-header">首页</div>
@@ -100,5 +99,14 @@ bordercolor="#CCBE5A" cellspacing="0"
   </tr>
   
 </table>
+</div>
+</div>
+<!-- 为了方便管理，所有的弹出窗口都放在这里 -->
+<div id="dialogsDiv" style="position: relative;z-index: 10000;">
+	<my-todo-dialog ref="myTodoDialog"></my-todo-dialog>
+	<warehouse-send-bill-add-dialog ref="warehouseSendBillAddDialog"></warehouse-send-bill-add-dialog>
+	<warehouse-send-bill-view-dialog ref="warehouseSendBillViewDialog"></warehouse-send-bill-view-dialog>
+	<warehouse-send-bill-edit-dialog ref="warehouseSendBillEditDialog"></warehouse-send-bill-edit-dialog>
+	<sale-approved-choose-dialog ref="saleApprovedChooseDialog"></sale-approved-choose-dialog>
 </div>
 

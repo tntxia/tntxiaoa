@@ -64,5 +64,4 @@
 		</ul>
 		<ul id="menu1"></ul>
 	</div>
-	<my-todo-dialog ref="myTodoDialog" :title="todoDialogTitle"></my-todo-dialog>
 </div>

@@ -12,9 +12,22 @@ function initDatetime(){
 	$("#timeDiv").html("今天是:"+today.getFullYear()+"年"+(today.getMonth()+1)+"月"+today.getDate()+"日  星期"+week[today.getDay()]);
 }
 
+var dialogVue;
+var $globe = {};
+
 $(function(){
 	let currLeftbar;
 	initDatetime();
+	
+	dialogVue = new Vue({
+		el: '#dialogsDiv',
+		methods: {
+			getDialog(name) {
+				return this.$refs[name];
+			}
+		}
+	})
+	
 	router.register({
 		target:$(".main_sec"),
 		mapping: {
@@ -45,6 +58,14 @@ $(function(){
 			"warehouse_sale_outed": {
 				path: webRoot + "/warehouse/modules/warehouse_sale_outed.module.js",
 				template: webRoot + "/warehouse/template/warehouse_sale_outed.html"
+			},
+			"warehouse_delivery_list": {
+				path: webRoot + "/warehouse/modules/warehouse_delivery_list.module.js",
+				template: webRoot + "/warehouse/template/warehouse_delivery_list.html"
+			},
+			"warehouse_send_bill_list": {
+				path: webRoot + "/warehouse/modules/warehouse_send_bill_list.module.js",
+				template: webRoot + "/warehouse/template/warehouse_send_bill_list.html"
 			},
 			"purchasing_list_draft": {
 				path: webRoot + "/purchasing/modules/purchasing_list_draft.module.js",

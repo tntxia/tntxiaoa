@@ -9,11 +9,11 @@ Vue.component(arguments[i].name, arguments[i]);
 (()=>{let module = {};
 module.exports = {
     name: 'my-todo-dialog',
-    props: ['title'],
     data() {
         return {
             showFlag: false,
             username: null,
+            title: null,
             items: []
         }
     },
@@ -33,6 +33,8 @@ module.exports = {
             $.ajax({
                 url: webRoot + "/userAlert.do",
                 success: function(data) {
+                    vm.username = data.username;
+                    vm.title = vm.username + "的待办事项"
                     vm.items = data.items;
                 },
                 error: function(e) {

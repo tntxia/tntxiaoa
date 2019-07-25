@@ -89,6 +89,10 @@
 			<script>/oa_static/js/top.js</script>
 			<script>/static/lib/module_route/module_route.js</script>
 			<script>components/my-todo-dialog.js</script>
+			<script>components/warehouse/warehouse-send-bill-add-dialog.js</script>
+			<script>components/warehouse/warehouse-send-bill-view-dialog.js</script>
+			<script>components/warehouse/warehouse-send-bill-edit-dialog.js</script>
+			<script>components/sale/sale-approved-choose-dialog.js</script>
 			<script>js/welcome.js</script>
 			<script>js/index.js</script>
 		</scripts>
