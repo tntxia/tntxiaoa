@@ -81,7 +81,7 @@ exports.init = function(){
 							this.fetchData();
 						},
 						getUrl:function(ddid){
-							return webRoot+"/warehouse/operate.mvc?id=" + ddid;
+							return webRoot+"/warehouse/out/operate.mvc?id=" + ddid;
 						}
 					}
 				});
