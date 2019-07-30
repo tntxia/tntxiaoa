@@ -12,14 +12,21 @@ exports.init = function(){
 	new Vue({
 		el: '#app',
 		data: {
+			brandList: [],
 			form: {
-				model: null,
-				
+				model: null
 			},
 			dataset: {
 				url: webRoot+"/warehouse/warehouse!warehouseList.do",
 				method: 'post'
 			}
+		},
+		mounted() {
+			$.ajax({
+				url: webRoot + "/brand!list.do"
+			}).done(res=> {
+				this.brandList = res;
+			})
 		},
 		methods: {
 			add() {
