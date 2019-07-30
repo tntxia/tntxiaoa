@@ -3,8 +3,9 @@
 	
 	<div id="toolbar">
 		型号：<input v-model="form.model">
-		品牌：<select v-model="form.supplier" ui="select" url="../brand!list.do" label="cpro" value="cpro">
+		品牌：<select v-model="form.supplier">
 			<option value="">请选择</option>
+			<option v-for="brand in brandList">{{brand.cpro}}</option>
 		</select>
 		<button @click="query">查询</button>
 		<button @click="add">增加</button>
