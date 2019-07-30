@@ -2,27 +2,26 @@
 <leftbar>
 	<bars>
 		<bar name="询价管理">
-			<button url="supplier/index.mvc" restrain="supzt">供应商</button>
-			<button url="supplier/contact.mvc" restrain="supzt">联系人</button>
-			<button url="xjgl/index.mvc" restrain="r_sup_xj_zt">销售询价</button>
-			<button url="supplier/shift.mvc" restrain="custzyzt">供应商转移</button>
+			<button url="#purchasing_supplier" restrain="supzt">供应商</button>
+			<button url="#purchasing_contact" restrain="supzt">联系人</button>
+			<button url="#purchasing_inquiry" restrain="r_sup_xj_zt">销售询价</button>
+			<button url="#purchasing_supplier_shift" restrain="custzyzt">供应商转移</button>
 		</bar>
 		<bar name="合同管理">
-			<button url="index.mvc#purchasing_list_draft" restrain="cgzt">新增合同</button>
-			<button url="purchasing/toAudit.mvc" restrain="cgzt">待审合同</button>
-			<button url="purchasing/audited.mvc" restrain="cgzt">已审合同</button>
-			<button url="purchasing/deleted.mvc" restrain="delete_contact_cg">已删合同</button>
+			<button url="#purchasing_list_draft" restrain="cgzt">新增合同</button>
+			<button url="#purchasing_list_approving" restrain="cgzt">待审合同</button>
+			<button url="#purchasing_list_approved" restrain="cgzt">已审合同</button>
+			<button url="#purchasing_list_deleted" restrain="delete_contact_cg">已删合同</button>
 		</bar>
 		<bar name="退货管理">
-			<button url="purchasing/refund/draft.mvc" restrain="cgzt">新增合同
+			<button url="#purchasing_refund_list_draft" restrain="cgzt">新增合同
 			</button>
-			<button url="purchasing/refund/approving.mvc" restrain="cgzt">待审合同
+			<button url="#purchasing_refund_list_approving" restrain="cgzt">待审合同
 			</button>
-			<button url="purchasing/refund/approved.mvc" restrain="cgzt">已审合同
+			<button url="#purchasing_refund_list_approved" restrain="cgzt">已审合同
 			</button>
-			<button url="purchasing/refund/rmain.jsp" restrain="cgzt">已删合同
+			<button url="#purchasing_refund_list_deleted" restrain="cgzt">已删合同
 			</button>
 		</bar>
 	</bars>
-
 </leftbar>

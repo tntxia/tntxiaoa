@@ -3,37 +3,36 @@
 	<currentBarIndex>7</currentBarIndex>
 	<bars>
 		<bar name="合同管理" restrain="subzt">
-			<button url="index.mvc#sale_list_draft">新增合同</button>
-			<button url="index.mvc#sale_list_approving">待审合同</button>
-			<button url="sale/ddgl/approvedList.mvc">已审合同</button>
-			<button url="sale/ddgl/deletedList.mvc"
+			<button url="#sale_list_draft">新增合同</button>
+			<button url="#sale_list_approving">待审合同</button>
+			<button url="#sale_list_approved">已审合同</button>
+			<button url="#sale_list_deleted"
 				restrain="view_sale_del">已删合同</button>
 		</bar>
 		<bar name="销售跟进">
-			<button url="sale/follow/productList.mvc"
+			<button url="#sale_product_list"
 				restrain="r_xscp_zt">产品列表</button>
-			<button url="sale/Inquiry/index.mvc" ico="images/left/sale/op.gif"
-				restrain="r_cus_xj_zt">询价管理</button>
-			<button url="index.mvc#sale_quote_list_draft" restrain="quotezt">报价管理</button>
-			<button url="sale/messages/index.mvc"
+			<button url="#sale_inquiry_list" restrain="r_cus_xj_zt">询价管理</button>
+			<button url="#sale_quote_list_draft" restrain="quotezt">报价管理</button>
+			<button url="#sale_message"
 				restrain="r_dzzx_zt">短信群发</button>
-			<button url="sale/mail/send.jsp" ico="ico/3-12.gif" restrain="r_dzzx_zt">电子邮件</button>
+			<button url="#sale_email" ico="ico/3-12.gif" restrain="r_dzzx_zt">电子邮件</button>
 		</bar>
 		<bar name="项目管理" restrain="xmzt">
-			<button url="sale/xmgl/index.mvc">项目执行中</button>
-			<button url="sale/xmgl/finish.mvc">项目完成</button>
+			<button url="#sale_project_list_executing">项目执行中</button>
+			<button url="#sale_project_list_finish">项目完成</button>
 		</bar>
 		<bar name="合作伙伴" restrain="hzzt">
-			<button url="hclient/index.mvc">合作伙伴</button>
+			<button url="#sale_partner_list">合作伙伴</button>
 		</bar>
 		<bar name="客户管理">
-			<button url="qclient/index.mvc"
+			<button url="#sale_client_list_potential"
 				restrain="qzzt">潜在客户</button>
-			<button url="xclient/index.mvc"
+			<button url="#sale_client_list"
 				restrain="xhzt">现有客户</button>
-			<button url="sale/index.mvc#client_contact"
+			<button url="#sale_client_contact_list"
 				restrain="linkzt">联系人</button>
-			<button url="sale/index.mvc#client_request"
+			<button url="#sale_client_request_list"
 				restrain="serverzt">客户服务</button>
 			<button url="xclient/shift.mvc" restrain="custzyzt">资源转移</button>
 		</bar>
@@ -51,10 +50,10 @@
 			<button url="server/thgl/listDeleted.mvc" ico="images/left/sale/th04.jpg">已删退货</button>
 		</bar>
 		<bar name="业务报表">
-			<button url="sale/index.mvc#sale_work_plan_month">月工作计划</button>
-			<button url="sale/index.mvc#sale_work_report_daily">日报表</button>
-			<button url="sale/index.mvc#sale_work_report_weekly">周工作报表</button>
-			<button url="sale/index.mvc#sale_work_report_monthly">月工作报表</button>
+			<button url="#sale_work_plan_month">月工作计划</button>
+			<button url="#sale_work_report_daily">日报表</button>
+			<button url="#sale_work_report_weekly">周工作报表</button>
+			<button url="#sale_work_report_monthly">月工作报表</button>
 		</bar>
 		<bar name="样品管理" restrain="r_sam_zt">
 			<button url="sale/ypgl/draftList.mvc">新增样品</button>

@@ -1,42 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mvcList>
-
-	<mvcView url="purchasing/index.mvc"
-		handler="com.tntxia.oa.purchasing.action.mvc.PurchasingIndexAction">
-		<title>采购管理首页</title>
-		<isWholePage>true</isWholePage>
-		<charset>UTF-8</charset>
-		<stylesheets>
-			<stylesheet>/oa_static/css/top.css</stylesheet>
-			<stylesheet>css/font-awesome/style.css</stylesheet>
-			<stylesheet>/static/lib/bootstrap/css/bootstrap.css</stylesheet>
-			<stylesheet>css/cwface.css</stylesheet>
-			<stylesheet>css/tntxiaui/style.css</stylesheet>
-			<stylesheet>css/style.css</stylesheet>
-			<stylesheet>/static/lib/jxiaui/0.1/css/jxiaui.css</stylesheet>
-			<stylesheet>/static/lib/jxiaui/0.1/css/jxiaui.datagrid.css</stylesheet>
-		</stylesheets>
-		<scripts>
-			<script>/static/lib/jquery/jquery.js</script>
-			<script>/static/lib/vue/vue.js</script>
-			<script>/static/lib/jxiaui/0.1/dist/jxiaui.js</script>
-			<script>/static/lib/module_route/module_route.js</script>
-			<script>/static/lib/bootstrap/js/bootstrap.js</script>
-			<script>/static/lib/bootstrap-plus/js/bootstrap-utils.js</script>
-			<script>/static/lib/bootstrap-plus/js/bootstrap.grid.js</script>
-			<script>js/lib/oa/oautil.js</script>
-			<script>/oa_static/js/appinfo.js</script>
-			<script>/oa_static/js/top.js</script>
-			<script>js/common.js</script>
-			<script>js/purchasing/index.js</script>
-		</scripts>
-		<templates>
-			<template>common/oa_common_header.ftl</template>
-			<template>common/oa_common_leftbar.ftl</template>
-			<template>purchasing/index.ftl</template>
-		</templates>
-	</mvcView>
-
 	<mvcView url="supplier/new.mvc"
 		handler="com.tntxia.oa.supplier.action.SupplierNewAction">
 		<title>供应商管理</title>
@@ -61,7 +24,6 @@
 			<template>supplier/new.ftl</template>
 		</templates>
 	</mvcView>
-	
 	<mvcView url="supplier/view.mvc"
 		handler="com.tntxia.oa.supplier.action.SupplierViewAction">
 		<title>供应商资料</title>
@@ -125,39 +87,6 @@
 		</templates>
 	</mvcView>
 	
-	<mvcView url="supplier/index.mvc"
-		handler="com.tntxia.oa.supplier.action.SupplierIndexAction">
-		<title>供应商管理</title>
-		<isWholePage>true</isWholePage>
-		<charset>UTF-8</charset>
-		<stylesheets>
-			<stylesheet>/oa_static/css/top.css</stylesheet>
-			<stylesheet>css/font-awesome/style.css</stylesheet>
-			<stylesheet>/static/lib/bootstrap/css/bootstrap.css</stylesheet>
-			<stylesheet>css/cwface.css</stylesheet>
-			<stylesheet>css/tntxiaui/style.css</stylesheet>
-			<stylesheet>css/style.css</stylesheet>
-		</stylesheets>
-		<scripts>
-			<script>/static/lib/jquery/jquery.js</script>
-			<script>/static/lib/vue/vue.js</script>
-			<script>js/lib/oa/oautil.js</script>
-			<script>/oa_static/js/appinfo.js</script>
-			<script>/oa_static/js/top.js</script>
-			<script>js/lib/jxiaui/getParamMap.js</script>
-			<script>js/lib/jxiaui/panel.js</script>
-			<script>js/lib/jxiaui/datagrid.js</script>
-			<script>js/lib/jxiaui/crud.js</script>
-			<script>js/supplier/main.js</script>
-		</scripts>
-		<templates>
-			<template>common/oa_common_header.ftl</template>
-			<template>common/oa_common_leftbar.ftl</template>
-			<template>supplier/index.ftl</template>
-
-		</templates>
-	</mvcView>
-	
 	<mvcView url="supplier/import.mvc"
 		handler="com.tntxia.oa.supplier.action.SupplierImportAction">
 		<title>供应商导入</title>
@@ -178,99 +107,6 @@
 		</scripts>
 		<templates>
 			<template>supplier/update/supplier-import.ftl</template>
-		</templates>
-	</mvcView>
-
-	<mvcView url="supplier/contact.mvc" handler="com.tntxia.oa.supplier.action.ContactAction">
-		<title>供应商-联系人管理</title>
-		<isWholePage>true</isWholePage>
-		<charset>UTF-8</charset>
-		<stylesheets>
-			<stylesheet>/oa_static/css/top.css</stylesheet>
-			<stylesheet>css/font-awesome/style.css</stylesheet>
-			<stylesheet>/static/lib/bootstrap/css/bootstrap.css</stylesheet>
-			<stylesheet>css/cwface.css</stylesheet>
-			<stylesheet>css/tntxiaui/style.css</stylesheet>
-			<stylesheet>css/style.css</stylesheet>
-		</stylesheets>
-		<scripts>
-			<script>js/lib/jquery.js</script>
-			<script>js/lib/vue.js</script>
-			<script>js/lib/oa/oautil.js</script>
-			<script>js/top.js</script>
-			<script>js/lib/jxiaui/getParamMap.js</script>
-			<script>js/lib/jxiaui/panel.js</script>
-			<script>js/lib/jxiaui/datagrid.js</script>
-			<script>js/lib/jxiaui/crud.js</script>
-			<script>js/supplier/contact.js</script>
-		</scripts>
-		<templates>
-			<template>common/oa_common_header_utf8.ftl</template>
-			<template>common/oa_common_leftbar.ftl</template>
-			<template>supplier/contact.ftl</template>
-
-		</templates>
-	</mvcView>
-
-	<mvcView url="supplier/shift.mvc"
-		handler="com.tntxia.oa.supplier.action.SupplierShiftAction">
-		<title>供应商转移</title>
-		<isWholePage>true</isWholePage>
-		<charset>UTF-8</charset>
-		<stylesheets>
-			<stylesheet>/oa_static/css/top.css</stylesheet>
-			<stylesheet>css/font-awesome/style.css</stylesheet>
-			<stylesheet>/static/lib/bootstrap/css/bootstrap.css</stylesheet>
-			<stylesheet>css/cwface.css</stylesheet>
-			<stylesheet>css/tntxiaui/style.css</stylesheet>
-			<stylesheet>css/style.css</stylesheet>
-		</stylesheets>
-		<scripts>
-			<script>js/lib/jquery.js</script>
-			<script>js/lib/vue.js</script>
-			<script>js/lib/oa/oautil.js</script>
-			<script>js/top.js</script>
-			<script>js/lib/jxiaui/datepick.js</script>
-			<script>js/supplier/shift.js</script>
-		</scripts>
-		<templates>
-			<template>common/oa_common_header_utf8.ftl</template>
-			<template>common/oa_common_leftbar.ftl</template>
-			<template>supplier/shift.ftl</template>
-
-		</templates>
-	</mvcView>
-
-	<mvcView url="xjgl/index.mvc"
-		handler="com.tntxia.oa.purchasing.action.mvc.PurchasingInquiryAction">
-		<title>询价管理</title>
-		<isWholePage>true</isWholePage>
-		<charset>UTF-8</charset>
-		<stylesheets>
-			<stylesheet>/oa_static/css/top.css</stylesheet>
-			<stylesheet>css/font-awesome/style.css</stylesheet>
-			<stylesheet>/static/lib/bootstrap/css/bootstrap.css</stylesheet>
-			<stylesheet>css/cwface.css</stylesheet>
-			<stylesheet>css/tntxiaui/style.css</stylesheet>
-			<stylesheet>css/style.css</stylesheet>
-		</stylesheets>
-		<scripts>
-			<script>js/lib/jquery.js</script>
-			<script>js/lib/vue.js</script>
-			<script>libs/bootstrap/js/bootstrap.js</script>
-			
-			<script>js/lib/bootstrap/bootstrap.tabs.js</script>
-			<script>js/lib/oa/oautil.js</script>
-			<script>/oa_static/js/appinfo.js</script>
-			<script>/oa_static/js/top.js</script>
-			<script>js/lib/jxiaui/datepick.js</script>
-			<script>js/purchasing/xjgl.js</script>
-		</scripts>
-		<templates>
-			<template>common/oa_common_header_utf8.ftl</template>
-			<template>common/oa_common_leftbar.ftl</template>
-			<template>xjgl/purchasing-inquiry.ftl</template>
-
 		</templates>
 	</mvcView>
 	
@@ -302,80 +138,12 @@
 		</templates>
 	</mvcView>
 	
-	<mvcView url="purchasing/draft.mvc"
-		handler="com.tntxia.oa.purchasing.action.mvc.PurchasingDraftAction">
-		<title>新增订单 - 采购管理</title>
-		<isWholePage>true</isWholePage>
-		<charset>UTF-8</charset>
-		<stylesheets>
-			<stylesheet>/oa_static/css/top.css</stylesheet>
-			<stylesheet>css/font-awesome/style.css</stylesheet>
-			<stylesheet>/static/lib/bootstrap/css/bootstrap.css</stylesheet>
-			<stylesheet>css/tntxiaui/style.css</stylesheet>
-			<stylesheet>css/style.css</stylesheet>
-		</stylesheets>
-		<scripts>
-			<script>/static/lib/jquery/jquery.js</script>
-			<script>/static/lib/vue/vue.js</script>
-			<script>/static/lib/bootstrap/js/bootstrap.js</script>
-			<script>js/lib/jxiaui/getParamMap.js</script>
-			<script>js/lib/jxiaui/panel.js</script>
-			<script>js/lib/jxiaui/datagrid.js</script>
-			<script>js/lib/jxiaui/crud.js</script>
-			<script>js/lib/jxiaui/dialog.js</script>
-			<script>/oa_static/js/appinfo.js</script>
-			<script>/oa_static/js/top.js</script>
-			<script>/static/lib/bootstrap-plus/js/bootstrap-utils.js</script>
-			<script>js/common.js</script>
-			<script>js/purchasing/draft.js</script>
-		</scripts>
-		<templates>
-			<template>common/oa_common_header.ftl</template>
-			<template>common/oa_common_leftbar.ftl</template>
-			<template>purchasing/draft.ftl</template>
-		</templates>
-	</mvcView>
-	
-	<mvcView url="purchasing/toAudit.mvc"
-		handler="com.tntxia.oa.purchasing.action.mvc.PurchasingToAuditAction">
-		<title>待审订单 - 采购管理</title>
-		<isWholePage>true</isWholePage>
-		<charset>UTF-8</charset>
-		<stylesheets>
-			<stylesheet>/oa_static/css/top.css</stylesheet>
-			<stylesheet>css/font-awesome/style.css</stylesheet>
-			<stylesheet>/static/lib/bootstrap/css/bootstrap.css</stylesheet>
-			<stylesheet>css/tntxiaui/style.css</stylesheet>
-			<stylesheet>css/style.css</stylesheet>
-		</stylesheets>
-		<scripts>
-			<script>/static/lib/jquery/jquery.js</script>
-			<script>/static/lib/vue/vue.js</script>
-			<script>/static/lib/bootstrap/js/bootstrap.js</script>
-			<script>js/lib/jxiaui/getParamMap.js</script>
-			<script>js/lib/jxiaui/panel.js</script>
-			<script>js/lib/jxiaui/datagrid.js</script>
-			<script>js/lib/jxiaui/crud.js</script>
-			<script>js/lib/jxiaui/dialog.js</script>
-			<script>/oa_static/js/appinfo.js</script>
-			<script>/oa_static/js/top.js</script>
-			<script>js/lib/oa/checkmessage.js</script>
-			<script>js/purchasing/toAudit.js</script>
-		</scripts>
-		<templates>
-			<template>common/oa_common_header.ftl</template>
-			<template>common/oa_common_leftbar.ftl</template>
-			<template>purchasing/toAudit.ftl</template>
-		</templates>
-	</mvcView>
-	
 	<mvcView url="ddgl/new.mvc"
 		handler="com.tntxia.oa.purchasing.action.mvc.PurchasingNewAction">
 		<title>新增采购订单</title>
 		<isWholePage>true</isWholePage>
 		<charset>UTF-8</charset>
 		<stylesheets>
-	
 			<stylesheet>/static/lib/font-awesome/css/font-awesome.css</stylesheet>
 			<stylesheet>/static/lib/font-awesome-plus/style.css</stylesheet>
 			<stylesheet>/static/lib/bootstrap/css/bootstrap.css</stylesheet>
@@ -400,68 +168,6 @@
 		</scripts>
 		<templates>
 			<template>purchasing/purchasing-new.ftl</template>
-		</templates>
-	</mvcView>
-	
-	<mvcView url="purchasing/audited.mvc" handler="com.tntxia.oa.purchasing.action.mvc.PurchasingAuditedAction">
-		<title>已审订单 - 采购管理</title>
-		<isWholePage>true</isWholePage>
-		<charset>UTF-8</charset>
-		<stylesheets>
-			<stylesheet>/oa_static/css/top.css</stylesheet>
-			<stylesheet>css/font-awesome/style.css</stylesheet>
-			<stylesheet>/static/lib/bootstrap/css/bootstrap.css</stylesheet>
-			<stylesheet>css/tntxiaui/style.css</stylesheet>
-			<stylesheet>css/style.css</stylesheet>
-		</stylesheets>
-		<scripts>
-			<script>/static/lib/jquery/jquery.js</script>
-			<script>/static/lib/vue/vue.js</script>
-			<script>/oa_static/js/appinfo.js</script>
-			<script>/oa_static/js/top.js</script>
-			<script>js/lib/jxiaui/getParamMap.js</script>
-			<script>js/lib/jxiaui/panel.js</script>
-			<script>js/lib/jxiaui/datagrid.js</script>
-			<script>js/lib/jxiaui/dialog.js</script>
-			<script>js/lib/oa/checkmessage.js</script>
-			<script>js/lib/oa/oautil.js</script>
-			<script>js/purchasing/audited.js</script>
-		</scripts>
-		<templates>
-			<template>common/oa_common_header.ftl</template>
-			<template>common/oa_common_leftbar.ftl</template>
-			<template>purchasing/audited.ftl</template>
-		</templates>
-	</mvcView>
-	
-	<mvcView url="purchasing/deleted.mvc" handler="com.tntxia.oa.purchasing.action.mvc.PurchasingAuditedAction">
-		<title>已删订单 - 采购管理</title>
-		<isWholePage>true</isWholePage>
-		<charset>UTF-8</charset>
-		<stylesheets>
-			<stylesheet>/oa_static/css/top.css</stylesheet>
-			<stylesheet>css/font-awesome/style.css</stylesheet>
-			<stylesheet>/static/lib/bootstrap/css/bootstrap.css</stylesheet>
-			<stylesheet>css/cwface.css</stylesheet>
-			<stylesheet>css/tntxiaui/style.css</stylesheet>
-			<stylesheet>css/style.css</stylesheet>
-		</stylesheets>
-		<scripts>
-			<script>/static/lib/jquery/jquery.js</script>
-			<script>/static/lib/vue/vue.js</script>
-			<script>/oa_static/js/appinfo.js</script>
-			<script>/oa_static/js/top.js</script>
-			<script>js/lib/jxiaui/getParamMap.js</script>
-			<script>js/lib/jxiaui/panel.js</script>
-			<script>js/lib/jxiaui/datagrid.js</script>
-			<script>js/lib/jxiaui/dialog.js</script>
-			<script>js/lib/oa/oautil.js</script>
-			<script>js/purchasing/deleted.js</script>
-		</scripts>
-		<templates>
-			<template>common/oa_common_header.ftl</template>
-			<template>common/oa_common_leftbar.ftl</template>
-			<template>purchasing/deleted.ftl</template>
 		</templates>
 	</mvcView>
 	
@@ -701,33 +407,6 @@
 			<template>common/oa_common_header.ftl</template>
 			<template>common/oa_common_leftbar.ftl</template>
 			<template>purchasing/refund/purchasing-refund-approving.ftl</template>
-		</templates>
-	</mvcView>
-	
-	<mvcView url="purchasing/refund/approved.mvc" handler="com.tntxia.oa.purchasing.action.mvc.PurchasingRefundApprovedListHandler">
-		<title>退货管理 - 待审合同列表</title>
-		<isWholePage>true</isWholePage>
-		<charset>UTF-8</charset>
-		<stylesheets>
-			<stylesheet>/oa_static/css/top.css</stylesheet>
-			<stylesheet>css/font-awesome/style.css</stylesheet>
-			<stylesheet>/static/lib/bootstrap/css/bootstrap.css</stylesheet>
-			<stylesheet>css/tntxiaui/style.css</stylesheet>
-			<stylesheet>css/style.css</stylesheet>
-		</stylesheets>
-		<scripts>
-			<script>js/lib/jquery.js</script>
-			<script>js/lib/jxiaui/getParamMap.js</script>
-			<script>js/lib/jxiaui/panel.js</script>
-			<script>js/lib/jxiaui/datagrid.js</script>
-			<script>js/lib/jxiaui/dialog.js</script>
-			<script>js/lib/oa/checkmessage.js</script>
-			<script>js/purchasing/refund/purchasing-refund-approved-list.js</script>
-		</scripts>
-		<templates>
-			<template>common/oa_common_header_utf8.ftl</template>
-			<template>common/oa_common_leftbar.ftl</template>
-			<template>purchasing/refund/purchasing-refund-approved.ftl</template>
 		</templates>
 	</mvcView>
 	

@@ -6,7 +6,6 @@
 		<include file="mvc-views.xml"></include>
 		<include file="mvc-views-purchasing.xml"></include>
 		<include file="mvc-views-sale.xml"></include>
-		<include file="mvc-views-sale-client.xml"></include>
 		<include file="mvc-views-sale-project.xml"></include>
 		<include file="mvc-views-finance.xml"></include>
 		<include file="mvc-views-knowledge.xml"></include>
