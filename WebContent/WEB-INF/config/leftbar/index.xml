@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<leftbar>
+	<bars>
+		<bar name="首页">
+			<button url="/bbs/" target="_blank">内部论坛</button>
+			<button url="public/new.mvc" target="_blank">新增公告</button>
+			<button url="mail.mvc">邮件管理</button>
+		</bar>
+	</bars>
+</leftbar>
