@@ -97,26 +97,6 @@ A:hover {
 	background:#eeeeee;
 }
 
-.leftbar{
-	float:left;
-	position:fixed;
-	width:110px;
-	bottom:0;
-	top:80px;
-	border-right:1px solid blue;
-	overflow:auto;
-}
-
-.main_sec{
-	position:fixed;
-	left:110px;
-	top:82px;
-	right:0;
-	bottom:0;
-	overflow:auto;
-	background:white;
-}
-
 #bk {
     border: 1px solid #909ECD;
     padding-right: 5px;
@@ -127,7 +107,6 @@ A:hover {
 
 .leftbar-item{
 	border-bottom:1px solid #227dc5;
-	
 }
 
 .leftbar-header{

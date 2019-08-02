@@ -9,12 +9,4 @@
 		/finance/template/bankChoose.ftl
 	</template>
 	
-	<template url="finance/template/tax-wait.mvc">
-		/finance/template/tax-wait.ftl
-	</template>
-	
-	<template url="finance/template/tax-finish.mvc">
-		/finance/template/tax-finish.ftl
-	</template>
-	
 </templateList>

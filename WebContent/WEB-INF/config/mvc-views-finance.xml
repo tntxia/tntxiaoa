@@ -84,7 +84,7 @@
 		</templates>
 	</mvcView>
 
-	<mvcView url="finance/tax.mvc"  handler="com.tntxia.oa.finance.action.mvc.FinanceTaxHandler">
+	<mvcView url="finance/tax.mvc">
 		<title>财务管理 - 发票管理</title>
 		<isWholePage>true</isWholePage>
 		<charset>UTF-8</charset>
@@ -100,7 +100,6 @@
 			<script>/static/lib/jquery/jquery.js</script>
 			<script>/static/lib/vue/vue.js</script>
 			<script>/static/lib/bootstrap/js/bootstrap.js</script>
-			
 			<script>js/lib/bootstrap/bootstrap.grid.js</script>
 			<script>js/lib/bootstrap/bootstrap.tabs.js</script>
 			<script>js/lib/oa/oautil.js</script>
@@ -342,7 +341,7 @@
 		</templates>
 	</mvcView>
 	
-	<mvcView url="finance/payment.mvc" handler="com.tntxia.oa.finance.action.mvc.FinancePaymentAction">
+	<mvcView url="finance/payment.mvc">
 		<title>付款管理</title>
 		<charset>UTF-8</charset>
 		<isWholePage>true</isWholePage>

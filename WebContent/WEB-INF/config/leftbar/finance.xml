@@ -1,31 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <leftbar>
-	<currentBarIndex>2</currentBarIndex>
 	<bars>
 		<bar name="资金管理" restrain="zjzt">
-			<button url="system/bank/cwhlxx.jsp" ico="image/zjgl.gif">资金管理</button>
+			<button url="#finance_fund">资金管理</button>
 		</bar>
 		<bar name="工资管理" restrain="r_wage_zt">
-			<button url="finance/wage/wagem.jsp" ico="images/left/finance/gzgl.gif">工资管理</button>
+			<button url="#finance_wage">工资管理</button>
 		</bar>
 		<bar name="往来帐目" restrain="r_wlz_zt">
-			<button url="finance/money/exchange.mvc">往来账目</button>
+			<button url="#finance_exchange">往来账目</button>
+			<!-- 
 			<button url="finance/money/zyksqm.jsp" ico="img/zjrj.gif">资金日记</button>
-			<button url="finance/money/kmhz.jsp" ico="img/kmhz.gif">科目汇总</button>
+			<button url="finance/money/kmhz.jsp">科目汇总</button>
+			-->
 		</bar>
 		<bar name="付款管理" restrain="fkzt">
-			<button url="finance/payment.mvc" ico="images/left/finance/yfxx.gif">付款信息</button>
-			<button url="finance/ysyfm_return.jsp" ico="images/left/finance/thje.gif">退货金额</button>
-			<button url="finance/payment_hz/cwhlxx.jsp" ico="image/fkhz.gif"
+			<button url="#finance_payment_wait">待付款信息</button>
+			<button url="#finance_payment_finish">已付款信息</button>
+			<button url="#finance_payment_refund_wait">退货待付款</button>
+			<button url="#finance_payment_refund_finish">退货已付款</button>
+			<button url="finance/payment_hz/cwhlxx.jsp"
 				restrain="r_wage_zt">付款汇总</button>
 		</bar>
 		<bar name="收款管理">
-			<button url="finance/tax.mvc" restrain="qkzt">发票管理</button>
+			<button url="#finance_tax_wait" restrain="qkzt">待开发票</button>
+			<button url="#finance_tax_finish" restrain="qkzt">已开发票</button>
 			<button url="finance/noGatheredOrder.mvc" restrain="qkzt">未收款订单</button>
-			<button url="finance/index.mvc#finance_gathering" restrain="qkzt">欠款信息</button>
-			<button url="finance/index.mvc#finance_gathered" restrain="qkzt">收款信息</button>
-			<button url="finance/index.mvc#finance_refund" restrain="r_thje_zt">退货金额(未收)</button>
-			<button url="finance/index.mvc#finance_refund_gathered" restrain="r_thje_zt">退货金额（已收）</button>
+			<button url="#finance_gathering" restrain="qkzt">欠款信息</button>
+			<button url="#finance_gathered" restrain="qkzt">收款信息</button>
+			<button url="#finance_refund" restrain="r_thje_zt">退货金额(未收)</button>
+			<button url="#finance_refund_gathered" restrain="r_thje_zt">退货金额（已收）</button>
 			<button url="finance/bank/statistic.mvc" restrain="skhzzt">收款汇总</button>
 		</bar>
 	</bars>

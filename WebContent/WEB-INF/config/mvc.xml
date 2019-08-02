@@ -55,6 +55,8 @@
 		
 		<action url="finance/payment.do">com.tntxia.oa.finance.action.FinancePaymentAction</action>
 		<action url="finance/finance.do">com.tntxia.oa.finance.action.FinanceDoAction</action>
+		<action url="finance/wage.do">com.tntxia.oa.finance.action.WageAction</action>
+		
 		<action url="checkwork/checkwork.do">com.tntxia.oa.checkwork.action.CheckWorkAction</action>
 		
 		<action name="assay/do">com.tntxia.oa.assay.action.AssayAction</action>
