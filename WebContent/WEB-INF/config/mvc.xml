@@ -29,6 +29,9 @@
 		<action name="login">com.tntxia.oa.login.action.LoginAction</action>
 		<action name="checkLogin">com.tntxia.oa.login.action.LoginCheckAction</action>
 		
+		<action url="knowledge.do">com.tntxia.oa.knowledge.action.KnowledgeAction</action>
+		<action url="rule.do">com.tntxia.oa.rule.action.RuleAction</action>
+		
 		<!-- 仓库 -->
 		<action url="warehouse/warehouse.do">com.tntxia.oa.warehouse.action.WarehouseDoAction</action>
 		<action url="warehouse/send.do">com.tntxia.oa.warehouse.action.WarehouseSendAction</action>
@@ -59,6 +62,8 @@
 		
 		<action url="checkwork/checkwork.do">com.tntxia.oa.checkwork.action.CheckWorkAction</action>
 		
+		<action url="market/tradePolicy.do">com.tntxia.oa.market.action.TradePolicyAction</action>
+		
 		<action name="assay/do">com.tntxia.oa.assay.action.AssayAction</action>
 		<action url="unit.do">com.tntxia.oa.unit.action.UnitAction</action>
 		
@@ -76,7 +81,7 @@
 		<action url="public/notice.do">com.tntxia.oa.notice.action.NoticeAction</action>
 		<action url="appeal.do">com.tntxia.oa.appeal.action.AppealAction</action>
 		<action url="member/member.do">com.tntxia.oa.member.action.MemberAction</action>
-		<action url="knowledge.do">com.tntxia.oa.knowledge.action.KnowledgeAction</action>
+		
 		<action url="payway.do">com.tntxia.oa.payment.action.PaymentAction</action>
 		<action url="brand.do">com.tntxia.oa.brand.action.BrandAction</action>
 		<action url="current.do">com.tntxia.oa.current.action.CurrentAction</action>

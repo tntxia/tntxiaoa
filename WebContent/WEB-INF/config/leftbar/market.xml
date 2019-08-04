@@ -2,7 +2,7 @@
 <leftbar>
 	<bars>
 		<bar name="市场营销">
-			<button url="market/trade_policy/hlxx.jsp" ico="images/left/market/hyzc.gif"
+			<button url="#market_trade_policy"
 				restrain="r_hyzc_zt">行业政策</button>
 			<button url="market/markact/hlxx.jsp" ico="images/left/market/schd.gif"
 				restrain="mactzt">市场活动</button>
@@ -12,6 +12,4 @@
 				restrain="jzdszt">竞争对手</button>
 		</bar>
 	</bars>
-
-
 </leftbar>

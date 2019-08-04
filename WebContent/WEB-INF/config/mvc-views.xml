@@ -1,22 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mvcList>
 
-	<mvcView url="registerApp.mvc" handler="com.tntxia.oa.main.action.mvc.RegisterAppViewAction">
-		<title>应用注册</title>
-		<isWholePage>true</isWholePage>
-		<charset>UTF-8</charset>
-		<stylesheets>
-		</stylesheets>
-		<scripts>
-			<script>/static/lib/jquery/jquery.js</script>
-			<script>js/lib/jxiaui/getParamMap.js</script>
-			<script>js/registerApp.js</script>
-		</scripts>
-		<templates>
-			<template>registerApp.ftl</template>
-		</templates>
-	</mvcView>
-
 	<mvcView url="login.mvc" handler="com.tntxia.oa.main.action.mvc.LoginViewAction">
 		<title>登陆</title>
 		<isWholePage>true</isWholePage>
@@ -125,35 +109,6 @@
 			<template>setting/workAgent.ftl</template>
 		</templates>
 	</mvcView>
-	
-	<mvcView url="rule.mvc" handler="com.tntxia.oa.main.action.mvc.RuleListAction">
-		<title>规章制度</title>
-		<isWholePage>true</isWholePage>
-		<charset>UTF-8</charset>
-		<stylesheets>
-			<stylesheet>/oa_static/css/top.css</stylesheet>
-			<stylesheet>css/font-awesome/style.css</stylesheet>
-			<stylesheet>/static/lib/bootstrap/css/bootstrap.css</stylesheet>
-			<stylesheet>css/cwface.css</stylesheet>
-			<stylesheet>css/tntxiaui/style.css</stylesheet>
-			<stylesheet>css/style.css</stylesheet>
-		</stylesheets>
-		<scripts>
-			<script>/static/lib/jquery/jquery.js</script>
-			<script>/static/lib/vue/vue.js</script>
-			<script>libs/bootstrap/js/bootstrap.js</script>
-			<script>js/lib/oa/oautil.js</script>
-			<script>/oa_static/js/appinfo.js</script>
-			<script>/oa_static/js/top.js</script>
-			<script>js/rule.js</script>
-		</scripts>
-		<templates>
-			<template>common/oa_common_header.ftl</template>
-			<template>rule.ftl</template>
-		</templates>
-	</mvcView>
-
-	
 
 	<mvcView url="warehouse/in/report.mvc" handler="com.tntxia.oa.warehouse.action.mvc.InIndexAction">
 		<title>入库管理 - 入库报表</title>

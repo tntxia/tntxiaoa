@@ -6,7 +6,8 @@
 <tr id="searchVue">
 <td colspan="6">
 	 入库编号  <input name="ddnum"
-		type="text" id="ddnum" size="10"> 采购单编号 <input
+		type="text" id="ddnum" size="10"> 
+	采购单编号 <input
 		name="orderNumber" type="text" id="ddnum" size="10"> 供 应 商
 		<input
 		type="text" name="coname" size="10"> 型号 <input
