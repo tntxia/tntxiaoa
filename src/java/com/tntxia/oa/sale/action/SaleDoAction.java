@@ -1386,7 +1386,7 @@ public class SaleDoAction extends CommonDoAction {
 		String state;
 		
 		if(state1.equals("1")){
-			// 如果无需复审的情况下
+			// 如果无需审批的情况下
 			if("否".equals(fif.trim())){
 				state = "待出库";
 				String coname1 = (String) subscribe.get("coname");
@@ -1825,8 +1825,7 @@ public class SaleDoAction extends CommonDoAction {
 	}
 	
 	@SuppressWarnings("rawtypes")
-	public List listPartner(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public List listPartner(WebRuntime runtime) throws Exception {
 		String sql = "select * from client where  cotypes='合作伙伴'";
 		return 
 				dbManager.queryForList(sql, true);
@@ -1930,7 +1929,7 @@ public class SaleDoAction extends CommonDoAction {
 		String id = runtime.getParam("id");
 		
 		try{
-			saleService.toAudit(id, super.getUserinfo(runtime));
+			saleService.toAudit(runtime.getBasePath(), id, super.getUserinfo(runtime));
 		}catch(Exception e){
 			return this.errorMsg(e.toString());
 			

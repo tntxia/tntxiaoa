@@ -39,7 +39,6 @@ import com.tntxia.sqlexecutor.Transaction;
 import com.tntxia.string.EscapeUnescape;
 import com.tntxia.web.mvc.PageBean;
 import com.tntxia.web.mvc.WebRuntime;
-import com.tntxia.web.util.ParamUtils;
 
 public class PurchasingDoAction extends CommonDoAction {
 
@@ -736,6 +735,28 @@ public class PurchasingDoAction extends CommonDoAction {
 		PageBean pageBean = runtime.getPageBean(20);
 		int top = pageBean.getTop();
 		String sqlWhere = " where (state='已批准' or state='待退货'  or  state='已入库' or state='已出库' or state='部分出库')";
+		String sql = "select top " + top + " * from th_table_supplier ";
+		String sqlCount = "select count(*) from th_table_supplier ";
+		
+		String sqlOrderBy = " order by number desc";
+
+		// 发送到接口的参数
+		List<Object> params = new ArrayList<Object>();
+
+		int count = dbManager.getCount(sqlCount + sqlWhere, params);
+
+		System.out.println(sql + sqlWhere + sqlOrderBy);
+		List list = dbManager.queryForList(sql + sqlWhere + sqlOrderBy, params, true);
+
+		return this.getPagingResult(list, pageBean, count);
+	}
+	
+	@SuppressWarnings({ "rawtypes" })
+	public Map<String, Object> listRefundDeleted(WebRuntime runtime) throws Exception {
+
+		PageBean pageBean = runtime.getPageBean(20);
+		int top = pageBean.getTop();
+		String sqlWhere = " where state='已删除' ";
 		String sql = "select top " + top + " * from th_table_supplier ";
 		String sqlCount = "select count(*) from th_table_supplier ";
 		

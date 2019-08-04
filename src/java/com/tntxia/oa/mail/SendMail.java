@@ -54,10 +54,7 @@ public class SendMail {
 						+" values('"+mail.getMail_to()+"','"+mail.getMail_sub()+"','"+mail.getMail_nr()+"','"+mail.getMail_man()+"','"+mail.getMail_datetime()+"','','','"+mail.getGetman()+"','"+mail.getForm_datetime()+"','"+mail.getStates()+"','"+mail.getSid()+"')";
 			else if(type==2)
 				sql = "insert into sendmail(mail_to,mail_sub,mail_nr,mail_man,mail_datetime,form_to,mail_to2,mail_to3)"
-						+" values('"+mail.getMail_to()+"','"+mail.getMail_sub()+"','"+mail.getMail_nr()+"','"+mail.getMail_man()+"','"+mail.getMail_datetime()+"','','','')";	
-			else if(type==3)
-				sql = "insert into handlingmail(mail_to,mail_sub,mail_nr,mail_man,mail_datetime,mail_to2,mail_to3,type,getman,form_datetime,states,sid)"
-					+" values('"+mail.getMail_to()+"','"+mail.getMail_sub()+"','"+mail.getMail_nr()+"','"+mail.getMail_man()+"','"+mail.getMail_datetime()+"','','',"+mail.getType()+",'"+mail.getGetman()+"','"+mail.getForm_datetime()+"','"+mail.getStates()+"','"+mail.getSid()+"')";
+						+" values('"+mail.getMail_to()+"','"+mail.getMail_sub()+"','"+mail.getMail_nr()+"','"+mail.getMail_man()+"','"+mail.getMail_datetime()+"','','','')";
 			db.executeUpdate(sql);
 			
 		}catch(Exception e){

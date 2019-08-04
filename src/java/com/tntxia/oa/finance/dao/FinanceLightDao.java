@@ -6,7 +6,6 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 
 import com.tntxia.dbmanager.DBManager;
-import com.tntxia.sqlexecutor.SQLExecutor;
 import com.tntxia.sqlexecutor.Transaction;
 import com.tntxia.web.mvc.BaseDao;
 import com.tntxia.web.mvc.PageBean;
@@ -74,7 +73,7 @@ public class FinanceLightDao extends BaseDao{
 	@SuppressWarnings("rawtypes")
 	public List getTaxWaitList(Map<String,Object> param,PageBean pageBean) throws Exception {
 		
-		String sql = "select top "+pageBean.getTop()+" * from gathering where  (bankaccounts='待开发票' and rate!='不含税')";
+		String sql = "select top "+pageBean.getTop()+" * from gathering where  (bankaccounts='待开发票' and rate<>'不含税')";
 		return dbManager.queryForList(sql, true);
 		
 	}
@@ -88,15 +87,13 @@ public class FinanceLightDao extends BaseDao{
 	
 	@SuppressWarnings("rawtypes")
 	public List getTaxFinishList(Map<String,Object> param,PageBean pageBean) throws Exception {
-		
-		String sql = "select top "+pageBean.getTop()+" * from gathering where  (bankaccounts='已开发票' and rate!='不含税')";
+		String sql = "select top "+pageBean.getTop()+" * from gathering where  (bankaccounts='已开发票' and rate<>'不含税')";
 		return dbManager.queryForList(sql, true);
-		
 	}
 	
 	public int getTaxFinishCount(Map<String,Object> param) throws Exception {
 		
-		String sql = "select count(*) from gathering where  (bankaccounts='已开发票' and rate!='不含税')";
+		String sql = "select count(*) from gathering where  (bankaccounts='已开发票' and rate<>'不含税')";
 		return dbManager.queryForInt(sql);
 		
 	}

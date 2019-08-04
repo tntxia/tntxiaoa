@@ -13,6 +13,7 @@ import org.apache.commons.io.FilenameUtils;
 import com.tntxia.date.DateUtil;
 import com.tntxia.dbmanager.DBManager;
 import com.tntxia.oa.common.action.CommonDoAction;
+import com.tntxia.web.mvc.PageBean;
 import com.tntxia.web.mvc.WebRuntime;
 import com.tntxia.web.mvc.entity.MultipartForm;
 import com.tntxia.web.mvc.view.FileView;
@@ -20,6 +21,33 @@ import com.tntxia.web.mvc.view.FileView;
 public class KnowledgeAction extends CommonDoAction {
 	
 	private DBManager dbManager = this.getDBManager();
+	
+	@SuppressWarnings("rawtypes")
+	public Map<String,Object> listType(WebRuntime runtime) throws Exception {
+		PageBean pageBean = runtime.getPageBean();
+		String sql = "select top "+pageBean.getTop()+" * from km_ty  order by  id desc";
+		List list = dbManager.queryForList(sql, true);
+		sql = "select count(*) from km_ty";
+		int count = dbManager.getCount(sql);
+		return this.getPagingResult(list, pageBean, count);		
+	}
+	
+	public Map<String,Object> detail(WebRuntime runtime) throws Exception {
+		String sql = "select * from km_ty where id = ?";
+		String id = runtime.getParam("id");
+		return this.success("detail", dbManager.queryForMap(sql,new Object[] {id}, true));
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public Map<String,Object> list(WebRuntime runtime) throws Exception {
+		PageBean pageBean = runtime.getPageBean();
+		String pid = runtime.getParam("pid");
+		String sql = "select l.*, k.km_name from lawtable l left outer join km_ty k on l.km_types = k.id where km_types = ? order by id desc";
+		List list = dbManager.queryForList(sql, new Object[] {pid}, true);
+		sql = "select count(*) from lawtable where km_types = ?";
+		int count = dbManager.getCount(sql, new Object[] {pid});
+		return this.getPagingResult(list, pageBean, count);	
+	}
 	
 	public Map<String,Object> add(WebRuntime runtime) throws Exception{
 		String username=this.getUsername(runtime);

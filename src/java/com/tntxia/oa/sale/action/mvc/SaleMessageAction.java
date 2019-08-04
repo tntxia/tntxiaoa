@@ -1,5 +1,6 @@
 package com.tntxia.oa.sale.action.mvc;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,7 +27,7 @@ public class SaleMessageAction extends HandlerWithHeaderAndLeftbar {
 			user = new HashMap();
 		}
 		this.setRootValue("user", user);
-		java.text.SimpleDateFormat simple=new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm");
+		SimpleDateFormat simple=new SimpleDateFormat("yyyy-MM-dd HH:mm");
         String currentDate=simple.format(new java.util.Date());
         this.setRootValue("currentDate", currentDate);
 		

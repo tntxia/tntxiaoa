@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.io.FilenameUtils;
@@ -23,6 +22,7 @@ import com.tntxia.oa.common.action.CommonDoAction;
 import com.tntxia.oa.purchasing.dao.SupplierLightDao;
 import com.tntxia.oa.system.dao.DepartmentDao;
 import com.tntxia.oa.system.entity.Department;
+import com.tntxia.oa.user.service.UserService;
 import com.tntxia.oa.util.PropertiesUtils;
 import com.tntxia.sqlexecutor.Transaction;
 import com.tntxia.web.mvc.PageBean;
@@ -37,6 +37,8 @@ public class SupplierDoAction extends CommonDoAction {
 	private DBManager dbManager = this.getDBManager();
 	
 	private DepartmentDao departmentDao = new DepartmentDao();
+	
+	private UserService userService = new UserService();
 
 	/**
 	 * 获取供应商列表
@@ -178,9 +180,6 @@ public class SupplierDoAction extends CommonDoAction {
 		  String service_type = runtime.getParam("service_type");
 		  String pay_type = runtime.getParam("pay_type");
 		  
-		 
-		 
-		 
 		 String strSQL="insert into supplier(co_number,coname,coaddr,copost,city,country,province,"+
 		 "cofrdb,cozzxs,cozczb,coyyzz,cotypes,tradetypes,cokhjb,cokhyh,coyhzh,coclrq,ifjckq,cotel,cofax,"+
 		 "codzyj,conet,cosyhb,cojsfs,nshm,number,username,dept,deptjb,modman,mod_date,share,yearearning,"+
@@ -261,26 +260,16 @@ public class SupplierDoAction extends CommonDoAction {
 		Map<String,Object> attach = dbManager.queryForMap(sql, new Object[] {id},true);
 
 		String filePath = (String) attach.get("filepath");
-		
 		FileView fileView = new FileView();
-		
 		fileView.setFilePath(filePath);
-		
-		return fileView; 
-		
-		
+		return fileView;
 	}
 	
 	public Map<String,Object> delAttach(WebRuntime runtime) throws Exception{
-		
 		String id = runtime.getParam("id");
-		
 		String strSQL="delete from supplier_attachment where id = '" + id + "'";
 		dbManager.update(strSQL);
-		
 		return this.success(); 
-		
-		
 	}
 	
 	private String getString(HSSFRow row,int i) {
@@ -315,26 +304,18 @@ public class SupplierDoAction extends CommonDoAction {
 		File excelFile = new File(filePath);
 		//将上传文件保存到指定目录
 		fileItem.write(excelFile);
-		
-		
 		 
 		Transaction trans = this.getTransaction();
-		
-		
 		HSSFWorkbook workbook = null;
 		
 		int repeatAmount=0;
 		int userErrorAmount = 0;
-		
-		
 		
 		try {
 			
 			workbook=new HSSFWorkbook(new FileInputStream(excelFile));
 			HSSFSheet sheet=workbook.getSheetAt(0);
 			int amount=sheet.getLastRowNum();
-			
-			
 			
 			for (int r=1;r<=amount;r++){
 				
@@ -417,7 +398,88 @@ public class SupplierDoAction extends CommonDoAction {
 				workbook.close();
 			}
 		}
+	}
+	
+	@SuppressWarnings({ "rawtypes" })
+	public Map<String,Object> listContact(WebRuntime runtime) throws Exception {
+		PageBean pageBean = runtime.getPageBean();
+		String username = this.getUsername(runtime);
+		String deptjb = this.getDeptjb(runtime);
+		boolean hasView = this.existRight(runtime, "supview");
+		String sqlWhere = " where ";
+		if (hasView) {
+			sqlWhere += "deptjb  like '" + deptjb + "%'";
+		} else {
+			sqlWhere += "(share='是' or username='" + username + "')";
+		}
 		
+		String name = runtime.getParam("name");
+		if (StringUtils.isNotEmpty(name)) {
+			sqlWhere += " and name like '%" + name + "%' ";
+		}
+		String sql = "select count(*) from qlinkman";
+		int intRowCount = dbManager.getCount(sql + sqlWhere);
+		sql = "select top " + pageBean.getTop() + " * from qlinkman";
+		List list = dbManager.queryForList(sql + sqlWhere, true);
+		return this.getPagingResult(list, pageBean, intRowCount);
+	}
+	
+	/**
+	 * 获取供应商所属的用户
+	 * @param runtime
+	 * @return
+	 * @throws Exception
+	 */
+	public Map<String,Object> getSupplierByName(WebRuntime runtime) throws Exception {
+		String coname = runtime.getParam("coname");
+		String sql = "select * from supplier where coname = ?";
+		Map<String,Object> supplier = dbManager.queryForMap(sql, new Object[] {coname}, true);
+		return this.success("supplier", supplier);
+	}
+	
+	public Map<String,Object> shift(WebRuntime runtime) throws Exception {
+		String man1 = runtime.getParam("man1");
+		String man2 = runtime.getParam("man2");
+		String share=runtime.getParam("share");
+		String coname=runtime.getParam("coname");
+		boolean man2Exist = userService.existUser(man2);
+		if (!man2Exist) {
+			return this.errorMsg("目标用户不存在");
+		}
+
+		Map<String,Object> dept = userService.getUserDept(man2);
+		String dept2=(String) dept.get("deptname");
+		 String deptjb2=(String) dept.get("deptjb");
+
+		 String strSQLc = "select * from supplier where coname = ?";
+		 Map<String,Object> supplier = dbManager.queryForMap(strSQLc, new Object[] {coname}, true);
+		 
+		 if (supplier==null) {
+			 return this.errorMsg("供应商不存在");
+		 }
+		 
+		 Transaction trans = this.getTransaction();
+		 try {
+			 String strSQLman="update qlinkman set username='"+man2+"',dept='"+dept2+"',deptjb='"+deptjb2+"'  where  coname='"+coname+"' and username='"+man1+"' ";
+			 trans.update(strSQLman);
+			 String strSQLop="update procure_xj set man='"+man2+"'  where  coname='"+coname+"' and man='"+man1+"' ";
+			 trans.update(strSQLop);
+			 String strSQLact="update procure set man='"+man2+"',l_dept='"+dept2+"',l_deptjb='"+deptjb2+"'  where  coname='"+coname+"' and man='"+man1+"' ";
+			 trans.update(strSQLact);
+			 String strSQLq="update payment set remark='"+man2+"',wtfk='"+deptjb2+"'  where  supplier='"+coname+"' and remark='"+man1+"' ";
+			 trans.update(strSQLq);
+			 String strSQLsub="update gathering_customer set pname='"+man2+"',dept='"+dept2+"',deptjb='"+deptjb2+"'  where  coname='"+coname+"' and pname='"+man1+"' ";
+			 trans.update(strSQLsub);
+			 String strSQL="update supplier set username='" + man2  + "',share='" + share + "',dept='"+dept2+"',deptjb='"+deptjb2+"' where  username='" + man1 + "' and  coname like '%" + coname + "%'";
+			 trans.update(strSQL);
+			 trans.commit();
+		 }catch(Exception e) {
+			 trans.rollback();
+			 return this.errorMsg("转移出现异常");
+		 } finally {
+			 trans.close();
+		 }
+		 return this.success();
 	}
 
 }

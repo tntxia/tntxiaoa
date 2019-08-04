@@ -10,6 +10,8 @@ import com.tntxia.date.DateUtil;
 import com.tntxia.dbmanager.DBManager;
 import com.tntxia.oa.common.action.CommonDoAction;
 import com.tntxia.sqlexecutor.SQLExecutorSingleConn;
+import com.tntxia.sqlexecutor.Transaction;
+import com.tntxia.web.mvc.PageBean;
 import com.tntxia.web.mvc.WebRuntime;
 
 /**
@@ -35,7 +37,7 @@ public class MailDoAction extends CommonDoAction {
 		String mail_to = runtime.getParam("mail_to");
 		String mail_to2 = runtime.getParam("mail_to2");
 		String mail_to3 = runtime.getParam("mail_to3");
-		String mail_datetime = DateUtil.getCurrentDateSimpleStr();
+		String mail_datetime = DateUtil.getCurrentDateStr();
 		String mail_man = this.getUsername(runtime);
 		String dept = this.getDept(runtime);
 		String deptjb = this.getDeptjb(runtime);
@@ -43,10 +45,9 @@ public class MailDoAction extends CommonDoAction {
 		String mail_nr = runtime.getParam("mail_nr");
 
 		String strSQL = "insert into sendmail(mail_to,mail_to2,mail_to3,mail_sub,mail_nr,mail_man,deptjb,dept,mail_datetime,states,form_to,form_to2,form_to3) values(?,'"
-				+ mail_to2 + "','" + mail_to3 + "','" + mail_sub + "',?,'" + mail_man + "','" + deptjb + "','" + dept
-				+ "','" + mail_datetime + "','已发送','','','')";
+				+ mail_to2 + "','" + mail_to3 + "','" + mail_sub + "',?,?,?,?,?,'已发送','','','')";
 		System.out.println(strSQL);
-		dbManager.executeUpdate(strSQL,new Object[] {mail_to,mail_nr});
+		dbManager.executeUpdate(strSQL,new Object[] {mail_to,mail_nr, mail_man,deptjb,dept,mail_datetime});
 		return this.success();
 
 	}
@@ -97,11 +98,10 @@ public class MailDoAction extends CommonDoAction {
 				sqlExecutor.update(sql, new Object[] {form_to, id});
 				
 				String strSQLn = "insert into  getmail(mail_to,mail_to2,mail_to3,mail_sub,mail_nr,mail_man,deptjb,dept,mail_datetime,getman,form_datetime,states,sid) values('" + mail_to + "','"
-						+ mail_to2 + "','" + mail_to3 + "','" + mail_sub + "','"
-						+ mail_nr + "','" + mail_man + "','" + deptjb + "','"
+						+ mail_to2 + "','" + mail_to3 + "','" + mail_sub + "',?,'" + mail_man + "','" + deptjb + "','"
 						+ dept + "','" + mail_datetime + "','" + username + "','"
 						+ currentDate + "','已收邮件','" + id + "')";
-				sqlExecutor.executeUpdate(strSQLn);
+				sqlExecutor.executeUpdate(strSQLn, new Object[] {mail_nr});
 			}
 		}catch(Exception ex){
 			ex.printStackTrace();
@@ -110,8 +110,88 @@ public class MailDoAction extends CommonDoAction {
 				sqlExecutor.close();
 			}
 		}
-
-		
+		return this.success();
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public Map<String,Object> listMailIn(WebRuntime runtime) throws Exception {
+		PageBean pageBean = runtime.getPageBean();
+		String username = this.getUsername(runtime);
+		String sql = "select top " + pageBean.getTop() + " * from getmail where getman=? and states<>'删除' order by mail_datetime desc";
+		List list = dbManager.queryForList(sql, new Object[] {username}, true);
+		sql = "select count(*) from getmail where getman=? and states<>'删除'";
+		int count = dbManager.getCount(sql,new Object[] {username});
+		return this.getPagingResult(list, pageBean, count);
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public Map<String,Object> listMailOut(WebRuntime runtime) throws Exception {
+		PageBean pageBean = runtime.getPageBean();
+		String username = this.getUsername(runtime);
+		String sql = "select top " + pageBean.getTop() + " * from sendmail where mail_man=? order by mail_datetime desc";
+		List list = dbManager.queryForList(sql, new Object[] {username}, true);
+		sql = "select count(*) from sendmail where mail_man=?";
+		int count = dbManager.getCount(sql,new Object[] {username});
+		return this.getPagingResult(list, pageBean, count);
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public Map<String,Object> listMailTrash(WebRuntime runtime) throws Exception {
+		PageBean pageBean = runtime.getPageBean();
+		String username = this.getUsername(runtime);
+		String sql = "select top " + pageBean.getTop() + " * from getmail where getman=? and states='删除' order by mail_datetime desc";
+		List list = dbManager.queryForList(sql, new Object[] {username}, true);
+		sql = "select count(*) from getmail where getman=? and states='删除'";
+		int count = dbManager.getCount(sql,new Object[] {username});
+		return this.getPagingResult(list, pageBean, count);
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public Map<String,Object> listMailHandling(WebRuntime runtime) throws Exception {
+		PageBean pageBean = runtime.getPageBean();
+		String username = this.getUsername(runtime);
+		String sql = "select top " + pageBean.getTop() + " * from getmail where getman=? and states='待处理' order by mail_datetime desc";
+		List list = dbManager.queryForList(sql, new Object[] {username}, true);
+		sql = "select count(*) from getmail where getman=?";
+		int count = dbManager.getCount(sql,new Object[] {username});
+		return this.getPagingResult(list, pageBean, count);
+	}
+	
+	public Map<String, Object> pushInMailHandling(WebRuntime runtime) throws Exception {
+		String ids = runtime.getParam("ids");
+		Transaction trans = this.getTransaction();
+		try {
+			String sql = "update getmail set states='待处理' where id = ?";
+			for(String id : ids.split(",")) {
+				trans.update(sql, new Object[] {id});
+			}
+			trans.commit();
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			trans.rollback();
+			return this.errorMsg(ex.toString());
+		}finally {
+			trans.close();
+		}
+		return this.success();
+	}
+	
+	public Map<String, Object> delInMail(WebRuntime runtime) throws Exception {
+		String ids = runtime.getParam("ids");
+		Transaction trans = this.getTransaction();
+		try {
+			String sql = "update getmail set states='删除' where id = ?";
+			for(String id : ids.split(",")) {
+				trans.update(sql, new Object[] {id});
+			}
+			trans.commit();
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			trans.rollback();
+			return this.errorMsg(ex.toString());
+		}finally {
+			trans.close();
+		}
 		return this.success();
 	}
 	

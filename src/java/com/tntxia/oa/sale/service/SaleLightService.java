@@ -214,7 +214,7 @@ public class SaleLightService extends CommonService{
 	 * @throws Exception
 	 */
 	@SuppressWarnings("rawtypes")
-	public void toAudit(String id, Userinfo userinfo) throws Exception {
+	public void toAudit(String basePath, String id, Userinfo userinfo) throws Exception {
 
 		NumberFormat nf = NumberFormat.getNumberInstance();
 		nf.setMaximumFractionDigits(4);
@@ -235,7 +235,7 @@ public class SaleLightService extends CommonService{
 		}
 		
 		String ddnumber = (String) sale.get("number");
-		
+		String username = userinfo.getUsername();
 
 		DBConnection einfodb = new DBConnection();
 		DBConnection einfodb2 = new DBConnection();
@@ -264,7 +264,6 @@ public class SaleLightService extends CommonService{
 			Map<String, Object> auditFlow = this
 					.getAuditFlow(total, dept, role);
 
-			String dd_man = "";
 			String fif = "";
 			String if_sp = "";
 			String fspman = "";
@@ -275,6 +274,9 @@ public class SaleLightService extends CommonService{
 			}
 
 			if_sp = ((String) auditFlow.get("if_sp")).trim();
+			String dd_man = (String) auditFlow.get("dd_man");
+			fif = (String) auditFlow.get("fif");
+			fspman = (String) auditFlow.get("fspman");
 			if (if_sp.equals("否")) {
 				zt = "待出库";
 				String strSQL8="delete from gathering where orderform='" + ddnumber + "'";
@@ -292,11 +294,25 @@ public class SaleLightService extends CommonService{
 			    String item = (String) sale.get("item");
 				String strSQLsk="insert into gathering(fyid,invoice,orderform,coname,yjskdate,sjskdate,ymoney,states,mode,datet,moneytypes,smoney,bank,bankaccounts,sale_man,sale_dept,deptjb,co_number,rate,i_man,sendcompany,remark,note) values('" + id + "','" + ddnumber +"','" + ddnumber +"','" + coname + "','" + senddate +"','" + senddate +"',?,'待收款','" + mode +"','"+source+"','" + money +"','0',?,'待开发票','"+man+"','"+sale_dept+"','"+deptjb+"','" + co_number + "','" + item + "','0','','','')";
 				dbManager.update(strSQLsk, new Object[]{yj.doubleValue(),yj.doubleValue()});
+			} else {
+				String approvingPath = basePath + "/#sale_list_approving";
+				String mailContent = "点击<a href='"+approvingPath+"'>这里</a>查看待审批销售订单";
+				String strSQLs = "insert into sendmail(mail_to,mail_to2,mail_to3,mail_sub,mail_nr,mail_man,deptjb,dept,mail_datetime,states,form_to,form_to2,form_to3) values('"
+						+ dd_man
+						+ "','','','编号为:"
+						+ ddnumber
+						+ "合同,需要你进行审批',?,'"
+						+ username
+						+ "','"
+						+ userinfo.getDept()
+						+ "','"
+						+ userinfo.getDeptjb()
+						+ "','"
+						+ currentDate
+						+ "','已发送','','','')";
+				dbManager.executeUpdate(strSQLs, new Object[] {mailContent});
 			}
 
-			dd_man = (String) auditFlow.get("dd_man");
-			fif = (String) auditFlow.get("fif");
-			fspman = (String) auditFlow.get("fspman");
 			String sql = "update subscribe set state=?,spman=?,fif=?,cwman=?,sub_time=? where id=?";
 			dbManager.update(sql, new Object[]{zt,dd_man,fif,fspman,currentDate,id});
 

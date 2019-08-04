@@ -124,15 +124,15 @@ public class FinanceLightService extends CommonService{
 	
 	@SuppressWarnings({ "rawtypes" })
 	public Map<String,Object> listTaxWait(Map<String,Object> param,PageBean pageBean) throws Exception{
-		
 		List list = financeDao.getTaxWaitList(param,pageBean);
 		List rows = this.getRows(list, pageBean);
 		for(int i=0;i<rows.size();i++){
 			Map map = (Map) rows.get(i);
 			String fyid = MapUtils.getString(map, "fyid");
 			Sale sale = saleDao.getSaleById(fyid);
-			map.put("rate", sale.getRate());
-			setTotal(map);
+			if (sale!=null ) {
+				setTotal(map);
+			}
 		}
 		int totalAmount = financeDao.getTaxWaitCount(param);
 		pageBean.setTotalAmount(totalAmount);
@@ -149,12 +149,12 @@ public class FinanceLightService extends CommonService{
 			Map map = (Map) rows.get(i);
 			String fyid = MapUtils.getString(map, "fyid");
 			Sale sale = saleDao.getSaleById(fyid);
-			map.put("rate", sale.getRate());
-			setTotal(map);
+			if (sale!=null) {
+				map.put("rate", sale.getRate());
+				setTotal(map);
+			}
 		}
 		int totalAmount = financeDao.getTaxFinishCount(param);
-		pageBean.setTotalAmount(totalAmount);
-		
 		return this.getPagingResult(list, pageBean, totalAmount);
 	}
 	

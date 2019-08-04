@@ -5,7 +5,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,16 +13,12 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.sql.DataSource;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
-import com.alibaba.fastjson.JSON;
 import com.tntxia.jdbc.SQLExecutor;
 import com.tntxia.oa.config.SystemConfig;
 import com.tntxia.oa.current.Current;
@@ -43,7 +38,6 @@ public class StartInitListener implements ServletContextListener {
 	@Override
 	public void contextDestroyed(ServletContextEvent arg0) {
 		logger.info("OA系统停止...");
-
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -178,70 +172,6 @@ public class StartInitListener implements ServletContextListener {
 		}
 	}
 	
-	@SuppressWarnings("rawtypes")
-	private void setLeftbarMap(ServletContext context) throws DocumentException{
-		
-		File leftbarConfDir = new File(context.getRealPath("/WEB-INF/config/leftbar"));
-		
-		for(File leftbarFile : leftbarConfDir.listFiles()){
-			
-			String fileName = leftbarFile.getName();
-			
-			String baseName = FilenameUtils.getBaseName(fileName);
-			
-			String ext = FilenameUtils.getExtension(fileName);
-			
-			if(!ext.equalsIgnoreCase("xml")){
-				continue;
-			}
-			
-			SAXReader saxReader = new SAXReader();
-	        Document document = saxReader.read(leftbarFile);
-	        
-	        Element root = document.getRootElement();
-	        
-	        List list = root.selectNodes("bars/bar");
-	        
-	        List<Map<String,Object>> bars = new ArrayList<Map<String,Object>>();
-	        
-	        for(int i=0;i<list.size();i++){
-	        	Map<String,Object> map = new HashMap<String,Object>();
-	        	Element element = (Element) list.get(i);
-	        	map.put("text", element.attributeValue("name"));
-	        	
-	        	List<Map<String,Object>> buttons = new ArrayList<Map<String,Object>>();
-	        	List buttonList = element.selectNodes("button");
-	        	for(int j=0;j<buttonList.size();j++){
-	        		Element el = (Element) buttonList.get(j);
-	        		Map<String,Object> buttonMap = new HashMap<String,Object>();
-	        		String url = el.attributeValue("url");
-	        		buttonMap.put("url", url);
-	        		buttonMap.put("text", el.getText());
-	        		String target = "mainn";
-	        		if(StringUtils.isNotEmpty(el.attributeValue("target"))){
-	        			target  = el.attributeValue("target");
-	        		}
-	        		buttonMap.put("target", target);
-	        		
-	        		buttons.add(buttonMap);
-	        	}
-	        	map.put("buttons", buttons);
-	        	
-	        	bars.add(map);
-	        }
-	        SystemCache.leftbarMap.put(baseName, bars);
-		}
-	}
-	
-	private void initDefaultJSON(ServletContext context) throws IOException{
-		
-		File defaultJSONFile = new File(context.getRealPath("/WEB-INF/config/default.json"));
-		String text = FileUtils.readFileToString(defaultJSONFile, "UTF-8");
-		Map<String,Object> defaultJSON = (Map<String,Object>) JSON.parse(text);
-		SystemCache.defaultJSON = defaultJSON;
-		
-	}
-	
 	@SuppressWarnings({ "rawtypes" })
 	@Override
 	public void contextInitialized(ServletContextEvent event) {
@@ -249,19 +179,6 @@ public class StartInitListener implements ServletContextListener {
 		ServletContext context = event.getServletContext();
 		
 		initConfigJs(context);
-		
-		try {
-			initDefaultJSON(context);
-		} catch (IOException e) {
-			
-			e.printStackTrace();
-		}
-		
-		try {
-			setLeftbarMap(context);
-		} catch (DocumentException e1) {
-			e1.printStackTrace();
-		}
 		
 		System.out.println("==== OA 系统 初始化开始       =======");
 

@@ -1,22 +1,31 @@
-package com.tntxia.oa.main.action.mvc;
+package com.tntxia.oa.rule.action;
 
 import java.util.List;
+import java.util.Map;
 
 import com.tntxia.dbmanager.DBManager;
-import com.tntxia.oa.common.handler.HandlerWithHeader;
+import com.tntxia.oa.common.action.CommonDoAction;
+import com.tntxia.web.mvc.PageBean;
 import com.tntxia.web.mvc.WebRuntime;
 
-public class RuleListAction extends HandlerWithHeader {
+public class RuleAction extends CommonDoAction {
 	
 	private DBManager dbManager = this.getDBManager();
-
-	@SuppressWarnings("rawtypes")
-	@Override
-	public void init(WebRuntime runtime) throws Exception {
-		boolean flfgadd = this.existRight(runtime, "flfgadd");
+	
+	/**
+	 * 新增订单列表
+	 * 
+	 * @param request
+	 * @param arg1
+	 * @throws Exception 
+	 */
+	@SuppressWarnings({ "rawtypes" })
+	public Map<String,Object> list(WebRuntime runtime) throws Exception {
+		
+		PageBean pageBean = runtime.getPageBean();
+		
 		boolean flfgview = this.existRight(runtime, "flfgview");
 
-		
 		String sqlWhere = "";
 		
 		if (flfgview) {
@@ -33,13 +42,12 @@ public class RuleListAction extends HandlerWithHeader {
 		
 		int count = dbManager.getCount(strSQL);
 		
-		String sql = "select * from rulestable  where 1=1 "+sqlWhere;
+		String sql = "select top "+pageBean.getTop()+" * from rulestable  where 1=1 "+sqlWhere;
 		
 		List list = dbManager.queryForList(sql,true);
+
+		return this.getPagingResult(list, pageBean, count);
 		
-		this.setRootValue("list", list);
-		
-		this.setRootValue("flfgadd", flfgadd);
 
 	}
 

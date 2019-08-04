@@ -30,9 +30,10 @@ public class QualifiedAction extends CommonDoAction {
 	private String getAuditMan(String id) throws Exception{
 		Map<String,Object> detail = this.getDetail(id);
 		String man = (String) detail.get("l_man");
-		String dept = userService.getUserDept(man);
+		Map<String,Object> dept = userService.getUserDept(man);
+		String deptname=(String) dept.get("deptname");
 		String sqlddman = "select audit_man from WORK_FLOW where  dept=? and flow_type='prepaid'";
-		String auditMan = dbManagerBack.getString(sqlddman, new Object[] { dept });
+		String auditMan = dbManagerBack.getString(sqlddman, new Object[] { deptname });
 		return auditMan;
 	}
 	

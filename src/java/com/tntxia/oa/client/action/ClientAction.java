@@ -11,10 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.tntxia.date.DateUtil;
 import com.tntxia.dbmanager.DBManager;
 import com.tntxia.httptrans.HttpTrans;
 import com.tntxia.httptrans.HttpTransfer;
 import com.tntxia.httptrans.HttpTransferFactory;
+import com.tntxia.jdbc.SQLExecutor;
 import com.tntxia.oa.client.service.ClientService;
 import com.tntxia.oa.common.NumberFactory;
 import com.tntxia.oa.common.action.CommonDoAction;
@@ -23,6 +25,7 @@ import com.tntxia.sqlexecutor.Transaction;
 import com.tntxia.web.ParamUtils;
 import com.tntxia.web.mvc.PageBean;
 import com.tntxia.web.mvc.WebRuntime;
+import com.tntxia.web.util.DatasourceStore;
 
 public class ClientAction extends CommonDoAction {
 
@@ -558,9 +561,22 @@ public class ClientAction extends CommonDoAction {
 		  + "',swift_code='" + swift_code + "',iban='" + iban + "',route='" + route + "',bic='" + bic
 		  + "',pay_deadline=?  where clientid='"+id1+"'";
 		  dbManager.executeUpdate(strSQL,new Object[]{pay_deadline});
-		  
 		  return this.success();
-		
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public List listCustomerChat(WebRuntime runtime) throws Exception{
+		String username = this.getUsername(runtime);
+		String currentDate = DateUtil.getCurrentDateSimpleStr();
+		SQLExecutor sqlExec = SQLExecutor.getInstance(DatasourceStore.getDatasource("default"));
+		String sql = "select top 10 id,c_nr,co_number,c_name,coid,txtime,c_date,man from customer_gj  where man='"
+				+ username
+				+ "' and iftx='是' and txtime<='"
+				+ currentDate
+				+ "'  order by id desc";
+		List res = sqlExec.queryForList(sql, true);
+		sqlExec.close();
+		return res;
 	}
 
 }

@@ -610,6 +610,327 @@ public class FinanceDoAction extends CommonDoAction {
 	}
 	
 	/**
+	 * 已付款列表
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	@SuppressWarnings({ "rawtypes"})
+	public Map<String, Object> listPayFinish(WebRuntime runtime) throws Exception {
+
+		NumberFormat nf = NumberFormat.getNumberInstance();
+		nf.setMaximumFractionDigits(4);
+		nf.setMinimumFractionDigits(4);
+
+		String strSQL;
+		int intRowCount;
+
+		PageBean pageBean = runtime.getPageBean();
+		int intPage = pageBean.getPage();
+
+		String depts = runtime.unescape("depts");
+		String user = runtime.unescape("user");
+		String coname = runtime.unescape("coname");
+
+		String cg_man = runtime.getParam("cg_man");
+		if (cg_man == null)
+			cg_man = "";
+		String pros = runtime.getParam("pros");
+		if (pros == null)
+			pros = "";
+
+		String sdate = runtime.getParam("sdate");
+		if (sdate == null)
+			sdate = "";
+		String edate = runtime.getParam("edate");
+		if (edate == null)
+			edate = "";
+
+		String co_number = runtime.getParam("co_number");
+		if (co_number == null)
+			co_number = "";
+
+		String sqlWhere = "";
+
+		if (StringUtils.isNotBlank(edate)) {
+			sqlWhere = " and payment.sjfkdate<='" + edate + "' ";
+		}
+
+		String contract = runtime.getParam("number");
+		if (StringUtils.isNotEmpty(contract)) {
+			sqlWhere = " and payment.contract like '%" + contract + "%' ";
+		}
+
+		if (StringUtils.isNotEmpty(depts)) {
+			sqlWhere = " and payment.contract in (select number from procure where L_DEPT='"
+					+ depts + "')";
+		}
+
+		if (StringUtils.isNotEmpty(user)) {
+			sqlWhere = " and payment.contract in (select number from procure where man='"
+					+ user + "')";
+		}
+
+		if (StringUtils.isNotEmpty(coname)) {
+			sqlWhere = " and payment.supplier like '%" + coname + "%'";
+		}
+
+		Map<String, Object> res = new HashMap<String, Object>();
+		strSQL = "select count(*) from payment where states='已付全款' and contract not like 'TT%'";
+
+		intRowCount = dbManager.queryForInt(strSQL + sqlWhere);
+		
+		pageBean.setTotalAmount(intRowCount);
+
+		strSQL = "select top "
+				+ pageBean.getTop()
+				+ "  * from payment where states='已付全款' and contract not like 'TT%' "
+				+ sqlWhere + "  order by id desc";
+
+		List list = dbManager.queryForList(strSQL, true);
+
+		List rows = this.getRows(list, pageBean);
+		
+		SQLExecutorSingleConn sqlExecutor=null;
+		
+		try{
+			sqlExecutor = this.getSQLExecutorSingleConn();
+			this.fillTotalAmoumt(sqlExecutor,rows);
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}finally{
+			if(sqlExecutor!=null){
+				sqlExecutor.close();
+			}
+		}
+		
+		res.put("rows", rows);
+
+		res.put("page", intPage);
+		res.put("totalPage", pageBean.getTotalPage());
+		res.put("totalAmount", pageBean.getTotalAmount());
+		res.put("pageSize", pageBean.getPageSize());
+
+		return res;
+	}
+	
+	/**
+	 * 已付款列表
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	@SuppressWarnings({ "rawtypes"})
+	public Map<String, Object> listPayRefundWait(WebRuntime runtime) throws Exception {
+
+		NumberFormat nf = NumberFormat.getNumberInstance();
+		nf.setMaximumFractionDigits(4);
+		nf.setMinimumFractionDigits(4);
+
+		String strSQL;
+		int intRowCount;
+
+		PageBean pageBean = runtime.getPageBean();
+		int intPage = pageBean.getPage();
+
+		String depts = runtime.unescape("depts");
+		String user = runtime.unescape("user");
+		String coname = runtime.unescape("coname");
+
+		String cg_man = runtime.getParam("cg_man");
+		if (cg_man == null)
+			cg_man = "";
+		String pros = runtime.getParam("pros");
+		if (pros == null)
+			pros = "";
+
+		String sdate = runtime.getParam("sdate");
+		if (sdate == null)
+			sdate = "";
+		String edate = runtime.getParam("edate");
+		if (edate == null)
+			edate = "";
+
+		String co_number = runtime.getParam("co_number");
+		if (co_number == null)
+			co_number = "";
+
+		String sqlWhere = "";
+
+		if (StringUtils.isNotBlank(edate)) {
+			sqlWhere = " and payment.sjfkdate<='" + edate + "' ";
+		}
+
+		String contract = runtime.getParam("number");
+		if (StringUtils.isNotEmpty(contract)) {
+			sqlWhere = " and payment.contract like '%" + contract + "%' ";
+		}
+
+		if (StringUtils.isNotEmpty(depts)) {
+			sqlWhere = " and payment.contract in (select number from procure where L_DEPT='"
+					+ depts + "')";
+		}
+
+		if (StringUtils.isNotEmpty(user)) {
+			sqlWhere = " and payment.contract in (select number from procure where man='"
+					+ user + "')";
+		}
+
+		if (StringUtils.isNotEmpty(coname)) {
+			sqlWhere = " and payment.supplier like '%" + coname + "%'";
+		}
+
+		Map<String, Object> res = new HashMap<String, Object>();
+		strSQL = "select count(*) from payment where states='退货待收款' and contract not like 'TT%'";
+
+		intRowCount = dbManager.queryForInt(strSQL + sqlWhere);
+		
+		pageBean.setTotalAmount(intRowCount);
+
+		strSQL = "select top "
+				+ pageBean.getTop()
+				+ "  * from payment where states='退货待收款' and contract not like 'TT%' "
+				+ sqlWhere + "  order by id desc";
+
+		List list = dbManager.queryForList(strSQL, true);
+
+		List rows = this.getRows(list, pageBean);
+		
+		SQLExecutorSingleConn sqlExecutor=null;
+		
+		try{
+			sqlExecutor = this.getSQLExecutorSingleConn();
+			this.fillTotalAmoumt(sqlExecutor,rows);
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}finally{
+			if(sqlExecutor!=null){
+				sqlExecutor.close();
+			}
+		}
+		
+		res.put("rows", rows);
+
+		res.put("page", intPage);
+		res.put("totalPage", pageBean.getTotalPage());
+		res.put("totalAmount", pageBean.getTotalAmount());
+		res.put("pageSize", pageBean.getPageSize());
+
+		return res;
+	}
+	
+	/**
+	 * 已付款列表
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	@SuppressWarnings({ "rawtypes"})
+	public Map<String, Object> listPayRefundFinish(WebRuntime runtime) throws Exception {
+
+		NumberFormat nf = NumberFormat.getNumberInstance();
+		nf.setMaximumFractionDigits(4);
+		nf.setMinimumFractionDigits(4);
+
+		String strSQL;
+		int intRowCount;
+
+		PageBean pageBean = runtime.getPageBean();
+		int intPage = pageBean.getPage();
+
+		String depts = runtime.unescape("depts");
+		String user = runtime.unescape("user");
+		String coname = runtime.unescape("coname");
+
+		String cg_man = runtime.getParam("cg_man");
+		if (cg_man == null)
+			cg_man = "";
+		String pros = runtime.getParam("pros");
+		if (pros == null)
+			pros = "";
+
+		String sdate = runtime.getParam("sdate");
+		if (sdate == null)
+			sdate = "";
+		String edate = runtime.getParam("edate");
+		if (edate == null)
+			edate = "";
+
+		String co_number = runtime.getParam("co_number");
+		if (co_number == null)
+			co_number = "";
+
+		String sqlWhere = "";
+
+		if (StringUtils.isNotBlank(edate)) {
+			sqlWhere = " and payment.sjfkdate<='" + edate + "' ";
+		}
+
+		String contract = runtime.getParam("number");
+		if (StringUtils.isNotEmpty(contract)) {
+			sqlWhere = " and payment.contract like '%" + contract + "%' ";
+		}
+
+		if (StringUtils.isNotEmpty(depts)) {
+			sqlWhere = " and payment.contract in (select number from procure where L_DEPT='"
+					+ depts + "')";
+		}
+
+		if (StringUtils.isNotEmpty(user)) {
+			sqlWhere = " and payment.contract in (select number from procure where man='"
+					+ user + "')";
+		}
+
+		if (StringUtils.isNotEmpty(coname)) {
+			sqlWhere = " and payment.supplier like '%" + coname + "%'";
+		}
+
+		Map<String, Object> res = new HashMap<String, Object>();
+		strSQL = "select count(*) from payment where states='退货已收款' and contract not like 'TT%'";
+
+		intRowCount = dbManager.queryForInt(strSQL + sqlWhere);
+		
+		pageBean.setTotalAmount(intRowCount);
+
+		strSQL = "select top "
+				+ pageBean.getTop()
+				+ "  * from payment where states='退货已收款' and contract not like 'TT%' "
+				+ sqlWhere + "  order by id desc";
+
+		List list = dbManager.queryForList(strSQL, true);
+
+		List rows = this.getRows(list, pageBean);
+		
+		SQLExecutorSingleConn sqlExecutor=null;
+		
+		try{
+			sqlExecutor = this.getSQLExecutorSingleConn();
+			this.fillTotalAmoumt(sqlExecutor,rows);
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}finally{
+			if(sqlExecutor!=null){
+				sqlExecutor.close();
+			}
+		}
+		
+		res.put("rows", rows);
+
+		res.put("page", intPage);
+		res.put("totalPage", pageBean.getTotalPage());
+		res.put("totalAmount", pageBean.getTotalAmount());
+		res.put("pageSize", pageBean.getPageSize());
+
+		return res;
+	}
+	
+	/**
 	 * 创建待付款报表
 	 * 
 	 * @param request
@@ -1164,6 +1485,18 @@ public class FinanceDoAction extends CommonDoAction {
 		financeDao.comment(id, note);
 		return this.success();
 
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public List listAllAccount() throws Exception{
+		String sql = "select * from km";
+		return dbManager.queryForList(sql, true);
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public List getAccountDetailTypeList() throws Exception{
+		String sql = "select * from km_mx";
+		return dbManager.queryForList(sql, true);
 	}
 	
 	/**
