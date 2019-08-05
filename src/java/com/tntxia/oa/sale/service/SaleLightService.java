@@ -463,7 +463,7 @@ public class SaleLightService extends CommonService{
 		String epro = param.get("epro");
 
 		if (StringUtils.isNotEmpty(epro)) {
-			sqlWhere += " and epro like '%" + epro + "%'";
+			sqlWhere += " and id in (select ddid from ddpro where epro like '%" + epro + "%')";
 		}
 
 		String startdate = param.get("startdate");
