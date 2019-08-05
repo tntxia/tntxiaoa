@@ -463,7 +463,7 @@ public class SaleLightService extends CommonService{
 		String epro = param.get("epro");
 
 		if (StringUtils.isNotEmpty(epro)) {
-			sqlWhere += " and id in (select ddid from ddpro where epro like '%" + epro + "%')";
+			sqlWhere += " and epro like '%" + epro + "%'";
 		}
 
 		String startdate = param.get("startdate");
@@ -504,14 +504,12 @@ public class SaleLightService extends CommonService{
 
 		// 根据参数来拼装SQL语句
 		sqlWhere = this.combineSQLWhere(sqlWhere, param);
-		strSQL = "select count(*) from subscribe " + sqlWhere;
+		strSQL = "select count(*) from subview " + sqlWhere;
 		intRowCount = dbManager.queryForInt(strSQL);
 
 		String top = " top " + pageBean.getTop();
 
-		String selecteItems = "id,fy_number,number,mode,sub,yj,yf_money,coname,item,send_date,man,spman,state,custno";
-
-		strSQL = "select " + top + " " + selecteItems + " from subscribe "
+		strSQL = "select " + top + " * from subview "
 				+ sqlWhere + " order by id desc";
 
 		List list = dbManager.queryForList(strSQL, true);
