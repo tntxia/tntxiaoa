@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<leftbar>
+	<bars>
+		<bar name="考勤管理">
+			<button url="#hr_my_attandance">我的考勤</button>
+			<!-- 
+			<button url="checkwork/allograph/searchleave_main.jsp">考勤代理</button>
+			<button url="checkwork/search.mvc">考勤查询</button> -->
+		</bar>
+		<bar name="费用管理">
+			<button url="hr/index.mvc#hr_expense">费用报销</button>
+			<button url="hr/index.mvc#hr_prepaid">借款管理</button>
+			<button url="hr/index.mvc#hr_payment">付款管理</button>
+		</bar>
+		<bar name="员工管理">
+			<button url="member/list.mvc"
+				restrain="manzt">员工管理</button>
+			<button url="hr/index.mvc#hr_activity"
+				restrain="manzt">活动管理</button>
+			<button url="work/workm.jsp" restrain="rwzt">任务管理</button>
+		</bar>
+		
+		<!-- 
+		<bar name="其它报表">
+			<button url="week_rwork/hlxx.jsp" ico="image/w02.gif"
+				restrain="r_month_jh_zt">月工作计划</button>
+			<button url="week_dm_work/hlxx.jsp" ico="image/m_d_r.gif"
+				restrain="r_date_r_zt">日报表</button>
+			<button url="week_rm_work/hlxx.jsp" ico="image/w03.gif"
+				restrain="r_week_r_zt">周工作报表</button>
+			<button url="month_dm_work/hlxx.jsp" ico="image/w04.gif"
+				restrain="r_month_r_zt">月工作报表</button>
+		</bar>
+		<bar name="业务报表">
+			<button url="swork/hlxx.jsp" ico="image/w02.gif"
+				restrain="r_month_jh_zt">月工作计划</button>
+			<button url="week_d_work/hlxx.jsp" ico="image/m_d_r.gif"
+				restrain="r_date_r_zt">日报表</button>
+			<button url="week_r_work/hlxx.jsp" ico="image/w03.gif"
+				restrain="r_week_r_zt">周工作报表</button>
+			<button url="rwork/hlxx.jsp" ico="image/w04.gif"
+				restrain="r_month_r_zt">月工作报表</button>
+		</bar>
+		
+		 -->
+		<bar name="行政管理">
+			<button url="hr/index.mvc#hr_qualified"
+				restrain="r_zzsq_zt">转正申请</button>
+			<!-- 
+			<button url="member/rewards.mvc" ico="image/m02.gif"
+				restrain="r_jcsq_zt">奖惩管理</button>
+			<button url="member/xzsq/salary_change.jsp" ico="image/m03.gif"
+				restrain="r_xzyd_zt">薪资异动</button>
+
+
+			<button url="member/ccsq/business_trip.jsp" ico="image/m04.gif"
+				restrain="r_ccsq_zt">出差管理</button>
+			<button url="member/poffice/office_supply.jsp" ico="image/m05.gif"
+				restrain="r_bgyp_zt">办公用品</button>
+			<button url="member/document/inner_petition.jsp" ico="image/m06.gif"
+				restrain="r_nbqc_zt">内部签呈</button>
+	 -->
+		</bar>
+	</bars>
+
+</leftbar>
