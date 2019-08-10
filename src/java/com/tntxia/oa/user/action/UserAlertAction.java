@@ -9,6 +9,7 @@ import java.util.Map;
 import com.tntxia.date.DateUtil;
 import com.tntxia.dbmanager.DBManager;
 import com.tntxia.oa.common.action.CommonDoAction;
+import com.tntxia.oa.user.entity.UserToDoItem;
 import com.tntxia.web.mvc.WebRuntime;
 
 public class UserAlertAction extends CommonDoAction{
@@ -106,69 +107,26 @@ public class UserAlertAction extends CommonDoAction{
 		String username = this.getUsername(runtime);
 		res.put("username", this.getUsername(runtime));
 		
-		List<Item> items = new ArrayList<Item>();
+		List<UserToDoItem> items = new ArrayList<UserToDoItem>();
 		
-		items.add(new Item("待审批公告","#",this.getPublicToAuditCount(username)));
+		items.add(new UserToDoItem("待审批公告","#",this.getPublicToAuditCount(username)));
 		
-		items.add(new Item("未读邮件",runtime.getBasePath()+"/mail.mvc",this.getMailCount(username)));
+		items.add(new UserToDoItem("未读邮件",runtime.getBasePath()+"/mail.mvc",this.getMailCount(username)));
 		
-		items.add(new Item("待跟进客户数量","#",this.getCustomerFollowCount(username)));
-		items.add(new Item("销售待审批数量",runtime.getBasePath()+"/index.mvc#sale_list_approving",this.getSaleToAuditCount(deptjb, username)));
-		items.add(new Item("待审批退货","#",this.getRefundToAuditCount(username)));
-		items.add(new Item("待审报价单数量",runtime.getBasePath()+"/index.mvc#sale_quote_list_draft?status=approving",this.getQuoteCount(username)));
-		items.add(new Item("待审凭证数量","#",this.getCreditDebitCount(username)));
-		items.add(new Item("待审批样品","#",this.getSampleToAuditCount(username)));
-		items.add(new Item("待归还样品","#",this.getSampleToReturnCount(username)));
+		items.add(new UserToDoItem("待跟进客户数量","#",this.getCustomerFollowCount(username)));
+		items.add(new UserToDoItem("销售待审批数量","#sale_list_approving",this.getSaleToAuditCount(deptjb, username)));
+		items.add(new UserToDoItem("待审批退货","#",this.getRefundToAuditCount(username)));
+		items.add(new UserToDoItem("待审报价单数量","#sale_quote_list_draft?status=approving",this.getQuoteCount(username)));
+		items.add(new UserToDoItem("待审凭证数量","#",this.getCreditDebitCount(username)));
+		items.add(new UserToDoItem("待审批样品","#",this.getSampleToAuditCount(username)));
+		items.add(new UserToDoItem("待归还样品","#",this.getSampleToReturnCount(username)));
 		
-		items.add(new Item("待审采购订单数量",runtime.getBasePath()+"/purchasing/toAudit.mvc",this.getPurchaseCount(username)));
-		items.add(new Item("采购退货待审批数量",runtime.getBasePath()+"/purchasing/refund/approving.mvc",this.getPurchaseRefundToAuditCount(deptjb, username)));
+		items.add(new UserToDoItem("待审采购订单数量",runtime.getBasePath()+"/purchasing/toAudit.mvc",this.getPurchaseCount(username)));
+		items.add(new UserToDoItem("采购退货待审批数量",runtime.getBasePath()+"/purchasing/refund/approving.mvc",this.getPurchaseRefundToAuditCount(deptjb, username)));
 		
 		res.put("items", items);
 		
 		return res;
-	}
-	
-	private static class Item{
-		
-		private String label;
-		
-		private String url;
-		
-		private int count;
-		
-		public Item(String label,String url,int count) {
-			this.label = label;
-			this.count = count;
-			this.url = url;
-		}
-
-		public String getLabel() {
-			return label;
-		}
-
-		public void setLabel(String label) {
-			this.label = label;
-		}
-		
-		
-
-		public String getUrl() {
-			return url;
-		}
-
-		public void setUrl(String url) {
-			this.url = url;
-		}
-
-		public int getCount() {
-			return count;
-		}
-
-		public void setCount(int count) {
-			this.count = count;
-		}
-		
-		
 	}
 
 

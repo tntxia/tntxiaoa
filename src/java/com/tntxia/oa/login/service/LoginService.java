@@ -60,7 +60,6 @@ public class LoginService {
 				}
 			}
 			
-
 			if (user.getPassword().equals(password)) {
 				// 如果是IP绑定的用户，先检查用户登陆的IP是否正确
 				if (ipbd) {

@@ -27,8 +27,7 @@
 		<action url="registerApp.do">com.tntxia.oa.main.action.RegisterAppAction</action>
 		
 		<action name="login">com.tntxia.oa.login.action.LoginAction</action>
-		<action name="checkLogin">com.tntxia.oa.login.action.LoginCheckAction</action>
-		
+		<action url="checkLogin.do">com.tntxia.oa.login.action.LoginCheckAction</action>
 		<action url="knowledge.do">com.tntxia.oa.knowledge.action.KnowledgeAction</action>
 		<action url="rule.do">com.tntxia.oa.rule.action.RuleAction</action>
 		
@@ -107,7 +106,6 @@
 	<action-mapping>
 	
 		<dispatch url="login.do">login</dispatch>
-		<dispatch url="checkLogin.do">checkLogin</dispatch>
 		<!-- 采购 -->
 		<dispatch url="inquiry/inquiry.do">inquiry/inquiry</dispatch>
 		

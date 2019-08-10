@@ -110,10 +110,15 @@ public class FinanceLightDao extends BaseDao{
 	
 	public int getExchangeCount(Map<String,String> param) throws Exception{
 		
-		String coname = param.get("coname");
 		String sqlWhere = "";
+		
+		String coname = param.get("coname");
 		if(StringUtils.isNotEmpty(coname)) {
 			sqlWhere += " and l_coname like '%"+coname+"%'";
+		}
+		String xsdh = param.get("xsdh");
+		if(StringUtils.isNotEmpty(xsdh)) {
+			sqlWhere += " and xsdh like '%"+xsdh+"%'";
 		}
 		
 		String sql = "select count(*) from  credit_debit where 1=1 "+sqlWhere;
@@ -123,11 +128,18 @@ public class FinanceLightDao extends BaseDao{
 	@SuppressWarnings("rawtypes")
 	public List getExchangeList(PageBean pageBean,Map<String,String> param) throws Exception{
 		
-		String coname = param.get("coname");
 		String sqlWhere = "";
+		
+		String coname = param.get("coname");
 		if(StringUtils.isNotEmpty(coname)) {
 			sqlWhere += " and l_coname like '%"+coname+"%'";
 		}
+		
+		String xsdh = param.get("xsdh");
+		if(StringUtils.isNotEmpty(xsdh)) {
+			sqlWhere += " and xsdh like '%"+xsdh+"%'";
+		}
+		
 		int top = pageBean.getTop();
 		String sql = "select top "+top+" * from credit_debit where 1=1 "+sqlWhere+" order by l_date desc";
 		return dbManager.queryForList(sql, true);

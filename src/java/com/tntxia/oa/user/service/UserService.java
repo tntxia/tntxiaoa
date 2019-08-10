@@ -4,11 +4,15 @@ import java.util.List;
 import java.util.Map;
 
 import com.tntxia.dbmanager.DBManager;
+import com.tntxia.oa.system.dao.UserDao;
+import com.tntxia.oa.system.entity.User;
 import com.tntxia.web.mvc.service.CommonService;
 
 public class UserService extends CommonService {
 	
 	private DBManager dbManager = this.getDBManager();
+	
+	private UserDao dao = new UserDao();
 	
 	public Map<String,Object> getUserDept(String username) throws Exception {
 		String sql = "select department_id from username where name=?";
@@ -27,6 +31,10 @@ public class UserService extends CommonService {
 	public boolean existUser(String name) throws Exception {
 		String sql = "select count(*) from username where name = ?";
 		return dbManager.exist(sql, new Object[] {name});
+	}
+	
+	public User getUser(String name) throws Exception {
+		return dao.getUser(name);
 	}
 
 }
