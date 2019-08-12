@@ -136,10 +136,6 @@ A:hover {
 	font-size:12px;
 }
 
-.leftbar-list li.selected{
-	background:#fffccc;
-}
-
 .img_but {
 	cursor:pointer;
 }
