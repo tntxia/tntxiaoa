@@ -17,6 +17,7 @@ import com.tntxia.oa.common.action.Userinfo;
 import com.tntxia.oa.finance.service.FinanceLightService;
 import com.tntxia.sqlexecutor.SQLExecutor;
 import com.tntxia.sqlexecutor.SQLExecutorSingleConn;
+import com.tntxia.sqlexecutor.Transaction;
 import com.tntxia.web.ParamUtils;
 import com.tntxia.web.mvc.PageBean;
 import com.tntxia.web.mvc.WebRuntime;
@@ -90,8 +91,17 @@ public class FinancePaymentAction extends CommonDoAction {
 			params.put("sy", sy);
 			params.put("xsdh", xsdh);
 			params.put("cgdh", cgdh);
+			Transaction trans = this.getTransaction();
+			try {
+				max = financeService.addCredit(trans,params);
+				trans.commit();
+			}catch(Exception ex) {
+				ex.printStackTrace();
+				trans.rollback();
+			} finally {
+				trans.close();
+			}
 			
-			max = financeService.addCredit(params);
 			
 		return this.success("max", max);
 	}

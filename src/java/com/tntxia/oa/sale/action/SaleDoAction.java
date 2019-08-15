@@ -366,7 +366,6 @@ public class SaleDoAction extends CommonDoAction {
 			throws Exception {
 		
 		PageBean pageBean = runtime.getPageBean(50);
-		
 		String username = this.getUsername(runtime);
 		String deptjb = this.getDeptjb(runtime);
 		

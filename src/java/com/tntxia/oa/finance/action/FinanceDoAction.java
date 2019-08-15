@@ -1,7 +1,6 @@
 package com.tntxia.oa.finance.action;
 
 import java.math.BigDecimal;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -11,7 +10,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.sql.DataSource;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -22,20 +20,19 @@ import com.tntxia.excel.ExcelRow;
 import com.tntxia.excel.ExcelUtils;
 import com.tntxia.httptrans.HttpTransfer;
 import com.tntxia.httptrans.HttpTransferFactory;
-import com.tntxia.math.BigDecimalUtils;
 import com.tntxia.oa.common.NumberFactory;
 import com.tntxia.oa.common.action.CommonDoAction;
+import com.tntxia.oa.common.action.Userinfo;
 import com.tntxia.oa.finance.dao.FinanceLightDao;
 import com.tntxia.oa.finance.service.FinanceAccountService;
 import com.tntxia.oa.finance.service.FinanceLightService;
 import com.tntxia.oa.sale.service.SaleLightService;
 import com.tntxia.oa.system.entity.FinanceAccountDetail;
-import com.tntxia.oa.util.DateUtil;
 import com.tntxia.sqlexecutor.SQLExecutor;
 import com.tntxia.sqlexecutor.SQLExecutorSingleConn;
+import com.tntxia.sqlexecutor.Transaction;
 import com.tntxia.web.mvc.PageBean;
 import com.tntxia.web.mvc.WebRuntime;
-import com.tntxia.web.util.DatasourceStore;
 
 import infocrmdb.DealString;
 
@@ -1022,7 +1019,6 @@ public class FinanceDoAction extends CommonDoAction {
 		for(int i=0;i<list.size();i++){
 			
 			Map map = (Map) list.get(i);
-			
 			ExcelRow row = new ExcelRow();
 			row.add(map.get("contract"));
 			row.add(map.get("supplier"));
@@ -1044,92 +1040,150 @@ public class FinanceDoAction extends CommonDoAction {
 		
 	}
 	
-//	private void finishPayment(Transaction trans,Integer id,BigDecimal totalPrice) throws Exception{
-//		String sql = "update payment set states='已付全款',htmoney=? where id = ?";
-//		trans.update(sql, new Object[]{totalPrice,id});
-//	}
+	private void finishPayment(Transaction trans,Integer id,BigDecimal totalPrice) throws Exception{
+		String sql = "update payment set states='已付全款',htmoney=? where id = ?";
+		trans.update(sql, new Object[]{totalPrice,id});
+	}
 	
-//	@SuppressWarnings("rawtypes")
-//	public Map<String, Object> quickGather(WebRuntime runtime)
-//			throws Exception {
+	@SuppressWarnings("rawtypes")
+	public Map<String, Object> quickGather(WebRuntime runtime, List list)
+			throws Exception {
+		String username = this.getUsername(runtime);
+		String dept = this.getDept(runtime);
+		String deptjb = this.getDeptjb(runtime);
+		Userinfo userinfo = new Userinfo();
+		userinfo.setUsername(username);
+		userinfo.setDept(dept);
+		userinfo.setDeptjb(deptjb);
+		return financeService.gather(userinfo, list);
+	}
+	
+	/**
+	 * 收款
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws SQLException 
+	 */
+	@SuppressWarnings("rawtypes")
+	public Map<String,Object> gather(WebRuntime runtime, Map<String,Object> params) throws SQLException {
+		
+		String username = this.getUsername(runtime);
+		String dept = this.getDept(runtime);
+		String deptjb = this.getDeptjb(runtime);
+		Userinfo userinfo = new Userinfo();
+		userinfo.setUsername(username);
+		userinfo.setDept(dept);
+		userinfo.setDeptjb(deptjb);
+		List list = new ArrayList();
+		list.add(params);
+		return financeService.gather(userinfo, list);
+		
+//		Transaction trans = this.getTransaction();
 //		
-//		String toPayIds = runtime.getParam("toPayIds");
-//		String[] toPayIdArr = toPayIds.split(",");
+//		try {
+//			String username = this.getUsername(runtime);
+//
+//			String skdate = DateUtil.getNowString("yyyyMMddHHmmss");
+//			String chooseIds = runtime.getParam("chooseIds");
+//			String[] t = chooseIds.split(",");
+//			String gid = runtime.getParam("gid");
+//			
+//			String g_date = runtime.getParam("g_date");
+//			String hb = runtime.getParam("hb");// 往来帐货币
+//			
+//			
+//			// 
+//			BigDecimal g_je = BigDecimalUtils.parse(runtime.getParam("g_je"));
+//			
+//			System.out.println("收款金额："+g_je);
+//			
+//			if (t != null) {
+//				for (int i = 0; i < t.length; i++) {
+//					
+//					String sqlss = "select fyid,invoice,smoney,ymoney,bank,note,coname from gathering where id='"
+//							+ t[i] + "'";
+//					Map<String,Object> gathering = dbManager.queryForMap(sqlss, true);
+//					if(gathering==null) {
+//						return this.errorMsg("收款信息不存在 ！");
+//					}
+//					String coname = (String) gathering.get("coname");
 //		
-//		for(String toPayId : toPayIdArr){
-//			
-//			Map<String,Object> payment = financeService.getPayment(toPayId);
-//			
-//			System.out.println("doing payment,"+toPayId);
-//			
-//			System.out.println("payment,,,,,,,,,,,,,,,,,,,"+payment);
-//			
-//			Transaction trans = this.getTransaction();
-//			
-//			try {
-//			
-//				Integer id = (Integer) payment.get("id");
-//				
-//				Integer payAcountId = (Integer) SystemCache.defaultJSON.get("pay_account");
-//				Map<String,Object> params = new HashMap<String,Object>();
-//				params.put("accountId", payAcountId);
-//				params.put("l_man", this.getUsername(runtime));
-//				params.put("reference", "");
-//				params.put("l_dept", this.getDept(runtime));
-//				params.put("deptjb", this.getDeptjb(runtime));
-//				params.put("c_d", "借方");
-//				params.put("l_date", com.tntxia.date.DateUtil.getCurrentDateSimpleStr());
-//				String l_coname = (String) payment.get("supplier");
-//				params.put("l_coname", l_coname);
-//				
-//				params.put("co_number", "");
-//				
-//				String orderform = (String) payment.get("orderform");
-//				
-//				List proList = purchasingService.getPurchasingProductList(trans,orderform);
-//				
-//				BigDecimal stotal = BigDecimal.ZERO;
-//				
-//				for(int i=0;i<proList.size();i++){
+//					// 订单ID
+//					String fyid = (String) gathering.get("fyid");
+//					fyid = fyid.trim();
+//					String invoice = (String)gathering.get("invoice");
+//					BigDecimal smoney = (BigDecimal) gathering.get("smoney");// 已收款金额
 //					
-//					Map map = (Map) proList.get(i);
-//					Integer num = (Integer) map.get("num");
-//					BigDecimal selljg = (BigDecimal) map.get("selljg");
-//					BigDecimal proPriceTotal = selljg.multiply(new BigDecimal(num));
-//					stotal = stotal.add(proPriceTotal);
+//					String salesman = (String)gathering.get("note");
 //					
+//					BigDecimal totle = saleService.getOrderTotalPrice(fyid, trans);
+//					
+//					
+//					// 还没有收款的金额
+//					BigDecimal ts = totle.subtract(smoney);
+//					
+//					System.out.println("未收金额："+g_je);
+//					
+//					int compare = ts.compareTo(g_je);
+//					
+//					// 如果冲帐的金额，刚好是待收的金额，则记账为已收款
+//					if (compare==0) {
+//
+//						String strSQLmx = "insert into gather_mx_mx(g_m_id,g_m_types,g_m_number,g_m_coname,g_m_smoney,g_m_hb,g_m_salesman,g_m_date,g_m_man) values('"
+//								+ gid + "','2','" + invoice + "','" + coname
+//								+ "','" + ts + "','" + hb + "','','" + g_date + "','" + name1 + "')";
+//						
+//						System.out.println("收款明细："+strSQLmx);
+//
+//						trans.executeUpdate(strSQLmx);
+//
+//						String strpros = "update gathering set  imoney='" + gid
+//								+ "',smoney='" + smoney.add(g_je)
+//								+ "',states='已收全部款',note='已收款',skdate='"
+//								+ skdate + "'  where id='" + t[i] + "'";
+//						trans.executeUpdate(strpros);
+//						
+//						String sql = "update subscribe set gather_status=2 where id = ?";
+//						trans.update(sql, new Object[] {fyid});
+//						
+//					// 如果冲帐的金额，小于待收的金额，则记账为部分收款
+//					} else if(compare==1){
+//						
+//						String strSQLmx = "insert into gather_mx_mx(g_m_id,g_m_types,g_m_number,g_m_coname,g_m_smoney,g_m_hb,g_m_salesman,g_m_date,g_m_man) values('"
+//								+ gid + "','2','" + invoice + "','" + coname
+//								+ "','" + g_je + "','" + hb + "','" + salesman
+//								+ "','" + g_date + "','" + name1 + "')";
+//						trans.executeUpdate(strSQLmx);
+//						
+//						
+//						BigDecimal tsn = smoney.add(g_je);
+//						String strpros = "update gathering set  imoney='" + gid
+//								+ "',smoney='" + tsn + "',note='部分收款',skdate='"
+//								+ skdate + "' where id='" + t[i] + "'";
+//						trans.executeUpdate(strpros);
+//						
+//						String sql = "update subscribe set gather_status=1 where id = ?";
+//						trans.update(sql, new Object[] {fyid});
+//						
+//					}
 //				}
-//				
-//				String l_hb = (String) payment.get("moneyty");
-//				
-//				params.put("l_sqje", stotal);
-//				params.put("l_hb", l_hb);
-//				params.put("compendium", "");
-//				params.put("g_bank", "");
-//				params.put("g_banknum", "");
-//				params.put("remarks", "快速完成付款");
-//				
-//				params.put("sy", "supplier");
-//				params.put("xsdh", "");
-//				params.put("cgdh", "");
-//				
-//				financeService.addCredit(trans,params);
-//				this.finishPayment(trans,id,stotal);
-//				trans.commit();
-//			}catch(Exception ex) {
-//				trans.rollback();
-//				ex.printStackTrace();
-//				return this.errorMsg(ex.toString());
-//			}finally {
-//				trans.close();
 //			}
-//		}
 //			
-//		
-//		
-//		
+//			String strpross = "update credit_debit set  l_sje='" + g_je
+//					+ "'  where id='" + gid + "'";
+//			trans.executeUpdate(strpross);
+//			trans.commit();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			trans.rollback();
+//			this.errorMsg("操作失败");
+//		}finally {
+//			trans.close();
+//		}
 //		return this.success();
-//	}
+	}
 	
 	public Map<String,Object> getGatheringInfoBySaleId(WebRuntime runtime) throws Exception{
 		String id = runtime.getParam("id");
@@ -1249,7 +1303,7 @@ public class FinanceDoAction extends CommonDoAction {
 				
 				Map map = (Map) list.get(i);
 				
-				String  fyid=(String)map.get("fyid");
+				String  fyid = (String)map.get("fyid");
 				fyid = fyid.trim();
 			   
 			    BigDecimal s=(BigDecimal)map.get("smoney");
@@ -1266,130 +1320,7 @@ public class FinanceDoAction extends CommonDoAction {
 		}finally {
 			sqlExecutor.close();
 		}
-		
-		
 		return list;
-	}
-	
-	/**
-	 * 收款
-	 * 
-	 * @param request
-	 * @param response
-	 * @return
-	 * @throws SQLException 
-	 */
-	public Map<String,Object> gather(WebRuntime runtime) throws SQLException {
-		
-		DataSource dataSource = DatasourceStore.getDatasource("default");
-		Connection conn = dataSource.getConnection();
-		com.tntxia.sqlexecutor.Transaction trans = com.tntxia.sqlexecutor.Transaction.createTrans(conn);
-		
-		
-
-		try {
-			String name1 = this.getUsername(runtime);
-
-			String skdate = DateUtil.getNowString("yyyyMMddHHmmss");
-			String chooseIds = runtime.getParam("chooseIds");
-			String[] t = chooseIds.split(",");
-			String gid = runtime.getParam("gid");
-			
-			String g_date = runtime.getParam("g_date");
-			String hb = runtime.getParam("hb");// 往来帐货币
-			
-			
-			// 
-			BigDecimal g_je = BigDecimalUtils.parse(runtime.getParam("g_je"));
-			
-			System.out.println("收款金额："+g_je);
-			
-			if (t != null) {
-				for (int i = 0; i < t.length; i++) {
-					
-					String sqlss = "select fyid,invoice,smoney,ymoney,bank,note,coname from gathering where id='"
-							+ t[i] + "'";
-					Map<String,Object> gathering = dbManager.queryForMap(sqlss, true);
-					if(gathering==null) {
-						return this.errorMsg("收款信息不存在 ！");
-					}
-					String coname = (String) gathering.get("coname");
-		
-					// 订单ID
-					String fyid = (String) gathering.get("fyid");
-					fyid = fyid.trim();
-					String invoice = (String)gathering.get("invoice");
-					BigDecimal smoney = (BigDecimal) gathering.get("smoney");// 已收款金额
-					
-					String salesman = (String)gathering.get("note");
-					
-					BigDecimal totle = saleService.getOrderTotalPrice(fyid, trans);
-					
-					
-					// 还没有收款的金额
-					BigDecimal ts = totle.subtract(smoney);
-					
-					System.out.println("未收金额："+g_je);
-					
-					int compare = ts.compareTo(g_je);
-					
-					// 如果冲帐的金额，刚好是待收的金额，则记账为已收款
-					if (compare==0) {
-
-						String strSQLmx = "insert into gather_mx_mx(g_m_id,g_m_types,g_m_number,g_m_coname,g_m_smoney,g_m_hb,g_m_salesman,g_m_date,g_m_man) values('"
-								+ gid + "','2','" + invoice + "','" + coname
-								+ "','" + ts + "','" + hb + "','','" + g_date + "','" + name1 + "')";
-						
-						System.out.println("收款明细："+strSQLmx);
-
-						trans.executeUpdate(strSQLmx);
-
-						String strpros = "update gathering set  imoney='" + gid
-								+ "',smoney='" + smoney.add(g_je)
-								+ "',states='已收全部款',note='已收款',skdate='"
-								+ skdate + "'  where id='" + t[i] + "'";
-						trans.executeUpdate(strpros);
-						
-						String sql = "update subscribe set gather_status=2 where id = ?";
-						trans.update(sql, new Object[] {fyid});
-						
-					// 如果冲帐的金额，小于待收的金额，则记账为部分收款
-					} else if(compare==1){
-						
-						String strSQLmx = "insert into gather_mx_mx(g_m_id,g_m_types,g_m_number,g_m_coname,g_m_smoney,g_m_hb,g_m_salesman,g_m_date,g_m_man) values('"
-								+ gid + "','2','" + invoice + "','" + coname
-								+ "','" + g_je + "','" + hb + "','" + salesman
-								+ "','" + g_date + "','" + name1 + "')";
-						trans.executeUpdate(strSQLmx);
-						
-						
-						BigDecimal tsn = smoney.add(g_je);
-						String strpros = "update gathering set  imoney='" + gid
-								+ "',smoney='" + tsn + "',note='部分收款',skdate='"
-								+ skdate + "' where id='" + t[i] + "'";
-						trans.executeUpdate(strpros);
-						
-						String sql = "update subscribe set gather_status=1 where id = ?";
-						trans.update(sql, new Object[] {fyid});
-						
-					}
-				}
-			}
-			
-			String strpross = "update credit_debit set  l_sje='" + g_je
-					+ "'  where id='" + gid + "'";
-			trans.executeUpdate(strpross);
-			trans.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			trans.rollback();
-			this.errorMsg("操作失败");
-		}finally {
-			trans.close();
-		}
-
-		return this.success();
-
 	}
 	
 	@SuppressWarnings("rawtypes")
@@ -1404,7 +1335,7 @@ public class FinanceDoAction extends CommonDoAction {
 	}
 	
 	private Map<String,Object> getGathering(String id) throws Exception{
-		return dbManager.queryForMap("select  * from gatherview where id=?",new Object[]{id}, true);
+		return dbManager.queryForMap("select  * from gathering where id=?",new Object[]{id}, true);
 	}
 	
 	@SuppressWarnings("rawtypes")
