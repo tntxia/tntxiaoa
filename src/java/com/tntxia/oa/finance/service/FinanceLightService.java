@@ -336,9 +336,6 @@ public class FinanceLightService extends CommonService{
 	
 	@SuppressWarnings({ "rawtypes" })
 	public Map<String,Object> listGathered(Map<String,String> param,PageBean pageBean) throws Exception{
-		
-		Map<String,Object> result = new HashMap<String,Object>();
-		
 		List list = financeDao.getGatheredList(pageBean,param);
 		List rows = this.getRows(list, pageBean);
 		for(int i=0;i<rows.size();i++){
@@ -364,11 +361,7 @@ public class FinanceLightService extends CommonService{
 			map.put("stotal", stotal);
 			map.put("left", total.subtract(smoney));
 		}
-		result.put("page", pageBean.getPage());
-		result.put("pageSize", pageBean.getPageSize());
-		result.put("totalAmount", financeDao.getGatheredCount(param));
-		result.put("rows", rows);
-		return result;
+		return this.getPagingResult(list, pageBean, financeDao.getGatheredCount(param));
 	}
 	
 	public Map<String,Object> getCreditDebit(String id) throws Exception{
@@ -410,7 +403,12 @@ public class FinanceLightService extends CommonService{
 	
 	public Map<String,Object> getGathering(Transaction trans, Integer id) throws Exception {
 		String sql = "select * from gathering where id = ?";
-		return dbManager.queryForMap(sql, new Object[] {id}, true);
+		return trans.queryForMap(sql, new Object[] {id}, true);
+	}
+	
+	public void updateGatheringRemark(Transaction trans,Integer id, String remark) throws SQLException {
+		String sql = "update gathering set remark = ? where id = ?";
+		trans.update(sql, new Object[] {remark, id});
 	}
 	
 	private void doGather(Transaction trans,Integer id,String username,BigDecimal gatherTotal) throws Exception{
@@ -482,6 +480,7 @@ public class FinanceLightService extends CommonService{
 				Integer id = (Integer) map.get("id");
 				String subject = (String) map.get("subject");
 				BigDecimal toGatherTotal = BigDecimalUtils.parse((String) map.get("toGather"));
+				String remark = (String) map.get("remark");
 				Map<String,Object> gathering = getGathering(trans, id);
 				Map<String,Object> params = new HashMap<String,Object>();
 				params.put("subject", subject);
@@ -509,6 +508,7 @@ public class FinanceLightService extends CommonService{
 				params.put("xsdh", orderform);
 				params.put("cgdh", "");
 				
+				this.updateGatheringRemark(trans, id, remark);
 				addCredit(trans,params);
 				this.doGather(trans,id,username,toGatherTotal);
 				trans.commit();
