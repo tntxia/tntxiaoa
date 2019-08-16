@@ -160,11 +160,9 @@ bordercolor="#CCBE5A" cellspacing="0"
   <font size="2"><font size="2"><font size="2"><font size="2"><font size="2"><font color="#000000" size="2">
   <font color="#000000" size="2"><font size="2">
     
-    
-    <font size="2">
     <a href="javascript:delclick()">所有产品全部出库 </a>
     
-    |<a href="#" onClick="javascript:window.close()"> 本次出库完成</a></font><br>
+    |<a href="#" onClick="javascript:window.close()"> 本次出库完成</a><br>
   </div>
   <table width="100%" border="1" cellpadding="3" cellspacing="0" bordercolor="#ffffff"> 
 <tr> 
