@@ -441,8 +441,6 @@ public class WarehouseLightService extends CommonService{
 	public String doSout(String username, String ddid, String wids, String sids)
 			throws Exception {
 		
-		
-
 		String msg = null;
 
 		// 产品编号的数组
@@ -455,12 +453,9 @@ public class WarehouseLightService extends CommonService{
 			return msg;
 		}
 
-		DataSource ds = DatasourceStore.getDatasource("default");
-		Transaction trans = null;
+		Transaction trans = this.getTransaction();
 
 		try {
-
-			trans = Transaction.createTrans(ds);
 
 			SimpleDateFormat simplew = new SimpleDateFormat("yyMMdd");
 			String nn = simplew.format(new java.util.Date());
@@ -676,6 +671,7 @@ public class WarehouseLightService extends CommonService{
 			String ddsqls1 = "update subscribe set state='已发运'  where id='"
 					+ ddid + "'";
 			trans.update(ddsqls1);
+			this.updateGathering(trans, ddid);
 			trans.commit();
 			return msg;
 		} catch (Exception e) {
@@ -688,6 +684,18 @@ public class WarehouseLightService extends CommonService{
 			}
 		}
 
+	}
+	
+	/**
+	 * 更新收款信息
+	 * @param saleId
+	 * @throws Exception 
+	 */
+	public void updateGathering(Transaction trans, String saleId) throws Exception {
+		String sql = "select sum(s_num * salejg) from ddpro where ddid = ?";
+		BigDecimal total = trans.queryForBigDecimal(sql, new Object[] {saleId});
+		sql = "update gathering set total_out_house = ? where fyid = ?";
+		trans.update(sql, new Object[] {total, saleId});
 	}
 	
 	/**

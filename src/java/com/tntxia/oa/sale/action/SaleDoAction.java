@@ -1311,10 +1311,7 @@ public class SaleDoAction extends CommonDoAction {
 
 	@SuppressWarnings("rawtypes")
 	public Map<String,Object> listProjectFinish(WebRuntime runtime) throws Exception {
-		
-		
 		String coname = runtime.unescape("coname");
-		
 		PageBean pageBean = runtime.getPageBean(25);
 		
 		String sqlWhere = " where states='项目完成' ";
@@ -1347,6 +1344,12 @@ public class SaleDoAction extends CommonDoAction {
 		
 		return this.getPagingResult(list, pageBean, count);
 	}
+	
+	private BigDecimal getSaleTotal(Transaction trans, String id) throws Exception {
+		String sql = "select sum(num * salejg) from ddpro where ddid = ?";
+		BigDecimal total = trans.queryForBigDecimal(sql, new Object[]{ id });
+		return total;
+	}
 
 	/**
 	 * 合同审批
@@ -1358,60 +1361,69 @@ public class SaleDoAction extends CommonDoAction {
 	 */
 	public Map<String,Object> audit(WebRuntime runtime) throws Exception {
 
-		String id1 = runtime.getParam("id");
-		String sql = "select  * from subscribe where id=?";
-		Map<String,Object> subscribe = dbManager.queryForMap(sql, new Object[]{id1},true);
-		if(subscribe==null){
-			return this.errorMsg("合同ID不存在");
-		}
+		String id = runtime.getParam("id");
+		Transaction trans = this.getTransaction();
 		
-		String ddnumber = (String) subscribe.get("number");
-		String spman1 = (String) subscribe.get("spman");
-		String spdate1 = DateUtil.getCurrentDateSimpleStr();
-		String state1 = runtime.getParam("state").trim();
-		String spyj1 = runtime.getParam("spyj");
-		String ddyf = (String) subscribe.get("ddyf");
-		java.text.SimpleDateFormat simple = new java.text.SimpleDateFormat(
-				"yyyy-MM-dd");
-		String currentDate = simple.format(new java.util.Date());
-		String name1 = this.getUsername(runtime);
-		String dept = this.getDept(runtime);
-		String deptjb = this.getDeptjb(runtime);
-		String saleMan = "";
-		
-		// 是否需要复审
-		String fif = (String) subscribe.get("fif");
-		
-		String state;
-		
-		if(state1.equals("1")){
-			// 如果无需审批的情况下
-			if("否".equals(fif.trim())){
-				state = "待出库";
-				String coname1 = (String) subscribe.get("coname");
-				BigDecimal yj1 = (BigDecimal) subscribe.get("yj");
-				String money1 = (String) subscribe.get("money");
-				String item = (String) subscribe.get("item");
-				String mode = (String) subscribe.get("mode");
-				Integer datet = (Integer) subscribe.get("source");
-				String co_number = (String) subscribe.get("senddate");
-				String dept1 = (String) subscribe.get("dept");
-				String deptjb1 = (String) subscribe.get("deptjb");
-				BigDecimal yf = (BigDecimal) subscribe.get("yf_money");
-				String ware_man = (String) subscribe.get("ware_man");
-				String datetime1 = (String) subscribe.get("send_date");
-				saleMan= (String) subscribe.get("man");
-				String strSQLcl = "update client set cotypes='现有客户' where coname=?";
-				dbManager.executeUpdate(strSQLcl,new Object[]{coname1});
-				
-				// 预收款
-				if ("是".equals(ddyf)) {// yy
+		try {
+			String sql = "select  * from subscribe where id=?";
+			Map<String,Object> subscribe = trans.queryForMap(sql, new Object[]{id},true);
+			if(subscribe==null){
+				return this.errorMsg("合同ID不存在");
+			}
+			BigDecimal total = this.getSaleTotal(trans, id);
+			
+			String ddnumber = (String) subscribe.get("number");
+			String spman1 = (String) subscribe.get("spman");
+			String spdate1 = DateUtil.getCurrentDateSimpleStr();
+			String state1 = runtime.getParam("state").trim();
+			String spyj1 = runtime.getParam("spyj");
+			String ddyf = (String) subscribe.get("ddyf");
+			java.text.SimpleDateFormat simple = new java.text.SimpleDateFormat(
+					"yyyy-MM-dd");
+			String currentDate = simple.format(new java.util.Date());
+			String name1 = this.getUsername(runtime);
+			String dept = this.getDept(runtime);
+			String deptjb = this.getDeptjb(runtime);
+			String saleMan = "";
+			
+			// 是否需要复审
+			String fif = (String) subscribe.get("fif");
+			
+			String state;
+			
+			if(state1.equals("1")){
+				// 如果无需审批的情况下
+				if("否".equals(fif.trim())){
+					state = "待出库";
+					String coname1 = (String) subscribe.get("coname");
+					BigDecimal yj1 = (BigDecimal) subscribe.get("yj");
+					String money1 = (String) subscribe.get("money");
+					String item = (String) subscribe.get("item");
+					String mode = (String) subscribe.get("mode");
+					Integer datet = (Integer) subscribe.get("source");
+					String co_number = (String) subscribe.get("senddate");
+					String dept1 = (String) subscribe.get("dept");
+					String deptjb1 = (String) subscribe.get("deptjb");
+					BigDecimal yf = (BigDecimal) subscribe.get("yf_money");
+					String ware_man = (String) subscribe.get("ware_man");
+					String datetime1 = (String) subscribe.get("send_date");
+					saleMan= (String) subscribe.get("man");
+					String strSQLcl = "update client set cotypes='现有客户' where coname=?";
+					trans.update(strSQLcl,new Object[]{coname1});
+					
 					String strSQL8 = "delete from gathering where orderform='"
 							+ ddnumber + "'";
-					dbManager.executeUpdate(strSQL8);
-					state1 = "预收款";
-					String strSQLsk = "insert into gathering(fyid,invoice,orderform,coname,yjskdate,sjskdate,ymoney,states,mode,datet,moneytypes,smoney,bank,bankaccounts,sale_man,sale_dept,deptjb,co_number,rate,i_man,sendcompany,remark,note) values('"
-							+ id1
+					trans.executeUpdate(strSQL8);
+					
+					// 预收款
+					String gatheringStatus;
+					if ("是".equals(ddyf)) {// yy
+						gatheringStatus = "预收款";
+					} else {
+						gatheringStatus = "待收款";
+					}
+					String strSQLsk = "insert into gathering(fyid,invoice,orderform,coname,yjskdate,sjskdate,ymoney,states,mode,datet,moneytypes,smoney,bank,bankaccounts,sale_man,sale_dept,deptjb,co_number,rate,i_man,sendcompany,remark,note, total) values('"
+							+ id
 							+ "','"
 							+ ddnumber
 							+ "','"
@@ -1424,7 +1436,7 @@ public class SaleDoAction extends CommonDoAction {
 							+ datetime1
 							+ "','"
 							+ yj1
-							+ "','预收款','"
+							+ "',?,'"
 							+ mode
 							+ "','"
 							+ datet
@@ -1440,46 +1452,8 @@ public class SaleDoAction extends CommonDoAction {
 							+ deptjb1
 							+ "','"
 							+ co_number
-							+ "','" + item + "','0','','','')";
-					dbManager.executeUpdate(strSQLsk);
-					
-				} else {
-					String strSQL8 = "delete from gathering where orderform='"
-							+ ddnumber + "'";
-					dbManager.executeUpdate(strSQL8);
-					String strSQLsk = "insert into gathering(fyid,invoice,orderform,coname,yjskdate,sjskdate,ymoney,states,mode,datet,moneytypes,smoney,bank,bankaccounts,sale_man,sale_dept,deptjb,co_number,rate,i_man,sendcompany,remark,note) values('"
-							+ id1
-							+ "','"
-							+ ddnumber
-							+ "','"
-							+ ddnumber
-							+ "','"
-							+ coname1
-							+ "','"
-							+ datetime1
-							+ "','"
-							+ datetime1
-							+ "','"
-							+ yj1
-							+ "','待收款','"
-							+ mode
-							+ "','"
-							+ datet
-							+ "','"
-							+ money1
-							+ "','0','"
-							+ yf
-							+ "','待开发票','"
-							+ saleMan
-							+ "','"
-							+ dept1
-							+ "','"
-							+ deptjb1
-							+ "','"
-							+ co_number
-							+ "','" + item + "','0','','','')";
-					dbManager.executeUpdate(strSQLsk);
-					
+							+ "','" + item + "','0','','','', ?)";
+					trans.update(strSQLsk, new Object[] {gatheringStatus, total });
 					String strSQLs = "insert into sendmail(mail_to,mail_to2,mail_to3,mail_sub,mail_nr,mail_man,deptjb,dept,mail_datetime,states,form_to,form_to2,form_to3) values('"
 							+ ware_man
 							+ "','','','新增:编号为:"
@@ -1495,37 +1469,40 @@ public class SaleDoAction extends CommonDoAction {
 							+ "','"
 							+ currentDate
 							+ "','已发送','','','')";
-					dbManager.executeUpdate(strSQLs);
-					
+					trans.executeUpdate(strSQLs);
+				}else{
+					state = "待复审";
 				}
 			}else{
-				state = "待复审";
+				state = "未批准";
 			}
-		}else{
-			state = "未批准";
+			
+			String strSQL = "update subscribe set state='" + state + "',spman='"
+					+ spman1 + "',spdate='" + spdate1 + "',spyj='" + spyj1
+					+ "' where id='" + id + "'";
+			trans.executeUpdate(strSQL);
+			
+			String strSQLs = "insert into sendmail(mail_to,mail_to2,mail_to3,mail_sub,mail_nr,mail_man,deptjb,dept,mail_datetime,states,form_to,form_to2,form_to3) values('"
+					+ saleMan
+					+ "','','','合同审批结果:编号为:"
+					+ ddnumber
+					+ "当前状态:"
+					+ state
+					+ "','审批内容:"
+					+ spyj1
+					+ "','"
+					+ name1
+					+ "','"
+					+ deptjb
+					+ "','"
+					+ dept + "','" + currentDate + "','已发送','','','')";
+			trans.executeUpdate(strSQLs);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			trans.rollback();
+		}finally {
+			trans.close();
 		}
-		
-		String strSQL = "update subscribe set state='" + state + "',spman='"
-				+ spman1 + "',spdate='" + spdate1 + "',spyj='" + spyj1
-				+ "' where id='" + id1 + "'";
-		dbManager.executeUpdate(strSQL);
-		
-		String strSQLs = "insert into sendmail(mail_to,mail_to2,mail_to3,mail_sub,mail_nr,mail_man,deptjb,dept,mail_datetime,states,form_to,form_to2,form_to3) values('"
-				+ saleMan
-				+ "','','','合同审批结果:编号为:"
-				+ ddnumber
-				+ "当前状态:"
-				+ state
-				+ "','审批内容:"
-				+ spyj1
-				+ "','"
-				+ name1
-				+ "','"
-				+ deptjb
-				+ "','"
-				+ dept + "','" + currentDate + "','已发送','','','')";
-		dbManager.executeUpdate(strSQLs);
-		
 		return this.success();
 
 	}
@@ -1550,35 +1527,34 @@ public class SaleDoAction extends CommonDoAction {
 	 */
 	public Map<String,Object> auditSecond(WebRuntime runtime) throws Exception {
 
-		String id1 = runtime.getParam("id");
-		String sql = "select  * from subscribe where id=?";
-		Map<String,Object> subscribe = dbManager.queryForMap(sql, new Object[]{id1},true);
-		if(subscribe==null){
-			return this.errorMsg("合同ID不存在");
-		}
+		String id = runtime.getParam("id");
+		Transaction trans = this.getTransaction();
 		
-		String ddnumber = (String) subscribe.get("number");
-		String spman1 = (String) subscribe.get("spman");
-		String spdate1 = DateUtil.getCurrentDateSimpleStr();
-		String state1 = runtime.getParam("state").trim();
-		String spyj1 = runtime.getParam("spyj");
-		String ddyf = (String) subscribe.get("ddyf");
-		java.text.SimpleDateFormat simple = new java.text.SimpleDateFormat(
-				"yyyy-MM-dd");
-		String currentDate = simple.format(new java.util.Date());
-		String name1 = this.getUsername(runtime);
-		String dept = this.getDept(runtime);
-		String deptjb = this.getDeptjb(runtime);
-		String saleMan = "";
-		
-		// 是否需要复审
-		String fif = (String) subscribe.get("fif");
-		
-		String state;
-		
-		if(state1.equals("1")){
-			// 如果无需复审的情况下
-			if("否".equals(fif.trim())){
+		try {
+			String sql = "select  * from subscribe where id=?";
+			Map<String,Object> subscribe = trans.queryForMap(sql, new Object[]{id},true);
+			if(subscribe==null){
+				return this.errorMsg("合同ID不存在");
+			}
+			BigDecimal total = this.getSaleTotal(trans, id);
+			String ddnumber = (String) subscribe.get("number");
+			String spman1 = (String) subscribe.get("spman");
+			String spdate1 = DateUtil.getCurrentDateSimpleStr();
+			String state1 = runtime.getParam("state").trim();
+			String spyj1 = runtime.getParam("spyj");
+			String ddyf = (String) subscribe.get("ddyf");
+			java.text.SimpleDateFormat simple = new java.text.SimpleDateFormat(
+					"yyyy-MM-dd");
+			String currentDate = simple.format(new java.util.Date());
+			String name1 = this.getUsername(runtime);
+			String dept = this.getDept(runtime);
+			String deptjb = this.getDeptjb(runtime);
+			String saleMan = "";
+			
+			String state;
+			
+			if(state1.equals("1")){
+				
 				state = "待出库";
 				String coname1 = (String) subscribe.get("coname");
 				BigDecimal yj1 = (BigDecimal) subscribe.get("yj");
@@ -1594,130 +1570,100 @@ public class SaleDoAction extends CommonDoAction {
 				String datetime1 = (String) subscribe.get("send_date");
 				saleMan= (String) subscribe.get("man");
 				String strSQLcl = "update client set cotypes='现有客户' where coname=?";
-				dbManager.executeUpdate(strSQLcl,new Object[]{coname1});
+				trans.update(strSQLcl,new Object[]{coname1});
+				
+				String strSQL8 = "delete from gathering where orderform='"
+						+ ddnumber + "'";
+				dbManager.executeUpdate(strSQL8);
+				
+				String gatherStatus;
 				
 				// 预收款
 				if ("是".equals(ddyf)) {// yy
-					String strSQL8 = "delete from gathering where orderform='"
-							+ ddnumber + "'";
-					dbManager.executeUpdate(strSQL8);
-					state1 = "预收款";
-					String strSQLsk = "insert into gathering(fyid,invoice,orderform,coname,yjskdate,sjskdate,ymoney,states,mode,datet,moneytypes,smoney,bank,bankaccounts,sale_man,sale_dept,deptjb,co_number,rate,i_man,sendcompany,remark,note) values('"
-							+ id1
-							+ "','"
-							+ ddnumber
-							+ "','"
-							+ ddnumber
-							+ "','"
-							+ coname1
-							+ "','"
-							+ datetime1
-							+ "','"
-							+ datetime1
-							+ "','"
-							+ yj1
-							+ "','预收款','"
-							+ mode
-							+ "','"
-							+ datet
-							+ "','"
-							+ money1
-							+ "','0','"
-							+ yf
-							+ "','待开发票','"
-							+ saleMan
-							+ "','"
-							+ dept1
-							+ "','"
-							+ deptjb1
-							+ "','"
-							+ co_number
-							+ "','" + item + "','0','','','')";
-					dbManager.executeUpdate(strSQLsk);
-					
+					gatherStatus = "预收款";
 				} else {
-					String strSQL8 = "delete from gathering where orderform='"
-							+ ddnumber + "'";
-					dbManager.executeUpdate(strSQL8);
-					String strSQLsk = "insert into gathering(fyid,invoice,orderform,coname,yjskdate,sjskdate,ymoney,states,mode,datet,moneytypes,smoney,bank,bankaccounts,sale_man,sale_dept,deptjb,co_number,rate,i_man,sendcompany,remark,note) values('"
-							+ id1
-							+ "','"
-							+ ddnumber
-							+ "','"
-							+ ddnumber
-							+ "','"
-							+ coname1
-							+ "','"
-							+ datetime1
-							+ "','"
-							+ datetime1
-							+ "','"
-							+ yj1
-							+ "','待收款','"
-							+ mode
-							+ "','"
-							+ datet
-							+ "','"
-							+ money1
-							+ "','0','"
-							+ yf
-							+ "','待开发票','"
-							+ saleMan
-							+ "','"
-							+ dept1
-							+ "','"
-							+ deptjb1
-							+ "','"
-							+ co_number
-							+ "','" + item + "','0','','','')";
-					dbManager.executeUpdate(strSQLsk);
-					
-					String strSQLs = "insert into sendmail(mail_to,mail_to2,mail_to3,mail_sub,mail_nr,mail_man,deptjb,dept,mail_datetime,states,form_to,form_to2,form_to3) values('"
-							+ ware_man
-							+ "','','','新增:编号为:"
-							+ ddnumber
-							+ "合同','审批内容:"
-							+ spyj1
-							+ "','"
-							+ saleMan
-							+ "','"
-							+ deptjb1
-							+ "','"
-							+ dept1
-							+ "','"
-							+ currentDate
-							+ "','已发送','','','')";
-					dbManager.executeUpdate(strSQLs);
-					
+					gatherStatus = "待收款";
 				}
+				String strSQLsk = "insert into gathering(fyid,invoice,orderform,coname,yjskdate,sjskdate,ymoney,states,mode,datet,moneytypes,smoney,bank,bankaccounts,sale_man,sale_dept,deptjb,co_number,rate,i_man,sendcompany,remark,note) values('"
+						+ id
+						+ "','"
+						+ ddnumber
+						+ "','"
+						+ ddnumber
+						+ "','"
+						+ coname1
+						+ "','"
+						+ datetime1
+						+ "','"
+						+ datetime1
+						+ "','"
+						+ yj1
+						+ "',?,'"
+						+ mode
+						+ "','"
+						+ datet
+						+ "','"
+						+ money1
+						+ "','0','"
+						+ yf
+						+ "','待开发票','"
+						+ saleMan
+						+ "','"
+						+ dept1
+						+ "','"
+						+ deptjb1
+						+ "','"
+						+ co_number
+						+ "','" + item + "','0','','','')";
+				trans.update(strSQLsk, new Object[] {gatherStatus, total});
+				
+				String strSQLs = "insert into sendmail(mail_to,mail_to2,mail_to3,mail_sub,mail_nr,mail_man,deptjb,dept,mail_datetime,states,form_to,form_to2,form_to3) values('"
+						+ ware_man
+						+ "','','','新增:编号为:"
+						+ ddnumber
+						+ "合同','审批内容:"
+						+ spyj1
+						+ "','"
+						+ saleMan
+						+ "','"
+						+ deptjb1
+						+ "','"
+						+ dept1
+						+ "','"
+						+ currentDate
+						+ "','已发送','','','')";
+				dbManager.executeUpdate(strSQLs);
+				
 			}else{
-				state = "待复审";
+				state = "未批准";
 			}
-		}else{
-			state = "未批准";
+			
+			String strSQL = "update subscribe set state='" + state + "',spman='"
+					+ spman1 + "',spdate='" + spdate1 + "',spyj='" + spyj1
+					+ "' where id='" + id + "'";
+			dbManager.executeUpdate(strSQL);
+			
+			String strSQLs = "insert into sendmail(mail_to,mail_to2,mail_to3,mail_sub,mail_nr,mail_man,deptjb,dept,mail_datetime,states,form_to,form_to2,form_to3) values('"
+					+ saleMan
+					+ "','','','合同审批结果:编号为:"
+					+ ddnumber
+					+ "当前状态:"
+					+ state
+					+ "','审批内容:"
+					+ spyj1
+					+ "','"
+					+ name1
+					+ "','"
+					+ deptjb
+					+ "','"
+					+ dept + "','" + currentDate + "','已发送','','','')";
+			dbManager.executeUpdate(strSQLs);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			trans.rollback();
+		}finally {
+			trans.close();
 		}
-		
-		String strSQL = "update subscribe set state='" + state + "',spman='"
-				+ spman1 + "',spdate='" + spdate1 + "',spyj='" + spyj1
-				+ "' where id='" + id1 + "'";
-		dbManager.executeUpdate(strSQL);
-		
-		String strSQLs = "insert into sendmail(mail_to,mail_to2,mail_to3,mail_sub,mail_nr,mail_man,deptjb,dept,mail_datetime,states,form_to,form_to2,form_to3) values('"
-				+ saleMan
-				+ "','','','合同审批结果:编号为:"
-				+ ddnumber
-				+ "当前状态:"
-				+ state
-				+ "','审批内容:"
-				+ spyj1
-				+ "','"
-				+ name1
-				+ "','"
-				+ deptjb
-				+ "','"
-				+ dept + "','" + currentDate + "','已发送','','','')";
-		dbManager.executeUpdate(strSQLs);
-		
 
 		return this.success();
 

@@ -155,8 +155,6 @@ public class FinanceDoAction extends CommonDoAction {
 		
 	}
 	
-	
-
 	/**
 	 * 修改收款状态
 	 * 
@@ -169,11 +167,8 @@ public class FinanceDoAction extends CommonDoAction {
 			throws Exception {
 
 		String id = runtime.getParam("id");
-
 		String sql = "update subscribe set gather_status=1 where id = ?";
-
 		dbManager.executeUpdate(sql, new Object[] { id });
-
 		return this.success();
 
 	}
@@ -1529,5 +1524,13 @@ public class FinanceDoAction extends CommonDoAction {
 		return this.success();
 	}
 	
+	@SuppressWarnings("rawtypes")
+	public Map<String,Object> getSaleData(WebRuntime runtime) throws Exception {
+		String id = runtime.getParam("id");
+		Map<String,Object> sale = this.getSaleDetail(id);
+		List proList = this.getProList(id);
+		sale.put("proList", proList);
+		return this.success("data", sale);
+	}
 
 }
