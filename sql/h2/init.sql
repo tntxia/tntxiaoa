@@ -2123,7 +2123,9 @@ CREATE TABLE gathering(
 	deptjb char(15) NULL,
 	co_number char(30) NULL,
 	total decimal,
-	total_out_house decimal
+	total_out_house decimal,
+	to_gather_date date,
+	gather_time datetime
 )
 
 CREATE TABLE m_document(

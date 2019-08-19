@@ -1,5 +1,6 @@
 eclipse.preferences.version=1
 encoding//WebContent/common/oa_common_header.ftl=UTF-8
+encoding//WebContent/finance/money/addCredit.ftl=UTF-8
 encoding//WebContent/finance/money/exchange.ftl=UTF-8
 encoding//WebContent/finance/statistic.ftl=UTF-8
 encoding//WebContent/knowledge/knowledge-new.ftl=UTF-8

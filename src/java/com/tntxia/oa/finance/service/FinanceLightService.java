@@ -426,6 +426,8 @@ public class FinanceLightService extends CommonService{
 		// 最后已收款金额
 		BigDecimal finalGatheredTotal = smoney.add(gatherTotal);
 		
+		Date now = new Date(System.currentTimeMillis());
+		
 		System.out.println("未收金额："+left);
 		
 		int compare = left.compareTo(gatherTotal);
@@ -444,9 +446,8 @@ public class FinanceLightService extends CommonService{
 
 			String strpros = "update gathering set  imoney='" + id
 					+ "',smoney='" + finalGatheredTotal
-					+ "',states='已收全部款',note='已收款',skdate='"
-					+ date + "'  where id='" + id + "'";
-			trans.executeUpdate(strpros);
+					+ "',states='已收全部款',note='已收款',gather_time=?  where id='" + id + "'";
+			trans.update(strpros, new Object[] {now});
 			
 			String sql = "update subscribe set gather_status=2 where id = ?";
 			trans.update(sql, new Object[] {fyid});
@@ -459,9 +460,8 @@ public class FinanceLightService extends CommonService{
 					+ "','" + gatherTotal + "','CNY','" + date + "','" + username + "','')";
 			trans.executeUpdate(strSQLmx);
 
-			String strpros = "update gathering set smoney='" + finalGatheredTotal + "',note='部分收款',skdate='"
-					+ date + "' where id='" + id + "'";
-			trans.executeUpdate(strpros);
+			String strpros = "update gathering set smoney='" + finalGatheredTotal + "',note='部分收款',gather_time=? where id='" + id + "'";
+			trans.update(strpros, new Object[] {now});
 			
 			String sql = "update subscribe set gather_status=1 where id = ?";
 			trans.update(sql, new Object[] {fyid});

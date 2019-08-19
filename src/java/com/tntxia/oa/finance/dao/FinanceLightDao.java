@@ -191,7 +191,7 @@ public class FinanceLightDao extends BaseDao{
 		}
 		
 		int top = pageBean.getTop();
-		String sql = "select top "+top+" * from gathering  where (states='订单完成' or states='已收全部款')"+sqlWhere+" order by id desc";
+		String sql = "select top "+top+" * from gathering  where (states='订单完成' or states='已收全部款')"+sqlWhere+" order by gather_time desc";
 		return dbManager.queryForList(sql, true);
 	}
 	
