@@ -5,8 +5,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
-
 import com.tntxia.date.DateUtil;
 import com.tntxia.dbmanager.DBManager;
 import com.tntxia.oa.common.action.CommonDoAction;
@@ -59,19 +57,21 @@ public class CheckWorkAction extends CommonDoAction{
 		PageBean pageBean = runtime.getPageBean();
 		String username = this.getUsername(runtime);
 		
-		String sql = "select top "+pageBean.getTop()+" * from work_clock where username = ? order by clock_date desc";
+		String sql = "select top "+pageBean.getTop()+" * from work_clock";
 		
 		String sqlWhere = " where 1 = 1";
 		boolean viewAllAttendance = this.existRight(runtime, "view_all_attendance");
 		List<Object> params = new ArrayList<Object>();
 		if (!viewAllAttendance) {
-			sqlWhere += " username = ?";
+			sqlWhere += " and username = ?";
 			params.add(username);
 		}
 		
-		List list = dbManager.queryForList(sql, new Object[] {username}, true);
-		sql = "select count(*) from work_clock where ";
-		int count = dbManager.getCount(sql, new Object[] {username});
+		String sqlOrderBy = " order by clock_date desc";
+		
+		List list = dbManager.queryForList(sql + sqlWhere + sqlOrderBy, params, true);
+		sql = "select count(*) from work_clock";
+		int count = dbManager.getCount(sql + sqlWhere, params);
 		
 		return this.getPagingResult(list, pageBean, count);
 	}
