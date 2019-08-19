@@ -3,9 +3,7 @@
 	<bars>
 		<bar name="考勤管理">
 			<button url="#hr_my_attandance">我的考勤</button>
-			<!-- 
-			<button url="checkwork/allograph/searchleave_main.jsp">考勤代理</button>
-			<button url="checkwork/search.mvc">考勤查询</button> -->
+			<button url="#hr_attandance_manage">考勤查询</button>
 		</bar>
 		<bar name="费用管理">
 			<button url="hr/index.mvc#hr_expense">费用报销</button>
