@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.tntxia.date.DateUtil;
 import com.tntxia.dbmanager.DBManager;
 import com.tntxia.oa.common.action.CommonDoAction;
@@ -65,6 +67,24 @@ public class CheckWorkAction extends CommonDoAction{
 		if (!viewAllAttendance) {
 			sqlWhere += " and username = ?";
 			params.add(username);
+		}
+		
+		String user = runtime.getParam("user");
+		if (StringUtils.isNotEmpty(user)) {
+			sqlWhere += " and username = ?";
+			params.add(user);
+		}
+		
+		String sdate = runtime.getParam("sdate");
+		if (StringUtils.isNotEmpty(sdate)) {
+			sqlWhere += " and clock_date >= ?";
+			params.add(sdate);
+		}
+		
+		String edate = runtime.getParam("edate");
+		if (StringUtils.isNotEmpty(edate)) {
+			sqlWhere += " and clock_date <= ?";
+			params.add(edate);
 		}
 		
 		String sqlOrderBy = " order by clock_date desc";
