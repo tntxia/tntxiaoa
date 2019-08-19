@@ -1470,6 +1470,7 @@ public class SaleDoAction extends CommonDoAction {
 							+ currentDate
 							+ "','已发送','','','')";
 					trans.executeUpdate(strSQLs);
+					
 				}else{
 					state = "待复审";
 				}
@@ -1497,6 +1498,7 @@ public class SaleDoAction extends CommonDoAction {
 					+ "','"
 					+ dept + "','" + currentDate + "','已发送','','','')";
 			trans.executeUpdate(strSQLs);
+			trans.commit();
 		}catch(Exception ex) {
 			ex.printStackTrace();
 			trans.rollback();

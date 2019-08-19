@@ -55,11 +55,22 @@ public class CheckWorkAction extends CommonDoAction{
 	 */
 	@SuppressWarnings("rawtypes")
 	public Map<String,Object> list(WebRuntime runtime) throws Exception {
-		String username = this.getUsername(runtime);
+		
 		PageBean pageBean = runtime.getPageBean();
+		String username = this.getUsername(runtime);
+		
 		String sql = "select top "+pageBean.getTop()+" * from work_clock where username = ? order by clock_date desc";
+		
+		String sqlWhere = " where 1 = 1";
+		boolean viewAllAttendance = this.existRight(runtime, "view_all_attendance");
+		List<Object> params = new ArrayList<Object>();
+		if (!viewAllAttendance) {
+			sqlWhere += " username = ?";
+			params.add(username);
+		}
+		
 		List list = dbManager.queryForList(sql, new Object[] {username}, true);
-		sql = "select count(*) from work_clock where username = ?";
+		sql = "select count(*) from work_clock where ";
 		int count = dbManager.getCount(sql, new Object[] {username});
 		
 		return this.getPagingResult(list, pageBean, count);

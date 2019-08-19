@@ -147,11 +147,22 @@ public class FinanceLightDao extends BaseDao{
 	
 
 	public int getGatheredCount(Map<String,String> param) throws Exception{
-		
 		String sqlWhere = "";
-		String fpnum = param.get("coname");
+		String coname = param.get("coname");
+		if(StringUtils.isNotEmpty(coname)) {
+			sqlWhere += " and coname like '%"+coname+"%'";
+		}
+		String fpnum = param.get("fpnum");
 		if(StringUtils.isNotEmpty(fpnum)) {
-			sqlWhere += " and coname like '%"+fpnum+"%'";
+			sqlWhere += " and orderform like '%"+fpnum+"%'";
+		}
+		String sdate = param.get("sdate");
+		if(StringUtils.isNotEmpty(sdate)) {
+			sqlWhere += " and gather_time >= '"+sdate+"'";
+		}
+		String edate = param.get("edate");
+		if(StringUtils.isNotEmpty(edate)) {
+			sqlWhere += " and gather_time >= '"+edate+"'";
 		}
 		
 		String sql = "select count(*) from gathering  where (states='订单完成' or states='已收全部款')"+sqlWhere;
@@ -162,9 +173,21 @@ public class FinanceLightDao extends BaseDao{
 	public List getGatheredList(PageBean pageBean,Map<String,String> param) throws Exception{
 		
 		String sqlWhere = "";
-		String fpnum = param.get("coname");
+		String coname = param.get("coname");
+		if(StringUtils.isNotEmpty(coname)) {
+			sqlWhere += " and coname like '%"+coname+"%'";
+		}
+		String fpnum = param.get("fpnum");
 		if(StringUtils.isNotEmpty(fpnum)) {
-			sqlWhere += " and coname like '%"+fpnum+"%'";
+			sqlWhere += " and orderform like '%"+fpnum+"%'";
+		}
+		String sdate = param.get("sdate");
+		if(StringUtils.isNotEmpty(sdate)) {
+			sqlWhere += " and gather_time >= '"+sdate+"'";
+		}
+		String edate = param.get("edate");
+		if(StringUtils.isNotEmpty(edate)) {
+			sqlWhere += " and gather_time >= '"+edate+"'";
 		}
 		
 		int top = pageBean.getTop();
