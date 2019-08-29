@@ -1689,5 +1689,11 @@ public class PurchasingDoAction extends CommonDoAction {
 		res.put("totalAmount", intRowCount);
 		return res;
 	}
+	
+	@SuppressWarnings("rawtypes")
+	public List listAllPurchaseMan(WebRuntime runtime) throws Exception {
+		String sql = "select name from username where department_name='采购部'";
+		return dbManager.queryForList(sql, true);
+	}
 
 }

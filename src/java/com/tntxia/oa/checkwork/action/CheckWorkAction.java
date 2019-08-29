@@ -54,6 +54,49 @@ public class CheckWorkAction extends CommonDoAction{
 	 * @throws Exception
 	 */
 	@SuppressWarnings("rawtypes")
+	public Map<String,Object> my(WebRuntime runtime) throws Exception {
+		
+		PageBean pageBean = runtime.getPageBean();
+		String username = this.getUsername(runtime);
+		
+		String sql = "select top "+pageBean.getTop()+" * from work_clock";
+		
+		String sqlWhere = " where 1 = 1";
+	
+		List<Object> params = new ArrayList<Object>();
+		
+		sqlWhere += " and username = ?";
+		params.add(username);
+		
+		String sdate = runtime.getParam("sdate");
+		if (StringUtils.isNotEmpty(sdate)) {
+			sqlWhere += " and clock_date >= ?";
+			params.add(sdate);
+		}
+		
+		String edate = runtime.getParam("edate");
+		if (StringUtils.isNotEmpty(edate)) {
+			sqlWhere += " and clock_date <= ?";
+			params.add(edate);
+		}
+		
+		String sqlOrderBy = " order by clock_date desc";
+		
+		List list = dbManager.queryForList(sql + sqlWhere + sqlOrderBy, params, true);
+		sql = "select count(*) from work_clock";
+		int count = dbManager.getCount(sql + sqlWhere, params);
+		
+		return this.getPagingResult(list, pageBean, count);
+	}
+	
+	/**
+	 * 获取打卡记录
+	 * @param request
+	 * @param arg1
+	 * @return
+	 * @throws Exception
+	 */
+	@SuppressWarnings("rawtypes")
 	public Map<String,Object> list(WebRuntime runtime) throws Exception {
 		
 		PageBean pageBean = runtime.getPageBean();

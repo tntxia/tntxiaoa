@@ -2274,45 +2274,42 @@ public class SaleDoAction extends CommonDoAction {
 		return this.success();
 	}
 	
-	public Map<String,Object> add(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public Map<String,Object> add(WebRuntime runtime) throws Exception {
 		
 		String number = NumberFactory.generateNumber("ONK-");
 
-		String coname1 = ParamUtils.unescape(request, "coname").trim();
-		String subck = ParamUtils.unescape(request, "subck");
-		String sub1 = request.getParameter("sub");
-		String custno = request.getParameter("custno");
-		String item1 = ParamUtils.unescape(request, "item");
-		String mode1 = ParamUtils.unescape(request, "mode");
-		String source1 = request.getParameter("source");
-		String trade1 = ParamUtils.unescape(request, "trade");
-		String man1 = this.getUsername(request);
-		String yj1 = ParamUtils.unescape(request, "yj");
-		String money1 = request.getParameter("money");
-		String senddate1 = request.getParameter("senddate");
-		String tbyq1 = ParamUtils.unescape(request, "tbyq");
-
-		tbyq1 = com.infoally.util.Replace.strReplace(tbyq1, "'", "''");
-		String datetime1 = request.getParameter("datetime");
-		String remarks1 = ParamUtils.unescape(request, "remarks");
+		String coname1 = runtime.getParam("coname");
+		String subck = runtime.getParam("subck");
+		String sub1 = runtime.getParam("sub");
+		String custno = runtime.getParam("custno");
+		String item1 = runtime.getParam("item");
+		String mode1 = runtime.getParam("mode");
+		String source1 = runtime.getParam("source");
+		String trade1 = runtime.getParam("trade");
+		String man1 = this.getUsername(runtime);
+		String yj1 = runtime.getParam("yj");
+		String money1 = runtime.getParam("money");
+		String senddate1 = runtime.getParam("senddate");
+		String tbyq1 = runtime.getParam("tbyq");
+		String datetime1 = runtime.getParam("datetime");
+		String remarks1 = runtime.getParam("remarks");
 
 		remarks1 = com.infoally.util.Replace.strReplace(remarks1, "'", "''");
-		String tr = ParamUtils.unescape(request, "tr");
-		String tr_addr = ParamUtils.unescape(request, "tr_addr");
-		String tr_man = ParamUtils.unescape(request, "tr_man");
-		String tr_tel = ParamUtils.unescape(request, "tr_tel");
-		String yf_types = ParamUtils.unescape(request, "yf_types");
-		String yf_money = request.getParameter("yf_money");
-		String send_date = request.getParameter("send_date");
-		String fy_number = request.getParameter("fy_number");
+		String tr = runtime.getParam("tr");
+		String tr_addr = runtime.getParam("tr_addr");
+		String tr_man = runtime.getParam("tr_man");
+		String tr_tel = runtime.getParam("tr_tel");
+		String yf_types = runtime.getParam("yf_types");
+		String yf_money = runtime.getParam("yf_money");
+		String send_date = runtime.getParam("send_date");
+		String fy_number = runtime.getParam("fy_number");
 		
-		String other_fy = request.getParameter("other_fy");
+		String other_fy = runtime.getParam("other_fy");
 
 		int ddid = 1;
-		String role = this.getRole(request);
-		String dept = this.getDept(request);
-		String deptjb = this.getDeptjb(request);
+		String role = this.getRole(runtime);
+		String dept = this.getDept(runtime);
+		String deptjb = this.getDeptjb(runtime);
 		
 
 		String sqlddman = "select  * from ddsp where dept='" + dept

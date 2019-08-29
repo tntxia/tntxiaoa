@@ -1,19 +1,9 @@
 package com.tntxia.oa.system.action;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.web.servlet.ModelAndView;
-
 import com.tntxia.dbmanager.DBManager;
-import com.tntxia.oa.system.dao.PositionDao;
-import com.tntxia.oa.system.entity.Position;
-import com.tntxia.oa.util.CommonAction;
-import com.tntxia.oa.util.Pager;
 import com.tntxia.web.mvc.BaseAction;
 import com.tntxia.web.mvc.PageBean;
 import com.tntxia.web.mvc.WebRuntime;

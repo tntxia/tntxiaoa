@@ -83,13 +83,11 @@ $(function(){
 		actions:{
 			sub:function(){
 				
-				var params = this.getParamMap(true);
+				var params = this.getParamMap();
 				if(!isValid(params)){
 					return;
 				}
-				
-				
-				params.tbyq = escape(tkeditor.getData());
+				params.tbyq = tkeditor.getData();
 				
 				util.ajax({
 					url:webRoot+"/sale/sale!add.do",

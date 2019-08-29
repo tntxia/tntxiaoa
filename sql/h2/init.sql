@@ -34,7 +34,8 @@ CREATE TABLE username(
 	mail_password nvarchar(50) NULL,
 	mail_smtp nvarchar(90) NULL,
 	restrain_id int NULL,
-	department_id int NULL
+	department_id int NULL,
+	department_name int NULL
 );
 
 insert into username(name,password,restrain_id,department_id) values('oa_admin','123$%^',1,1)

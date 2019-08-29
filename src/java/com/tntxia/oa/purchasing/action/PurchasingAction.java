@@ -204,8 +204,6 @@ public class PurchasingAction extends CommonAction {
 	public ModelAndView listApprovedSearch(HttpServletRequest request,
 			HttpServletResponse arg1) throws Exception {
 
-		List<String> purchasingManList = new ArrayList<String>();
-
 		List<String> hbList = new ArrayList<String>();
 
 		List<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
@@ -926,17 +924,7 @@ public class PurchasingAction extends CommonAction {
 
 				resultList.add(map);
 			}
-			try {
-				ResultSet rs = einfodb
-						.executeQuery("select name from username where yjxs='采购部' or yjxs='采购二部'");
-				while (rs.next()) {
-					String name = rs.getString("name");
-					purchasingManList.add(name);
-
-				}
-				rs.close();
-			} catch (Exception e) {
-			}
+			
 
 			ResultSet prst = einfodb.executeQuery(sq);
 
@@ -1013,7 +1001,6 @@ public class PurchasingAction extends CommonAction {
 		einfodb.closeConn();
 
 		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("purchasingManList", purchasingManList);
 		result.put("hbList", hbList);
 		result.put("resultList", resultList);
 
