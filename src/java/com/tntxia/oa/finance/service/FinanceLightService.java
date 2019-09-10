@@ -317,7 +317,10 @@ public class FinanceLightService extends CommonService{
 		return max;
 	}
 	
-	
+	public void removeCredit(Transaction trans, String saleOrderNumber) throws Exception{
+		String strSQL = "delete from credit_debit where xsdh = ?";
+		trans.update(strSQL,new Object[]{saleOrderNumber});
+	}
 	
 	public Map<String,Object> getGatheringBySaleId(String saleId) throws Exception{
 		
@@ -431,6 +434,9 @@ public class FinanceLightService extends CommonService{
 		System.out.println("未收金额："+left);
 		
 		int compare = left.compareTo(gatherTotal);
+		if (compare<0) {
+			throw new Exception("收款金额大于未收款金额");
+		}
 		String date = com.tntxia.date.DateUtil.getCurrentDateSimpleStr();
 		
 		// 如果冲帐的金额，刚好是待收的金额，则记账为已收款
@@ -467,6 +473,21 @@ public class FinanceLightService extends CommonService{
 			trans.update(sql, new Object[] {fyid});
 			
 		}
+	}
+	
+	private void doCancelGather(Transaction trans,String id) throws Exception{
+		
+		Map<String,Object> gathering = getGathering(trans, Integer.valueOf(id));
+		
+		String  fyid = (String) gathering.get("fyid");
+		String sql = "delete from gather_mx_mx where g_m_id = ?";
+		trans.update(sql, new Object[] {id});
+		
+		sql = "update gathering set smoney = 0, states='待收款',note='待收款' where id = ?";
+		trans.update(sql, new Object[] {id});
+		
+		sql = "update subscribe set gather_status=0 where id = ?";
+		trans.update(sql, new Object[] {fyid});
 	}
 	
 	@SuppressWarnings("rawtypes")
@@ -518,6 +539,25 @@ public class FinanceLightService extends CommonService{
 			trans.rollback();
 			ex.printStackTrace();
 			return this.errorMsg(ex.toString());
+		}finally {
+			trans.close();
+		}
+		
+		return this.success();
+	}
+	
+	public Map<String,Object> backGathering(String id) throws Exception {
+		Transaction trans = this.getTransaction();
+		try {
+			Map<String,Object> gathering = getGathering(trans, Integer.valueOf(id));
+			String orderform = (String) gathering.get("orderform");
+			this.removeCredit(trans, orderform);
+			this.doCancelGather(trans, id);
+			trans.commit();
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			trans.rollback();
+			throw ex;
 		}finally {
 			trans.close();
 		}

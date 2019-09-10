@@ -1373,7 +1373,6 @@ public class FinanceDoAction extends CommonDoAction {
 		Map<String,String> params = runtime.getParamMap();
 
 		try{
-			
 			PageBean pageBean = runtime.getPageBean(50);
 			Map<String,Object> res = financeService.listGathered(params,pageBean);
 			return res;
@@ -1449,11 +1448,15 @@ public class FinanceDoAction extends CommonDoAction {
 		return res;
 	}
 	
-	public Map<String,Object> delGathering(WebRuntime runtime) throws Exception{
+	/**
+	 * 返回收款
+	 * @param runtime
+	 * @return
+	 * @throws Exception
+	 */
+	public Map<String,Object> backGathering(WebRuntime runtime) throws Exception{
 		String id = runtime.getParam("id");
-		String sql = "update gathering set states='已删除' where id = ? ";
-		dbManager.update(sql, new Object[] {id});
-		return this.success();
+		return financeService.backGathering(id);
 	}
 	
 	public Map<String,Object> generateGathering(WebRuntime runtime) throws Exception{
