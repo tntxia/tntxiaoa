@@ -21,8 +21,6 @@ import com.tntxia.oa.client.service.ClientService;
 import com.tntxia.oa.common.NumberFactory;
 import com.tntxia.oa.common.action.CommonDoAction;
 import com.tntxia.oa.mail.SendMail;
-import com.tntxia.sqlexecutor.Transaction;
-import com.tntxia.web.ParamUtils;
 import com.tntxia.web.mvc.PageBean;
 import com.tntxia.web.mvc.WebRuntime;
 import com.tntxia.web.util.DatasourceStore;
@@ -33,6 +31,7 @@ public class ClientAction extends CommonDoAction {
 	
 	private ClientService service = new ClientService();
 	
+	@SuppressWarnings("unchecked")
 	public Map<String,Object> add(WebRuntime runtime) throws Exception{
 		
 		Map<String,String> paramMap = runtime.getParamMap();
@@ -97,17 +96,18 @@ public class ClientAction extends CommonDoAction {
 	@SuppressWarnings({ "rawtypes" })
 	public Map<String, Object> list(WebRuntime runtime) throws Exception {
 
-		String sqlWhere = "";
+		String sqlWhere = " where   cotypes='现有客户'  and (share='是' ";
 
 		boolean xhview = this.existRight(runtime, "xhview");
-
 		if (xhview) {
 			String deptjb = this.getDeptjb(runtime);
-			sqlWhere += " and deptjb  like '" + deptjb + "%' ";
+			sqlWhere += " or deptjb  like '" + deptjb + "%' ";
 		} else {
 			String username = this.getUsername(runtime);
-			sqlWhere += " and username  = '" + username + "' ";
+			sqlWhere += " or username  = '" + username + "' ";
 		}
+		
+		sqlWhere += ")";
 
 		PageBean pageBean = runtime.getPageBean();
 		
@@ -132,11 +132,9 @@ public class ClientAction extends CommonDoAction {
 		}
 
 		String sql = "select top " + pageBean.getTop()
-				+ " * from client where  cotypes='现有客户'";
-
-		String sqlCount = "select count(*) from client where  cotypes='现有客户'";
-
-		System.out.println("search client,,,," + sql + sqlWhere);
+				+ " * from client";
+		String sqlCount = "select count(*) from client";
+		
 		int totalAmount = dbManager.getCount(sqlCount + sqlWhere);
 		List list = dbManager.queryForList(sql + sqlWhere, true);
 		return this.getPagingResult(list, runtime, totalAmount);
@@ -164,90 +162,6 @@ public class ClientAction extends CommonDoAction {
 			HttpServletResponse response) throws Exception {
 		String sql = "select * from appeal order by aid  desc";
 		return dbManager.queryForList(sql, true);
-
-	}
-
-	/**
-	 * 客户预约
-	 * 
-	 * @param request
-	 * @param response
-	 * @return
-	 * @throws Exception
-	 */
-	public Map<String, Object> changeName(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-
-		Transaction trans = this.getTransaction();
-
-		String cid = request.getParameter("id");
-
-		Map<String, Object> client = service.getClient(cid);
-
-		if (client == null) {
-			this.errorMsg("客户信息不存在！");
-		}
-
-		String sp = (String) client.get("coname");
-
-		String coname1 = ParamUtils.unescape(request, "name");
-
-		try {
-			String strSQL = "update client set coname='" + coname1
-					+ "' where clientid='" + cid + "'";
-			trans.executeUpdate(strSQL);
-
-			if (sp != null) {
-				String sql1 = "update linkman set coname='" + coname1
-						+ "' where coname='" + sp + "'";
-				trans.executeUpdate(sql1);
-				String sql8 = "update quote set coname='" + coname1
-						+ "' where coname='" + sp + "'";
-				trans.executeUpdate(sql8);
-				String sqlf = "update ddtransportation set coname='" + coname1
-						+ "' where coname='" + sp + "'";
-				trans.executeUpdate(sqlf);
-				String sqls = "update transportation set coname='" + coname1
-						+ "' where coname='" + sp + "'";
-				trans.executeUpdate(sqls);
-				String sqlg = "update gathering set coname='" + coname1
-						+ "' where coname='" + sp + "'";
-				trans.executeUpdate(sqlg);
-				String sqlsd = "update subscribe set coname='" + coname1
-						+ "' where coname='" + sp + "'";
-				trans.executeUpdate(sqlsd);
-				String strSQLht = "update ht  set ht_customer='" + coname1
-						+ "' where ht_customer='" + sp + "'";
-				trans.executeUpdate(strSQLht);
-				String strSQLsa = "update sample  set coname='" + coname1
-						+ "' where coname='" + sp + "'";
-				trans.executeUpdate(strSQLsa);
-				String strSQLtt = "update th_table  set coname='" + coname1
-						+ "' where coname='" + sp + "'";
-				trans.executeUpdate(strSQLtt);
-				String strSQLpt = "update payment_customer  set coname='"
-						+ coname1 + "' where coname='" + sp + "'";
-				trans.executeUpdate(strSQLpt);
-				String strSQLgt = "update gathering_customer  set coname='"
-						+ coname1 + "' where coname='" + sp + "'";
-				trans.executeUpdate(strSQLgt);
-				String strSQLct = "update credit_debit  set l_coname='"
-						+ coname1 + "' where l_coname='" + sp + "'";
-				trans.executeUpdate(strSQLct);
-				String strSQLot = "update  outhouse  set pro_coname='"
-						+ coname1 + "' where pro_coname='" + sp + "'";
-				trans.executeUpdate(strSQLot);
-				trans.commit();
-			}
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			trans.rollback();
-			return this.errorMsg(ex.toString());
-		} finally {
-			trans.close();
-		}
-
-		return this.success();
 
 	}
 
@@ -474,93 +388,15 @@ public class ClientAction extends CommonDoAction {
 					+"评论："+remark,"Amy",username);
 			
 			return this.success();
-
-
 	}
 	
 	public Map<String,Object> update(WebRuntime runtime) throws SQLException{
 		
-		String id1=runtime.getParam("id");
-		
-		 String coaddr1=runtime.getParam("coaddr");
-		  coaddr1=com.infoally.util.Replace.strReplace(coaddr1,"'","’");
-		  coaddr1=com.infoally.util.Replace.strReplace(coaddr1,"\"","”");
-		 String copost1=runtime.getParam("copost");
-		 String city1=runtime.getParam("city");
-		 String province1=runtime.getParam("province");
-		 String cofrdb1=runtime.getParam("cofrdb");
-		 String cozzxs1=runtime.getParam("cozzxs");
-		 String cozczb1=runtime.getParam("cozczb");
-		 String coyyzz1=runtime.getParam("coyyzz");
-		 String describee1=runtime.getParam("describee");
-		  describee1=com.infoally.util.Replace.strReplace(describee1,"'","’");
-		  describee1=com.infoally.util.Replace.strReplace(describee1,"\"","”");
-		 String tradetypes1=runtime.getParam("tradetypes");
-		 String cokhjb1=runtime.getParam("cokhjb");
-		 String cokhyh1=runtime.getParam("cokhyh");
-		 String coyhzh1=runtime.getParam("coyhzh");
-		 String coclrq1=runtime.getParam("coclrq");
-		 String cotel1=runtime.getParam("cotel");
-		 String cofax1=runtime.getParam("cofax");
-		 String codzyj1=runtime.getParam("codzyj");
-		 String conet1=runtime.getParam("conet");
-		 String cosyhb1=runtime.getParam("cosyhb");
-		 String cojsfs1=runtime.getParam("cojsfs");
-		 String number1=runtime.getParam("number");
-		 String share1=runtime.getParam("share");
-		 String yearearning1=runtime.getParam("yearearning");
-		 String paydate1=runtime.getParam("paydate");
-		 String limited_credit1=runtime.getParam("limited_credit");
-		 String nsnumber1=runtime.getParam("nsnumber");
-		 String product1=runtime.getParam("product");
-		  product1=com.infoally.util.Replace.strReplace(product1,"'","’");
-		  product1=com.infoally.util.Replace.strReplace(product1,"\"","”");
-		 String mproduct1=runtime.getParam("mproduct");
-		  mproduct1=com.infoally.util.Replace.strReplace(mproduct1,"'","’");
-		  mproduct1=com.infoally.util.Replace.strReplace(mproduct1,"\"","”");
-		 String co_number=runtime.getParam("co_number");
-		 String company_management1=runtime.getParam("company_management");
-		  company_management1=com.infoally.util.Replace.strReplace(company_management1,"'","’");
-		  company_management1=com.infoally.util.Replace.strReplace(company_management1,"\"","”");
-		 String username=runtime.getParam("username");
-		   String link_zw1=runtime.getParam("link_zw1");
-		 String link_wap1=runtime.getParam("link_wap1");
-		 String link_mail1=runtime.getParam("link_mail1");
-		 String linkman2=runtime.getParam("linkman2");
-		 String link_zw2=runtime.getParam("link_zw2");
-		 String link_tel2=runtime.getParam("link_tel2");
-		 String link_wap2=runtime.getParam("link_wap2");
-		 String link_mail2=runtime.getParam("link_mail2");
-		 String linkman3=runtime.getParam("linkman3");
-		 String link_zw3=runtime.getParam("link_zw3");
-		 String link_tel3=runtime.getParam("link_tel3");
-		 String link_wap3=runtime.getParam("link_wap3");
-		 String link_mail3=runtime.getParam("link_mail3");
-		 String linkman4=runtime.getParam("linkman4");
-		 String link_zw4=runtime.getParam("link_zw4");
-		 String link_tel4=runtime.getParam("link_tel4");
-		 String link_wap4=runtime.getParam("link_wap4");
-		 String link_mail4=runtime.getParam("link_mail4");
-		 String linkman5=runtime.getParam("linkman5");
-		 String link_zw5=runtime.getParam("link_zw5");
-		 String link_tel5=runtime.getParam("link_tel5");
-		 String link_wap5=runtime.getParam("link_wap5");
-		 String link_mail5=runtime.getParam("link_mail5");
-		 String co_code=runtime.getParam("co_code");
-		 
-		 String bank_name = runtime.getParam("bank_name");
-		 String bank_addr = runtime.getParam("bank_addr");
-		 String swift_code = runtime.getParam("swift_code");
-		 String iban = runtime.getParam("iban");
-		 String route = runtime.getParam("route");
-		 String bic = runtime.getParam("bic");
-		 String pay_deadline = runtime.getParam("pay_deadline");
+		String id=runtime.getParam("clientid");
+		String share = runtime.getParam("share");
 
-		  String strSQL="update client set co_number='" + co_number + "',coaddr='" + coaddr1 +"',copost='" + copost1 + "',city='" + city1 + "',province='" + province1 + "',cofrdb='" + cofrdb1 + "',cozzxs='" + cozzxs1 + "',cozczb='" + cozczb1 + "',coyyzz='" + coyyzz1 + "',tradetypes='" + tradetypes1 + "',cokhjb='" + cokhjb1 + "',cokhyh='" + cokhyh1 + "',coyhzh='" + coyhzh1 + "',coclrq='" + coclrq1 + "',cotel='" + cotel1 + "',cofax='" + cofax1 + "',codzyj='" + codzyj1 + "',conet='" + conet1 + "',cosyhb='" + cosyhb1 + "',cojsfs='" + cojsfs1 + "',paydate='" + paydate1 + "',limited_credit='" + limited_credit1 + "',nsnumber='" + nsnumber1 + "',number='" + number1 + "',yearearning='" + yearearning1 + "',share='" + share1 + "',username='" + username + "',mproduct='" + mproduct1 + "',product='" + product1 + "',company_management='" + company_management1 + "',describee='" + describee1 + "',link_zw1='" + link_zw1 + "',link_wap1='" + link_wap1 + "',link_mail1='" + link_mail1 + "',linkman2='" + linkman2 + "',link_zw2='" + link_zw2+ "',link_tel2='" + link_tel2 + "',link_wap2='" + link_wap2 + "',link_mail2='" + link_mail2 + "',linkman3='" + linkman3 + "',link_zw3='" + link_zw3+ "',link_tel3='" + link_tel3 + "',link_wap3='" + link_wap3 + "',link_mail3='" + link_mail3 + "',linkman4='" + linkman4 + "',link_zw4='" + link_zw4+ "',link_tel4='" + link_tel4 + "',link_wap4='" + link_wap4 + "',link_mail4='" + link_mail4 + "',linkman5='" + linkman5+ "',link_zw5='" + link_zw5+ "',link_tel5='" + link_tel5 + "',link_wap5='" + link_wap5 + "',link_mail5='" + link_mail5 + "',co_code='" + co_code 
-		  + "',bank_name='" + bank_name + "',bank_addr='" + bank_addr 
-		  + "',swift_code='" + swift_code + "',iban='" + iban + "',route='" + route + "',bic='" + bic
-		  + "',pay_deadline=?  where clientid='"+id1+"'";
-		  dbManager.executeUpdate(strSQL,new Object[]{pay_deadline});
+		  String strSQL="update client set share=?  where clientid=?";
+		  dbManager.executeUpdate(strSQL,new Object[]{share, id});
 		  return this.success();
 	}
 	
@@ -577,6 +413,41 @@ public class ClientAction extends CommonDoAction {
 		List res = sqlExec.queryForList(sql, true);
 		sqlExec.close();
 		return res;
+	}
+	
+	/**
+	  *      删除客户
+	 * @param runtime
+	 * @return
+	 * @throws Exception
+	 */
+	public Map<String, Object> del(WebRuntime runtime) throws Exception{
+		String id = runtime.getParam("id");
+		String sql = "delete from client where clientid=?";
+		dbManager.update(sql, new Object[] {id});
+		return this.success();
+	}
+	
+	/**
+	 * 是否客户的拥有者
+	 * @param username
+	 * @return
+	 * @throws Exception 
+	 */
+	private boolean isClientOwner(String id , String username) throws Exception {
+		String sql = "select count(*) from client where clientid = ? and username = ?";
+		return dbManager.getCount(sql, new Object[] {id, username})>0;
+	}
+	
+	/**
+	 * 客户详细
+	 * @param runtime
+	 * @return
+	 * @throws Exception
+	 */
+	public Map<String,Object> detail(WebRuntime runtime) throws Exception{
+		String id = runtime.getParam("id");
+		return service.getClient(id);
 	}
 
 }
