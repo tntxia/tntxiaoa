@@ -9,8 +9,10 @@
 		<tr>
 			<th>联系人</th>
 			<th>先生/小姐</th>
-			<th>办公室电话</th>
 			<th>职位</th>
+			<th>办公室电话</th>
+			<th>手机</th>
+			<th>邮箱</th>
 			<th>QQ</th>
 			<th>MSN</th>
 			<th>SKYPE</th>
@@ -21,8 +23,11 @@
 		<tr v-for="r in rows">
 			<td>{{r.name}}</td>
 			<td>{{r.mr}}</td>
-			<td>{{r.tel}}</td>
 			<td>{{r.job}}</td>
+			<td>{{r.tel}}</td>
+			<td>{{r.waptel}}</td>
+			<td>{{r.email}}</td>
+			
 			<td>{{r.qq}}</td>
 			<td>{{r.msn}}</td>
 			<td>{{r.skype}}</td>
