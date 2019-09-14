@@ -154,26 +154,6 @@
 		</templates>
 	</mvcView>
 
-	<mvcView url="xclient/custo/conversation.mvc"
-		handler="com.tntxia.oa.client.handler.ClientConversationHandler">
-		<title>客户洽谈记录</title>
-		<isWholePage>true</isWholePage>
-		<stylesheets>
-			<stylesheet>css/top.css</stylesheet>
-			<stylesheet>css/font-awesome/style.css</stylesheet>
-			<stylesheet>css/cwface.css</stylesheet>
-			<stylesheet>css/tntxiaui/style.css</stylesheet>
-			<stylesheet>css/style.css</stylesheet>
-		</stylesheets>
-		<scripts>
-			<script>js/lib/angular.js</script>
-			<script>js/client/conversation.js</script>
-		</scripts>
-		<templates>
-			<template>xclient/custo/conversation.ftl</template>
-		</templates>
-	</mvcView>
-
 	<mvcView url="xclient/custo/conversationNew.mvc"
 		handler="com.tntxia.oa.client.handler.ClientConversationNewHandler">
 		<title>新增客户洽谈记录</title>
@@ -187,8 +167,10 @@
 		</stylesheets>
 		<scripts>
 			<script>/static/lib/jquery/jquery.js</script>
+			<script>/static/lib/vue/vue.js</script>
 			<script>js/lib/jxiaui/datepick.js</script>
 			<script>js/lib/jxiaui/datetimepick.js</script>
+			<script>js/lib/jxiaui/getParamMap.js</script>
 			<script>js/client/conversationNew.js</script>
 		</scripts>
 		<templates>

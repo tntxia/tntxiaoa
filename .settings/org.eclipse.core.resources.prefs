@@ -37,7 +37,6 @@ encoding//src/java/com/tntxia/oa/checkwork/action/CheckWorkAction.java=UTF-8
 encoding//src/java/com/tntxia/oa/checkwork/action/mvc/CheckWorkMainAction.java=UTF-8
 encoding//src/java/com/tntxia/oa/checkwork/action/mvc/CheckWorkSearchAction.java=UTF-8
 encoding//src/java/com/tntxia/oa/client/action/ClientAction.java=UTF-8
-encoding//src/java/com/tntxia/oa/client/handler/ClientConversationHandler.java=UTF-8
 encoding//src/java/com/tntxia/oa/common/handler/OACommonHandler.java=UTF-8
 encoding//src/java/com/tntxia/oa/finance/action/FinanceAction.java=UTF-8
 encoding//src/java/com/tntxia/oa/finance/action/FinanceDoAction.java=UTF-8
