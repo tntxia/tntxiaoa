@@ -20,8 +20,6 @@ import com.tntxia.jdbc.SQLExecutor;
 import com.tntxia.oa.client.service.ClientService;
 import com.tntxia.oa.common.NumberFactory;
 import com.tntxia.oa.common.action.CommonDoAction;
-import com.tntxia.oa.mail.SendMail;
-import com.tntxia.oa.mail.service.MailService;
 import com.tntxia.web.mvc.PageBean;
 import com.tntxia.web.mvc.WebRuntime;
 import com.tntxia.web.util.DatasourceStore;
@@ -31,8 +29,6 @@ public class ClientAction extends CommonDoAction {
 	private DBManager dbManager = this.getDBManager();
 	
 	private ClientService service = new ClientService();
-	
-	private MailService mailService = new MailService();
 	
 	@SuppressWarnings("unchecked")
 	public Map<String,Object> add(WebRuntime runtime) throws Exception{
@@ -46,6 +42,7 @@ public class ClientAction extends CommonDoAction {
 		paramMap.put("dept", dept);
 		String deptjb = this.getDeptjb(runtime);
 		paramMap.put("deptjb", deptjb);
+		paramMap.put("cotypes", "现有客户");
 		
 		return HttpTrans.getMap("http://localhost:8080/OAService/services/client.add", paramMap);
 		
@@ -366,9 +363,12 @@ public class ClientAction extends CommonDoAction {
 		
 		String id=runtime.getParam("clientid");
 		String share = runtime.getParam("share");
+		String coaddr = runtime.getParam("coaddr");
+		String cotel = runtime.getParam("cotel");
+		
 
-		  String strSQL="update client set share=?  where clientid=?";
-		  dbManager.executeUpdate(strSQL,new Object[]{share, id});
+		  String strSQL="update client set share=?, coaddr=?,cotel=?  where clientid=?";
+		  dbManager.executeUpdate(strSQL,new Object[]{share, coaddr,cotel, id});
 		  return this.success();
 	}
 	
@@ -529,6 +529,18 @@ public class ClientAction extends CommonDoAction {
 		List list = dbManager.queryForList(sql, new Object[] {coname}, true);
 		sql = "select count(*) from gathering where coname=?";
 		int count = dbManager.getCount(sql, new Object[] {coname});
+		return this.getPagingResult(list, pageBean, count);
+	}
+	
+	public Map<String, Object> listDoc(WebRuntime runtime) throws Exception {
+		String id = runtime.getParam("id");
+		Map<String, Object> client = this.getClientDetail(id);
+		 String co_number = (String)client.get("co_number");
+		PageBean pageBean = runtime.getPageBean();
+		String sql = "select top " + pageBean.getTop() + " * from c_pic where oid=?";
+		List list = dbManager.queryForList(sql, new Object[] {co_number}, true);
+		sql = "select count(*) from c_pic where oid=?";
+		int count = dbManager.getCount(sql, new Object[] {co_number});
 		return this.getPagingResult(list, pageBean, count);
 	}
 

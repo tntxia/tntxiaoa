@@ -3655,5 +3655,12 @@ CREATE TABLE trade_policy(
 	in_no int NULL
 )
 
+CREATE TABLE c_pic(
+	id int IDENTITY(1,1) NOT NULL,
+	oid char(10) NULL,
+	pic_sm nvarchar(100) NULL,
+	pic_path nvarchar(50) NULL
+)
+
 
 
