@@ -2,10 +2,10 @@
 <leftbar>
 	<bars>
 		<bar name="邮件管理">
-			<button url="#mail_inbox">收件箱</button>
-			<button url="#mail_outbox">发件箱</button>
-			<button url="#mail_trashbox">垃圾桶</button>
-			<button url="#mail_handling">待处理邮件</button>
+			<button url="#mail/inbox">收件箱</button>
+			<button url="#mail/outbox">发件箱</button>
+			<button url="#mail/trashbox">垃圾桶</button>
+			<button url="#mail/handling">待处理邮件</button>
 			<!-- 
 			<button url="#mail_address_book">地址薄</button>
 			 -->
