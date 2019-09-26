@@ -20,7 +20,7 @@
 			</button>
 			<button url="#purchasing/refund_list_approved" restrain="cgzt">已审合同
 			</button>
-			<button url="#purchasing_refund_list_deleted" restrain="cgzt">已删合同
+			<button url="#purchasing/refund_list_deleted" restrain="cgzt">已删合同
 			</button>
 		</bar>
 	</bars>
