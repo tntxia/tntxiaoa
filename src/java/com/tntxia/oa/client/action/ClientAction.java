@@ -142,10 +142,13 @@ public class ClientAction extends CommonDoAction {
 	}
 
 	@SuppressWarnings("rawtypes")
-	public List listContact(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		String sql = "select  nameid,name,cotel,coname,waptel,email from linkman";
-		return dbManager.queryForList(sql, true);
+	public Map<String,Object> listContact(WebRuntime runtime) throws Exception {
+		PageBean pageBean = runtime.getPageBean();
+		int top = pageBean.getTop();
+		String sql = "select top " + top + " * from linkman";
+		List list = dbManager.queryForList(sql, true);
+		int count = dbManager.getCount("select count(*) from linkman");
+		return this.getPagingResult(list, pageBean, count);
 
 	}
 
