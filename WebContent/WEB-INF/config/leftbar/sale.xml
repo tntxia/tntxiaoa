@@ -28,9 +28,9 @@
 		<bar name="客户管理">
 			<button url="#sale_client_list_potential"
 				restrain="qzzt">潜在客户</button>
-			<button url="#sale_client_list"
+			<button url="#sale/client_list"
 				restrain="xhzt">现有客户</button>
-			<button url="#sale_client_contact_list"
+			<button url="#sale/client_contact_list"
 				restrain="linkzt">联系人</button>
 			<button url="#sale_client_request_list"
 				restrain="serverzt">客户服务</button>
