@@ -32,7 +32,6 @@ public class ClientAction extends CommonDoAction {
 	
 	@SuppressWarnings("unchecked")
 	public Map<String,Object> add(WebRuntime runtime) throws Exception{
-		
 		Map<String,String> paramMap = runtime.getParamMap();
 		String number = NumberFactory.generateNumber("CL");
 		paramMap.put("number", number);
@@ -42,10 +41,10 @@ public class ClientAction extends CommonDoAction {
 		paramMap.put("dept", dept);
 		String deptjb = this.getDeptjb(runtime);
 		paramMap.put("deptjb", deptjb);
-		paramMap.put("cotypes", "现有客户");
-		
+		String type = runtime.getParam("type");
+		String cotypes = "2".equals(type) ? "潜在客户" : "现有客户";
+		paramMap.put("cotypes", cotypes);
 		return HttpTrans.getMap("http://localhost:8080/OAService/services/client.add", paramMap);
-		
 	}
 
 	@SuppressWarnings("rawtypes")

@@ -3,20 +3,17 @@
 	<currentBarIndex>7</currentBarIndex>
 	<bars>
 		<bar name="合同管理" restrain="subzt">
-			<button url="#sale_list_draft">新增合同</button>
-			<button url="#sale_list_approving">待审合同</button>
-			<button url="#sale_list_approved">已审合同</button>
-			<button url="#sale_list_deleted"
+			<button url="#sale/list_draft">新增合同</button>
+			<button url="#sale/list_approving">待审合同</button>
+			<button url="#sale/list_approved">已审合同</button>
+			<button url="#sale/list_deleted"
 				restrain="view_sale_del">已删合同</button>
 		</bar>
 		<bar name="销售跟进">
-			<button url="#sale_product_list"
+			<button url="#sale/product_list"
 				restrain="r_xscp_zt">产品列表</button>
-			<button url="#sale_inquiry_list" restrain="r_cus_xj_zt">询价管理</button>
+			<button url="#sale/inquiry_list" restrain="r_cus_xj_zt">询价管理</button>
 			<button url="#sale_quote_list_draft" restrain="quotezt">报价管理</button>
-			<button url="#sale_message"
-				restrain="r_dzzx_zt">短信群发</button>
-			<button url="#sale_email" ico="ico/3-12.gif" restrain="r_dzzx_zt">电子邮件</button>
 		</bar>
 		<bar name="项目管理" restrain="xmzt">
 			<button url="#sale_project_list_executing">项目执行中</button>
@@ -26,7 +23,7 @@
 			<button url="#sale_partner_list">合作伙伴</button>
 		</bar>
 		<bar name="客户管理">
-			<button url="#sale_client_list_potential"
+			<button url="#sale/client_list_potential"
 				restrain="qzzt">潜在客户</button>
 			<button url="#sale/client_list"
 				restrain="xhzt">现有客户</button>

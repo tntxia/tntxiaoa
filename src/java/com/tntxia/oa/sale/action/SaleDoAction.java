@@ -13,7 +13,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -21,7 +20,6 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 
 import com.tntxia.date.DateUtil;
-import com.tntxia.db.DBConnection;
 import com.tntxia.db.InsertSegmentCombine;
 import com.tntxia.dbmanager.DBManager;
 
@@ -41,7 +39,6 @@ import com.tntxia.oa.util.BigDecimalUtils;
 import com.tntxia.oa.util.ListUtils;
 import com.tntxia.oa.util.MapUtils;
 import com.tntxia.sqlexecutor.Transaction;
-import com.tntxia.web.ParamUtils;
 import com.tntxia.web.mvc.PageBean;
 import com.tntxia.web.mvc.WebRuntime;
 import com.tntxia.web.mvc.view.FileView;
@@ -1943,39 +1940,14 @@ public class SaleDoAction extends CommonDoAction {
 	 * @throws Exception
 	 */
 	@SuppressWarnings({ "rawtypes"})
-	public Map<String,Object> listInquiry(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public Map<String,Object> listInquiry(WebRuntime runtime) throws Exception {
 
-		Map<String, Object> result = new HashMap<String, Object>();
-		String currentDate = DateUtil.getCurrentDateSimpleStr();
-		
-		java.sql.ResultSet sqlRst;
+		String strSQL;
+		String username1 = this.getUsername(runtime);
 
-		java.lang.String strSQL;
-		int intPageSize;
-		int intRowCount = 0;
-		int intPageCount;
-		int intPage;
-		java.lang.String strPage;
-		int i, j;
-		intPageSize = 100;
-		strPage = request.getParameter("page");
+		String deptjb = this.getDeptjb(runtime);
 
-		if (strPage == null) {
-			intPage = 1;
-		} else {
-
-			intPage = java.lang.Integer.parseInt(strPage);
-			if (intPage < 1)
-				intPage = 1;
-		}
-		HttpSession session = request.getSession();
-		DBConnection einfodb = new DBConnection();
-		String username1 = (String) session.getAttribute("username");
-
-		String deptjb = (String) session.getAttribute("deptjb");
-
-		boolean quoteview = this.existRight(request, "r_cus_xj_view");
+		boolean quoteview = this.existRight(runtime, "r_cus_xj_view");
 
 		String sqlWhere = "";
 
@@ -1986,79 +1958,26 @@ public class SaleDoAction extends CommonDoAction {
 			sqlWhere += " where  deptjb  like '" + deptjb + "%' ";
 		} else {
 			sqlWhere += " where  man='" + username1 + "' ";
-
 		}
 
-		String pro_model = ParamUtils.unescape(request, "pro_model");
+		String pro_model = runtime.getParam("pro_model");
 		if (StringUtils.isNotEmpty(pro_model)) {
 			sqlWhere += " and  product like '%" + pro_model + "%' ";
 		}
 
-		sqlRst = einfodb.executeQuery(strSQL + sqlWhere);
-		if (sqlRst.next()) {
-			intRowCount = sqlRst.getInt(1);
-		}
+		int count = dbManager.getCount(strSQL + sqlWhere);
 
-		// sqlRst.close();
-		intPageCount = (intRowCount + intPageSize - 1) / intPageSize;
-		if (intPage > intPageCount)
-			intPage = intPageCount;
-
-		int top = intPage * 100;
+		PageBean pageBean = runtime.getPageBean();
+		int top = pageBean.getTop();
 
 		strSQL = "select  top "
 				+ top
 				+ " id,states,coname,cotel,product,cpro,pro_p_year,supplier,quantity,price,price_hb,p_price,p_hb,q_price,pro_report,xj_date,man from ixjview ";
 
-		sqlRst = einfodb.executeQuery(strSQL + sqlWhere
-				+ "  order by quotedatetime desc");
-
-		i = (intPage - 1) * intPageSize;
-
-		for (j = 0; j < i; j++)
-			sqlRst.next();
-
-		i = 0;
-
-		List list = new ArrayList();
-
-		while (i < intPageSize && sqlRst.next()) {
-			Map map = new HashMap();
-			map.put("id", sqlRst.getInt("id"));
-			map.put("states", sqlRst.getString("states"));
-			map.put("coname", sqlRst.getString("coname"));
-			map.put("cpro", sqlRst.getString("cpro"));
-			map.put("pro_p_year", sqlRst.getString("pro_p_year"));
-			map.put("supplier", sqlRst.getString("supplier"));
-			map.put("quantity", sqlRst.getString("quantity"));
-			map.put("price", sqlRst.getString("price"));
-			map.put("price_hb", sqlRst.getString("price_hb"));
-			map.put("p_price", sqlRst.getString("p_price"));
-			map.put("p_hb", sqlRst.getString("p_hb"));
-			map.put("q_price", sqlRst.getString("q_price"));
-			map.put("pro_report", sqlRst.getString("pro_report"));
-			map.put("man", sqlRst.getString("man"));
-			map.put("q_price", sqlRst.getString("q_price"));
-			map.put("xj_date", sqlRst.getString("xj_date"));
-			list.add(map);
-
-			i++;
-		}
-
-		einfodb.close();
-
-		result.put("rows", list);
-
-		result.put("currentDate", currentDate);
-		result.put("totalAmount", intRowCount);
-		result.put("page", intPage);
-		result.put("pageSize", intPageSize);
-
-		// 用户是否有查看前50销售产品的权限
-		result.put("hasViewTopRight",
-				super.existRight(request, "sale_view_top_50"));
-
-		return result;
+		List list = dbManager.queryForList(strSQL + sqlWhere
+				+ "  order by quotedatetime desc", true);
+		
+		return this.getPagingResult(list, pageBean, count);
 
 	}
 	
