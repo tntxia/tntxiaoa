@@ -114,11 +114,11 @@ public class UserAlertAction extends CommonDoAction{
 		items.add(new UserToDoItem("未读邮件",runtime.getBasePath()+"/mail.mvc",this.getMailCount(username)));
 		
 		items.add(new UserToDoItem("待跟进客户数量","#",this.getCustomerFollowCount(username)));
-		items.add(new UserToDoItem("销售待审批数量","#sale_list_approving",this.getSaleToAuditCount(deptjb, username)));
+		items.add(new UserToDoItem("销售待审批数量","#sale/list_approving",this.getSaleToAuditCount(deptjb, username)));
 		items.add(new UserToDoItem("待审批退货","#",this.getRefundToAuditCount(username)));
 		items.add(new UserToDoItem("待审报价单数量","#sale_quote_list_draft?status=approving",this.getQuoteCount(username)));
 		items.add(new UserToDoItem("待审凭证数量","#",this.getCreditDebitCount(username)));
-		items.add(new UserToDoItem("待审批样品","#",this.getSampleToAuditCount(username)));
+		items.add(new UserToDoItem("待审批样品","#sale/sample_list_approving",this.getSampleToAuditCount(username)));
 		items.add(new UserToDoItem("待归还样品","#",this.getSampleToReturnCount(username)));
 		
 		items.add(new UserToDoItem("待审采购订单数量",runtime.getBasePath()+"/purchasing/toAudit.mvc",this.getPurchaseCount(username)));

@@ -145,6 +145,7 @@ public class ClientAction extends CommonDoAction {
 		PageBean pageBean = runtime.getPageBean();
 		int top = pageBean.getTop();
 		String sql = "select top " + top + " * from linkman";
+		String sqlWhere = "where 1 = 1";
 		List list = dbManager.queryForList(sql, true);
 		int count = dbManager.getCount("select count(*) from linkman");
 		return this.getPagingResult(list, pageBean, count);

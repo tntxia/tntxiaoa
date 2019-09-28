@@ -13,14 +13,14 @@
 			<button url="#sale/product_list"
 				restrain="r_xscp_zt">产品列表</button>
 			<button url="#sale/inquiry_list" restrain="r_cus_xj_zt">询价管理</button>
-			<button url="#sale_quote_list_draft" restrain="quotezt">报价管理</button>
+			<button url="#sale/quote_list_draft" restrain="quotezt">报价管理</button>
 		</bar>
 		<bar name="项目管理" restrain="xmzt">
-			<button url="#sale_project_list_executing">项目执行中</button>
-			<button url="#sale_project_list_finish">项目完成</button>
+			<button url="#sale/project_list_executing">项目执行中</button>
+			<button url="#sale/project_list_finish">项目完成</button>
 		</bar>
 		<bar name="合作伙伴" restrain="hzzt">
-			<button url="#sale_partner_list">合作伙伴</button>
+			<button url="#sale/partner_list">合作伙伴</button>
 		</bar>
 		<bar name="客户管理">
 			<button url="#sale/client_list_potential"
@@ -53,8 +53,8 @@
 			<button url="#sale_work_report_monthly">月工作报表</button>
 		</bar>
 		<bar name="样品管理" restrain="r_sam_zt">
-			<button url="sale/ypgl/draftList.mvc">新增样品</button>
-			<button url="sale/ypgl/auditingList.mvc">待审样品</button>
+			<button url="#sale/sample_list_draft">新增样品</button>
+			<button url="#sale/sample_list_approving">待审样品</button>
 			<button url="sale/ypgl/auditedList.mvc">已审样品</button>
 			<button url="sale/index.mvc#sale_sample_to_return_list">待归还</button>
 			<button url="sale/ypgl/returnList.mvc">已归还</button>
