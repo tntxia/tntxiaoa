@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mvcList>
 
+	<mvcView url="index.mvc">
+		<title>OA</title>
+		<isWholePage>true</isWholePage>
+		<charset>UTF-8</charset>
+		<scripts>
+			<script>
+				<src>/static/lib/web-install/js/web-install.js</src>
+				<resource-path>/oa_static</resource-path>
+			</script>
+		</scripts>
+	</mvcView>
+
 	<mvcView url="login.mvc" handler="com.tntxia.oa.main.action.mvc.LoginViewAction">
 		<title>登陆</title>
 		<isWholePage>true</isWholePage>
@@ -38,48 +50,6 @@
 		</scripts>
 		<templates>
 			<template>login/login_mobile.ftl</template>
-		</templates>
-	</mvcView>
-	
-	<mvcView url="index.mvc" handler="com.tntxia.oa.main.action.IndexAction">
-		<title>OA</title>
-		<isWholePage>true</isWholePage>
-		<charset>UTF-8</charset>
-		<stylesheets>
-			<stylesheet>/oa_static/css/top.css</stylesheet>
-			<stylesheet>/static/lib/font-awesome/css/font-awesome.css</stylesheet>
-			<stylesheet>/static/lib/bootstrap/css/bootstrap.css</stylesheet>
-			<stylesheet>/static/lib/jxiaui/0.1/css/jxiaui.css</stylesheet>
-			<stylesheet>/static/lib/jxiaui/0.1/css/jxiaui.datepicker.css</stylesheet>
-			<stylesheet>/static/lib/jxiaui/0.1/css/jxiaui.datagrid.css</stylesheet>
-			<stylesheet>/static/lib/jxiaui/0.1/css/jxiaui.dialog.css</stylesheet>
-			<stylesheet>/static/lib/jxiaui/0.1/css/jxiaui.tabs.css</stylesheet>
-			<stylesheet>/static/lib/jxiaui/0.1/css/jxiaui.combobox.css</stylesheet>
-			<stylesheet>css/cwface.css</stylesheet>
-			<stylesheet>css/tntxiaui/style.css</stylesheet>
-			<stylesheet>css/style.css</stylesheet>
-		</stylesheets>
-		<scripts>
-			<script>/static/lib/jquery/jquery.js</script>
-			<script>/static/lib/vue/vue.js</script>
-			<script>/static/lib/jxiaui/js/jxiaui.js</script>
-			<script>/static/lib/jxiaui/0.1/dist/jxiaui.js</script>
-			<script>/static/lib/jxiaui/0.1/js/jxiaui.js</script>
-			<script>/static/lib/jxiaui/0.1/js/tabs.js</script>
-			<script>js/lib/jxiaui/datepick.js</script>
-			<script>/static/lib/bootstrap/js/bootstrap.js</script>
-			<script>/static/lib/bootstrap-plus/js/bootstrap-utils.js</script>
-			<script>/static/lib/bootstrap-plus/js/bootstrap.grid.js</script>
-			<script>/oa_static/js/appinfo.js</script>
-			<script>/oa_static/js/top.js</script>
-			<script>/static/lib/module_route/module_route.js</script>
-			<script>/static/lib/js-install/js/js-install.js</script>
-			<script>js/welcome.js</script>
-			<script>js/index.js</script>
-		</scripts>
-		<templates>
-			<template>common/oa_common_header.ftl</template>
-			<template>index.ftl</template>
 		</templates>
 	</mvcView>
 	
