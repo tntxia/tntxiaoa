@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 
+import org.apache.commons.lang.StringUtils;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
@@ -21,7 +22,12 @@ public class LeftbarAction extends CommonAction  {
 	public List execute(WebRuntime runtime) throws Exception {
 		ServletContext context = runtime.getServletContext();
 		
+		List<Map<String,Object>> bars = new ArrayList<Map<String,Object>>();
+		
 		String type = runtime.getParam("type");
+		if (StringUtils.isEmpty(type)) {
+			return bars;
+		}
 		
 		File leftbarFile = new File(context.getRealPath("/WEB-INF/config/leftbar/" + type + ".xml"));
 		SAXReader saxReader = new SAXReader();
@@ -30,8 +36,6 @@ public class LeftbarAction extends CommonAction  {
         Element root = document.getRootElement();
         
         List list = root.selectNodes("bars/bar");
-        
-        List<Map<String,Object>> bars = new ArrayList<Map<String,Object>>();
         
         for(int i=0;i<list.size();i++){
         	Map<String,Object> map = new HashMap<String,Object>();
