@@ -344,17 +344,17 @@ public class MemberAction extends CommonDoAction {
 	}
 	
 	
-	public Map<String,Object> uploadPic(WebRuntime runtime) throws Exception{
-		MultipartForm form = runtime.getMultipartForm();
-		String id = form.getString("id");
-		String uploadPath = PropertiesUtils.getProperty("upload_path");
-		List<String> saveRes = form.save(uploadPath);
-		String sql = "update menber set pic_path = ? where id = ?";
-		dbManager.update(sql, new Object[] {saveRes.get(0),id});
-		return this.success();
-		
-	}
-	
+//	public Map<String,Object> uploadPic(WebRuntime runtime) throws Exception{
+//		MultipartForm form = runtime.getMultipartForm();
+//		String id = form.getString("id");
+//		String uploadPath = PropertiesUtils.getProperty("upload_path");
+//		List<String> saveRes = form.save(uploadPath);
+//		String sql = "update menber set pic_path = ? where id = ?";
+//		dbManager.update(sql, new Object[] {saveRes.get(0),id});
+//		return this.success();
+//		
+//	}
+//	
 	public FileView getPic(WebRuntime runtime) throws Exception{
 		String sql = "select pic_path from menber where id = ?";
 		String id = runtime.getParam("id");

@@ -6,8 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -17,18 +18,19 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import com.tntxia.date.DateUtil;
 import com.tntxia.dbmanager.DBManager;
-
+import com.tntxia.httptrans.HttpTransfer;
+import com.tntxia.httptrans.HttpTransferFactory;
 import com.tntxia.oa.common.action.CommonDoAction;
 import com.tntxia.oa.purchasing.dao.SupplierLightDao;
 import com.tntxia.oa.system.dao.DepartmentDao;
 import com.tntxia.oa.system.entity.Department;
 import com.tntxia.oa.user.service.UserService;
-import com.tntxia.oa.util.PropertiesUtils;
 import com.tntxia.sqlexecutor.Transaction;
 import com.tntxia.web.mvc.PageBean;
 import com.tntxia.web.mvc.WebRuntime;
-import com.tntxia.web.mvc.entity.MultipartForm;
+import com.tntxia.web.mvc.annotation.Param;
 import com.tntxia.web.mvc.view.FileView;
+import com.tntxia.web.util.UUIDUtils;
 
 public class SupplierDoAction extends CommonDoAction {
 
@@ -218,36 +220,37 @@ public class SupplierDoAction extends CommonDoAction {
 		
 	}
 	
-	public Map<String,Object> uploadAttach(WebRuntime runtime) throws FileUploadException{
+	public Map<String,Object> uploadAttach(
+			@Param("id") String id, 
+			@Param("remark") String remark,
+			@Param("attachment") FileItem attachment,
+			HttpServletRequest request
+			) throws Exception{
 		
-		MultipartForm multiForm = runtime.getMultipartForm();
-		String id = multiForm.getString("id");
-		String remark = multiForm.getString("remark");
+		String fileNameOriginal = attachment.getName();
+		String ext = FilenameUtils.getExtension(fileNameOriginal);
 		
-		List<FileItem> fileItemList = multiForm.getFileItemList();
+		String uploadPath = request.getServletContext().getRealPath("/uploadFile");
+		File uploadDir = new File(uploadPath);
+		uploadDir.mkdirs();
+		String uuid = UUIDUtils.getUUID();
 		
-		//4.设定禁止上传的文件（通过扩展名限制）,禁止上传带有exe,bat,jsp,htm,html扩展名的文件和没有扩展名的文件。
-		try {
-			
-			FileItem fileItem = fileItemList.get(0);
-			String fileName = fileItem.getName();
-			String fileExt = FilenameUtils.getExtension(fileName);
-			
-			String uploadPath = PropertiesUtils.getProperty("upload_path");
-			File dir = new File(uploadPath);
-			dir.mkdirs();
-			
-			String filePath = dir.getAbsolutePath() +File.separator+System.currentTimeMillis()+"."+fileExt;
-			//将上传文件保存到指定目录
-			fileItem.write(new File(filePath));
-			
-			dbManager.executeUpdate("insert into supplier_attachment(supplierid,filename,filepath,remark)"
-					+" values('"+id+"','"+fileName+"','"+filePath+"','"+remark+"')");
-	
-				
-		} catch (Exception e) {
-			e.printStackTrace();
+		String tempPath = uploadDir.getAbsolutePath() + File.separatorChar + uuid + "." + ext;
+		File tempFile = new File(tempPath);
+		System.out.println("文件写入" + tempFile.getAbsolutePath());
+		attachment.write(tempFile);
+		
+		HttpTransfer trans = HttpTransferFactory.generate("file_center");
+		Map<String,Object> res = trans.uploadFile("file!upload", tempPath, new HashMap<String, String>());
+		
+		if (res==null || !(boolean)res.get("success")) {
+			return this.errorMsg("附件上传失败");
 		}
+		
+		uuid = (String) res.get("uuid");
+		
+		dbManager.executeUpdate("insert into supplier_attachment(supplierid,file_id,remark)"
+				+" values('"+id+"',?,'"+remark+"')", new Object[] {uuid});
 		return this.success();
 	}
 	
@@ -286,24 +289,23 @@ public class SupplierDoAction extends CommonDoAction {
 	 * @return
 	 * @throws Exception
 	 */
-	public Map<String,Object> importSupplier(WebRuntime runtime) throws Exception{
+	public Map<String,Object> importSupplier(
+			@Param("attachment") FileItem attachment,
+			HttpServletRequest request) throws Exception{
 		
-		MultipartForm multiForm = runtime.getMultipartForm();
 		
-		List<FileItem> fileItemList = multiForm.getFileItemList();
-		FileItem fileItem = fileItemList.get(0);
+		String fileNameOriginal = attachment.getName();
+		String ext = FilenameUtils.getExtension(fileNameOriginal);
 		
-		String fileName = fileItem.getName();
-		String fileExt = FilenameUtils.getExtension(fileName);
+		String uploadPath = request.getServletContext().getRealPath("/uploadFile");
+		File uploadDir = new File(uploadPath);
+		uploadDir.mkdirs();
+		String uuid = UUIDUtils.getUUID();
 		
-		String uploadPath = PropertiesUtils.getProperty("upload_path");
-		File dir = new File(uploadPath);
-		dir.mkdirs();
-		
-		String filePath = dir.getAbsolutePath() +File.separator+System.currentTimeMillis()+"."+fileExt;
-		File excelFile = new File(filePath);
-		//将上传文件保存到指定目录
-		fileItem.write(excelFile);
+		String tempPath = uploadDir.getAbsolutePath() + File.separatorChar + uuid + "." + ext;
+		File tempFile = new File(tempPath);
+		System.out.println("文件写入" + tempFile.getAbsolutePath());
+		attachment.write(tempFile);
 		 
 		Transaction trans = this.getTransaction();
 		HSSFWorkbook workbook = null;
@@ -313,7 +315,7 @@ public class SupplierDoAction extends CommonDoAction {
 		
 		try {
 			
-			workbook=new HSSFWorkbook(new FileInputStream(excelFile));
+			workbook=new HSSFWorkbook(new FileInputStream(tempFile));
 			HSSFSheet sheet=workbook.getSheetAt(0);
 			int amount=sheet.getLastRowNum();
 			

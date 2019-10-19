@@ -54,9 +54,15 @@ public class ClientAction extends CommonDoAction {
 		PageBean pageBean = runtime.getPageBean(20);
 
 		String sqlWhere = "";
-		String name = runtime.getParam("name");
+		
+		String name = runtime.getParam("coname");
 		if (StringUtils.isNotEmpty(name)) {
 			sqlWhere += " and coname like '%" + name + "%'";
+		}
+		
+		String follower = runtime.getParam("follower");
+		if (StringUtils.isNotEmpty(follower)) {
+			sqlWhere += " and follower like '%" + follower + "%'";
 		}
 
 		String sql = "select top " + pageBean.getTop()
