@@ -1,10 +1,12 @@
 
+drop table if exists menu;
 CREATE TABLE menu(
-	id int NOT NULL auto_increment,
+	id varchar(32),
 	name varchar(100),
 	url varchar(100),
 	key_name varchar(50),
-	order_no int
+	order_no int,
+	pid varchar(32)
 )
 
 drop table if exists leftbar;

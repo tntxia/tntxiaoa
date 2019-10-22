@@ -13,12 +13,27 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
-import com.tntxia.oa.util.CommonAction;
+import com.tntxia.dbmanager.DBManager;
+import com.tntxia.oa.common.action.CommonDoAction;
 import com.tntxia.web.mvc.WebRuntime;
 
-public class LeftbarAction extends CommonAction  {
+public class LeftbarAction extends CommonDoAction  {
+	
+	private DBManager dbManager = this.getDBManager("oa_back");
+	
+	private String getParentId(String type) throws Exception {
+		String sql = "select * from menu where key_name = ?";
+		Map<String,Object> menu = dbManager.queryForMap(sql, new Object[] {type}, true);
+		return (String) menu.get("id");
+	}
 	
 	@SuppressWarnings("rawtypes")
+	private List getChildrenMenus(String parentId) throws Exception {
+		String sql = "select * from menu where pid = ? order by order_no";
+		return dbManager.queryForList(sql, new Object[] {parentId}, true);
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public Map<String, Object> execute(WebRuntime runtime) throws Exception {
 		ServletContext context = runtime.getServletContext();
 		
@@ -61,6 +76,19 @@ public class LeftbarAction extends CommonAction  {
 	        	bars.add(map);
 	        }
 	        res.put(type, bars);
+		}
+		
+		String[] types = new String[] {"warehouse", "purchasing"};
+		for(String type: types) {
+			String parentId = this.getParentId(type);
+			List menuListL1 = this.getChildrenMenus(parentId);
+			for(int i=0;i<menuListL1.size();i++) {
+				Map<String,Object> menu = (Map<String,Object>) menuListL1.get(i);
+				String menuId = (String) menu.get("id");
+				List subMenus = this.getChildrenMenus(menuId);
+				menu.put("buttons", subMenus);
+			}
+			res.put(type, menuListL1);
 		}
 		
 		return res;

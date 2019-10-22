@@ -32,7 +32,7 @@ public class MenuAction extends BaseAction{
 			}
 		}
 		
-		String sql = "select * from menu where id in (select menu_id from restrain_menu where restrain_id in ("+ids+")) order by order_no";
+		String sql = "select * from menu where pid is null and id in (select menu_id from restrain_menu where restrain_id in ("+ids+")) order by order_no";
 		return dbManager.queryForList(sql, true);
 	}
 

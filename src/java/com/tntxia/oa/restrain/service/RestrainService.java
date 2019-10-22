@@ -12,7 +12,7 @@ public class RestrainService extends CommonService{
 	private DBManager dbManager = this.getDBManager("oa_back");
 	
 	@SuppressWarnings("rawtypes")
-	public List listIds(String userId) throws Exception {
+	public List<Integer> listIds(String userId) throws Exception {
 		String sql = "select role_id from user_role_rel where user_id = ?";
 		List<Integer> ids = new ArrayList<Integer>();
 		List list = dbManager.queryForList(sql,new Object[] {userId},	 true);
