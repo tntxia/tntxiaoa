@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
 import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
@@ -30,6 +31,7 @@ import com.tntxia.oa.util.PropertiesUtils;
 import com.tntxia.oa.warehouse.entity.WarehouseType;
 import com.tntxia.web.util.DatasourceStore;
 
+@WebListener
 public class StartInitListener implements ServletContextListener {
 
 	private static final Logger logger = Logger

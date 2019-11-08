@@ -9,7 +9,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import com.tntxia.date.DateUtil;
+import com.tntxia.common.date.DateUtil;
 import com.tntxia.dbmanager.DBManager;
 import com.tntxia.math.BigDecimalUtils;
 import com.tntxia.oa.common.NumberFactory;
@@ -437,7 +437,7 @@ public class FinanceLightService extends CommonService{
 		if (compare<0) {
 			throw new Exception("收款金额大于未收款金额");
 		}
-		String date = com.tntxia.date.DateUtil.getCurrentDateSimpleStr();
+		String date = DateUtil.getCurrentDateSimpleStr();
 		
 		// 如果冲帐的金额，刚好是待收的金额，则记账为已收款
 		if (compare==0) {
@@ -510,7 +510,7 @@ public class FinanceLightService extends CommonService{
 				params.put("l_dept", user.getDept());
 				params.put("deptjb", user.getDeptjb());
 				params.put("c_d", "贷方");
-				params.put("l_date", com.tntxia.date.DateUtil.getCurrentDateSimpleStr());
+				params.put("l_date", DateUtil.getCurrentDateSimpleStr());
 				String l_coname = (String) gathering.get("coname");
 				params.put("l_coname", l_coname);
 				

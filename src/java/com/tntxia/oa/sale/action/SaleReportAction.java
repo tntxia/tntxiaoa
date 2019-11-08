@@ -1,31 +1,74 @@
 package com.tntxia.oa.sale.action;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.tntxia.common.date.DateUtil;
 import com.tntxia.dbmanager.DBManager;
+import com.tntxia.httpclient.HttpClient;
+import com.tntxia.httpclient.InputSteamEntityHandler;
 import com.tntxia.oa.common.NumberFactory;
 import com.tntxia.oa.common.action.CommonDoAction;
 import com.tntxia.web.mvc.PageBean;
 import com.tntxia.web.mvc.WebRuntime;
+import com.tntxia.web.mvc.annotation.Param;
+import com.tntxia.web.mvc.annotation.Session;
 
 public class SaleReportAction extends CommonDoAction {
 	
 	private DBManager dbManager = this.getDBManager("oa_report");
 	
+	private DBManager dbManager2 = this.getDBManager();
+	
 	@SuppressWarnings("rawtypes")
-	public Map<String,Object> listWorkPlanMonth(WebRuntime runtime) throws Exception {
+	public Map<String,Object> saleReportMonth(@Param("year") Integer year, @Param("month") Integer month, 
+			@Session("username") String username, PageBean pageBean) throws Exception {
 		
-		PageBean pageBean = runtime.getPageBean();
+		Date[] between = DateUtil.getMonthStartAndEndDate(year, month);
+		Date startDate = between[0];
+		Date endDate = between[1];
+		String sqlWhere = " where s.datetime >= ? and s.datetime < ? and s.man = ?";
+		String sql = "select top "+pageBean.getTop()+" s.id,s.number, s.coname, s.man , m.total, s.datetime from subscribe s left outer join sale_order_money m on s.id = m.order_id  " + sqlWhere + " order by s.datetime desc";
+		System.out.println(sql);
+		List list = dbManager2.queryForList(sql, new Object[] {startDate, endDate, username}, true);
+		sql = "select count(*) from subscribe s " + sqlWhere;
+		int count = dbManager2.getCount(sql, new Object[] {startDate, endDate, username});
+		
+		return this.getPagingResult(list, pageBean, count);
+	}
+	
+	public Map<String,Object> exportSaleReportMonth(@Param("year") Integer year, @Param("month") Integer month, 
+			@Session("username") String username, PageBean pageBean) throws Exception {
+		
+		Map<String,Object> params = new HashMap<String, Object>();
+		params.put("template", "sale_monthly_report");
+		
+		Map<String,Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("username", username);
+		paramMap.put("year", year);
+		paramMap.put("month", month);
+		params.put("paramMap", paramMap);
+		HttpClient httpclient = new HttpClient("http://localhost/ReportCenter/report!generate.do");
+		Map<String,Object> httpRes = httpclient.getMap(params, new InputSteamEntityHandler());
+		return httpRes;
+	}
+	
+	
+	@SuppressWarnings("rawtypes")
+	public Map<String,Object> listWorkPlanMonth(@Param("year") Integer year, @Param("month") Integer month, 
+			@Session("username") String username, PageBean pageBean) throws Exception {
+		
 		String sql = "select top "+pageBean.getTop()+" * from work_plan_month order by create_time desc";
 		List list = dbManager.queryForList(sql, true);
 		sql = "select count(*) from work_plan_month";
 		int count = dbManager.getCount(sql);
 		
-		return this.getPagingResult(list, runtime, count);
+		return this.getPagingResult(list, pageBean, count);
 	}
 	
 	@SuppressWarnings("rawtypes")

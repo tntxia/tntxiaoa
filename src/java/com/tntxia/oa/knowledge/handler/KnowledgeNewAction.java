@@ -1,6 +1,6 @@
 package com.tntxia.oa.knowledge.handler;
 
-import com.tntxia.date.DateUtil;
+import com.tntxia.common.date.DateUtil;
 import com.tntxia.oa.common.handler.HandlerWithHeader;
 import com.tntxia.oa.knowledge.service.KnowledgeService;
 import com.tntxia.web.mvc.WebRuntime;

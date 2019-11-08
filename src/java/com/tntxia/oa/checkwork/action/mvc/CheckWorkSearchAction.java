@@ -3,7 +3,7 @@ package com.tntxia.oa.checkwork.action.mvc;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.tntxia.date.DateUtil;
+import com.tntxia.common.date.DateUtil;
 import com.tntxia.oa.checkwork.service.CheckworkService;
 import com.tntxia.oa.common.handler.HandlerWithHeaderAndLeftbar;
 import com.tntxia.web.mvc.WebRuntime;

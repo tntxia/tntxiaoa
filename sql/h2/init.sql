@@ -595,6 +595,15 @@ CREATE TABLE subscribe(
 	return_remark ntext NULL
 )
 
+create table sale_order_money(
+	id varchar(32) not null,
+	order_id varchar(32) not null,
+	currency char(3) NOT NULL,
+	total decimal(18, 2) NOT NULL,
+	total_product decimal(18, 2) NOT NULL,
+	other_fee decimal(18, 2) NOT NULL
+)
+
 CREATE TABLE workreport_r(
 	id int IDENTITY(1,1) NOT NULL,
 	w_menber nvarchar(25) NOT NULL,

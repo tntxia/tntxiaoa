@@ -4,7 +4,7 @@ import infocrmdb.infocrmdb;
 
 import java.sql.ResultSet;
 
-import com.tntxia.date.DateUtil;
+import com.tntxia.common.date.DateUtil;
 import com.tntxia.oa.mail.entity.Mail;
 
 /**

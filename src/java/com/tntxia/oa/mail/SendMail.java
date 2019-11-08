@@ -3,7 +3,7 @@ package com.tntxia.oa.mail;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import com.tntxia.date.DateUtil;
+import com.tntxia.common.date.DateUtil;
 import com.tntxia.db.DBConnection;
 import com.tntxia.sqlexecutor.Transaction;
 

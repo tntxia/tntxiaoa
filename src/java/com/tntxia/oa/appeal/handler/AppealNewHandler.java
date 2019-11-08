@@ -2,7 +2,7 @@ package com.tntxia.oa.appeal.handler;
 
 import java.util.Map;
 
-import com.tntxia.date.DateUtil;
+import com.tntxia.common.date.DateUtil;
 import com.tntxia.oa.common.handler.OACommonHandler;
 import com.tntxia.web.mvc.WebRuntime;
 

@@ -173,11 +173,9 @@ public class UserDao extends BaseDao{
 	public User getUser(String name) throws Exception{
 		
 		String sql = SystemCache.sqlmapping.get("getUserByName");
-		
 		System.out.println(sql);
 		
 		List list = dbManager.queryForList(sql,new Object[]{name},true);
-		
 		if(list.size()==0){
 			return null;
 		}

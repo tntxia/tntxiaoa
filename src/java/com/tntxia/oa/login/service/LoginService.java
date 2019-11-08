@@ -29,7 +29,7 @@ public class LoginService {
 
 		Map<String,Object> res = new HashMap<String,Object>();
 		res.put(JSONReturnConst.SUCCESS_FLAG, false);
-		res.put(JSONReturnConst.ERROR_MSG, "用户不存在");
+		res.put(JSONReturnConst.ERROR_MSG, msg);
 		return  res;
 	}
 	

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.io.FilenameUtils;
 
-import com.tntxia.date.DateUtil;
+import com.tntxia.common.date.DateUtil;
 import com.tntxia.dbmanager.DBManager;
 import com.tntxia.httptrans.HttpTransfer;
 import com.tntxia.httptrans.HttpTransferFactory;
@@ -35,11 +35,11 @@ public class KnowledgeAction extends CommonDoAction {
 		return this.getPagingResult(list, pageBean, count);		
 	}
 	
-	public Map<String,Object> detail(WebRuntime runtime) throws Exception {
-		String sql = "select * from km_ty where id = ?";
-		String id = runtime.getParam("id");
-		return this.success("detail", dbManager.queryForMap(sql,new Object[] {id}, true));
-	}
+//	public Map<String,Object> detail(WebRuntime runtime) throws Exception {
+//		String sql = "select * from km_ty where id = ?";
+//		String id = runtime.getParam("id");
+//		return this.success("detail", dbManager.queryForMap(sql,new Object[] {id}, true));
+//	}
 	
 	@SuppressWarnings("rawtypes")
 	public Map<String,Object> list(WebRuntime runtime) throws Exception {
