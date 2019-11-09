@@ -5,15 +5,14 @@ import java.util.Map;
 
 
 import com.tntxia.dbmanager.DBManager;
-import com.tntxia.oa.common.handler.HandlerWithHeaderAndLeftbar;
-
+import com.tntxia.oa.common.handler.OACommonHandler;
 import com.tntxia.oa.sale.entity.SalePro;
 import com.tntxia.oa.sale.service.SaleLightService;
 import com.tntxia.oa.warehouse.Warehouse;
 import com.tntxia.oa.warehouse.WarehouseManager;
 import com.tntxia.web.mvc.WebRuntime;
 
-public class OutOperateAction  extends HandlerWithHeaderAndLeftbar{
+public class OutOperateAction  extends OACommonHandler{
 	
 	private DBManager dbManager = this.getDBManager();
 	
