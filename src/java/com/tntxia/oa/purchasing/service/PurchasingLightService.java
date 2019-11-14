@@ -34,7 +34,7 @@ public class PurchasingLightService extends CommonService{
 			res.setMoney((String)rs.get("money"));
 			res.setMan((String)rs.get("man"));
 			String sub = (String)rs.get("sub");
-			res.setSaleNumber(sub.trim());
+			res.setSaleNumber(sub);
 			res.setWarehouse((String)rs.get(""));
 			res.setSupplierNumber((String)rs.get("co_number"));
 			res.setSupplier((String)rs.get("coname"));

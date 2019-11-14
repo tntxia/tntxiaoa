@@ -151,7 +151,7 @@ public class WarehouseLightDao extends BaseDao {
 		String pro_remark = (String)params.get("pro_remark");
 		
 		String sql = "insert into warehouse(pro_model,pro_gg," +
-				"pro_name,pro_number,pro_num,pro_addr,pro_remark)" +
+				"pro_name,pro_sup_number,pro_num,pro_addr,pro_remark)" +
 				" values(?,?,?,?,?,?,?)";
 		
 		dbManager.update(sql, new Object[]{model,pro_gg,pro_name,pro_sup_number,

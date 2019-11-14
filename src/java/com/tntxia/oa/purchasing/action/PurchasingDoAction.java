@@ -3,7 +3,6 @@ package com.tntxia.oa.purchasing.action;
 import infocrmdb.DealString;
 
 import java.math.BigDecimal;
-import java.sql.ResultSet;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,7 +16,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
-import com.tntxia.date.DateUtil;
+import com.tntxia.common.date.DateUtil;
 import com.tntxia.db.DBConnection;
 import com.tntxia.dbmanager.DBManager;
 import com.tntxia.oa.common.NumberFactory;
@@ -39,6 +38,7 @@ import com.tntxia.sqlexecutor.Transaction;
 import com.tntxia.string.EscapeUnescape;
 import com.tntxia.web.mvc.PageBean;
 import com.tntxia.web.mvc.WebRuntime;
+import com.tntxia.web.mvc.annotation.Session;
 
 public class PurchasingDoAction extends CommonDoAction {
 
@@ -66,7 +66,7 @@ public class PurchasingDoAction extends CommonDoAction {
 	 * @return
 	 * @throws Exception
 	 */
-	public Map<String, Object> create(WebRuntime runtime) throws Exception {
+	public Map<String, Object> create(WebRuntime runtime, @Session("username") String username) throws Exception {
 
 		String keyType = "T";
 		String jump = runtime.getParam("jump");
@@ -83,7 +83,6 @@ public class PurchasingDoAction extends CommonDoAction {
 
 		String pay_if = runtime.getParam("pay_if");
 		String pay_je = runtime.getParam("pay_je");
-		String senddate1 = runtime.getParam("senddate");
 		String tbyq1 = runtime.getParam("tbyq");
 		String ponum = runtime.getParam("ponum");
 		String lxr = runtime.getParam("lxr");
@@ -95,14 +94,13 @@ public class PurchasingDoAction extends CommonDoAction {
 		String receiver_addr = runtime.getParam("receiver_addr");
 		String freight = runtime.getParam("freight");
 		String express_company = runtime.getParam("express_company");
-		String jydd = runtime.getParam("jydd");
 		String acct = runtime.getParam("acct");
 		String service_type = runtime.getParam("service_type");
 		String pay_type = runtime.getParam("pay_type");
 		String rate = runtime.getParam("rate");
 		String self_carry = runtime.getParam("self_carry");
 		String yfmoney = runtime.getParam("yfmoney");
-		String datetime1 = runtime.getParam("datetime");
+		String datetime1 = DateUtil.getCurrentDateSimpleStr();
 		String money = runtime.getParam("money");
 
 		String remarks1 = runtime.getParam("remarks");
@@ -127,7 +125,6 @@ public class PurchasingDoAction extends CommonDoAction {
 			String dept = (String) session.getAttribute("dept");
 			String deptjb = (String) session.getAttribute("deptjb");
 			String role = (String) session.getAttribute("role");
-			String username = (String) session.getAttribute("username");
 			String sqlddman = "select  * from cgsp where dept=? and role=?";
 			System.out.print(sqlddman + " " + dept + " " + role);
 			Map<String, Object> sp = trans.queryForMap(sqlddman, new Object[] { dept, role }, true);
@@ -138,16 +135,14 @@ public class PurchasingDoAction extends CommonDoAction {
 
 			String fif = (String) sp.get("fif");
 			String fspman = (String) sp.get("fspman");
-			String strSQL = "insert into procure(number,man,sub,subck,co_number,coname,pay_if,pay_je,datetime,money,senddate,tbyq,remarks,l_spqk,l_spman,l_fif,l_fspman,l_firspif,l_firspman,l_spyj,l_dept,l_deptjb,ponum,lxr,receiver,receiver_tel,receiver_addr,freight,express_company,acct,service_type,pay_type,coaddr,cotel,cofax,rate,self_carry,yfmoney,jydd) "
-					+ "values('" + number + "','" + username + "','" + sub1 + "','" + subck + "','" + co_number + "','"
-					+ coname1 + "','" + pay_if + "','" + pay_je + "','" + datetime1 + "','" + money + "','" + senddate1
-					+ "','" + tbyq1 + "','" + remarks1 + "','草拟','" + l_spman + "','" + fif + "','" + fspman
+			String strSQL = "insert into procure(number,man,sub,subck,co_number,coname,pay_if,pay_je,datetime,money,tbyq,remarks,l_spqk,l_spman,l_fif,l_fspman,l_firspif,l_firspman,l_spyj,l_dept,l_deptjb,ponum,lxr,receiver,receiver_tel,receiver_addr,freight,express_company,acct,service_type,pay_type,coaddr,cotel,cofax,rate,self_carry,yfmoney) "
+					+ "values(?,?,?,?,?,?,?,?,now(),'CNY',?,?,'草拟','" + l_spman + "','" + fif + "','" + fspman
 					+ "','否','','','" + dept + "','" + deptjb + "','" + ponum + "','" + lxr + "','" + receiver + "','"
 					+ receiver_tel + "','" + receiver_addr + "','" + freight + "','" + express_company + "','" + acct
 					+ "','" + service_type + "','" + pay_type + "','" + coaddr1 + "','" + cotel1 + "','" + cofax1
-					+ "','" + rate + "'," + self_carry + ",'" + yfmoney + "',?)";
+					+ "','" + rate + "'," + self_carry + ",'" + yfmoney + "')";
 
-			trans.update(strSQL, new Object[] { jydd });
+			trans.update(strSQL, new Object[] {number, username, sub1, subck,co_number, coname1, pay_if, pay_je, tbyq1,remarks1 });
 
 			String sql = "select id  from procure where  number='" + number + "'";
 

@@ -414,17 +414,6 @@ public class WarehouseLightService extends CommonService{
 
 	}
 	
-	private List<String> getListFromStoken(String str) {
-		// 产品编号的数组
-		List<String> res = new ArrayList<String>();
-		if (str.trim().length() > 0) {
-			for (String wid : str.split(",")) {
-				res.add(wid);
-			}
-		}
-		return res;
-	}
-	
 	/**
 	 * 
 	 * 全部销售产品出库
@@ -438,20 +427,11 @@ public class WarehouseLightService extends CommonService{
 	 * @throws SQLException
 	 * 
 	 **/
-	public String doSout(String username, String ddid, String wids, String sids)
+	@SuppressWarnings("rawtypes")
+	public String doSout(String username, String ddid, List rows)
 			throws Exception {
 		
 		String msg = null;
-
-		// 产品编号的数组
-		List<String> widList = getListFromStoken(wids);
-
-		List<String> sidList = getListFromStoken(sids);
-
-		if (widList.size() != sidList.size()) {
-			msg = "出库的选择与销售产品不一致，请刷新页面后重试";
-			return msg;
-		}
 
 		Transaction trans = this.getTransaction();
 
@@ -497,19 +477,20 @@ public class WarehouseLightService extends CommonService{
 			String deptjb = (String) saleMap.get("deptjb");
 			String remark = (String) saleMap.get("remarks");
 
-			for (int i = 0; i < sidList.size(); i++) {
+			for (int i = 0; i < rows.size(); i++) {
 				
-				String sid = sidList.get(i);
+				Map row = (Map) rows.get(i);
+				Integer id = (Integer) row.get("id");
 				
-				Map<String,Object> salePro = saleDao.getSaleProById(trans,sid);
+				Map<String,Object> salePro = saleDao.getSaleProById(trans,id);
 				Integer num = (Integer) salePro.get("num");
 				Integer s_num = (Integer) salePro.get("s_num");
 				// 检查销售订单中是否有未出库产品
 				// 有未出库产品，全部出库
 				if (num > s_num) {
 					
-					Integer ddproid = (Integer)salePro.get("id");
-					String selectedSwid = widList.get(i);
+					Integer ddproid = (Integer) salePro.get("id");
+					Integer selectedSwid = (Integer) row.get("productId");
 					
 					String pro_model = (String)salePro.get("epro");
 					String pro_name = (String)salePro.get("cpro");

@@ -37,7 +37,7 @@ public class SaleLightDao extends BaseDao{
 		return salePro;
 	}
 	
-	public Map<String,Object> getSaleProById(Transaction trans,String id) throws Exception{
+	public Map<String,Object> getSaleProById(Transaction trans,Integer id) throws Exception{
 		return trans.queryForMap("select * from ddpro where id=?", new Object[]{id}, true);
 		
 	}

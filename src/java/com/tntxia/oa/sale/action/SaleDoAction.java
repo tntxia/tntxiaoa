@@ -1,7 +1,5 @@
 package com.tntxia.oa.sale.action;
 
-import infocrmdb.DealString;
-
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.text.NumberFormat;
@@ -42,6 +40,8 @@ import com.tntxia.web.mvc.WebRuntime;
 import com.tntxia.web.mvc.view.FileView;
 import com.tntxia.web.util.DatasourceStore;
 import com.tntxia.web.util.Dom4jUtil;
+
+import infocrmdb.DealString;
 
 public class SaleDoAction extends CommonDoAction {
 	
@@ -2288,6 +2288,17 @@ public class SaleDoAction extends CommonDoAction {
 	@SuppressWarnings("rawtypes")
 	public List getSaleUserList() throws Exception {
 		return userService.getSaleUserList();
+	}
+	
+	public Map<String,Object> detail(WebRuntime runtime) throws Exception {
+		String id = runtime.getParam("id");
+		Map<String,Object> res = this.getDetail(id);
+		return this.success("data", res);
+	}
+	
+	public Map<String,Object> listProduct(WebRuntime runtime) throws Exception {
+		String id = runtime.getParam("id");
+		return this.success("data", saleService.getProductList(id));
 	}
 
 }

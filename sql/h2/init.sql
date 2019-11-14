@@ -3671,12 +3671,4 @@ CREATE TABLE c_pic(
 	pic_path nvarchar(50) NULL
 )
 
-create table menu {
-	id int IDENTITY(1,1) NOT NULL,
-	name varchar(100) NOT NULL,
-	url varchar(200),
-	order_no int,
-	pid int
-}
-
 

@@ -138,39 +138,6 @@
 		</templates>
 	</mvcView>
 	
-	<mvcView url="ddgl/new.mvc"
-		handler="com.tntxia.oa.purchasing.action.mvc.PurchasingNewAction">
-		<title>新增采购订单</title>
-		<isWholePage>true</isWholePage>
-		<charset>UTF-8</charset>
-		<stylesheets>
-			<stylesheet>/static/lib/font-awesome/css/font-awesome.css</stylesheet>
-			<stylesheet>/static/lib/font-awesome-plus/style.css</stylesheet>
-			<stylesheet>/static/lib/bootstrap/css/bootstrap.css</stylesheet>
-			<stylesheet>css/tntxiaui/style.css</stylesheet>
-			<stylesheet>css/style.css</stylesheet>
-		</stylesheets>
-		<scripts>
-			<script>/static/lib/jquery/jquery.js</script>
-			<script>/static/lib/vue/vue.js</script>
-			<script>/static/lib/bootstrap/js/bootstrap.js</script>
-			<script>/static/lib/bootstrap-plus/js/bootstrap-utils.js</script>
-			<script>/static/lib/jxiaui/js/jxiaui.js</script>
-			<script>/static/lib/jxiaui/js/datepick.js</script>
-			<script>js/common.js</script>
-			<script>js/lib/jxiaui/getParamMap.js</script>
-			<script>js/lib/jxiaui/panel.js</script>
-			<script>js/lib/jxiaui/datagrid.js</script>
-			<script>js/lib/jxiaui/crud.js</script>
-			<script>js/ckeditor.js</script>
-			<script>js/lib/oa/oautil.js</script>
-			<script>js/purchasing/purchasing-new.js</script>
-		</scripts>
-		<templates>
-			<template>purchasing/purchasing-new.ftl</template>
-		</templates>
-	</mvcView>
-	
 	<redirectView url="purchasing/detail.mvc" handler="com.tntxia.oa.purchasing.action.mvc.PurchasingDetailRedirectHandler">
 		<forward name="draft">/purchasing/draftDetail.mvc</forward>
 		<forward name="auditing_operator">/purchasing/detail/auditing_operator.mvc</forward>

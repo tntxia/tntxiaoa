@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templateList>
-
-	<template url="template/chooseOrderTemplate.mvc">
-		/template/chooseOrderTemplate.ftl
-	</template>
 	
 	<template url="template/chooseSupplier.mvc">
 		/template/chooseSupplier.ftl

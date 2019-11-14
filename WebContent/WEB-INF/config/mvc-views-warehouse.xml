@@ -115,8 +115,7 @@
 		</templates>
 	</mvcView>
 	
-	<mvcView url="warehouse/out/operate.mvc"
-		handler="com.tntxia.oa.warehouse.action.mvc.OutOperateAction">
+	<mvcView url="warehouse/out/operate.mvc">
 		<title>产品出库管理</title>
 		<isWholePage>true</isWholePage>
 		<charset>UTF-8</charset>

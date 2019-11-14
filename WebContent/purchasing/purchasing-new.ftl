@@ -112,7 +112,7 @@ bordercolor="#CCBE5A" cellspacing="0"
           <option value="Freight Collect">Freight Collect</option>
           <option value="Freight Prepaid">Freight Prepaid</option>
 		  
-		          </select>
+		</select>
         </font>&nbsp;</td>
       <td height="16" bgcolor="#e8ebf5"><font size="2" color="#000000">物流公司</font>&nbsp;</td>
       <td height="16"><font size="2"> 

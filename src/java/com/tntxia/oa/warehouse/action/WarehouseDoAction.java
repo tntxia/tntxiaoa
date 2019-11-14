@@ -48,6 +48,7 @@ import com.tntxia.string.EscapeUnescape;
 import com.tntxia.web.ParamUtils;
 import com.tntxia.web.mvc.PageBean;
 import com.tntxia.web.mvc.WebRuntime;
+import com.tntxia.web.mvc.annotation.Session;
 import com.tntxia.web.util.DatasourceStore;
 
 public class WarehouseDoAction extends CommonDoAction {
@@ -253,16 +254,12 @@ public class WarehouseDoAction extends CommonDoAction {
 
 		String model = runtime.getParam("model");
 		if (StringUtils.isNotEmpty(model)) {
-
 			sqlWhere += " and pro_model like '%" + model + "%'";
 		}
-
 		String supplier = StringUtils.trim(runtime.getParam("supplier"));
-
 		if (StringUtils.isNotEmpty(supplier)) {
 			sqlWhere += " and pro_sup_number like '%" + supplier + "%'";
 		}
-
 		return sqlWhere;
 	}
 	
@@ -376,7 +373,6 @@ public class WarehouseDoAction extends CommonDoAction {
 	@SuppressWarnings("rawtypes")
 	public Map<String, Object> warehouseList(WebRuntime runtime) throws Exception {
 
-		
 		SQLExecutorSingleConn db = new SQLExecutorSingleConn(DatasourceStore.getDatasource("default"));
 
 		try {
@@ -898,17 +894,14 @@ public class WarehouseDoAction extends CommonDoAction {
 	 * @param request
 	 * @throws Exception
 	 */
-	public Map<String, Object> doOutSale(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	@SuppressWarnings("rawtypes")
+	public Map<String, Object> doOutSale(Map<String, Object> paramMap, @Session("username") String username) throws Exception {
 
-		HttpSession session = request.getSession();
-
-		String username = (String) session.getAttribute("username");
-		String ddid = request.getParameter("ddid");
-		String wids = request.getParameter("wids");
-		String sids = request.getParameter("sids");
+		String id = (String) paramMap.get("id");
+		List rows = (List) paramMap.get("rows");
 
 		try {
-			String msg = service.doSout(username, ddid, wids, sids);
+			String msg = service.doSout(username, id, rows);
 			if (msg != null) {
 				return this.errorMsg(msg);
 			}
@@ -1257,7 +1250,7 @@ public class WarehouseDoAction extends CommonDoAction {
 		try {
 			if(warehouseDao.exist(trans, model)) {
 				
-				trans.commit();
+				trans.rollback();
 				return this.errorMsg("产品型号已经存在！");
 			}
 			
@@ -1411,20 +1404,6 @@ public class WarehouseDoAction extends CommonDoAction {
 		}
 		return this.success();
 		
-	}
-	
-	/**
-	 * 样品入库列表
-	 * 
-	 * @param request
-	 * @param response
-	 * @return
-	 * @throws Exception
-	 */
-	@SuppressWarnings("rawtypes")
-	public List listSample(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		return warehouseDao.getSampleList();
 	}
 	
 	@SuppressWarnings("rawtypes")
@@ -2082,6 +2061,20 @@ public class WarehouseDoAction extends CommonDoAction {
 		Map<String,String> param = runtime.getParamMap();
 		return saleService.listWarehouseSaleList(param, pageBean);
 		
+	}
+	
+	/**
+	 *通过型号查询 产品列表
+	 * @param runtime
+	 * @return
+	 * @throws Exception
+	 */
+	@SuppressWarnings("rawtypes")
+	public Map<String,Object> listByModel(WebRuntime runtime) throws Exception {
+		String model = runtime.getParam("model");
+		String sql = "select * from warehouse where pro_model = ?";
+		List list = dbManager.queryForList(sql, new Object[] {model}, true);
+		return this.success("data", list);
 	}
 
 

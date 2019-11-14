@@ -17,7 +17,6 @@
 	</mvcList>
 	<templateList>
 		<include file="mvc-template-common.xml"></include>
-		<include file="mvc-template-warehouse.xml"></include>
 		<include file="mvc-template-purchasing.xml"></include>
 		<include file="mvc-template-finance.xml"></include>
 	</templateList>
@@ -32,6 +31,7 @@
 		
 		<!-- 仓库 -->
 		<action url="warehouse/warehouse.do">com.tntxia.oa.warehouse.action.WarehouseDoAction</action>
+		<action url="warehouse/in.do">com.tntxia.oa.warehouse.action.WarehouseInAction</action>
 		<action url="warehouse/send.do">com.tntxia.oa.warehouse.action.WarehouseSendAction</action>
 		
 		<action url="dzzz/ysgl/hdview.mvc">com.tntxia.oa.warehouse.action.mvc.HdViewAction</action>
