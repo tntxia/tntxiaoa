@@ -139,48 +139,11 @@ public class StartInitListener implements ServletContextListener {
 		System.out.println("获取SQL语句 end");
 	}
 	
-	/**
-	 * 初始化配置的JS
-	 * @param context
-	 * @throws IOException 
-	 */
-	private void initConfigJs(ServletContext context){
-		String path = context.getRealPath("/js/config.js");
-		File file = new File(path);
-		if(file.exists()){
-			return;
-		}
-		
-		FileWriter fileWritter = null;
-		try{
-			fileWritter = new FileWriter(path,false);
-			fileWritter.write("var local = window.location;\n\r");
-			fileWritter.write("var contextPath = local.pathname.split(\"/\")[1];\n\r");
-			String contextPath = context.getContextPath();
-			
-			fileWritter.write("var basePath = local.protocol+\"//\"+local.host+\""+contextPath+"/\";");
-		}catch(Exception ex){
-			ex.printStackTrace();
-			logger.error("写入js配置文件失败！", ex);
-			
-		}finally{
-			if(fileWritter!=null){
-				try {
-					fileWritter.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
-	
 	@SuppressWarnings({ "rawtypes" })
 	@Override
 	public void contextInitialized(ServletContextEvent event) {
 
 		ServletContext context = event.getServletContext();
-		
-		initConfigJs(context);
 		
 		System.out.println("==== OA 系统 初始化开始       =======");
 

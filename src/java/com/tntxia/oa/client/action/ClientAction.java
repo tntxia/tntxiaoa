@@ -315,19 +315,6 @@ public class ClientAction extends CommonDoAction {
 		return this.success();
 	}
 	
-	public Map<String,Object> getContactList(WebRuntime runtime) throws Exception {
-		String coId = runtime.getParam("coId");
-		Map<String,Object> client = getClientDetail(coId);
-		String co_number = (String) client.get("co_number");
-		PageBean pageBean = runtime.getPageBean();
-		String sql = "select top " + pageBean.getTop() + " * from linkman ";
-		String sqlWhere = " where co_number = ?";
-		List list = dbManager.queryForList(sql+ sqlWhere, new Object[] {co_number}, true);
-		sql = "select count(*) from linkman";
-		int count = dbManager.getCount(sql + sqlWhere, new Object[] {co_number});
-		return this.getPagingResult(list, pageBean, count);
-	}
-	
 	public Map<String,Object> updateFollow(WebRuntime runtime) throws Exception {
 		String id = runtime.getParam("id");
 		String iftx = runtime.getParam("iftx");
