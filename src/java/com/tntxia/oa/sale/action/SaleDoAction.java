@@ -137,7 +137,7 @@ public class SaleDoAction extends CommonDoAction {
 		
 		intRowCount = dbManager.getCount(strSQL + sqlWhere);
 
-		strSQL = "select id,money,number,coname,mode,p_states,man,state from subscribe "
+		strSQL = "select * from subscribe "
 				+ sqlWhere + "  order by id desc ";
 		
 
@@ -2024,14 +2024,12 @@ public class SaleDoAction extends CommonDoAction {
 		String yj1 = runtime.getParam("yj");
 		String money1 = runtime.getParam("money");
 		String senddate1 = runtime.getParam("senddate");
-		String tbyq1 = runtime.getParam("tbyq");
-		String datetime1 = runtime.getParam("datetime");
-		String remarks1 = runtime.getParam("remarks");
-
-		remarks1 = com.infoally.util.Replace.strReplace(remarks1, "'", "''");
+		String tbyq = runtime.getParam("tbyq");
+		
+		String remarks = runtime.getParam("remarks");
 		String tr = runtime.getParam("tr");
 		String tr_addr = runtime.getParam("tr_addr");
-		String tr_man = runtime.getParam("tr_man");
+		String tr_man = runtime.getParam("contact");
 		String tr_tel = runtime.getParam("tr_tel");
 		String yf_types = runtime.getParam("yf_types");
 		String yf_money = runtime.getParam("yf_money");
@@ -2081,15 +2079,9 @@ public class SaleDoAction extends CommonDoAction {
 				+ source1
 				+ "','"
 				+ trade1
-				+ "','订单执行中','"
-				+ datetime1
-				+ "','"
+				+ "','订单执行中',now(),'"
 				+ senddate1
-				+ "','"
-				+ tbyq1
-				+ "','"
-				+ remarks1
-				+ "','未提交','"
+				+ "',?,?,'未提交','"
 				+ dd_man
 				+ "','  ',' ','"
 				+ fif
@@ -2117,7 +2109,7 @@ public class SaleDoAction extends CommonDoAction {
 				+ ware_man
 				+ "','共享','"
 				+ send_date + "','" + other_fy + "','" + custno + "')";
-		dbManager.executeUpdate(strSQL,new Object[] {number});
+		dbManager.executeUpdate(strSQL,new Object[] {number,tbyq,remarks});
 		
 		String sql = "select max(id)  from subscribe";
 		ddid = dbManager.queryForInt(sql);

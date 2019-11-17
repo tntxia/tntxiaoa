@@ -1,7 +1,4 @@
 eclipse.preferences.version=1
-encoding//WebContent/finance/money/addCredit.ftl=UTF-8
-encoding//WebContent/finance/money/exchange.ftl=UTF-8
-encoding//WebContent/finance/statistic.ftl=UTF-8
 encoding//WebContent/template/warehouseSingleOut.ftl=UTF-8
 encoding//WebContent/warehouse/in/purchasingView.ftl=UTF-8
 encoding//WebContent/warehouse/out/warehouse-out-operate.ftl=UTF-8
