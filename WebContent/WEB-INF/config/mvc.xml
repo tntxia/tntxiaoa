@@ -53,6 +53,7 @@
 		
 		
 		<action url="client/client.do">com.tntxia.oa.client.action.ClientAction</action>
+		<action url="client/contact.do">com.tntxia.oa.client.action.ContactAction</action>
 		
 		<action url="finance/payment.do">com.tntxia.oa.finance.action.FinancePaymentAction</action>
 		<action url="finance/finance.do">com.tntxia.oa.finance.action.FinanceDoAction</action>

@@ -138,7 +138,7 @@ public class ClientAction extends CommonDoAction {
 
 		String sql = "select top " + pageBean.getTop()
 				+ " * from client";
-		String sqlCount = "select count(*) from client";
+		String sqlCount = "select count(*) from client ";
 		
 		int totalAmount = dbManager.getCount(sqlCount + sqlWhere);
 		List list = dbManager.queryForList(sql + sqlWhere, true);
@@ -148,12 +148,17 @@ public class ClientAction extends CommonDoAction {
 
 	@SuppressWarnings("rawtypes")
 	public Map<String,Object> listContact(WebRuntime runtime) throws Exception {
+		
 		PageBean pageBean = runtime.getPageBean();
 		int top = pageBean.getTop();
 		String sql = "select top " + top + " * from linkman";
-		String sqlWhere = "where 1 = 1";
-		List list = dbManager.queryForList(sql, true);
-		int count = dbManager.getCount("select count(*) from linkman");
+		String sqlWhere = " where 1 = 1";
+		String name = runtime.getParam("name");
+		if (StringUtils.isNotEmpty(name)) {
+			sqlWhere += " and name like '%" + name + "%'";
+		}
+		List list = dbManager.queryForList(sql + sqlWhere, true);
+		int count = dbManager.getCount("select count(*) from linkman"+sqlWhere);
 		return this.getPagingResult(list, pageBean, count);
 
 	}
@@ -321,13 +326,6 @@ public class ClientAction extends CommonDoAction {
 		sql = "select count(*) from linkman";
 		int count = dbManager.getCount(sql + sqlWhere, new Object[] {co_number});
 		return this.getPagingResult(list, pageBean, count);
-	}
-	
-	public Map<String,Object> delContact(WebRuntime runtime) throws Exception {
-		String id = runtime.getParam("id");
-		String sql = "delete from linkman where nameid = ?";;
-		dbManager.update(sql, new Object[]{id});
-		return this.success();
 	}
 	
 	public Map<String,Object> updateFollow(WebRuntime runtime) throws Exception {

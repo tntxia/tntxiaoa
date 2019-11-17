@@ -13,7 +13,7 @@
 		<bar name="员工管理">
 			<button url="member/list.mvc"
 				restrain="manzt">员工管理</button>
-			<button url="#hr_activity"
+			<button url="#hr/activity_list"
 				restrain="manzt">活动管理</button>
 			<button url="work/workm.jsp" restrain="rwzt">任务管理</button>
 		</bar>
