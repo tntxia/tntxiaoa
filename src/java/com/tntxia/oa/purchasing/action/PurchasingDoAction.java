@@ -104,8 +104,6 @@ public class PurchasingDoAction extends CommonDoAction {
 		String money = runtime.getParam("money");
 
 		String remarks1 = runtime.getParam("remarks");
-		remarks1 = DealString.htmlEncode(remarks1);
-		remarks1 = com.infoally.util.Replace.strReplace(remarks1, "'", "''");
 
 		System.out.println(self_carry);
 		if (self_carry != null) {
@@ -136,7 +134,7 @@ public class PurchasingDoAction extends CommonDoAction {
 			String fif = (String) sp.get("fif");
 			String fspman = (String) sp.get("fspman");
 			String strSQL = "insert into procure(number,man,sub,subck,co_number,coname,pay_if,pay_je,datetime,money,tbyq,remarks,l_spqk,l_spman,l_fif,l_fspman,l_firspif,l_firspman,l_spyj,l_dept,l_deptjb,ponum,lxr,receiver,receiver_tel,receiver_addr,freight,express_company,acct,service_type,pay_type,coaddr,cotel,cofax,rate,self_carry,yfmoney) "
-					+ "values(?,?,?,?,?,?,?,?,now(),'CNY',?,?,'草拟','" + l_spman + "','" + fif + "','" + fspman
+					+ "values(?,?,?,?,?,?,?,?,getdate(),'CNY',?,?,'草拟','" + l_spman + "','" + fif + "','" + fspman
 					+ "','否','','','" + dept + "','" + deptjb + "','" + ponum + "','" + lxr + "','" + receiver + "','"
 					+ receiver_tel + "','" + receiver_addr + "','" + freight + "','" + express_company + "','" + acct
 					+ "','" + service_type + "','" + pay_type + "','" + coaddr1 + "','" + cotel1 + "','" + cofax1
