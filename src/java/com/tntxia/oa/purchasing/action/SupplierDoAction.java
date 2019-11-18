@@ -65,15 +65,9 @@ public class SupplierDoAction extends CommonDoAction {
 		param.put("scale", runtime.getParam("scale"));
 		
 		List list = supplierDao.list(param);
-		List rows = this.getRows(list, pageBean);
 		int totalAmount = supplierDao.getTotal(param);
-		Map<String,Object> res = new HashMap<String,Object>();
-		res.put("rows", rows);
-		res.put("totalAmount", totalAmount);
-		res.put("page", pageBean.getPage());
-		res.put("pageSize", pageBean.getPageSize());
 
-		return this.getPagingResult(rows, pageBean);
+		return this.getPagingResult(list, pageBean, totalAmount);
 	}
 	
 	/**

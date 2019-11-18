@@ -77,7 +77,7 @@ public class PurchasingDoAction extends CommonDoAction {
 		String number = NumberFactory.generateNumber(keyType);
 		String coname1 = runtime.getParam("coname").trim();
 
-		String co_number = runtime.getParam("co_number1");
+		String co_number = runtime.getParam("co_number");
 		String sub1 = runtime.getParam("sub");
 		String subck = runtime.getParam("subck");
 
