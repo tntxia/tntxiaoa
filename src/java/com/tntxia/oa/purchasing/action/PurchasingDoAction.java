@@ -38,6 +38,7 @@ import com.tntxia.sqlexecutor.Transaction;
 import com.tntxia.string.EscapeUnescape;
 import com.tntxia.web.mvc.PageBean;
 import com.tntxia.web.mvc.WebRuntime;
+import com.tntxia.web.mvc.annotation.Param;
 import com.tntxia.web.mvc.annotation.Session;
 
 public class PurchasingDoAction extends CommonDoAction {
@@ -96,7 +97,7 @@ public class PurchasingDoAction extends CommonDoAction {
 		String express_company = runtime.getParam("express_company");
 		String acct = runtime.getParam("acct");
 		String service_type = runtime.getParam("service_type");
-		String pay_type = runtime.getParam("pay_type");
+		String pay_type = runtime.getParam("payment");
 		String rate = runtime.getParam("rate");
 		String self_carry = runtime.getParam("self_carry");
 		String yfmoney = runtime.getParam("yfmoney");
@@ -946,24 +947,6 @@ public class PurchasingDoAction extends CommonDoAction {
 	}
 	
 	/**
-	 * 获取采购合同的产品
-	 * 
-	 * @param request
-	 * @param response
-	 * @return
-	 * @throws Exception
-	 */
-	@SuppressWarnings("rawtypes")
-	public List getProList(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		String id = request.getParameter("id");
-		return dbManager.queryForList(
-				"select * from cgpro where ddid = ? order by id",
-				new Object[] { id }, true);
-
-	}
-	
-	/**
 	 * 获取所有的品牌信息
 	 * 
 	 * @param request
@@ -1099,21 +1082,15 @@ public class PurchasingDoAction extends CommonDoAction {
 	}
 	
 	@SuppressWarnings("rawtypes")
-	public Map<String,Object> toAudit(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public Map<String,Object> toAudit(@Param("id") String id, @Session("username") String username,
+			@Session("deptjb") String deptjb, @Session("dept") String dept, @Session("role") String role) throws Exception {
+		
+		String currentDate = DateUtil.getCurrentDateSimpleStr();
 
-		HttpSession session = request.getSession();
-
-		java.text.SimpleDateFormat simple = new java.text.SimpleDateFormat(
-				"yyyy-MM-dd");
-		String currentDate = simple.format(new java.util.Date());
-		String id = request.getParameter("id");
-
-		DBConnection db = new DBConnection();
 		Transaction trans = null;
 
 		try {
-			trans = Transaction.createTrans(db.getConnectionObject());
+			trans = this.getTransaction();
 
 			Map<String, Object> procure = trans.queryForMap(
 					"select * from procure where id = ?", new Object[] { id },
@@ -1137,10 +1114,6 @@ public class PurchasingDoAction extends CommonDoAction {
 			}
 
 			String hb = (String) procure.get("money");
-
-			String deptjb = (String) session.getAttribute("deptjb");
-			String dept = (String) session.getAttribute("dept");
-			String role = (String) session.getAttribute("role");
 			String coaddr = "";
 			String cotel = "";
 			String cofax = "";
@@ -1483,9 +1456,7 @@ public class PurchasingDoAction extends CommonDoAction {
 		return this.success();
 	}
 
-	public Map<String,Object> del(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		String id = request.getParameter("id");
+	public Map<String,Object> del(@Param("id") String id) throws Exception {
 		purchasingDao.del(id);
 		return this.success();
 	}
@@ -1590,6 +1561,12 @@ public class PurchasingDoAction extends CommonDoAction {
 	public List listAllPurchaseMan(WebRuntime runtime) throws Exception {
 		String sql = "select name from username where department_name='采购部'";
 		return dbManager.queryForList(sql, true);
+	}
+	
+	public Map<String,Object> detail(@Param("id") String id) throws Exception {
+		String sql = "select * from procure where id = ?";
+		Map<String, Object> res = dbManager.queryForMap(sql, new Object[] {id}, true);
+		return this.success("data", res);
 	}
 
 }

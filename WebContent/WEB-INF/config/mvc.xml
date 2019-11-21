@@ -37,12 +37,14 @@
 		<action url="dzzz/ysgl/hdview.mvc">com.tntxia.oa.warehouse.action.mvc.HdViewAction</action>
 		
 		<action url="purchasing/purchasing.do">com.tntxia.oa.purchasing.action.PurchasingDoAction</action>
+		<action url="purchasing/pro.do">com.tntxia.oa.purchasing.action.ProAction</action>
 		
 		<!-- 询价管理 -->
 		<action name="inquiry/inquiry">com.tntxia.oa.inquiry.action.InquiryAction</action>
 		
 		<!-- 销售 -->
 		<action url="sale/sale.do">com.tntxia.oa.sale.action.SaleDoAction</action>
+		<action url="sale/pro.do">com.tntxia.oa.sale.action.ProAction</action>
 		<action url="sale/report.do">com.tntxia.oa.sale.action.SaleReportAction</action>
 		
 		<!-- 销售订单列表 -->

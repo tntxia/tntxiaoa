@@ -37,6 +37,7 @@ import com.tntxia.oa.util.MapUtils;
 import com.tntxia.sqlexecutor.Transaction;
 import com.tntxia.web.mvc.PageBean;
 import com.tntxia.web.mvc.WebRuntime;
+import com.tntxia.web.mvc.annotation.Param;
 import com.tntxia.web.mvc.view.FileView;
 import com.tntxia.web.util.DatasourceStore;
 import com.tntxia.web.util.Dom4jUtil;
@@ -1569,13 +1570,6 @@ public class SaleDoAction extends CommonDoAction {
 		
 	}
 	
-	public Map<String,Object> delPro(WebRuntime runtime) throws Exception {
-		String id = runtime.getParam("id");
-		String strSQL="delete from ddpro where id=?";
-		dbManager.update(strSQL,new Object[] {id});
-		return this.success();
-	}
-	
 	@SuppressWarnings("rawtypes")
 	public List listPartner(WebRuntime runtime) throws Exception {
 		String sql = "select * from client where  cotypes='合作伙伴'";
@@ -2012,17 +2006,16 @@ public class SaleDoAction extends CommonDoAction {
 		
 		String number = NumberFactory.generateNumber("ONK-");
 
-		String coname1 = runtime.getParam("coname");
-		String subck = runtime.getParam("subck");
-		String sub1 = runtime.getParam("sub");
+		String coname = runtime.getParam("coname");
+		String sub = runtime.getParam("sub");
 		String custno = runtime.getParam("custno");
-		String item1 = runtime.getParam("item");
-		String mode1 = runtime.getParam("mode");
+		String item = runtime.getParam("item");
+		String mode = runtime.getParam("mode");
 		String source1 = runtime.getParam("source");
 		String trade1 = runtime.getParam("trade");
-		String man1 = this.getUsername(runtime);
-		String yj1 = runtime.getParam("yj");
-		String money1 = runtime.getParam("money");
+		String man = this.getUsername(runtime);
+		String yj = runtime.getParam("yj");
+		
 		String senddate1 = runtime.getParam("senddate");
 		String tbyq = runtime.getParam("tbyq");
 		
@@ -2052,64 +2045,16 @@ public class SaleDoAction extends CommonDoAction {
 		if(sp==null) {
 			return this.errorMsg("未定义合同审批流程!");
 		}
-		
 
 		String dd_man = (String)sp.get("dd_man");
 		String fif = (String)sp.get("fif");
 		String fspman = (String)sp.get("fspman");
-		String ware_man = (String)sp.get("remark");
 
-		String strSQL = "insert into subscribe(number,man,subck,sub,coname,yj,money,item,mode,source,trade,habitus,datetime,senddate,tbyq,remarks,state,spman,spdate,spyj,fif,cwman,cwdate,cwyj,dept,deptjb,tr,tr_addr,tr_man,tr_tel,yf_types,yf_money,fy_number,ware_remark,p_states,sub_time,s_check,ware_man,cg_man,send_date,other_fy,custno) values(?,'"
-				+ man1
-				+ "','"
-				+ subck
-				+ "','"
-				+ sub1
-				+ "','"
-				+ coname1
-				+ "','"
-				+ yj1
-				+ "','"
-				+ money1
-				+ "','"
-				+ item1
-				+ "','"
-				+ mode1
-				+ "','"
-				+ source1
-				+ "','"
-				+ trade1
-				+ "','订单执行中',now(),'"
-				+ senddate1
-				+ "',?,?,'未提交','"
-				+ dd_man
-				+ "','  ',' ','"
-				+ fif
-				+ "','"
-				+ fspman
-				+ "','','','"
-				+ dept
-				+ "','"
-				+ deptjb
-				+ "','"
-				+ tr
-				+ "','"
-				+ tr_addr
-				+ "','"
-				+ tr_man
-				+ "','"
-				+ tr_tel
-				+ "','"
-				+ yf_types
-				+ "','"
-				+ yf_money
-				+ "','"
-				+ fy_number
-				+ "','','','','无','"
-				+ ware_man
-				+ "','共享','"
-				+ send_date + "','" + other_fy + "','" + custno + "')";
-		dbManager.executeUpdate(strSQL,new Object[] {number,tbyq,remarks});
+		String strSQL = "insert into subscribe(number,man,sub,coname,yj,money,item,mode,source,trade,habitus,datetime,senddate,tbyq,remarks,state,spman,spdate,spyj,fif,cwman,cwdate,cwyj,dept,"
+				+ "deptjb,tr,tr_addr,tr_man,tr_tel,yf_types,yf_money,fy_number,ware_remark,p_states,sub_time,s_check,cg_man,send_date,other_fy,custno) "
+				+ "values(?,?,?,?,?,'CNY',?,?,?,?,'订单执行中',getdate(),?,?,?,'未提交',?,'','',?,?,'','',?,?,?,?,?,?,?,?,?,'','','','无','共享',?,?,?)";
+		dbManager.executeUpdate(strSQL,new Object[] {number,man, sub,coname, yj, item, mode,source1,trade1, senddate1, tbyq,remarks,dd_man,
+				fif,fspman,dept,deptjb,tr,tr_addr,tr_man,tr_tel,yf_types,yf_money,fy_number,send_date,other_fy, custno});
 		
 		String sql = "select max(id)  from subscribe";
 		ddid = dbManager.queryForInt(sql);
@@ -2288,9 +2233,14 @@ public class SaleDoAction extends CommonDoAction {
 		return this.success("data", res);
 	}
 	
-	public Map<String,Object> listProduct(WebRuntime runtime) throws Exception {
-		String id = runtime.getParam("id");
-		return this.success("data", saleService.getProductList(id));
+	@SuppressWarnings("rawtypes")
+	public Map<String,Object> listProduct(@Param("id") String id, PageBean pageBean) throws Exception {
+		String sqlWhere = " where ddid = ?";
+		String sql = "select * from ddpro ";
+		List list = dbManager.queryForList(sql + sqlWhere, new Object[] {id}, true);
+		sql = "select count(*) from ddpro ";
+		int count = dbManager.queryForInt(sql + sqlWhere, new Object[] {id});
+		return this.getPagingResult(list, pageBean, count);
 	}
 
 }

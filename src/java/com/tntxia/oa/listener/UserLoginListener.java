@@ -3,15 +3,16 @@ package com.tntxia.oa.listener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionBindingEvent;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
+@WebListener
 public class UserLoginListener implements HttpSessionListener,
 		HttpSessionAttributeListener {
-
 	
 	@Override
 	public void attributeAdded(HttpSessionBindingEvent event) {
@@ -35,7 +36,11 @@ public class UserLoginListener implements HttpSessionListener,
 
 	@Override
 	public void attributeRemoved(HttpSessionBindingEvent event) {
-		System.out.println("Session 信息被移除");
+		String name = event.getName();
+		if ("username".equals(name)) {
+			System.out.println("Session 信息被移除 " + event.getValue());
+		}
+		
 
 	}
 

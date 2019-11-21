@@ -152,16 +152,10 @@ public class SaleLightDao extends BaseDao{
 		try {
 			while (it.hasNext()) {
 				Map map = (Map) it.next();
-				int num1 = (Integer) map.get("num");
-				double num = 0;
-				num = (Integer) map.get("s_num");
+				int num = (Integer) map.get("num");
 				BigDecimal price = (BigDecimal) map.get("salejg");
 				BigDecimal tprice = price.multiply(new BigDecimal(num));
-				BigDecimal stprice = price.multiply(new BigDecimal(num1));
 				totle = totle.add(tprice);
-				stotle = stotle.add(stprice);
-				
-
 			}
 		} catch (NumberFormatException e) {
 			e.printStackTrace();

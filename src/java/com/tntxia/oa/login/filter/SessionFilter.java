@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -20,6 +21,7 @@ import com.tntxia.oa.util.PropertiesUtils;
  * @date 2015-2-24
  * @lastUpdate 2017-6-24
  */
+@WebFilter(filterName="SessionFilter",urlPatterns="/*")
 public class SessionFilter extends OncePerRequestFilter {
 
 	@Override

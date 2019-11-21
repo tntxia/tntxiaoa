@@ -56,6 +56,10 @@ public class WarehouseLightService extends CommonService{
 		return dao.getDetail(id);
 	}
 	
+	public Map<String, Object> getDetail(Integer id) throws Exception {
+		return dao.getDetail(id);
+	}
+	
 	public Warehouse getProductById(String id) throws Exception {
 		Warehouse res = new Warehouse();
 		Map<String,Object> detail = (Map<String,Object>) this.getDetail(id);

@@ -226,7 +226,6 @@ public class SaleLightService extends CommonService{
 		String dept = userinfo.getDept();
 		String role = userinfo.getRole();
 		double total = 0;
-		double shl = 1;
 		
 		Map sale = saleDao.getSale(id);
 		
@@ -237,9 +236,6 @@ public class SaleLightService extends CommonService{
 		String ddnumber = (String) sale.get("number");
 		String username = userinfo.getUsername();
 
-		DBConnection einfodb = new DBConnection();
-		DBConnection einfodb2 = new DBConnection();
-
 		try {
 
 			List proList = this.getProList(id);
@@ -247,16 +243,7 @@ public class SaleLightService extends CommonService{
 				Map map = (Map) proList.get(i);
 				int num = (Integer) map.get("num");
 				BigDecimal sprice = (BigDecimal) map.get("salejg");
-				String hb = (String) map.get("pricehb");
-				String sql = "select currrate from hltable where currname='"
-						+ hb + "'";
-				ResultSet rsshb = einfodb.executeQuery(sql);
-				if (rsshb.next()) {
-					String tmpshb = rsshb.getString("currrate");
-					if (tmpshb != null)
-						shl = Double.parseDouble(tmpshb);
-				}
-				double tprice = num * sprice.doubleValue() * shl;
+				double tprice = num * sprice.doubleValue();
 				total = total + tprice;// 金额
 
 			}
@@ -320,8 +307,6 @@ public class SaleLightService extends CommonService{
 			logger.error("提交销售订单审批失败！", ex);
 			throw ex;
 		} finally {
-			einfodb.close();
-			einfodb2.close();
 		}
 
 	}

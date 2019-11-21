@@ -1308,53 +1308,27 @@ public class WarehouseDoAction extends CommonDoAction {
 		return res;
 	}
 	
-	public Map<String,Object> pushProductIntoSaleOrder(WebRuntime runtime) throws Exception {
+	@SuppressWarnings("rawtypes")
+	public Map<String,Object> pushProductIntoPurchasingOrder(Map<String,Object> paramMap) throws Exception {
 		
-		String ids = runtime.getParam("ids");
-		String ddid = runtime.getParam("ddid");
+		String ddid = (String) paramMap.get("ddid");
 		
-		for(String wid : ids.split(",")) {
-			
-			Map<String,Object> p = service.getDetail(wid);
-			
-			String pro_model = (String) p.get("pro_model");
-			Integer pro_num = ((BigDecimal) p.get("pro_num")).intValue();
-			String pro_number = (String) p.get("pro_number");
-			
-			String pro_name = (String) p.get("pro_name");
-			
-			String punit = (String) p.get("pro_unit");
-			String pro_supplier = (String) p.get("pro_sup_number");
-			String qhb = (String) p.get("price_hb");
-			
-			BigDecimal pro_price = (BigDecimal) p.get("pro_price");
-			if(pro_price==null) {
-				pro_price = BigDecimal.ZERO;
+		Object data = paramMap.get("data");
+		
+		List<Integer> ids = new ArrayList<Integer>();
+		
+		if (data instanceof Map) {
+			Map map = (Map) data;
+			ids.add((Integer)map.get("id"));
+		} else {
+			List list = (List) data;
+			for(int i=0;i<list.size();i++) {
+				Map map = (Map) list.get(i);
+				ids.add((Integer)map.get("id"));
 			}
-			String pro_remark = (String) p.get("pro_remark");
-			String pro_yyfw = (String) p.get("pro_yyfw");
-			String pro_jz = (String) p.get("sjnum");
-			String pro_mz=(String) p.get("yqnum");
-			String pro_cc=(String) p.get("sale_min_price");
-			String pro_cd=(String) p.get("sale_max_price");
-			
-			String sql="insert into ddpro(ddid,epro,num,fypronum,unit, cpro,rale_types,rale,supplier,pricehb,salejg,selljg,money,fyproall,wid,x_no,remark,s_num,s_c_num,s_tr_date,fy_states,p_check,money2,mpn,pro_jz,pro_mz,pro_cc,pro_cd,th_num,hl) "
-			   		+" values(?,'" + pro_model + "','" + pro_num +"','"+pro_number+"','" + punit + "','" +pro_name+ "','','0','" 
-			   + pro_supplier + "','" + qhb + "',?,?,'"+qhb+"','no','" + wid + "','','"+pro_remark
-			   +"','0','0','','待发运','',?,'','"+pro_jz+"','"+pro_mz+"','"+pro_cc+"','"+pro_cd+"',0,1)";
-			dbManager.update(sql,new Object[] {ddid,pro_price,pro_price,pro_yyfw});
 		}
 		
-		return this.success();
-		
-	}
-	
-	public Map<String,Object> pushProductIntoPurchasingOrder(WebRuntime runtime) throws Exception {
-		
-		String ids = runtime.getParam("ids");
-		String ddid = runtime.getParam("ddid");
-		
-		for(String wid : ids.split(",")) {
+		for(Integer wid : ids) {
 			
 			Map<String,Object> p = service.getDetail(wid);
 			
@@ -1375,9 +1349,8 @@ public class WarehouseDoAction extends CommonDoAction {
 			
 			String sql="insert into cgpro(ddid,epro,cpro,pro_number,num,unit,selljg,money,cgpro_ydatetime,cgpro_num,"+
 				    "cgpro_sdatetime,remark,supplier ,rate,wid,sale_supplier,sale_remark,sale_rate,"+
-				    "sale_finance) values(?,?,'0','',?,'" + punit + "','" + pro_price + "','"+qhb+"','"+currentDate+"','0','','"
-				    +pro_remark+"','"+pro_supplier+"','0','"+wid+"','','','','')";
-			dbManager.update(sql,new Object[] {ddid,pro_model,pro_num});
+				    "sale_finance) values(?,?,'0','',?,'" + punit + "','" + pro_price + "','"+qhb+"','"+currentDate+"','0','',?,'"+pro_supplier+"','0',?,'','','','')";
+			dbManager.update(sql,new Object[] {ddid,pro_model,pro_num,pro_remark,wid});
 		}
 		
 		return this.success();

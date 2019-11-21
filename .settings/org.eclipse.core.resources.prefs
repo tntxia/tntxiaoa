@@ -48,6 +48,7 @@ encoding//src/java/com/tntxia/oa/purchasing/entity/Contact.java=UTF-8
 encoding//src/java/com/tntxia/oa/purchasing/service/PurchasingLightService.java=UTF-8
 encoding//src/java/com/tntxia/oa/sale/SaleManager.java=UTF-8
 encoding//src/java/com/tntxia/oa/sale/action/InquiryAction.java=UTF-8
+encoding//src/java/com/tntxia/oa/sale/action/ProAction.java=UTF-8
 encoding//src/java/com/tntxia/oa/sale/action/QuoteAction.java=UTF-8
 encoding//src/java/com/tntxia/oa/sale/action/SaleAction.java=UTF-8
 encoding//src/java/com/tntxia/oa/sale/action/SaleDoAction.java=UTF-8
