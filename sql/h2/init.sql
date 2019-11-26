@@ -3671,4 +3671,14 @@ CREATE TABLE c_pic(
 	pic_path nvarchar(50) NULL
 )
 
+drop table if exists purchasing_audit_log;
+create table purchasing_audit_log(
+	id varchar(32) not null,
+	order_id varchar(32) not null,
+	operator varchar(32) not null,
+	status_from varchar(10) not null,
+	status_to varchar(10) not null,
+	operate_time datetime
+)
+
 

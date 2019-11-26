@@ -1,5 +1,7 @@
 package com.tntxia.oa.purchasing.entity;
 
+import java.math.BigDecimal;
+
 public class Purchasing {
 	
 	private int id;
@@ -32,7 +34,7 @@ public class Purchasing {
 	private String deliverDate;
 	
 	// 运费
-	private String transportationExpense;
+	private BigDecimal transportationExpense;
 	
 	// 运费货币
 	private String transportationExpenseMoneyType;
@@ -201,11 +203,11 @@ public class Purchasing {
 		this.deliverDate = deliverDate;
 	}
 
-	public String getTransportationExpense() {
+	public BigDecimal getTransportationExpense() {
 		return transportationExpense;
 	}
 
-	public void setTransportationExpense(String transportationExpense) {
+	public void setTransportationExpense(BigDecimal transportationExpense) {
 		this.transportationExpense = transportationExpense;
 	}
 

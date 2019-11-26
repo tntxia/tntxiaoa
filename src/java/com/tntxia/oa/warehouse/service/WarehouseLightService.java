@@ -1308,7 +1308,7 @@ public class WarehouseLightService extends CommonService{
 		}
 
 
-		public Purchasing getPurchasing(String id) throws SQLException {
+		public Purchasing getPurchasing(String id) throws Exception {
 			return purchasingDao.getPurchasingById(id);
 		}
 

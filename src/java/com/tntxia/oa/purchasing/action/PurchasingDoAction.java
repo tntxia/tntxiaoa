@@ -30,6 +30,8 @@ import com.tntxia.oa.procure.ProcureManager;
 import com.tntxia.oa.purchasing.dao.PurchasingLightDao;
 import com.tntxia.oa.purchasing.dao.TrademarkDao;
 import com.tntxia.oa.purchasing.entity.Purchasing;
+import com.tntxia.oa.purchasing.entity.PurchasingAuditLog;
+import com.tntxia.oa.purchasing.form.AuditForm;
 import com.tntxia.oa.sale.SaleManager;
 import com.tntxia.oa.system.SystemCache;
 import com.tntxia.sqlexecutor.SQLExecutor;
@@ -1182,50 +1184,33 @@ public class PurchasingDoAction extends CommonDoAction {
 			}
 
 			totle = totle * shl;
+			
+			String strSQL = "update procure set l_spqk='待审批' where id=?";
 
-			String sqlddman = "select  * from cgsp  where  ?>=price_min  and  price_max>=?  and dept='"
-					+ dept + "' and role='" + role + "'";
+			trans.update(strSQL, new Object[] {id});
 
-			Map<String, Object> spMap = trans.queryForMap(sqlddman,
-					new Object[] { totle, totle }, true);
-
-			if (spMap == null || spMap.size() == 0) {
-				throw new Exception("未定义审批流程!");
-			} else {
-
-				String dd_man = (String) spMap.get("dd_man");
-				String fif = (String) spMap.get("fif");
-				String fspman = (String) spMap.get("fspman");
-
-				String strSQL = "update procure set l_spqk='待审批',l_spman='"
-						+ dd_man + "',l_fif='" + fif + "',l_fspman='" + fspman
-						+ "' where id='" + id + "'";
-
-				trans.update(strSQL);
-
-				String sqlspg = "select count(*) from payment where contract='"
-						+ number + "'";
-				int paymentCount = trans.getCount(sqlspg);
-				if (paymentCount == 0) {
-					String strSQLp = "insert into payment(contract,orderform,sup_number,supplier,pay_je,yjfkdate,sjfkdate,moneyty,moneytypes,htmoney,bank,bankaccounts,paynr,note,states,remark,wtfk) values('"
-							+ number
-							+ "','"
-							+ id
-							+ "','"
-							+ co_number
-							+ "','"
-							+ coname
-							+ "','0','"
-							+ currentDate
-							+ "','"
-							+ currentDate
-							+ "','"
-							+ hb
-							+ "','银行转帐','0','','0','','','待付款','"
-							+ man1
-							+ "','" + deptjb + "')";
-					trans.update(strSQLp);
-				}
+			String sqlspg = "select count(*) from payment where contract='"
+					+ number + "'";
+			int paymentCount = trans.getCount(sqlspg);
+			if (paymentCount == 0) {
+				String strSQLp = "insert into payment(contract,orderform,sup_number,supplier,pay_je,yjfkdate,sjfkdate,moneyty,moneytypes,htmoney,bank,bankaccounts,paynr,note,states,remark,wtfk) values('"
+						+ number
+						+ "','"
+						+ id
+						+ "','"
+						+ co_number
+						+ "','"
+						+ coname
+						+ "','0','"
+						+ currentDate
+						+ "','"
+						+ currentDate
+						+ "','"
+						+ hb
+						+ "','银行转帐','0','','0','','','待付款','"
+						+ man1
+						+ "','" + deptjb + "')";
+				trans.update(strSQLp);
 			}
 			trans.commit();
 			return this.success();
@@ -1274,39 +1259,80 @@ public class PurchasingDoAction extends CommonDoAction {
 	 * @return
 	 * @throws Exception
 	 */
-	public Map<String,Object> audit(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	@SuppressWarnings("rawtypes")
+	public Map<String,Object> audit(AuditForm auditForm, @Session("username") String username, @Session("dept") String dept, @Session("role") String role) throws Exception {
 
-		String id = request.getParameter("id");
+		String id = auditForm.getId();
 		Purchasing purchasing = purchasingDao.getPurchasingById(id);
+		
+		Transaction trans = this.getTransaction();
 
-		String l_spqk = EscapeUnescape.unescape(request, "l_spqk").trim();
-		String l_spyj = EscapeUnescape.unescape(request, "l_spyj");
-		String fif = EscapeUnescape.unescape(request, "fif").trim();
-		String zt = "审批不通过";
-		String pzt = "草拟";
+		try {
+			
+			double totle = 0;
+			String strSQLpro = "select num,selljg from cgpro where ddid='" + id
+					+ "'";
+			
+			List cgproList = trans.queryForList(strSQLpro, true);
 
-		// 发送审批的邮件
-		String number = purchasing.getNumber();
-		String mail_to = purchasing.getMan();
-		String title = "你的订单" + number + l_spqk;
-		String content = "审批意见：" + l_spyj;
-		String mail_from = this.getUsername(request);
-
-		SendMail sendmail = new SendMail();
-		sendmail.sendMail(title, content, mail_to, mail_from);
-
-		if (l_spqk.equals("审批通过")) {
-			if (fif.equals("是")) {
-				zt = "待复审";
-			} else {
-				zt = "审批通过";
-				pzt = "待付款";
+			for (int i = 0; i < cgproList.size(); i++) {
+				Map map = (Map) cgproList.get(i);
+				int num = (Integer) map.get("num");
+				double price = ((BigDecimal) map.get("selljg")).doubleValue();		
+				double tprice = num * price;
+				totle = totle + tprice;												// 金额
 			}
-		}
 
-		financeDao.updatePaymentStatus(id, pzt);
-		purchasingDao.updatePurchasingStatus2(zt, l_spyj, id);
+			String sqlddman = "select  * from cgsp  where  ?>=price_min  and  price_max>=?  and dept='"
+					+ dept + "' and role='" + role + "'";
+
+			Map<String, Object> spMap = trans.queryForMap(sqlddman,
+					new Object[] { totle, totle }, true);
+
+			if (spMap == null || spMap.size() == 0) {
+				return this.errorMsg("未定义审批流程!");
+			}
+
+			String l_spqk = auditForm.getL_spqk();
+			String l_spyj = auditForm.getL_spyj();
+			boolean fif = purchasing.isFirstApproved();
+			String zt = "审批不通过";
+			String pzt = "草拟";
+
+			// 发送审批的邮件
+			String number = purchasing.getNumber();
+			String mail_to = purchasing.getMan();
+			String title = "你的订单" + number + l_spqk;
+			String content = "审批意见：" + l_spyj;
+			String mail_from = username;
+
+			SendMail sendmail = new SendMail();
+			sendmail.sendMail(title, content, mail_to, mail_from);
+
+			if (l_spqk.equals("审批通过")) {
+				if (fif) {
+					zt = "待复审";
+				} else {
+					zt = "审批通过";
+					pzt = "待付款";
+				}
+			}
+
+			financeDao.updatePaymentStatus(trans, id, pzt);
+			purchasingDao.updatePurchasingStatus(trans, zt, l_spyj, id);
+			PurchasingAuditLog log = new PurchasingAuditLog();
+			log.setOrderId(id);
+			log.setOperator(username);
+			log.setStatusFrom(purchasing.getStatusOrign());
+			log.setStatusTo(zt);
+			purchasingDao.addAuditLog(trans, log);
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			trans.rollback();
+		}finally {
+			trans.close();
+		}
+		
 		return this.success();
 	}
 	

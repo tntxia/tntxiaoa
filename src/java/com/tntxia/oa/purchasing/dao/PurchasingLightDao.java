@@ -1,111 +1,107 @@
 package com.tntxia.oa.purchasing.dao;
 
 import java.math.BigDecimal;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.tntxia.db.DBConnection;
 import com.tntxia.dbmanager.DBManager;
 import com.tntxia.oa.purchasing.entity.Purchasing;
+import com.tntxia.oa.purchasing.entity.PurchasingAuditLog;
 import com.tntxia.oa.purchasing.entity.PurchasingProduct;
 import com.tntxia.sqlexecutor.Transaction;
 import com.tntxia.web.mvc.BaseDao;
+import com.tntxia.web.util.UUIDUtils;
 
 public class PurchasingLightDao extends BaseDao{
 	
 	private DBManager dbManager = this.getDBManager();
 	
-	public void updatePurchasingStatus2(String status,String status2,String id) throws Exception{
+	public void updatePurchasingStatus(Transaction trans, String status,String status2,String id) throws Exception{
 		String sql = "update procure set l_spqk=?,l_spyj=? where id=?";
-		dbManager.update(sql, new Object[]{status,status2,id});
+		trans.update(sql, new Object[]{status,status2,id});
 	}
 	
-	public Purchasing getPurchasingById(String id) throws SQLException{
-		
-		DBConnection db = new DBConnection();
+	public void addAuditLog(Transaction trans, PurchasingAuditLog log) throws Exception{
+		String sql = "insert into purchasing_audit_log(id, order_id, operator,status_from,status_to, operate_time) values(?, ?, ?, ?, ?, ?)";
+		trans.update(sql, new Object[]{log.getId(), log.getOrderId(), log.getOperator(), log.getStatusFrom(),log.getStatusTo(), log.getOperateTime()});
+	}
+	
+	public Purchasing getPurchasingById(String id) throws Exception{
 		
 		String sql="select * from procure where id='"+id+"'";
-		ResultSet rs=db.executeQuery(sql);
-		Purchasing res = new Purchasing();
-		if(rs.next())
-		{
-			res.setId(rs.getInt("id"));
-			res.setNumber(rs.getString("number"));
-			res.setMan(rs.getString(3));
-			res.setSaleNumber(rs.getString("sub").trim());
-			res.setWarehouse(rs.getString(5));
-			res.setSupplierNumber(rs.getString("co_number"));
-			res.setSupplier(rs.getString("coname"));
-			res.setPurchasePlace(rs.getString("senddate"));
-			res.setDeliverDate(rs.getString("pay_if"));
-			res.setTransportationExpense(rs.getString("pay_je"));
-			res.setPurchaseDate(rs.getString("datetime"));
-			res.setPurchaseMoneyType(rs.getString("money"));
-			res.setContractItem(rs.getString("tbyq"));
-			res.setRemark(rs.getString("remarks"));
-			String spqk = rs.getString("l_spqk");
-			res.setStatusOrign(spqk);
-			if(spqk!=null){
-				spqk = spqk.trim();
-			}
-			if("已入库".equals(spqk) || "全部入库".equals(spqk) ||
-					"全部入库".equals(spqk) || "待入库".equals(spqk) ||
-					"全部退货".equals(spqk) || "部分退货".equals(spqk)){
-				res.setStatus(5);
-			}else if("合同已确认".equals(spqk)){
-				res.setStatus(4);
-			}else if("审批通过".equals(spqk)){
-				res.setStatus(3);
-			}else if("待审批".equals(spqk)){
-				res.setStatus(1);
-			}else if("待复审".equals(spqk)){
-				res.setStatus(2);
-			}else if("草拟".equals(spqk)){
-				res.setStatus(0);
-			}
-			
-			res.setFirstApprover(rs.getString("l_spman"));
-			if(rs.getString("l_fif").trim().equals("是")){
-				res.setToSencondApprove(true);
-			}else{
-				res.setToSencondApprove(false);
-			}
-			res.setSecondApprover(rs.getString("l_fspman"));
-			if(rs.getString("l_firspif").trim().equals("是")){
-				res.setFirstApproved(true);
-			}else{
-				res.setFirstApproved(false);
-			}
-			res.setApproveOpinion(rs.getString("l_spyj"));
-		    res.setDealPlace(rs.getString("ponum"));
-		    res.setContactMan(rs.getString("lxr"));
-		    res.setReceiver(rs.getString("receiver"));
-		    res.setReceiverTel(rs.getString("receiver_tel"));
-		    res.setReceiverAddress(rs.getString("receiver_addr"));
-		    res.setFreight(rs.getString("freight"));
-		    res.setExpressCompany(rs.getString("express_company"));
-		    res.setAccountNo(rs.getString("acct"));
-		    res.setServiceType(rs.getString("service_type"));
-		    res.setPayway(rs.getString("pay_type"));
-		    res.setRate(rs.getString("rate"));
-		    res.setTransportationExpenseMoneyType(rs.getString("yfmoney"));
-		    res.setExchangePlace(rs.getString("jydd"));
-		    if(rs.getInt("self_carry")==0){
-		    	res.setSelfPickup(true);
-		    }else{
-		    	res.setSelfPickup(false);
-		    }
-		    
-		    res.setFirspif(rs.getString("l_firspif"));
-		    res.setFirspman(rs.getString("l_firspman"));
-		    res.setL_spyj(rs.getString("l_spyj"));
-		    
-		    
-		    
+		Map<String,Object> map = dbManager.queryForMap(sql, true);
+		if (map == null) {
+			return null;
 		}
+		Purchasing res = new Purchasing();
+		res.setId((Integer) map.get("id"));
+		res.setNumber((String) map.get("number"));
+		res.setMan((String) map.get("man"));
+		res.setSaleNumber((String) map.get("sub"));
+		res.setSupplierNumber((String) map.get("co_number"));
+		res.setSupplier((String) map.get("coname"));
+		res.setPurchasePlace((String) map.get("senddate"));
+		res.setDeliverDate((String) map.get("pay_if"));
+		res.setTransportationExpense((BigDecimal) map.get("pay_je"));
+		res.setPurchaseDate((String) map.get("datetime"));
+		res.setPurchaseMoneyType((String) map.get("money"));
+		res.setContractItem((String) map.get("tbyq"));
+		res.setRemark((String) map.get("remarks"));
+		String spqk = (String) map.get("l_spqk");
+		res.setStatusOrign(spqk);
+		if(spqk!=null){
+			spqk = spqk.trim();
+		}
+		if("已入库".equals(spqk) || "全部入库".equals(spqk) ||
+				"全部入库".equals(spqk) || "待入库".equals(spqk) ||
+				"全部退货".equals(spqk) || "部分退货".equals(spqk)){
+			res.setStatus(5);
+		}else if("合同已确认".equals(spqk)){
+			res.setStatus(4);
+		}else if("审批通过".equals(spqk)){
+			res.setStatus(3);
+		}else if("待审批".equals(spqk)){
+			res.setStatus(1);
+		}else if("待复审".equals(spqk)){
+			res.setStatus(2);
+		}else if("草拟".equals(spqk)){
+			res.setStatus(0);
+		}
+		
+		res.setFirstApprover((String) map.get("l_spman"));
+		String fif = (String) map.get("l_fif");
+		if(fif.equals("是")){
+			res.setToSencondApprove(true);
+		}else{
+			res.setToSencondApprove(false);
+		}
+		String fspman = (String)map.get("l_fspman");
+		res.setSecondApprover(fspman);
+		String firspif = (String)map.get("l_firspif");
+		if(firspif.trim().equals("是")){
+			res.setFirstApproved(true);
+		}else{
+			res.setFirstApproved(false);
+		}
+		res.setApproveOpinion((String)map.get("l_spyj"));
+	    res.setDealPlace((String)map.get("ponum"));
+	    res.setContactMan((String)map.get("lxr"));
+	    res.setReceiver((String)map.get("receiver"));
+	    res.setReceiverTel((String)map.get("receiver_tel"));
+	    res.setReceiverAddress((String)map.get("receiver_addr"));
+	    res.setFreight((String)map.get("freight"));
+	    res.setExpressCompany((String)map.get("express_company"));
+	    res.setAccountNo((String)map.get("acct"));
+	    res.setServiceType((String)map.get("service_type"));
+	    res.setPayway((String)map.get("pay_type"));
+	    res.setRate((String)map.get("rate"));
+	    res.setTransportationExpenseMoneyType((String)map.get("yfmoney"));
+	    res.setExchangePlace((String)map.get("jydd"));
+	    
+	    res.setFirspif(firspif);
+	    res.setFirspman((String)map.get("l_firspman"));
+	    res.setL_spyj((String)map.get("l_spyj"));
 		return res;
 	}
 	
@@ -123,7 +119,7 @@ public class PurchasingLightDao extends BaseDao{
 		return getPurchasingProductListByParentId(Integer.parseInt(ddid));
 	}
 	
-	@SuppressWarnings({"rawtypes" })
+	@SuppressWarnings({"rawtypes", "unchecked" })
 	public List<PurchasingProduct> getPurchasingProductListByParentId(int ddid) throws Exception{
 		
 		String sql = "select * from cgpro where ddid = ?";

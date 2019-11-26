@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.tntxia.common.date.DateUtil;
 import com.tntxia.db.DBConnection;
 import com.tntxia.sqlexecutor.Transaction;
+import com.tntxia.web.util.DatasourceStore;
 
 import infocrmdb.infocrmdb;
 
@@ -28,8 +29,7 @@ public class SendMail {
 	
 	public int sendMail(String title,String content
 			,String mail_to,String mail_from) throws Exception{
-		DBConnection db = new DBConnection();
-		Transaction trans = Transaction.createTrans(db.getConnectionObject());
+		Transaction trans = Transaction.createTrans(DatasourceStore.getDatasource("default"));
 		String curDate = DateUtil.getCurrentDateStr();
 		String sql = "insert into sendmail(mail_to,mail_sub,mail_nr,mail_man,mail_datetime,form_to,mail_to2,mail_to3)"
 				+" values('"+mail_to+"','"+title+"','"+content+"','"+mail_from+"','"+curDate+"','','','')";

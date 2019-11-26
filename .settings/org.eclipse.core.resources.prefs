@@ -1,9 +1,7 @@
 eclipse.preferences.version=1
 encoding//WebContent/template/warehouseSingleOut.ftl=UTF-8
-encoding//WebContent/warehouse/in/purchasingView.ftl=UTF-8
 encoding//WebContent/warehouse/out/warehouse-out-operate.ftl=UTF-8
 encoding//sql/script.sql=UTF-8
-encoding//src/java/com/tntxia/currency/Rmb.java=UTF-8
 encoding//src/java/com/tntxia/db/DBConnection.java=UTF-8
 encoding//src/java/com/tntxia/oa/appeal/action/AppealAction.java=UTF-8
 encoding//src/java/com/tntxia/oa/assay/action/AssayAction.java=UTF-8

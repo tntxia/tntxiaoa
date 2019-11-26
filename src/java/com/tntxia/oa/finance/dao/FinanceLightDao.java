@@ -103,7 +103,7 @@ public class FinanceLightDao extends BaseDao{
 		dbManager.update(sql, new Object[]{note,id});
 	}
 	
-	public void updatePaymentStatus(String orderId,String status) throws Exception{
+	public void updatePaymentStatus(Transaction trans, String orderId,String status) throws Exception{
 		String sql = "update payment set states=? where orderform=?";
 		dbManager.update(sql, new Object[]{status,orderId});
 	}

@@ -40,7 +40,7 @@ public class PurchasingLightService extends CommonService{
 			res.setSupplier((String)rs.get("coname"));
 			res.setPurchasePlace((String)rs.get("senddate"));
 			res.setDeliverDate((String)rs.get("pay_if"));
-			res.setTransportationExpense(((BigDecimal)rs.get("pay_je")).toString());
+			res.setTransportationExpense(((BigDecimal)rs.get("pay_je")));
 			res.setPurchaseDate((String)rs.get("datetime"));
 			res.setPurchaseMoneyType((String)rs.get("money"));
 			res.setContractItem((String)rs.get("tbyq"));

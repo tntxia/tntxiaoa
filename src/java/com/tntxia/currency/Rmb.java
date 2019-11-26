@@ -89,7 +89,7 @@ public class Rmb {
 	}
 
 	public static void main(String args[]) throws Exception {
-		String res = Rmb.lowerToUpper("10");
+		String res = Rmb.lowerToUpper("10.01");
 		System.out.println(res);
 	}
 }

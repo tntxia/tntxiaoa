@@ -56,7 +56,7 @@ public class PurchasingDao {
 			res.setSupplier(rs.getString("coname"));
 			res.setPurchasePlace(rs.getString("senddate"));
 			res.setDeliverDate(rs.getString("pay_if"));
-			res.setTransportationExpense(rs.getString("pay_je"));
+			res.setTransportationExpense(rs.getBigDecimal("pay_je"));
 			res.setPurchaseDate(rs.getString("datetime"));
 			res.setPurchaseMoneyType(rs.getString("money"));
 			res.setContractItem(rs.getString("tbyq"));
