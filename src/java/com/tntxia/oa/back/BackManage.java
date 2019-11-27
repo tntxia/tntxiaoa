@@ -6,7 +6,6 @@ import infocrmdb.infocrmdb;
 
 public class BackManage {
 
-	
 	public static int getBindWidByDdid(int ddid) {
 		infocrmdb einfodb = new infocrmdb();
 		String sqldd = "select wid from th_supplier_out_bind where ddid='" + ddid

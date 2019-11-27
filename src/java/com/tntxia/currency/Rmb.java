@@ -2,8 +2,6 @@ package com.tntxia.currency;
 
 import java.math.BigDecimal;
 
-import com.infoally.util.Replace;
-
 public class Rmb {
 
 	public static String lowerToUpper(BigDecimal s) throws Exception {
@@ -33,7 +31,7 @@ public class Rmb {
 		String as[] = { "零", "壹", "贰", "叁", "肆", "伍", "陆", "柒", "捌", "玖" };
 		String s9 = "分角元拾佰仟万拾佰仟亿拾佰仟";
 		s3 = s;
-		s3 = Replace.strReplace(s3, ",", "");
+		s3 = s3.replaceAll(",", "");
 
 		i = s3.length();
 		for (int j = i - 1; j >= 0; j--) {
@@ -43,11 +41,11 @@ public class Rmb {
 
 			switch (i - j - 1) {
 			case 1: // '\001'
-				s3 = Replace.strReplace(s3, ".", "") + "0";
+				s3 = s3.replaceAll("\\.", "") + "0";
 				break;
 
 			case 2: // '\002'
-				s3 = Replace.strReplace(s3, ".", "");
+				s3 = s3.replaceAll("\\.", "");
 				break;
 			}
 			flag2 = false;
@@ -83,8 +81,8 @@ public class Rmb {
 		}
 
 		s2 = s2 + "整";
-		s2 = Replace.strReplace(s2, "零万", "万");
-		s2 = Replace.strReplace(s2, "零元", "元");
+		s2 = s2.replaceAll("零万", "万");
+		s2 = s2.replaceAll("零元", "元");
 		return s2;
 	}
 

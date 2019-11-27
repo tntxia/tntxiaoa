@@ -1320,12 +1320,14 @@ public class PurchasingDoAction extends CommonDoAction {
 
 			financeDao.updatePaymentStatus(trans, id, pzt);
 			purchasingDao.updatePurchasingStatus(trans, zt, l_spyj, id);
+			
 			PurchasingAuditLog log = new PurchasingAuditLog();
 			log.setOrderId(id);
 			log.setOperator(username);
 			log.setStatusFrom(purchasing.getStatusOrign());
 			log.setStatusTo(zt);
 			purchasingDao.addAuditLog(trans, log);
+			
 		}catch(Exception ex) {
 			ex.printStackTrace();
 			trans.rollback();
