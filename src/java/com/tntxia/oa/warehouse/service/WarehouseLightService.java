@@ -281,9 +281,6 @@ public class WarehouseLightService extends CommonService{
 			}
 			int pro_num = ((BigDecimal) warehouseMap.get("pro_num")).intValue();
 			String proaddr = (String) warehouseMap.get("pro_addr");
-			double pro_price = ((BigDecimal) warehouseMap.get("pro_price"))
-					.doubleValue();
-			String price_hb = (String) warehouseMap.get("price_hb");
 			
 			if (pro_num < n_num1) {
 				msg = "库存不足";
@@ -400,8 +397,7 @@ public class WarehouseLightService extends CommonService{
 			}
 
 			int nnum = s_num + n_num1;
-			String strSQLwf = "update ddpro set selljg='" + pro_price
-					+ "',money='" + price_hb + "',s_num='" + nnum
+			String strSQLwf = "update ddpro set s_num='" + nnum
 					+ "',s_c_num='" + snum + "',s_tr_date='" + currentDate
 					+ "',fy_states='待发运'  where id='" + ddproid + "' ";
 			trans.update(strSQLwf);

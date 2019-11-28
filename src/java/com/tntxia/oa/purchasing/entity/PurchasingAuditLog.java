@@ -8,7 +8,7 @@ public class PurchasingAuditLog {
 	
 	private String id = UUIDUtils.getUUID();
 	
-	private String orderId;
+	private Integer orderId;
 	
 	private String operator;
 	
@@ -26,11 +26,11 @@ public class PurchasingAuditLog {
 		this.id = id;
 	}
 
-	public String getOrderId() {
+	public Integer getOrderId() {
 		return orderId;
 	}
 
-	public void setOrderId(String orderId) {
+	public void setOrderId(Integer orderId) {
 		this.orderId = orderId;
 	}
 

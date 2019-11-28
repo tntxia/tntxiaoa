@@ -11,13 +11,12 @@ import com.tntxia.oa.purchasing.entity.PurchasingAuditLog;
 import com.tntxia.oa.purchasing.entity.PurchasingProduct;
 import com.tntxia.sqlexecutor.Transaction;
 import com.tntxia.web.mvc.BaseDao;
-import com.tntxia.web.util.UUIDUtils;
 
 public class PurchasingLightDao extends BaseDao{
 	
 	private DBManager dbManager = this.getDBManager();
 	
-	public void updatePurchasingStatus(Transaction trans, String status,String status2,String id) throws Exception{
+	public void updatePurchasingStatus(Transaction trans, String status,String status2,Integer id) throws Exception{
 		String sql = "update procure set l_spqk=?,l_spyj=? where id=?";
 		trans.update(sql, new Object[]{status,status2,id});
 	}

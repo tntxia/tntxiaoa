@@ -78,7 +78,7 @@ public class LeftbarAction extends CommonDoAction  {
 	        res.put(type, bars);
 		}
 		
-		String[] types = new String[] {"warehouse", "purchasing", "finance", "sale"};
+		String[] types = new String[] {"warehouse", "purchasing", "finance", "sale", "hr"};
 		for(String type: types) {
 			String parentId = this.getParentId(type);
 			List menuListL1 = this.getChildrenMenus(parentId);

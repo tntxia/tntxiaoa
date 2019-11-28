@@ -119,6 +119,8 @@ public class Purchasing {
 	
 	private String l_spyj;
 	
+	private String dept;
+	
 	public int getId() {
 		return id;
 	}
@@ -452,6 +454,14 @@ public class Purchasing {
 
 	public void setStatusOrign(String statusOrign) {
 		this.statusOrign = statusOrign;
+	}
+
+	public String getDept() {
+		return dept;
+	}
+
+	public void setDept(String dept) {
+		this.dept = dept;
 	}
 	
 	

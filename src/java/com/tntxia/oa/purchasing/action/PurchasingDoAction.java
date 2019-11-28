@@ -1251,6 +1251,93 @@ public class PurchasingDoAction extends CommonDoAction {
 		return map;
 	}
 	
+	private Map<String,Object> reject(Transaction trans, Purchasing purchasing, String username, String opinion) throws Exception {
+		Integer id = purchasing.getId();
+
+		String zt = "审批不通过";
+		String pzt = "草拟";
+
+		// 发送审批的邮件
+		String number = purchasing.getNumber();
+		String mail_to = purchasing.getMan();
+		String title = "你的订单" + number + "没有通过审批";
+		String content = "审批意见：" + opinion;
+		String mail_from = "system";
+
+		SendMail sendmail = new SendMail();
+		sendmail.sendMail(title, content, mail_to, mail_from);
+
+		financeDao.updatePaymentStatus(trans, id, pzt);
+		purchasingDao.updatePurchasingStatus(trans, zt, opinion, id);
+		
+		PurchasingAuditLog log = new PurchasingAuditLog();
+		log.setOrderId(id);
+		log.setOperator(username);
+		log.setStatusFrom(purchasing.getStatusOrign());
+		log.setStatusTo(zt);
+		purchasingDao.addAuditLog(trans, log);
+		return this.success();
+	}
+	
+	@SuppressWarnings("rawtypes")
+	private Map<String,Object> pass(Transaction trans, Purchasing purchasing, String username, String opinion) throws Exception {
+		Integer id = purchasing.getId();
+		double totle = 0;
+		String strSQLpro = "select num,selljg from cgpro where ddid=?";
+		
+		List cgproList = trans.queryForList(strSQLpro, new Object[] {id}, true);
+
+		for (int i = 0; i < cgproList.size(); i++) {
+			Map map = (Map) cgproList.get(i);
+			int num = (Integer) map.get("num");
+			double price = ((BigDecimal) map.get("selljg")).doubleValue();		
+			double tprice = num * price;
+			totle = totle + tprice;												// 金额
+		}
+
+		String dept = purchasing.getDept();
+		String sqlddman = "select  * from cgsp  where  ?>=price_min  and  price_max>=?  and dept=?";
+
+		Map<String, Object> spMap = trans.queryForMap(sqlddman,
+				new Object[] { totle, totle, dept }, true);
+
+		if (spMap == null || spMap.size() == 0) {
+			return this.errorMsg("未定义审批流程!");
+		}
+
+		boolean fif = purchasing.isFirstApproved();
+		String zt = "审批不通过";
+		String pzt = "草拟";
+
+		// 发送审批的邮件
+		String number = purchasing.getNumber();
+		String mail_to = purchasing.getMan();
+		String title = "你的订单" + number + "已经通过审批";
+		String content = "审批意见：" + opinion;
+		String mail_from = "system";
+
+		SendMail sendmail = new SendMail();
+		sendmail.sendMail(title, content, mail_to, mail_from);
+
+		if (fif) {
+			zt = "待复审";
+		} else {
+			zt = "审批通过";
+			pzt = "待付款";
+		}
+
+		financeDao.updatePaymentStatus(trans, id, pzt);
+		purchasingDao.updatePurchasingStatus(trans, zt, opinion, id);
+		
+		PurchasingAuditLog log = new PurchasingAuditLog();
+		log.setOrderId(id);
+		log.setOperator(username);
+		log.setStatusFrom(purchasing.getStatusOrign());
+		log.setStatusTo(zt);
+		purchasingDao.addAuditLog(trans, log);
+		return this.success();
+	}
+	
 	/**
 	 * 审批订单
 	 * 
@@ -1259,75 +1346,23 @@ public class PurchasingDoAction extends CommonDoAction {
 	 * @return
 	 * @throws Exception
 	 */
-	@SuppressWarnings("rawtypes")
-	public Map<String,Object> audit(AuditForm auditForm, @Session("username") String username, @Session("dept") String dept, @Session("role") String role) throws Exception {
+	public Map<String,Object> audit(AuditForm auditForm, @Session("username") String username) throws Exception {
 
 		String id = auditForm.getId();
 		Purchasing purchasing = purchasingDao.getPurchasingById(id);
-		
 		Transaction trans = this.getTransaction();
-
 		try {
-			
-			double totle = 0;
-			String strSQLpro = "select num,selljg from cgpro where ddid='" + id
-					+ "'";
-			
-			List cgproList = trans.queryForList(strSQLpro, true);
-
-			for (int i = 0; i < cgproList.size(); i++) {
-				Map map = (Map) cgproList.get(i);
-				int num = (Integer) map.get("num");
-				double price = ((BigDecimal) map.get("selljg")).doubleValue();		
-				double tprice = num * price;
-				totle = totle + tprice;												// 金额
-			}
-
-			String sqlddman = "select  * from cgsp  where  ?>=price_min  and  price_max>=?  and dept='"
-					+ dept + "' and role='" + role + "'";
-
-			Map<String, Object> spMap = trans.queryForMap(sqlddman,
-					new Object[] { totle, totle }, true);
-
-			if (spMap == null || spMap.size() == 0) {
-				return this.errorMsg("未定义审批流程!");
-			}
-
 			String l_spqk = auditForm.getL_spqk();
-			String l_spyj = auditForm.getL_spyj();
-			boolean fif = purchasing.isFirstApproved();
-			String zt = "审批不通过";
-			String pzt = "草拟";
-
-			// 发送审批的邮件
-			String number = purchasing.getNumber();
-			String mail_to = purchasing.getMan();
-			String title = "你的订单" + number + l_spqk;
-			String content = "审批意见：" + l_spyj;
-			String mail_from = username;
-
-			SendMail sendmail = new SendMail();
-			sendmail.sendMail(title, content, mail_to, mail_from);
-
-			if (l_spqk.equals("审批通过")) {
-				if (fif) {
-					zt = "待复审";
-				} else {
-					zt = "审批通过";
-					pzt = "待付款";
-				}
+			String opinion = auditForm.getL_spyj();
+			boolean pass = l_spqk.equals("审批通过");
+			Map<String,Object> res;
+			if (!pass) {
+				res = reject(trans, purchasing, username, opinion);
+			} else {
+				res = pass(trans, purchasing, username, opinion);
 			}
-
-			financeDao.updatePaymentStatus(trans, id, pzt);
-			purchasingDao.updatePurchasingStatus(trans, zt, l_spyj, id);
-			
-			PurchasingAuditLog log = new PurchasingAuditLog();
-			log.setOrderId(id);
-			log.setOperator(username);
-			log.setStatusFrom(purchasing.getStatusOrign());
-			log.setStatusTo(zt);
-			purchasingDao.addAuditLog(trans, log);
-			
+			trans.commit();
+			return res;
 		}catch(Exception ex) {
 			ex.printStackTrace();
 			trans.rollback();
