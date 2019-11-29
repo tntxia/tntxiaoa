@@ -65,7 +65,7 @@
 		
 		<action url="market/tradePolicy.do">com.tntxia.oa.market.action.TradePolicyAction</action>
 		
-		<action name="assay/do">com.tntxia.oa.assay.action.AssayAction</action>
+		<action  url="assay/assay.do">com.tntxia.oa.assay.action.AssayAction</action>
 		<action url="unit.do">com.tntxia.oa.unit.action.UnitAction</action>
 		
 		<action url="company.do">com.tntxia.oa.company.action.CompanyAction</action>
@@ -114,7 +114,6 @@
 		<!-- 销售 -->
 		<dispatch url="sale/quote/print.mvc">sale/quote/print</dispatch>
 		<dispatch url="sale/quote/quote.do">sale/quote</dispatch>
-		<dispatch url="assay/assay.do">assay/do</dispatch>
 		
 	</action-mapping>
 </mvc>

@@ -1,6 +1,7 @@
 package com.tntxia.oa.assay.action;
 
 import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -69,7 +70,7 @@ public class AssayAction extends CommonDoAction{
 		
 	}
 	
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public List getProductSaleStatist(WebRuntime runtime) throws Exception {
 		
 		String startdate = runtime.getParam("startdate");
@@ -105,9 +106,18 @@ public class AssayAction extends CommonDoAction{
 			item.put("num", mapping.get(key));
 			res.add(item);
 		}
-		
 		return res;
-		
+	}
+	
+	/**
+	 * 获取该型号产品的采购价
+	 * @param id
+	 * @return
+	 * @throws Exception 
+	 */
+	private BigDecimal getSellPrice(String model) throws Exception{
+		String sql = "select pro_price from warehouse where pro_model = ?";
+		return dbManager.queryForBigDecimal(sql, new Object[]{model});
 		
 	}
 	
@@ -156,6 +166,225 @@ public class AssayAction extends CommonDoAction{
 		}
 		
 		return res;
+		
+	}
+	
+	@SuppressWarnings("rawtypes")
+	private Map<String,BigDecimal> getPriceMap(Integer id) throws Exception {
+		
+		Map<String,BigDecimal> res = new HashMap<String,BigDecimal>();
+		
+		List proList = dbManager.queryForList("select num,salejg,epro from ddpro where ddid=?",new Object[]{id}, true);
+		
+		BigDecimal totalPrice = BigDecimal.ZERO;
+		BigDecimal totalPurchasePrice = BigDecimal.ZERO;
+		BigDecimal totalSendPrice = BigDecimal.ZERO;
+		BigDecimal totalSendPurchasePrice = BigDecimal.ZERO;
+		
+		for(int i=0;i<proList.size();i++){
+			Map map = (Map) proList.get(i);
+			Integer num = (Integer) map.get("num");
+			BigDecimal salejg = (BigDecimal) map.get("salejg");
+			String model = (String) map.get("epro");
+			BigDecimal purchasePrice = this.getSellPrice(model);
+			if(num!=null && num>0){
+				
+				totalPrice = totalPrice.add(BigDecimal.valueOf(num).multiply(salejg));
+				if(purchasePrice!=null){
+					totalPurchasePrice = totalPurchasePrice.add(purchasePrice.multiply(BigDecimal.valueOf(num)));
+				}
+			}
+			Integer sendNum = (Integer) map.get("s_num");
+			if(sendNum!=null && sendNum>0){
+				totalSendPrice = totalSendPrice.add(BigDecimal.valueOf(sendNum).multiply(salejg));
+				totalSendPurchasePrice = totalSendPurchasePrice.add(BigDecimal.valueOf(sendNum).multiply(purchasePrice));
+			}
+		}
+		
+		res.put("totalPrice", totalPrice);
+		res.put("totalPurchasePrice", totalPurchasePrice);
+		res.put("totalSendPrice", totalSendPrice);
+		res.put("totalSendPurchasePrice", totalSendPurchasePrice);
+		return res;
+	}
+	
+	private Map<String,Object> getGatherMap(String number) throws Exception{
+		String sql="select sum(smoney) as sk,sum(i_man) as iman from gathering  where orderform=?";
+		return dbManager.queryForMap(sql, new Object[]{number},true);
+		
+	}
+	
+	/**
+	 * 销售订单统计
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public Map<String, Object> getStatistic(WebRuntime runtime)
+			throws Exception {
+
+		PageBean pageBean = runtime.getPageBean(50);
+
+		NumberFormat nf = NumberFormat.getNumberInstance();
+		nf.setMaximumFractionDigits(4);
+		nf.setMinimumFractionDigits(4);
+
+		String fpnum = runtime.getParam("fpnum");
+		String coname = runtime.getParam("coname");
+		String model = runtime.getParam("model");
+		String sdate = runtime.getParam("sdate");
+		String edate = runtime.getParam("edate");
+		String man = runtime.getParam("man");
+		String supplier = runtime.getParam("supplier");
+
+		boolean subviewRight = this.existRight(runtime, "subview");
+		String deptjb = this.getDeptjb(runtime);
+		String username = this.getUsername(runtime);
+
+		String sqlWhere = "";
+
+		if (supplier != null && supplier.trim().length() > 0) {
+			sqlWhere += " and id in (select ddid from ddpro where supplier like '%"
+					+ supplier + "%')";
+		}
+		if (sdate != null && sdate.trim().length() > 0) {
+			sqlWhere += " and datetime>='" + sdate + "'";
+		}
+		if (edate != null && edate.trim().length() > 0) {
+			sqlWhere += " and '" + edate + "'>=datetime ";
+		}
+
+		if (man != null && man.trim().length() > 0) {
+			sqlWhere += " and man='" + man + "' ";
+		}
+
+		if (StringUtils.isNotEmpty(coname)) {
+			sqlWhere += " and coname like '%" + coname + "%' ";
+		}
+
+		if (StringUtils.isNotEmpty(fpnum)) {
+			sqlWhere += " and number like '%" + fpnum + "%' ";
+		}
+		
+		if(StringUtils.isNotEmpty(model)){
+			sqlWhere += " and id in (select ddid from ddpro where epro like '%"
+					+ model + "%')";
+		}
+
+		String sql = "";
+		if (subviewRight) {
+			sql = "select count(*) from subscribe where (state='预收款' or state='已发运' or state='待出库' or state='订单已批准') and deptjb like '"
+					+ deptjb + "%'";
+
+		} else
+			sql = "select count(*) from subscribe where (state='预收款' or state='已发运' or state='待出库' or state='订单已批准') and deptjb like '"
+					+ deptjb + "%' and  man='" + username + "'";
+
+		int count = dbManager.queryForInt(sql + sqlWhere);
+
+		if (subviewRight) {
+			
+			sql = "select top "
+					+ pageBean.getTop()
+					+ " id,number,coname,man,send_date,datetime from subscribe  where (state='预收款' or state='已发运' or state='待出库' or state='订单已批准')   and deptjb like '"
+					+ deptjb + "%' " + sqlWhere + "  order  by  number desc";
+		} else {
+			sql = "select top "
+					+ pageBean.getTop()
+					+ "  id,number,coname,man,send_date,datetime from subscribe where (state='预收款' or state='已发运' or state='待出库' or state='订单已批准')  and  man='"
+					+ username + "' " + sqlWhere + " order  by  number desc";
+		}
+		List list = dbManager.queryForList(sql, true);
+
+		List rows = this.getRows(list, pageBean);
+
+		for (int i = 0; i < rows.size(); i++) {
+
+			Map map = (Map) rows.get(i);
+			Integer id = (Integer) map.get("id");
+			Map<String,BigDecimal> priceMap = getPriceMap(id);
+			map.putAll(priceMap);
+			String number = (String) map.get("number");
+			Map<String,Object> gatherMap = getGatherMap(number);
+			map.putAll(gatherMap);
+			
+		}
+		
+		pageBean.setTotalAmount(count);
+
+		return this.getPagingResult(rows, pageBean);
+
+	}
+	
+	/**
+	 * 销售订单统计
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	@SuppressWarnings("rawtypes")
+	public List getStatisticTotal(WebRuntime runtime)
+			throws Exception {
+		boolean subviewRight = this.existRight(runtime, "subview");
+		String deptjb = this.getDeptjb(runtime);
+		String username = this.getUsername(runtime);
+		String sql = "";
+		
+		String sqlWhere = "";
+		
+		String fpnum = runtime.getParam("fpnum");
+		String coname = runtime.getParam("coname");
+		String sdate = runtime.getParam("sdate");
+		String edate = runtime.getParam("edate");
+		String man = runtime.getParam("man");
+		String supplier = runtime.getParam("supplier");
+		
+		String model = runtime.getParam("model");
+
+		if (supplier != null && supplier.trim().length() > 0) {
+			sqlWhere += " and id in (select ddid from ddpro where supplier like '%"
+					+ supplier + "%')";
+		}
+		if (sdate != null && sdate.trim().length() > 0) {
+			sqlWhere += " and datetime>='" + sdate + "'";
+		}
+		if (edate != null && edate.trim().length() > 0) {
+			sqlWhere += " and '" + edate + "'>=datetime ";
+		}
+
+		if (man != null && man.trim().length() > 0) {
+			sqlWhere += " and man='" + man + "' ";
+		}
+
+		if (StringUtils.isNotEmpty(coname)) {
+			sqlWhere += " and coname like '%" + coname + "%' ";
+		}
+
+		if (StringUtils.isNotEmpty(fpnum)) {
+			sqlWhere += " and number like '%" + fpnum + "%' ";
+		}
+		
+		if(StringUtils.isNotEmpty(model)){
+			sqlWhere += " and id in (select ddid from ddpro where epro like '%"
+					+ model + "%')";
+		}
+		
+		if(subviewRight){
+			sql = "select money,sum(num*salejg) ys from subview where (state='预收款' or state='已发运' or state='待出库' or state='订单已批准')   and deptjb like '"
+					+ deptjb
+					+ "%'"
+					+ sqlWhere
+					+ "  group by money order by 2 desc";
+		}else{
+			sql = "select money,sum(num*salejg) ys from subview where  man='"
+					+ username
+					+ "' and (state='预收款' or state='已发运' or state='待出库' or state='订单已批准') "
+					+ sqlWhere
+					+ "  group by money order by 2 desc";
+		}
+	
+		return dbManager.queryForList(sql, true);
 		
 	}
 
