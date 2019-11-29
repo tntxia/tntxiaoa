@@ -7,7 +7,7 @@
 			<button url="assay/outWarehouse.mvc">出库统计</button>
 		</bar>
 		<bar name="产品分析" restrain="jcfxzt">
-			<button url="#assay_sale_ranking_product">销售额排行</button>
+			<button url="#assay/sale_ranking_product">销售额排行</button>
 		</bar>
 		<bar name="客户分析" restrain="jcfxzt">
 			<button url="assay/sale_charts_customer.mvc">销售额排行</button>
@@ -22,7 +22,7 @@
 			<button url="assay/sale/monthTrend.mvc">月走势图</button>
 		</bar>
 		<bar name="合同统计" restrain="jcfxzt">
-			<button url="#assay_sale">销售合同统计</button>
+			<button url="#assay/sale">销售合同统计</button>
 			<button url="sale/xstj/month.mvc">月合同统计</button>
 			<button url="assay/statist/purchasing.mvc">采购统计</button>
 		</bar>
