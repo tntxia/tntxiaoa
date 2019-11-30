@@ -478,6 +478,7 @@ public class AssayAction extends CommonDoAction{
 		
 		HttpTransfer httpTrans = new HttpTransfer();
 		httpTrans.setHost("localhost");
+		httpTrans.setPort(8080);
 		httpTrans.setContextPath("report");
 		Map<String,String> params = new HashMap<String,String>();
 		params.put("templateName", "sale_order_total_stastics_all");
