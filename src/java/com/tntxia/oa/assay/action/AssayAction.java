@@ -1,5 +1,6 @@
 package com.tntxia.oa.assay.action;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -7,12 +8,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 
+import com.alibaba.fastjson.JSON;
 import com.tntxia.dbmanager.DBManager;
+import com.tntxia.httptrans.HttpTransfer;
 import com.tntxia.oa.common.action.CommonDoAction;
 import com.tntxia.web.mvc.PageBean;
 import com.tntxia.web.mvc.WebRuntime;
+import com.tntxia.web.mvc.annotation.TemporaryPath;
+import com.tntxia.web.util.UUIDUtils;
 
 public class AssayAction extends CommonDoAction{
 	
@@ -383,9 +389,103 @@ public class AssayAction extends CommonDoAction{
 					+ sqlWhere
 					+ "  group by money order by 2 desc";
 		}
-	
 		return dbManager.queryForList(sql, true);
+	}
+	
+	/**
+	 * 销售订单统计
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public Map<String, Object> exportStatistic(WebRuntime runtime, @TemporaryPath String temporaryPath)
+			throws Exception {
+
+		NumberFormat nf = NumberFormat.getNumberInstance();
+		nf.setMaximumFractionDigits(4);
+		nf.setMinimumFractionDigits(4);
+
+		String fpnum = runtime.getParam("fpnum");
+		String coname = runtime.getParam("coname");
+		String model = runtime.getParam("model");
+		String sdate = runtime.getParam("sdate");
+		String edate = runtime.getParam("edate");
+		String man = runtime.getParam("man");
+		String supplier = runtime.getParam("supplier");
+
+		boolean subviewRight = this.existRight(runtime, "subview");
+		String deptjb = this.getDeptjb(runtime);
+		String username = this.getUsername(runtime);
+
+		String sqlWhere = "";
+
+		if (supplier != null && supplier.trim().length() > 0) {
+			sqlWhere += " and id in (select ddid from ddpro where supplier like '%"
+					+ supplier + "%')";
+		}
+		if (sdate != null && sdate.trim().length() > 0) {
+			sqlWhere += " and datetime>='" + sdate + "'";
+		}
+		if (edate != null && edate.trim().length() > 0) {
+			sqlWhere += " and '" + edate + "'>=datetime ";
+		}
+
+		if (man != null && man.trim().length() > 0) {
+			sqlWhere += " and man='" + man + "' ";
+		}
+
+		if (StringUtils.isNotEmpty(coname)) {
+			sqlWhere += " and coname like '%" + coname + "%' ";
+		}
+
+		if (StringUtils.isNotEmpty(fpnum)) {
+			sqlWhere += " and number like '%" + fpnum + "%' ";
+		}
 		
+		if(StringUtils.isNotEmpty(model)){
+			sqlWhere += " and id in (select ddid from ddpro where epro like '%"
+					+ model + "%')";
+		}
+		
+		
+		String sql;
+		if (subviewRight) {
+			
+			sql = "select id,number,coname,man,send_date,datetime from subscribe  where (state='预收款' or state='已发运' or state='待出库' or state='订单已批准')   and deptjb like '"
+					+ deptjb + "%' " + sqlWhere + "  order  by  number desc";
+		} else {
+			sql = "select id,number,coname,man,send_date,datetime from subscribe where (state='预收款' or state='已发运' or state='待出库' or state='订单已批准')  and  man='"
+					+ username + "' " + sqlWhere + " order  by  number desc";
+		}
+		List list = dbManager.queryForList(sql, true);
+
+		for (int i = 0; i < list.size(); i++) {
+
+			Map map = (Map) list.get(i);
+			Integer id = (Integer) map.get("id");
+			Map<String,BigDecimal> priceMap = getPriceMap(id);
+			map.putAll(priceMap);
+			String number = (String) map.get("number");
+			Map<String,Object> gatherMap = getGatherMap(number);
+			map.putAll(gatherMap);
+			
+		}
+		
+		String uuid = UUIDUtils.getUUID();
+		File file = new File(temporaryPath + File.pathSeparator + uuid + ".json");
+		FileUtils.writeStringToFile(file, JSON.toJSONString(list));
+		
+		HttpTransfer httpTrans = new HttpTransfer();
+		httpTrans.setHost("localhost");
+		httpTrans.setContextPath("report");
+		Map<String,String> params = new HashMap<String,String>();
+		params.put("templateName", "sale_order_total_stastics_all");
+		Map<String,Object> map = httpTrans.uploadFile("report!generate", file.getAbsolutePath(), params);
+		uuid = (String) map.get("uuid");
+
+		return this.success("uuid", uuid);
+
 	}
 
 }
