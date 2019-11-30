@@ -17,6 +17,7 @@ import com.tntxia.httptrans.HttpTransfer;
 import com.tntxia.oa.common.action.CommonDoAction;
 import com.tntxia.web.mvc.PageBean;
 import com.tntxia.web.mvc.WebRuntime;
+import com.tntxia.web.mvc.annotation.Session;
 import com.tntxia.web.mvc.annotation.TemporaryPath;
 import com.tntxia.web.util.UUIDUtils;
 
@@ -399,8 +400,12 @@ public class AssayAction extends CommonDoAction{
 	 * @throws Exception
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public Map<String, Object> exportStatistic(WebRuntime runtime, @TemporaryPath String temporaryPath)
+	public Map<String, Object> exportStatistic(WebRuntime runtime, @TemporaryPath String temporaryPath, @Session("role") String role)
 			throws Exception {
+		
+		if (!"总经理".equals(role)) {
+			return this.errorMsg("你没有导出统计的权限，请联系管理员处理");
+		}
 
 		NumberFormat nf = NumberFormat.getNumberInstance();
 		nf.setMaximumFractionDigits(4);
