@@ -1298,6 +1298,7 @@ public class PurchasingDoAction extends CommonDoAction {
 		String dept = purchasing.getDept();
 		String sqlddman = "select  * from cgsp  where  ?>=price_min  and  price_max>=?  and dept=?";
 
+		System.out.println("totle " + totle + "dept " + dept);
 		Map<String, Object> spMap = trans.queryForMap(sqlddman,
 				new Object[] { totle, totle, dept }, true);
 
