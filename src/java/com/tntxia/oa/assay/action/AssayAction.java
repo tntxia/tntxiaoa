@@ -453,10 +453,8 @@ public class AssayAction extends CommonDoAction{
 					+ model + "%')";
 		}
 		
-		
 		String sql;
 		if (subviewRight) {
-			
 			sql = "select id,number,coname,man,send_date,datetime from subscribe  where (state='预收款' or state='已发运' or state='待出库' or state='订单已批准')   and deptjb like '"
 					+ deptjb + "%' " + sqlWhere + "  order  by  number desc";
 		} else {
