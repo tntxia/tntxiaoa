@@ -37,7 +37,7 @@ public class PurchasingLightDao extends BaseDao{
 		res.setId((Integer) map.get("id"));
 		res.setNumber((String) map.get("number"));
 		res.setMan((String) map.get("man"));
-		res.setDept((String) map.get("dept"));
+		res.setDept((String) map.get("l_dept"));
 		res.setSaleNumber((String) map.get("sub"));
 		res.setSupplierNumber((String) map.get("co_number"));
 		res.setSupplier((String) map.get("coname"));
