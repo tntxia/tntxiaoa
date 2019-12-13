@@ -2045,6 +2045,9 @@ public class WarehouseDoAction extends CommonDoAction {
 	@SuppressWarnings("rawtypes")
 	public Map<String,Object> listByModel(WebRuntime runtime) throws Exception {
 		String model = runtime.getParam("model");
+		if (model!=null) {
+			model = model.trim();
+		}
 		String sql = "select * from warehouse where pro_model = ?";
 		List list = dbManager.queryForList(sql, new Object[] {model}, true);
 		return this.success("data", list);
