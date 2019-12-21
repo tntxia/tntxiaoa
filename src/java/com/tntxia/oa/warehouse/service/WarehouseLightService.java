@@ -517,9 +517,7 @@ public class WarehouseLightService extends CommonService{
 					int pro_num = ((BigDecimal) warehouseMap.get("pro_num"))
 							.intValue();
 					String proaddr = (String) warehouseMap.get("pro_addr");
-					BigDecimal pro_price = (BigDecimal) warehouseMap
-							.get("pro_price");
-					String price_hb = (String) warehouseMap.get("price_hb");
+					
 					int zpro_num = pro_num - n_num;
 					if (zpro_num < 0) {
 						msg = "库存不足";
@@ -640,8 +638,7 @@ public class WarehouseLightService extends CommonService{
 					log.setRemark("仓库全部出库操作");
 					updateWarehosue(trans, log);
 
-					String strSQLwf = "update ddpro set selljg='" + pro_price
-							+ "',money='" + price_hb + "',s_num='" + num
+					String strSQLwf = "update ddpro set s_num='" + num
 							+ "',s_c_num='" + n_num + "',s_tr_date='"
 							+ currentDate + "',fy_states='待发运'  where id='"
 							+ ddproid + "' ";
@@ -649,9 +646,12 @@ public class WarehouseLightService extends CommonService{
 
 				}
 			}
-			String ddsqls1 = "update subscribe set state='已发运'  where id='"
-					+ ddid + "'";
-			trans.update(ddsqls1);
+			if (this.checkIsAllOut(trans, ddid)) {
+				String ddsqls1 = "update subscribe set state='已发运'  where id='"
+						+ ddid + "'";
+				trans.update(ddsqls1);
+			}
+			
 			this.updateGathering(trans, ddid);
 			trans.commit();
 			return msg;
@@ -664,7 +664,11 @@ public class WarehouseLightService extends CommonService{
 				trans.close();
 			}
 		}
-
+	}
+	
+	private boolean checkIsAllOut(Transaction trans, String ddid) throws SQLException {
+		String sql = "select count(*) from ddpro where ddid = ? and num > s_num";
+		return trans.exist(sql, new Object[] {ddid});
 	}
 	
 	/**
@@ -1101,6 +1105,7 @@ public class WarehouseLightService extends CommonService{
 			return msg;
 		} catch (Exception e) {
 			logger.error("入库失败：", e);
+			e.printStackTrace();
 			trans.rollback();
 			return e.toString();
 		} finally {
@@ -1403,16 +1408,13 @@ public class WarehouseLightService extends CommonService{
 			String pro_sup_number = rkhouse.getPro_sup_number();
 			String name1 = username;
 			double price = rkhouse.getPro_price();
-			String hb = rkhouse.getPro_hb();
+			
 			String pro_unit1 = rkhouse.getPro_unit();
-			BigDecimal rate = CurrentUtils.getCurrentRate(hb);
+			
 			String pro_model1 = rkhouse.getPro_model().trim();
 			String pro_name = rkhouse.getPro_name().trim();
 			String remark = rkhouse.getRemark();
-			if (rate != null && rate.doubleValue() > 0) {
-				BigDecimal b = new BigDecimal(price);
-				price = rate.multiply(b).doubleValue();
-			}
+			
 			int num1 = rkhouse.getPro_num();
 
 			String strSQLrw = "insert into warehouse(pro_model,pro_gg,pro_name,"

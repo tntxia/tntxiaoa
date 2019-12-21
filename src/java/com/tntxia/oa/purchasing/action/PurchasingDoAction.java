@@ -1218,6 +1218,7 @@ public class PurchasingDoAction extends CommonDoAction {
 			if (trans != null) {
 				trans.rollback();
 			}
+			ex.printStackTrace();
 			logger.error("采购订单提交审批失败！", ex);
 			return this.errorMsg(ex.toString());
 		} finally {
@@ -1420,17 +1421,10 @@ public class PurchasingDoAction extends CommonDoAction {
 
 	public Map<String,Object> confirmContact(WebRuntime runtime) throws Exception {
 
-		DBConnection einfodb = new DBConnection();
-
 		String id1 = runtime.getParam("id");
 		String strSQL = "update procure set  l_spqk='合同已确认' where id='" + id1
 				+ "'";
-
-		boolean t = einfodb.executeUpdate(strSQL);
-		if (!t) {
-			return this.errorMsg("供应商确认失败");
-		}
-
+		dbManager.executeUpdate(strSQL);
 		return this.success();
 
 	}

@@ -33,7 +33,7 @@ public class PurchasingProduct {
 	private BigDecimal purchasingPrice;
 	
 	// 税率
-	private int rate;
+	private Integer rate;
 	
 	// 品牌
 	private String tradeMark;
@@ -139,11 +139,11 @@ public class PurchasingProduct {
 		this.purchasingPrice = purchasingPrice;
 	}
 
-	public int getRate() {
+	public Integer getRate() {
 		return rate;
 	}
 
-	public void setRate(int rate) {
+	public void setRate(Integer rate) {
 		this.rate = rate;
 	}
 

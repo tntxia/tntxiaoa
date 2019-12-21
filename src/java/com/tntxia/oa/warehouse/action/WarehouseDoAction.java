@@ -28,6 +28,7 @@ import com.tntxia.dbmanager.DBManager;
 import com.tntxia.httptrans.HttpTransfer;
 import com.tntxia.httptrans.HttpTransferFactory;
 import com.tntxia.oa.common.CommonToolbarItem;
+import com.tntxia.oa.common.NumberFactory;
 import com.tntxia.oa.common.action.CommonDoAction;
 import com.tntxia.oa.common.action.Userinfo;
 import com.tntxia.oa.mail.SendMail;
@@ -1435,38 +1436,13 @@ public class WarehouseDoAction extends CommonDoAction {
 		String dept = uesrinfo.getDept();
 		String deptjb = uesrinfo.getDeptjb();
 		
-		java.sql.ResultSet sqlRst;
-		java.text.SimpleDateFormat simple1 = new java.text.SimpleDateFormat(
-				"yyMM");
-		String number1 = simple1.format(new java.util.Date());
-		int in_no = 1;
-		DBConnection db = new DBConnection();
-		String sqlq = "select  *  from in_warehouse  where number like 'PO"
-				+ number1 + "%' order by in_no desc";
-		ResultSet rs = db.executeQuery(sqlq);
-		if (rs.next()) {
-			in_no = rs.getInt("in_no") + 1;
-		}
-		String sno = "";
-		if (in_no < 10) {
-			sno = "00";
-		} else if ((10 <= in_no) & (in_no < 100)) {
-			sno = "0";
-		} else
-			sno = "";
-		rs.close();
+		String number = NumberFactory.generateNumber("PO");
 		
 		String int_date = DateUtil.getCurrentDateSimpleStr();
 
 		String strSQL = "insert into in_warehouse(number,cg_number,supplier,sp_number,int_types,money,int_date,g_man,"
-				+ "man,dept,deptjb,remark,in_no,states,purchasing_id)"
-				+ " values('PO"
-				+ number1
-				+ "-"
-				+ sno
-				+ ""
-				+ in_no
-				+ "','','"
+				+ "man,dept,deptjb,remark,states,purchasing_id)"
+				+ " values(?,'','"
 				+ in.getSupplier()
 				+ "','"
 				+ in.getSp_number()
@@ -1483,15 +1459,12 @@ public class WarehouseDoAction extends CommonDoAction {
 				+ "','"
 				+ dept
 				+ "','"
-				+ deptjb + "','" + in.getRemark() + "','" + in_no + "','待入库',?)";
+				+ deptjb + "','" + in.getRemark() + "','待入库',?)";
 		logger.info("execute in warehouse :" + strSQL);
-		dbManager.executeUpdate(strSQL,new Object[] {in.getPurchasingId()});
+		dbManager.executeUpdate(strSQL,new Object[] {number, in.getPurchasingId()});
 		
 		String sql = "select max(id)  from in_warehouse";
-		sqlRst = db.executeQuery(sql);
-		sqlRst.next();
-		int ddid = sqlRst.getInt(1);
-		
+		int ddid = dbManager.queryForInt(sql);
 		return ddid;
 	}
 	
