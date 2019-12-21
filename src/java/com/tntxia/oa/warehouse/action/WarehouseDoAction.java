@@ -48,6 +48,7 @@ import com.tntxia.string.EscapeUnescape;
 import com.tntxia.web.ParamUtils;
 import com.tntxia.web.mvc.PageBean;
 import com.tntxia.web.mvc.WebRuntime;
+import com.tntxia.web.mvc.annotation.Param;
 import com.tntxia.web.mvc.annotation.Session;
 import com.tntxia.web.util.DatasourceStore;
 
@@ -2053,5 +2054,14 @@ public class WarehouseDoAction extends CommonDoAction {
 		return this.success("data", list);
 	}
 
+	@SuppressWarnings("rawtypes")
+	public Map<String,Object> listSaleProductToOut(@Param("id") String id, PageBean pageBean) throws Exception {
+		String sqlWhere = " where ddid = ? and num > s_num";
+		String sql = "select * from ddpro ";
+		List list = dbManager.queryForList(sql + sqlWhere, new Object[] {id}, true);
+		sql = "select count(*) from ddpro ";
+		int count = dbManager.queryForInt(sql + sqlWhere, new Object[] {id});
+		return this.getPagingResult(list, pageBean, count);
+	}
 
 }
