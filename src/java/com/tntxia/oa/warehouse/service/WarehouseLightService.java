@@ -668,7 +668,7 @@ public class WarehouseLightService extends CommonService{
 	
 	private boolean checkIsAllOut(Transaction trans, String ddid) throws SQLException {
 		String sql = "select count(*) from ddpro where ddid = ? and num > s_num";
-		return trans.exist(sql, new Object[] {ddid});
+		return !trans.exist(sql, new Object[] {ddid});
 	}
 	
 	/**
