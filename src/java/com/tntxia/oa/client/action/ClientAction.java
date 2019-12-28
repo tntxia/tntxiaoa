@@ -1,6 +1,7 @@
 package com.tntxia.oa.client.action;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -142,6 +143,59 @@ public class ClientAction extends CommonDoAction {
 		
 		int totalAmount = dbManager.getCount(sqlCount + sqlWhere);
 		List list = dbManager.queryForList(sql + sqlWhere, true);
+		return this.getPagingResult(list, runtime, totalAmount);
+
+	}
+	
+	@SuppressWarnings({ "rawtypes" })
+	public Map<String, Object> filter(WebRuntime runtime) throws Exception {
+
+		String sqlWhere = " where   cotypes='现有客户' and (share='是' ";
+
+		boolean xhview = this.existRight(runtime, "xhview");
+		if (xhview) {
+			String deptjb = this.getDeptjb(runtime);
+			sqlWhere += " or deptjb  like '" + deptjb + "%' ";
+		} else {
+			String username = this.getUsername(runtime);
+			sqlWhere += " or username  = '" + username + "' ";
+		}
+		
+		sqlWhere += ")";
+
+		PageBean pageBean = runtime.getPageBean();
+		
+		List<Object> params = new ArrayList<Object>();
+		
+		String province = runtime.getParam("province");
+		String city = runtime.getParam("city");
+		
+		String sqlFilter = null;
+	
+		if (StringUtils.isNotEmpty(province)) {
+			sqlFilter = "province <> ?";
+			params.add(province);
+		}
+		
+		if (StringUtils.isNotEmpty(city)) {
+			if (sqlFilter == null) {
+				sqlFilter = "city <> ?";
+			} else {
+				sqlFilter += " or city <> ?";
+			}
+			params.add(city);
+		}
+		
+		if (sqlFilter!=null) {
+			sqlWhere += " and (" + sqlFilter + ")";
+		}
+
+		String sql = "select top " + pageBean.getTop()
+				+ " * from client";
+		String sqlCount = "select count(*) from client ";
+		
+		int totalAmount = dbManager.getCount(sqlCount + sqlWhere, params);
+		List list = dbManager.queryForList(sql + sqlWhere, params, true);
 		return this.getPagingResult(list, runtime, totalAmount);
 
 	}
@@ -337,7 +391,7 @@ public class ClientAction extends CommonDoAction {
 		String id = runtime.getParam("id");
 		Map<String,Object> client = service.getClient(id);
 		String co_number= (String) client.get("co_number");        // 客户编号
-		String co_name=(String)client.get("co_name");              // 客户名称
+		
 		String rfq=runtime.getParam("rfq");        			       // 询价单(RFQs)回应速度
 		String gmjl=runtime.getParam("gmjl");        		   	   // 购买机率
 		String fk=runtime.getParam("fk");        			       // 付款情况
@@ -359,10 +413,11 @@ public class ClientAction extends CommonDoAction {
 		String share = runtime.getParam("share");
 		String coaddr = runtime.getParam("coaddr");
 		String cotel = runtime.getParam("cotel");
-		
+		String province = runtime.getParam("province");
+		String city = runtime.getParam("city");
 
-		  String strSQL="update client set share=?, coaddr=?,cotel=?  where clientid=?";
-		  dbManager.executeUpdate(strSQL,new Object[]{share, coaddr,cotel, id});
+		  String strSQL="update client set share=?, coaddr=?,cotel=?,province=?,city=?  where clientid=?";
+		  dbManager.executeUpdate(strSQL,new Object[]{share, coaddr,cotel, province,city, id});
 		  return this.success();
 	}
 	
