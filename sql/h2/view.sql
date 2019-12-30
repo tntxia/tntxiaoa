@@ -56,7 +56,7 @@ FROM gathering INNER JOIN
       
 CREATE VIEW ckview
 AS
-SELECT     outhouse.id, outhouse.pro_fynum, outhouse.pro_coname, outhouse.pro_model, outhouse.pro_name, outhouse.pro_num, 
+SELECT     subscribe.id, outhouse.pro_fynum, outhouse.pro_coname, outhouse.pro_model, outhouse.pro_name, outhouse.pro_num, 
                       outhouse.pro_unit, outhouse.pro_supplier, outhouse.pro_datetime, outhouse.pro_number, outhouse.slinkman, 
                       outhouse.slinktel, 
                       outhouse.states, outhouse.ddid, outhouse.remark, outhouse.wid, outhouse.pro_coname_num, 

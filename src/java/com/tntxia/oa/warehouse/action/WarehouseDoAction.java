@@ -2026,6 +2026,16 @@ public class WarehouseDoAction extends CommonDoAction {
 		List list = dbManager.queryForList(sql, new Object[] {model}, true);
 		return this.success("data", list);
 	}
+	
+	@SuppressWarnings("rawtypes")
+	public Map<String,Object> listSaleProduct(@Param("id") String id, PageBean pageBean) throws Exception {
+		String sqlWhere = " where ddid = ?";
+		String sql = "select * from ddpro ";
+		List list = dbManager.queryForList(sql + sqlWhere, new Object[] {id}, true);
+		sql = "select count(*) from ddpro ";
+		int count = dbManager.queryForInt(sql + sqlWhere, new Object[] {id});
+		return this.getPagingResult(list, pageBean, count);
+	}
 
 	@SuppressWarnings("rawtypes")
 	public Map<String,Object> listSaleProductToOut(@Param("id") String id, PageBean pageBean) throws Exception {
