@@ -1195,7 +1195,7 @@ public class WarehouseLightService extends CommonService{
 				int purchasingId = purchasingDao.getPurchasingIdByNumber(trans,
 						number);
 				List<PurchasingProduct> productList = purchasingDao
-						.getProductByPurchasingId(trans, purchasingId);
+						.getProductByPid(trans, purchasingId);
 
 				boolean isAllIn = true;
 				for (PurchasingProduct product : productList) {

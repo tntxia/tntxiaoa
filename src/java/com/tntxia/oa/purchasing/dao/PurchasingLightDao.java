@@ -195,7 +195,7 @@ public class PurchasingLightDao extends BaseDao{
 	 * @throws Exception 
 	 */
 	@SuppressWarnings("rawtypes")
-	public List<PurchasingProduct> getProductByPurchasingId(Transaction trans,String purchasingId) throws Exception{
+	public List<PurchasingProduct> getProductByPid(Transaction trans,String purchasingId) throws Exception{
 		
 		
 		String sql="select id,epro,cpro,pro_number,num,cgpro_num,unit,money,selljg,rate,supplier,cgpro_ydatetime,remark,sale_rate,sale_finance from cgpro where ddid=? order by id asc";
@@ -218,8 +218,6 @@ public class PurchasingLightDao extends BaseDao{
 			pro.setNum(num);
 			String unit = (String) map.get("unit");
 			pro.setUnit(unit);
-			Integer rate = (Integer)map.get("rate");
-			pro.setRate(rate);
 			String deliveryDate = (String)map.get("cgpro_ydatetime");
 			pro.setDeliverDate(deliveryDate);
 			pro.setTradeMark(supplier);
@@ -255,9 +253,9 @@ public class PurchasingLightDao extends BaseDao{
 	 * @return
 	 * @throws Exception 
 	 */
-	public List<PurchasingProduct> getProductByPurchasingId(Transaction trans,int purchasingId) throws Exception{
+	public List<PurchasingProduct> getProductByPid(Transaction trans,int purchasingId) throws Exception{
 		
-		return this.getProductByPurchasingId(trans,String.valueOf(purchasingId));
+		return this.getProductByPid(trans,String.valueOf(purchasingId));
 	}
 	
 	public void updateRkNum(String id,String rknum) throws Exception{
