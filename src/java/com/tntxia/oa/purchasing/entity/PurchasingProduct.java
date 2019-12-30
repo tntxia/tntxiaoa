@@ -103,8 +103,6 @@ public class PurchasingProduct {
 		this.num = num;
 	}
 	
-	
-
 	public int getCgpro_num() {
 		return cgpro_num;
 	}
