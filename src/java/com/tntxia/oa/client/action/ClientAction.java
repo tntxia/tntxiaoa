@@ -96,7 +96,6 @@ public class ClientAction extends CommonDoAction {
 			res.put("client", this.getClientByName(coname));
 		}
 		return res;
-		
 	}
 
 	@SuppressWarnings({ "rawtypes" })
@@ -123,6 +122,13 @@ public class ClientAction extends CommonDoAction {
 		if (StringUtils.isNotEmpty(province)) {
 			sqlWhere += " and province = ? ";
 			params.add(province);
+		}
+		
+		
+		String city = runtime.getParam("city");
+		if (StringUtils.isNotEmpty(city)) {
+			sqlWhere += " and city = ? ";
+			params.add(city);
 		}
 		
 		String name = runtime.getParam("coname");
