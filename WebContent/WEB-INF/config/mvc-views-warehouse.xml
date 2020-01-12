@@ -115,38 +115,6 @@
 		</templates>
 	</mvcView>
 	
-	<mvcView url="warehouse/out/operate.mvc">
-		<title>产品出库管理</title>
-		<isWholePage>true</isWholePage>
-		<charset>UTF-8</charset>
-		<stylesheets>
-			<stylesheet>css/font-awesome/style.css</stylesheet>
-			<stylesheet>/static/lib/bootstrap/css/bootstrap.css</stylesheet>
-			<stylesheet>css/cwface.css</stylesheet>
-			<stylesheet>css/tntxiaui/style.css</stylesheet>
-			<stylesheet>css/style.css</stylesheet>
-		</stylesheets>
-		<scripts>
-			<script>/static/lib/jquery/jquery.js</script>
-			<script>/static/lib/vue/vue.js</script>
-			<script>/static/lib/bootstrap/js/bootstrap.js</script>
-			<script>/static/lib/bootstrap-plus/js/bootstrap-utils.js</script>
-			<script>js/lib/oa/oautil.js</script>
-			<script>js/lib/underscore.js</script>
-			<script>js/lib/jxiaui/getParamMap.js</script>
-			<script>js/lib/jxiaui/panel.js</script>
-			<script>js/lib/jxiaui/datagrid.js</script>
-			<script>js/lib/jxiaui/crud.js</script>
-			<script>js/lib/jxiaui/dialog.js</script>
-			<script>js/lib/jxiaui/tab.js</script>
-			<script>js/lib/jxiaui/datepick.js</script>
-			<script>js/warehouse/warehouse-out-operate.js</script>
-		</scripts>
-		<templates>
-			<template>warehouse/out/warehouse-out-operate.ftl</template>
-		</templates>
-	</mvcView>
-	
 	<mvcView url="warehouse/in/purchasingDetail.mvc"
 		handler="com.tntxia.oa.warehouse.action.mvc.WarehousePurchasingViewAction">
 		<title>采购合同详情</title>

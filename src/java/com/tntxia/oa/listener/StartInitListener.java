@@ -139,7 +139,6 @@ public class StartInitListener implements ServletContextListener {
 		System.out.println("获取SQL语句 end");
 	}
 	
-	@SuppressWarnings({ "rawtypes" })
 	@Override
 	public void contextInitialized(ServletContextEvent event) {
 
@@ -158,24 +157,8 @@ public class StartInitListener implements ServletContextListener {
 			e.printStackTrace();
 		}
 
-		DataSource dataSource = DatasourceStore.getDatasource("default");
-		SQLExecutor dbManager = null;
-
 		try {
-			dbManager = SQLExecutor.getInstance(dataSource);
-			System.out.println("==== 加载数据库初始化成功       =======");
 
-			System.out.println("获取系统表信息 ......");
-			SystemDao systemDao = new SystemDao();
-
-			SystemInfo systemInfo = systemDao.getSystemInfo();
-			if (systemInfo == null) {
-				logger.error("获取系统信息失败！！！！！");
-				return;
-			}
-			SystemConfig.put("companyName", systemInfo.getCompanyName());
-			System.out.println("获取系统表信息 end 公司名称："
-					+ systemInfo.getCompanyName());
 
 			String dbType = PropertiesUtils.getProperty("oa.db.type");
 
@@ -185,58 +168,11 @@ public class StartInitListener implements ServletContextListener {
 			File root = new File(sqlmappingPath);
 			initSqlmapping(root);
 
-			String sql = "select  id,number,cpro name from profl  order by cpro desc";
-			List<Object> departmentList = null;
-			try {
-				departmentList = dbManager.queryForList(
-						SystemCache.sqlmapping.get("getAllDepartment"),
-						Department.class);
-				SystemCache.warehouseTypeList = dbManager.queryForList(sql,
-						WarehouseType.class);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-			SystemCache.departmentList = departmentList;
-
-			try {
-				List userList = dbManager.queryForList(
-						"select * from username", true);
-				SystemCache.userList = userList;
-				List saleUserList = new ArrayList();
-				for (int i = 0; i < userList.size(); i++) {
-
-					Map user = (Map) userList.get(i);
-					Integer deptId = (Integer) user.get("department_id");
-					// 忽略部门编号为空的用户
-					if (deptId == null) {
-						continue;
-					}
-
-					String deptName = SystemCache.getDepartmentName(deptId);
-					if ("销售部".equals(deptName) || "销售二部".equals(deptName)) {
-						saleUserList.add(user);
-					}
-				}
-				SystemCache.saleUserList = saleUserList;
-
-			} catch (Exception e) {
-				System.out.println("初始化用户列表失败");
-				e.printStackTrace();
-			}
-
-			initCurrent(dbManager);
-			initSuppliers(dbManager);
-			initUnitList(dbManager);
-
 			SystemCache.status = 1;
 			System.out.println("==== OA 系统 初始化结束       =======");
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			if (dbManager != null) {
-				dbManager.close();
-			}
 		}
 
 	}

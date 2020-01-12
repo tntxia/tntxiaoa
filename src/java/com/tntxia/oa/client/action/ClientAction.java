@@ -117,6 +117,14 @@ public class ClientAction extends CommonDoAction {
 
 		PageBean pageBean = runtime.getPageBean();
 		
+		List<Object> params = new ArrayList<Object>();
+		
+		String province = runtime.getParam("province");
+		if (StringUtils.isNotEmpty(province)) {
+			sqlWhere += " and province = ? ";
+			params.add(province);
+		}
+		
 		String name = runtime.getParam("coname");
 		if (StringUtils.isNotEmpty(name)) {
 			sqlWhere += " and coname like '%" + name + "%'";
@@ -141,8 +149,8 @@ public class ClientAction extends CommonDoAction {
 				+ " * from client";
 		String sqlCount = "select count(*) from client ";
 		
-		int totalAmount = dbManager.getCount(sqlCount + sqlWhere);
-		List list = dbManager.queryForList(sql + sqlWhere, true);
+		int totalAmount = dbManager.getCount(sqlCount + sqlWhere, params);
+		List list = dbManager.queryForList(sql + sqlWhere, params, true);
 		return this.getPagingResult(list, runtime, totalAmount);
 
 	}
