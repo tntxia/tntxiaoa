@@ -1,0 +1,1 @@
+ payment.states!='草拟' and payment.states!='已付全款' and payment.states!='退货待收款' and payment.states != '退货已收款'
